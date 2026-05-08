@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ruta del Cuatrimestre</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Plan de 14 semanas</p>
+        <h1>Ruta del Cuatrimestre</h1>
+        <p class="subtitle">
+          Aprende tus cinco materias con sesiones cortas, practica guiada y seguimiento de avance.
+        </p>
+      </div>
+      <section class="term-card" aria-label="Resumen de avance">
+        <span>Avance total</span>
+        <strong id="overallProgress">0%</strong>
+        <div class="meter" aria-hidden="true"><span id="overallBar"></span></div>
+      </section>
+    </header>
+
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Materias">
+        <div class="sidebar-title">
+          <span>Materias</span>
+          <button id="resetProgress" class="icon-button" title="Reiniciar progreso" aria-label="Reiniciar progreso">
+            ↺
+          </button>
+        </div>
+        <nav id="subjectNav" class="subject-list"></nav>
+      </aside>
+
+      <section class="workspace">
+        <div class="toolbar">
+          <div class="segmented-control" aria-label="Vista principal">
+            <button class="active" data-view="week">Semana</button>
+            <button data-view="subject">Materia</button>
+            <button data-view="routine">Rutina</button>
+          </div>
+          <label class="week-picker">
+            Semana
+            <select id="weekSelect"></select>
+          </label>
+        </div>
+
+        <section id="weekView" class="view active-view">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Objetivo semanal</p>
+              <h2 id="weekTitle">Semana 1</h2>
+            </div>
+            <div class="week-actions">
+              <div class="week-focus" id="weekFocus"></div>
+              <button id="createReviewGuide" class="secondary-button">Crear guia de repaso</button>
+              <span id="reviewStatus" class="review-status"></span>
+            </div>
+          </div>
+          <div id="weekPlan" class="task-grid"></div>
+          <article class="review-panel">
+            <div>
+              <p class="eyebrow">Repasos guardados</p>
+              <h3>Guias de semanas completadas</h3>
+            </div>
+            <div id="savedReviewGuides" class="review-list"></div>
+          </article>
+        </section>
+
+        <section id="subjectView" class="view">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Ruta por materia</p>
+              <h2 id="subjectTitle">Materia</h2>
+            </div>
+            <div class="subject-progress">
+              <span id="subjectPercent">0%</span>
+              <div class="meter small"><span id="subjectBar"></span></div>
+            </div>
+          </div>
+          <div class="subject-layout">
+            <article class="panel">
+              <h3>Temas por dominar</h3>
+              <ul id="topicList" class="topic-list"></ul>
+            </article>
+            <article class="panel">
+              <h3>Practica recomendada</h3>
+              <div id="practiceList" class="practice-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="routineView" class="view">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Sistema de estudio</p>
+              <h2>Rutina semanal</h2>
+            </div>
+            <button id="markToday" class="primary-button">Marcar sesion de hoy</button>
+          </div>
+          <div class="routine-grid">
+            <article class="day-card">
+              <span>Lunes</span>
+              <strong>Bases de datos + Ingles</strong>
+            </article>
+            <article class="day-card">
+              <span>Martes</span>
+              <strong>POO + Calculo integral</strong>
+            </article>
+            <article class="day-card">
+              <span>Miercoles</span>
+              <strong>Calidad de software + Ingles</strong>
+            </article>
+            <article class="day-card">
+              <span>Jueves</span>
+              <strong>Bases de datos + Calculo integral</strong>
+            </article>
+            <article class="day-card">
+              <span>Viernes</span>
+              <strong>POO + repaso general</strong>
+            </article>
+            <article class="day-card">
+              <span>Sabado</span>
+              <strong>Proyecto integrador</strong>
+            </article>
+            <article class="day-card">
+              <span>Domingo</span>
+              <strong>Descanso o repaso ligero</strong>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="project-strip">
+      <div>
+        <p class="eyebrow">Proyecto integrador</p>
+        <h2>Sistema escolar mini</h2>
+        <p>
+          Durante el cuatrimestre construiras una app pequeña con clases, base de datos, pruebas,
+          criterios de calidad, calculos simples y una interfaz con textos en ingles.
+        </p>
+      </div>
+      <button id="projectButton" class="primary-button">Ver siguiente reto</button>
+    </footer>
+
+    <dialog id="challengeDialog">
+      <form method="dialog">
+        <button class="close-button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Reto sugerido</p>
+        <h2 id="challengeTitle"></h2>
+        <p id="challengeText"></p>
+        <button class="primary-button">Listo</button>
+      </form>
+    </dialog>
+
+    <dialog id="reviewDialog">
+      <form method="dialog" class="review-dialog">
+        <button class="close-button" aria-label="Cerrar">×</button>
+        <p class="eyebrow">Guia de repaso</p>
+        <h2 id="reviewTitle"></h2>
+        <div id="reviewContent" class="review-content"></div>
+        <button class="primary-button">Listo</button>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
