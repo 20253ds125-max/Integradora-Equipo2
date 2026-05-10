@@ -293,6 +293,72 @@ const topicResources = {
   }
 };
 
+const fullstackTracks = {
+  frontend: [
+    {
+      title: "HTML semantico",
+      detail: "Aprende a estructurar paginas con encabezados, secciones, listas, formularios y enlaces. La meta es que tu contenido tenga sentido antes de agregar estilos.",
+      resource: ["MDN HTML", "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content"]
+    },
+    {
+      title: "CSS y responsive design",
+      detail: "Domina selectores, caja, grid, flexbox y media queries. Debes lograr que una interfaz se vea bien en celular y computadora.",
+      resource: ["web.dev Responsive Design", "https://web.dev/learn/design"]
+    },
+    {
+      title: "JavaScript para interfaz",
+      detail: "Practica eventos, DOM, funciones, arreglos, objetos y localStorage. Esto te permite crear paginas interactivas sin recargar.",
+      resource: ["MDN JavaScript", "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting"]
+    },
+    {
+      title: "Formularios y validacion",
+      detail: "Aprende a capturar datos, validar campos y mostrar errores claros. Es la base para enviar informacion al backend.",
+      resource: ["MDN Forms", "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms"]
+    },
+    {
+      title: "Consumir APIs",
+      detail: "Estudia fetch, JSON, promesas y manejo de errores. Debes poder pedir datos a un servidor y pintarlos en pantalla.",
+      resource: ["MDN Fetch API", "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"]
+    }
+  ],
+  backend: [
+    {
+      title: "Cliente-servidor",
+      detail: "Comprende que el frontend pide informacion y el backend responde. Aprende HTTP, URLs, metodos GET/POST/PUT/DELETE y codigos de estado.",
+      resource: ["MDN Server-side first steps", "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/First_steps"]
+    },
+    {
+      title: "Node.js basico",
+      detail: "Aprende a ejecutar JavaScript fuera del navegador, usar modulos y entender el entorno del servidor.",
+      resource: ["Node.js Learn", "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs"]
+    },
+    {
+      title: "Rutas con Express",
+      detail: "Crea endpoints para responder solicitudes del frontend. Practica rutas para listar, crear, editar y eliminar datos.",
+      resource: ["Express Routing", "https://expressjs.com/en/guide/routing.html"]
+    },
+    {
+      title: "Middleware y validaciones",
+      detail: "Aprende a revisar datos antes de guardar, manejar errores y separar responsabilidades dentro del servidor.",
+      resource: ["Express Middleware", "https://expressjs.com/en/guide/using-middleware.html"]
+    },
+    {
+      title: "Base de datos y API",
+      detail: "Conecta tus rutas con una base de datos. La meta es que el frontend no guarde todo localmente, sino que consulte y actualice informacion real.",
+      resource: ["MDN Express + database", "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/mongoose"]
+    }
+  ]
+};
+
+const fullstackProjectSteps = [
+  "Frontend: crea una pantalla para registrar tareas, materias y fecha de entrega.",
+  "Frontend: valida que ningun campo importante quede vacio.",
+  "Backend: crea rutas GET y POST para listar y guardar tareas.",
+  "Backend: agrega rutas PUT y DELETE para completar o eliminar tareas.",
+  "Base de datos: guarda las tareas y consulta por materia o estado.",
+  "Integracion: usa fetch para conectar la interfaz con tu API."
+];
+
 const state = {
   selectedSubject: subjects[0].id,
   selectedWeek: 1,
@@ -318,6 +384,9 @@ const savedReviewGuides = document.querySelector("#savedReviewGuides");
 const reviewDialog = document.querySelector("#reviewDialog");
 const reviewTitle = document.querySelector("#reviewTitle");
 const reviewContent = document.querySelector("#reviewContent");
+const frontendRoadmap = document.querySelector("#frontendRoadmap");
+const backendRoadmap = document.querySelector("#backendRoadmap");
+const fullstackProject = document.querySelector("#fullstackProject");
 
 function studyLink(subjectId, topic) {
   const resource = topicResources[subjectId]?.[topic.title];
@@ -539,6 +608,26 @@ function renderSavedReviewGuides() {
     });
 }
 
+function renderLearningTrack(container, items) {
+  container.innerHTML = "";
+  items.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "learning-item";
+    card.innerHTML = `
+      <strong>${item.title}</strong>
+      <span>${item.detail}</span>
+      <a class="study-link" href="${item.resource[1]}" target="_blank" rel="noopener noreferrer">Aprender en ${item.resource[0]}</a>
+    `;
+    container.append(card);
+  });
+}
+
+function renderFullstackView() {
+  renderLearningTrack(frontendRoadmap, fullstackTracks.frontend);
+  renderLearningTrack(backendRoadmap, fullstackTracks.backend);
+  fullstackProject.innerHTML = fullstackProjectSteps.map((step) => `<p>${step}</p>`).join("");
+}
+
 function openReviewGuide(guide) {
   reviewTitle.textContent = `Semana ${guide.week}`;
   reviewContent.innerHTML = `
@@ -581,6 +670,7 @@ function render() {
   renderSubjectView();
   renderReviewStatus();
   renderSavedReviewGuides();
+  renderFullstackView();
   renderOverall();
 }
 

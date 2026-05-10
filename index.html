@@ -39,6 +39,7 @@
             <button class="active" data-view="week">Semana</button>
             <button data-view="subject">Materia</button>
             <button data-view="routine">Rutina</button>
+            <button data-view="fullstack">Web dev</button>
           </div>
           <label class="week-picker">
             Semana
@@ -129,6 +130,43 @@
               <strong>Descanso o repaso ligero</strong>
             </article>
           </div>
+        </section>
+
+        <section id="fullstackView" class="view">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Ruta extra</p>
+              <h2>Frontend + Backend</h2>
+            </div>
+            <p class="week-focus">
+              Aprende como una interfaz se conecta con servidores, APIs y bases de datos.
+            </p>
+          </div>
+          <div class="fullstack-grid">
+            <article class="panel learning-panel">
+              <h3>Frontend</h3>
+              <p>
+                Lo que ve y usa la persona: estructura, estilos, interaccion, formularios,
+                consumo de APIs y experiencia responsive.
+              </p>
+              <div id="frontendRoadmap" class="learning-list"></div>
+            </article>
+            <article class="panel learning-panel">
+              <h3>Backend</h3>
+              <p>
+                Lo que funciona en el servidor: rutas, validaciones, autenticacion,
+                base de datos, seguridad y respuestas para el frontend.
+              </p>
+              <div id="backendRoadmap" class="learning-list"></div>
+            </article>
+          </div>
+          <article class="review-panel">
+            <div>
+              <p class="eyebrow">Proyecto sugerido</p>
+              <h3>Mini app fullstack de tareas escolares</h3>
+            </div>
+            <div id="fullstackProject" class="project-steps"></div>
+          </article>
         </section>
       </section>
     </main>

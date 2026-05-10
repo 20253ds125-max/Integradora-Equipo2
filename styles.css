@@ -214,7 +214,7 @@ h3 {
 
 .segmented-control {
   display: inline-grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -338,9 +338,64 @@ select {
   gap: 16px;
 }
 
+.fullstack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
 .panel {
   min-height: 390px;
   padding: 20px;
+}
+
+.learning-panel > p {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.learning-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.learning-item {
+  border-left: 4px solid var(--blue);
+  border-radius: 6px;
+  background: #f3f6f5;
+  padding: 12px;
+}
+
+.learning-item strong,
+.learning-item span {
+  display: block;
+}
+
+.learning-item strong {
+  margin-bottom: 6px;
+}
+
+.learning-item span {
+  color: var(--muted);
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.project-steps {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.project-steps p {
+  margin: 0;
+  border-left: 4px solid var(--coral);
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 12px;
+  color: var(--muted);
+  font-weight: 700;
 }
 
 .topic-list {
@@ -596,7 +651,8 @@ dialog form {
   }
 
   .task-grid,
-  .subject-layout {
+  .subject-layout,
+  .fullstack-grid {
     grid-template-columns: 1fr;
   }
 

@@ -9,6 +9,7 @@ Aplicacion web estatica para organizar un cuatrimestre de 13 a 14 semanas.
 - Programacion orientada a objetos
 - Calculo integral
 - Ingles desde present continuous
+- Ruta extra de frontend y backend
 
 ## Funciones
 
@@ -16,6 +17,7 @@ Aplicacion web estatica para organizar un cuatrimestre de 13 a 14 semanas.
 - Progreso por materia y avance total.
 - Temas por dominar con explicaciones.
 - Enlaces para estudiar cada tema.
+- Apartado para aprender frontend, backend y conexion entre ambos.
 - Rutina semanal sugerida.
 - Retos de proyecto integrador.
 - Guias de repaso para semanas completadas.
