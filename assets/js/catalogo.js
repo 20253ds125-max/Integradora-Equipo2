@@ -151,6 +151,10 @@ function isFavorite(id) {
   return getFavorites().some((venue) => venue.id === id);
 }
 
+
+function saveSelectedVenue(venue) {
+  localStorage.setItem("gedsSelectedVenue", JSON.stringify(venueForStorage(venue)));
+}
 function venueForStorage(venue) {
   return {
     id: venue.id,
@@ -209,7 +213,7 @@ function venueTemplate(venue) {
       </div>
       <div class="card-body">
         <div class="card-title-row">
-          <h2><a href="detalle-recinto.html">${venue.name}</a></h2>
+          <h2><a href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">${venue.name}</a></h2>
           <span class="rating">&#9733; ${venue.rating}</span>
         </div>
         <p class="location">Ubicacion: ${venue.location}</p>
@@ -217,7 +221,7 @@ function venueTemplate(venue) {
         <div class="card-footer">
           <span class="capacity">Hasta ${venue.capacity} invitados</span>
           <strong class="price">${venue.price}<span>${venue.unit}</span></strong>
-          <a class="details-link" href="detalle-recinto.html">Ver detalles</a>
+          <a class="details-link" href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">Ver detalles</a>
         </div>
       </div>
     </article>
@@ -302,6 +306,13 @@ loadMore.addEventListener("click", () => {
 });
 
 results.addEventListener("click", (event) => {
+  const detailLink = event.target.closest("[data-detail-id]");
+  if (detailLink) {
+    const selected = venues.find((item) => item.id === detailLink.dataset.detailId);
+    if (selected) saveSelectedVenue(selected);
+    return;
+  }
+
   const button = event.target.closest("[data-venue-id]");
   if (!button) return;
   const venue = venues.find((item) => item.id === button.dataset.venueId);
@@ -319,5 +330,7 @@ if (footerNewsletter) {
 }
 
 renderVenues();
+
+
 
 

@@ -63,6 +63,10 @@ function isFavorite(id) {
   return getFavorites().some((venue) => venue.id === id);
 }
 
+
+function saveSelectedVenue(venue) {
+  localStorage.setItem("gedsSelectedVenue", JSON.stringify(venueForStorage(venue)));
+}
 function venueForStorage(venue) {
   return {
     id: venue.id,
@@ -113,7 +117,7 @@ function renderFavorites() {
           <button class="favorite-button active" type="button" data-favorite-id="${venue.id}" aria-label="Quitar ${venue.name} de favoritos">&hearts;</button>
           <div>
             <span>${venue.tag || "Favorito"} · &#9733; ${venue.rating}</span>
-            <h3><a href="detalle-recinto.html">${venue.name}</a></h3>
+            <h3><a href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">${venue.name}</a></h3>
             <p>${venue.location}</p>
             <strong>${venue.price} <small>${venue.unit || ""}</small></strong>
           </div>
@@ -138,11 +142,11 @@ function renderFeaturedVenues() {
               <span class="tag">${venue.tag}</span>
               <span>&#9733; ${venue.rating}</span>
             </div>
-            <h3><a href="detalle-recinto.html">${venue.name}</a></h3>
+            <h3><a href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">${venue.name}</a></h3>
             <p>Ubicacion: ${venue.location}</p>
             <div class="venue-footer">
               <div class="price">${venue.price} <span>${venue.unit}</span></div>
-              <a class="request-link" href="detalle-recinto.html">Ver detalles</a>
+              <a class="request-link" href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">Ver detalles</a>
             </div>
           </div>
         </article>
@@ -183,6 +187,13 @@ openSearchButtons.forEach((button) => {
 });
 
 featuredContainer.addEventListener("click", (event) => {
+  const detailLink = event.target.closest("[data-detail-id]");
+  if (detailLink) {
+    const selected = featuredVenues.find((item) => item.id === detailLink.dataset.detailId);
+    if (selected) saveSelectedVenue(selected);
+    return;
+  }
+
   const button = event.target.closest("[data-venue-id]");
   if (!button) {
     return;
@@ -195,6 +206,13 @@ featuredContainer.addEventListener("click", (event) => {
 });
 
 favoritesContainer.addEventListener("click", (event) => {
+  const detailLink = event.target.closest("[data-detail-id]");
+  if (detailLink) {
+    const selected = getFavorites().find((item) => item.id === detailLink.dataset.detailId);
+    if (selected) saveSelectedVenue(selected);
+    return;
+  }
+
   const button = event.target.closest("[data-favorite-id]");
   if (!button) {
     return;
@@ -231,4 +249,5 @@ newsletterForm.addEventListener("submit", (event) => {
 
 renderFavorites();
 renderFeaturedVenues();
+
 
