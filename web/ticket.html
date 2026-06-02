@@ -1,0 +1,74 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEDS | Ticket de pago</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/operaciones.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="index.html">GEDS</a>
+      <nav>
+        <a href="catalogo.html">Explorar</a>
+        <a href="index.html#favoritos">Favoritos</a>
+        <a class="active" href="ticket.html">Ticket</a>
+        <a href="mesas.html">Mesas</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+      <div class="header-actions"><a href="catalogo.html">Buscar</a><a class="avatar" href="login.html" aria-label="Perfil"></a></div>
+    </header>
+
+    <main class="page-shell ticket-shell">
+      <section class="page-title ticket-title">
+        <a href="pago.html">Regresar al pago</a>
+        <h1>Ticket de prueba</h1>
+        <p>Comprobante local generado para fines escolares y sin valor fiscal.</p>
+      </section>
+
+      <article class="panel ticket-card" data-ticket>
+        <div class="ticket-head">
+          <div>
+            <span>GEDS Spaces</span>
+            <h2>Pago registrado</h2>
+          </div>
+          <strong data-ticket-id>GEDS-TEST</strong>
+        </div>
+
+        <div class="ticket-venue">
+          <img data-ticket-image src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=500&q=85" alt="Recinto reservado" />
+          <div>
+            <h3 data-ticket-venue>The Terracotta Pavilion</h3>
+            <p data-ticket-location>San Miguel de Allende</p>
+            <p data-ticket-date>Fecha de emision</p>
+          </div>
+        </div>
+
+        <div class="ticket-lines">
+          <p><span>Invitados</span><strong data-ticket-guests>25</strong></p>
+          <p><span>Renta del recinto</span><strong data-ticket-subtotal>$1,200.00</strong></p>
+          <p><span>Service fee</span><strong data-ticket-service>$150.00</strong></p>
+          <p><span>Deposito por danos (30%)</span><strong data-ticket-deposit>$405.00</strong></p>
+          <p class="ticket-total"><span>Total pagado</span><strong data-ticket-total>$1,755.00</strong></p>
+        </div>
+
+        <div class="ticket-note">
+          <strong>Nota de proyecto</strong>
+          <p>Este ticket simula el registro de pago. No procesa cargos reales y no representa una transaccion fiscal.</p>
+        </div>
+
+        <div class="ticket-actions">
+          <button class="primary-button" type="button" data-print-ticket>Imprimir ticket</button>
+          <a class="outline-button" href="mesas.html">Asignar mesas</a>
+          <a class="outline-button" href="admin.html">Ir a admin</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="rights-footer">&copy; 2026 GEDS Spaces. Todos los derechos reservados.</footer>
+    <script src="assets/js/ticket.js"></script>
+  </body>
+</html>

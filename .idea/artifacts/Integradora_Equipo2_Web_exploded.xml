@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Integradora-Equipo2:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Integradora_Equipo2_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Integradora-Equipo2/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Integradora-Equipo2" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
