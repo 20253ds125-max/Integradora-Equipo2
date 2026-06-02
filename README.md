@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # GEDS - Gestion de eventos sociales
 =======
 ﻿# GEDS - Gestion de eventos sociales
@@ -40,3 +41,6 @@ Abre `index.html` directamente en tu navegador. Desde el menu puedes entrar al c
 =======
 Abre `index.html` directamente en tu navegador. Desde el catalogo puedes entrar al detalle, continuar al pago y organizar mesas.
 >>>>>>> dev
+=======
+# Integradora-Equipo2
+>>>>>>> ecd47e4caaf8581e50a2ad20169993b748b94836
