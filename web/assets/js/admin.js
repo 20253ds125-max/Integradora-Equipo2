@@ -28,7 +28,10 @@ function renderRows() {
       <td>${venue.category}</td>
       <td>${venue.date}</td>
       <td><span class="status ${venue.status}">${labels[venue.status]}</span></td>
-      <td><div class="action-row"><button data-action="validated" data-id="${venue.id}">Aceptar</button><button data-action="edit" data-id="${venue.id}">Editar</button><button data-action="rejected" data-id="${venue.id}">Rechazar</button><button class="delete" data-action="delete" data-id="${venue.id}">Eliminar</button></div></td>
+      <td><div class="action-row">
+      <button data-action="validated" data-id="${venue.id}">Aceptar</button>
+      <button data-action="rejected" data-id="${venue.id}">Rechazar</button>
+      </div></td>
     </tr>`).join("");
   renderStats();
 }
