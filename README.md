@@ -19,5 +19,3 @@ Proyecto web estatico para una plataforma de gestion y descubrimiento de recinto
 
 ## Como abrirlo
 Abre `index.html` directamente en tu navegador. Desde el catalogo puedes entrar al detalle, continuar al pago y organizar mesas.
-
-# Integradora-Equipo2
