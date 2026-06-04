@@ -1,0 +1,164 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Detalle de recinto para eventos sociales en GEDS." />
+    <title>GEDS | Detalle del recinto</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/detalle.css" />
+  </head>
+  <body>
+    <header class="detail-header">
+      <div class="brand-group">
+        <a class="menu-link" href="catalogo.html" aria-label="Volver al catalogo"><span></span></a>
+        <a class="brand" href="../index.html">GEDS</a>
+      </div>
+      <nav aria-label="Navegacion principal">
+        <a class="active" href="catalogo.html">Explorar</a>
+        <a href="../index.html#favoritos">Favoritos</a>
+        <a href="../ticket.html">Ticket</a>
+        <a href="../mesas.html">Mesas</a>
+        <a href="admin.html">Admin</a>
+        <a href="../login.html">Perfil</a>
+      </nav>
+      <a class="search-link" href="catalogo.html">Buscar</a>
+    </header>
+
+    <main>
+      <section class="gallery-section" aria-label="Galeria de fotografias del recinto">
+        <div class="carousel" data-carousel>
+          <button class="carousel-control prev" type="button" data-carousel-prev aria-label="Foto anterior">Prev</button>
+          <img data-carousel-image src="" alt="Fotografia del recinto" />
+          <button class="carousel-control next" type="button" data-carousel-next aria-label="Foto siguiente">Next</button>
+          <div class="carousel-count" data-carousel-count></div>
+        </div>
+        <div class="thumbnail-row" data-carousel-thumbs></div>
+      </section>
+
+      <section class="detail-layout">
+        <article class="venue-detail">
+          <div class="title-row">
+            <div>
+              <h1>The Terracotta Pavilion</h1>
+              <p class="location">San Miguel de Allende, Guanajuato</p>
+            </div>
+            <div class="rating-pill"><span>&#9733;</span> 4.98 <small>(128 reviews)</small></div>
+          </div>
+
+          <div class="feature-row">
+            <span>Hasta 50 invitados</span>
+            <span>Reserva flexible</span>
+            <span>Recinto verificado</span>
+          </div>
+
+          <section class="content-block">
+            <h2>About the Atmosphere</h2>
+            <p>
+              Ubicado entre paisajes naturales, The Terracotta Pavilion ofrece un ambiente calido y refinado para celebraciones intimas. Su arquitectura abierta, materiales naturales y atmosfera serena crean una experiencia elegante y cercana al entorno.
+            </p>
+            <p>
+              Ideal para cenas privadas, bodas y reuniones curadas, el espacio combina diseno atemporal con la belleza del campo mexicano.
+            </p>
+          </section>
+
+          <section class="content-block">
+            <h2>Amenidades incluidas</h2>
+            <div class="amenities-grid">
+              <article>
+                <span>WiFi</span>
+                <strong>High-speed Wi-Fi</strong>
+                <p>Conexion estable para equipo y proveedores.</p>
+              </article>
+              <article>
+                <span>Catering</span>
+                <strong>On-site catering</strong>
+                <p>Servicio culinario para eventos privados.</p>
+              </article>
+              <article>
+                <span>Garden</span>
+                <strong>Private Garden</strong>
+                <p>Jardin botánico para ceremonia o recepción.</p>
+              </article>
+              <article>
+                <span>Climate</span>
+                <strong>Climate Control</strong>
+                <p>Ambiente comodo para celebraciones largas.</p>
+              </article>
+            </div>
+          </section>
+
+          <article class="host-card">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=85" alt="Organizadora Jenny Lee" />
+            <div>
+              <p>Hosted by Jenny Lee</p>
+              <h2>Host dedicado para asistir con planeacion, logistica y coordinacion del evento.</h2>
+              <div class="host-meta">
+                <span>Identidad verificada</span>
+                <span>100% response rate</span>
+              </div>
+            </div>
+            <a href="../login.html">Contactar organizador</a>
+          </article>
+        </article>
+
+        <aside class="booking-panel" id="bookingPanel">
+          <div class="price-row">
+            <strong>$1,200</strong><span>/ por evento</span>
+            <button class="favorite-button" type="button" data-detail-favorite aria-label="Guardar en favoritos">&#9825;</button>
+          </div>
+
+          <section>
+            <h2>Selecciona tu fecha</h2>
+            <div class="calendar-card">
+              <div class="calendar-head">
+                <strong>Octubre 2026</strong>
+                <div><button type="button">Prev</button><button type="button">Next</button></div>
+              </div>
+              <div class="calendar-grid" aria-label="Calendario de ejemplo">
+                <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                <button type="button">29</button><button type="button">30</button><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button><button type="button">5</button>
+                <button type="button">6</button><button type="button">7</button><button type="button">8</button><button type="button">9</button><button type="button">10</button><button class="selected" type="button">11</button><button type="button">12</button>
+              </div>
+            </div>
+          </section>
+
+          <label class="select-field">
+            <span>Duración</span>
+            <select>
+              <option>Dia completo (8:00 AM - 10:00 PM)</option>
+              <option>Medio día</option>
+              <option>Evento nocturno</option>
+            </select>
+          </label>
+
+          <section class="guest-control">
+            <span>Invitados</span>
+            <div>
+              <button type="button" data-guest-minus>-</button>
+              <strong><span data-guest-count>25</span> guests</strong>
+              <button type="button" data-guest-plus>+</button>
+            </div>
+          </section>
+
+          <div class="cost-list">
+            <p><span>Venue rental</span><strong>$1,200.00</strong></p>
+            <p><span>Service fee</span><strong>$150.00</strong></p>
+            <p class="total"><span>Total</span><strong>$1,350.00</strong></p>
+          </div>
+
+          <a class="primary-button" href="../pago.html" data-check-availability>Continuar al pago</a>
+          <p class="panel-note" data-booking-status>No se realizara ningun cargo todavía.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="rights-footer">&copy; 2026 GEDS Spaces. Todos los derechos reservados.</footer>
+    <script src="assets/js/detalle.js"></script>
+  </body>
+</html>
+
+
