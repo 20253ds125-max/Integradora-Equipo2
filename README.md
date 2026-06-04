@@ -13,9 +13,12 @@ Proyecto web estatico para una plataforma de gestion y descubrimiento de recinto
 - `publicar-recinto.html`: formulario para publicar un recinto nuevo.
 
 
+
 ## Carpetas
 - `assets/css/`: estilos de cada vista.
 - `assets/js/`: datos de ejemplo e interacciones.
 
 ## Como abrirlo
+
 Abre `index.html` directamente en tu navegador. Desde el catalogo puedes entrar al detalle, continuar al pago y organizar mesas.
+
