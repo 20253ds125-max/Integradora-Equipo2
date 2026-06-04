@@ -19,6 +19,9 @@ target/
 .metadata/
 Servers/
 
-# ARCHIVOS SECRETO CON CONTRASEÑAS (El que crearemos ahora)
+# Contraseñas
 .env
 config.properties
+
+# Archivos de copilado
+.out/
