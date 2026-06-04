@@ -1,0 +1,27 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Carpetas de IntelliJ que no deben subirse
+.idea/
+*.iml
+out/
+build/
+target/
+
+# Archivos de configuración locales de Tomcat
+.metadata/
+Servers/
+
+# Contraseñas
+.env
+config.properties
+
+# Archivos de copilado
+.out/

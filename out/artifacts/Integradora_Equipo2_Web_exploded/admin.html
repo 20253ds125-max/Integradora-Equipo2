@@ -1,0 +1,25 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEDS | Administracion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/operaciones.css" />
+  </head>
+  <body>
+    <header class="app-header"><a class="brand" href="../index.html">GEDS</a><nav><a class="active" href="admin.html">Admin</a><a href="../catalogo.html">Recintos</a><a href="../publicar-recinto.html">Nuevo recinto</a><a href="../login.html">Perfil</a></nav><div class="header-actions"><a class="avatar" href="../login.html" aria-label="Perfil"></a></div></header>
+    <main class="page-shell admin-layout">
+      <aside class="panel admin-sidebar"><h2>Administracion</h2><a class="active" href="#venues">Recintos</a><a href="#users">Usuarios</a><a href="#reports">Reportes</a><a href="#settings">Configuracion</a></aside>
+      <section>
+        <div class="admin-toolbar"><div><h1>Gestion de recintos</h1><p>Aprueba, edita o elimina espacios publicados en la plataforma.</p></div><a class="primary-button" href="../publicar-recinto.html">Nuevo recinto</a></div>
+        <div class="stats-grid"><article class="panel stat-card"><span>Pendientes</span><strong data-stat-pending>12</strong></article><article class="panel stat-card"><span>Validados</span><strong data-stat-valid>84</strong></article><article class="panel stat-card"><span>Total</span><strong data-stat-total>142</strong></article></div>
+        <table class="venue-table" id="venues"><thead><tr><th>Recinto</th><th>Categoria</th><th>Fecha</th><th>Status</th><th>Acciones</th></tr></thead><tbody data-admin-rows></tbody></table>
+      </section>
+    </main>
+    <footer class="rights-footer">&copy; 2026 GEDS Spaces. Todos los derechos reservados.</footer>
+    <script src="assets/js/admin.js"></script>
+  </body>
+</html>
