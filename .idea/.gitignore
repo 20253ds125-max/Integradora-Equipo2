@@ -8,3 +8,17 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Carpetas de IntelliJ que no deben subirse
+.idea/
+*.iml
+out/
+build/
+target/
+
+# Archivos de configuración locales de Tomcat
+.metadata/
+Servers/
+
+# ARCHIVOS SECRETO CON CONTRASEÑAS (El que crearemos ahora)
+.env
+config.properties
