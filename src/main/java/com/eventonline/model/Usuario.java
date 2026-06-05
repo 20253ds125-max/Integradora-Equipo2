@@ -1,4 +1,4 @@
-package integradora.modelos;
+package com.eventonline.model;
 
 public class Usuario {
     private int idUsuario;

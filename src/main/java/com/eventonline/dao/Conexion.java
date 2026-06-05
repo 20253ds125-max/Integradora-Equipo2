@@ -1,4 +1,4 @@
-package integradora.dao;
+package com.eventonline.dao;
 import java.sql.*;
 
 public class Conexion {

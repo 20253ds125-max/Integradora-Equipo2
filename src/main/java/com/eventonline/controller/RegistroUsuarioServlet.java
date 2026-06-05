@@ -1,4 +1,4 @@
-package integradora.controller;
+package com.eventonline.controller;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

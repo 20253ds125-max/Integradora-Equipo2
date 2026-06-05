@@ -1,6 +1,6 @@
-package integradora.dao;
+package com.eventonline.dao;
 
-import integradora.modelos.Usuario;
+import com.eventonline.model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

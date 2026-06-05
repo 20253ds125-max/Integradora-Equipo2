@@ -1,3 +1,4 @@
+### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -5,10 +6,7 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -37,3 +35,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+Thumbs.db
+
+### Compilados ###
+out/
