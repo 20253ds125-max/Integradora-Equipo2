@@ -1031,3 +1031,66 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Compact UI polish: escala menor, menu cristalino y botones uniformes. */
+:root {
+  --button-shadow: 0 10px 22px rgba(61, 39, 31, 0.16);
+  --button-shadow-hover: 0 14px 28px rgba(61, 39, 31, 0.22);
+  --glass: rgba(255, 248, 245, 0.72);
+}
+body { font-size: 14px; }
+button, .primary-button, .ghost-button, .text-link, .request-link, .favorite-button {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+button, .primary-button, .ghost-button, .text-link, .request-link {
+  box-shadow: var(--button-shadow);
+}
+button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .request-link:hover, .favorite-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow-hover);
+}
+.site-header { min-height: 66px; padding-inline: clamp(16px, 3vw, 32px); }
+.brand { font-size: 1.65rem; }
+.desktop-nav { gap: clamp(18px, 2.4vw, 28px); margin-left: clamp(28px, 4vw, 58px); }
+.desktop-nav a { font-size: .88rem; }
+.icon-button { width: 38px; height: 38px; font-size: 1.35rem; box-shadow: none; }
+.mobile-nav {
+  inset: 78px 18px auto auto;
+  width: min(292px, calc(100vw - 36px));
+  padding: 12px;
+  border: 1px solid rgba(234, 217, 209, .8);
+  border-radius: 18px;
+  background: rgba(255, 248, 245, .7);
+  backdrop-filter: blur(18px) saturate(1.12);
+  box-shadow: 0 18px 45px rgba(61, 39, 31, .18);
+}
+.mobile-nav a {
+  border-bottom: 0;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: .88rem;
+}
+.mobile-nav a:hover { background: rgba(157, 79, 56, .1); color: var(--clay); }
+.hero { min-height: 76vh; }
+.hero-content { min-height: 76vh; padding: 56px 22px 70px; }
+.hero h1 { max-width: 760px; font-size: clamp(2.6rem, 5.6vw, 4.9rem); }
+.hero p { max-width: 650px; margin: 22px 0 32px; font-size: clamp(.95rem, 1.45vw, 1.18rem); }
+.search-panel { width: min(760px, calc(100vw - 42px)); min-height: 104px; grid-template-columns: repeat(3, minmax(130px, 1fr)) 76px; border-radius: 54px; }
+.search-panel label { gap: 8px; padding-inline: clamp(18px, 3vw, 34px); }
+.search-panel input { font-size: 1rem; }
+.search-panel button { width: 56px; height: 56px; box-shadow: var(--button-shadow); }
+.section { padding-block: clamp(52px, 7vw, 82px); }
+.section-heading { margin-bottom: 36px; max-width: 1040px; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+.featured-grid, .favorite-grid { max-width: 1040px; gap: 22px; }
+.venue-card, .favorite-card { box-shadow: 0 12px 30px rgba(62, 42, 34, .1); }
+.venue-image { min-height: 260px; }
+.venue-card.large .venue-image { min-height: 420px; }
+.favorite-card { min-height: 360px; }
+.primary-button, .ghost-button { min-height: 50px; padding-inline: 26px; }
+.newsletter-section { padding-block: 68px 90px; }
+@media (max-width: 980px) {
+  .mobile-nav { top: 72px; }
+  .search-panel { max-width: 500px; border-radius: 24px; }
+  .search-panel label { min-height: 72px; }
+}
