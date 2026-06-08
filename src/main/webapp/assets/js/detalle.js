@@ -4,10 +4,10 @@ const selectedVenueKey = "gedsSelectedVenue";
 const venueCatalog = {
   "villa-laura": {
     id: "villa-laura",
-    name: "Villa L'Aura",
-    location: "Valle de Bravo, Mexico",
-    price: "$50",
-    unit: "/hr",
+    name: "Jardin Encanto Avandaro",
+    location: "Valle de Bravo, Estado de Mexico",
+    price: "$850",
+    unit: "/evento",
     rating: "4.9",
     image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1400&q=90",
     photos: [
@@ -19,8 +19,8 @@ const venueCatalog = {
   },
   "palais-marbre": {
     id: "palais-marbre",
-    name: "Palais de Marbre",
-    location: "San Miguel de Allende",
+    name: "Hacienda Los Arcos",
+    location: "San Miguel de Allende, Guanajuato",
     price: "$1,200",
     unit: "/evento",
     rating: "5.0",
@@ -34,8 +34,8 @@ const venueCatalog = {
   },
   "apex-skyline": {
     id: "apex-skyline",
-    name: "Apex Skyline Lounge",
-    location: "Los Cabos, Baja California",
+    name: "Terraza Mar de Cortes",
+    location: "Los Cabos, Baja California Sur",
     price: "$600",
     unit: "/evento",
     rating: "4.9",
@@ -49,9 +49,9 @@ const venueCatalog = {
   },
   "serenity-pavilion": {
     id: "serenity-pavilion",
-    name: "Serenity Pavilion",
+    name: "Pabellon Cenote Azul",
     location: "Tulum, Quintana Roo",
-    price: "$120",
+    price: "$520",
     unit: "/dia",
     rating: "4.8",
     image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=90",
@@ -64,7 +64,7 @@ const venueCatalog = {
   },
   "glass-foundry": {
     id: "glass-foundry",
-    name: "The Glass Foundry",
+    name: "Casa Puerto Escondido",
     location: "Puerto Escondido, Oaxaca",
     price: "$450",
     unit: "/evento",
@@ -79,7 +79,7 @@ const venueCatalog = {
   },
   "casa-jacaranda": {
     id: "casa-jacaranda",
-    name: "Casa Jacaranda",
+    name: "Casona Jacaranda",
     location: "Merida, Yucatan",
     price: "$760",
     unit: "/evento",
@@ -94,9 +94,9 @@ const venueCatalog = {
   },
   "terraza-nube": {
     id: "terraza-nube",
-    name: "Terraza Nube",
-    location: "Ciudad de Mexico",
-    price: "$300",
+    name: "Terraza Reforma 360",
+    location: "Ciudad de Mexico, CDMX",
+    price: "$700",
     unit: "/evento",
     rating: "4.6",
     image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1400&q=90",
@@ -109,8 +109,8 @@ const venueCatalog = {
   },
   "hacienda-solara": {
     id: "hacienda-solara",
-    name: "Hacienda Solara",
-    location: "Queretaro, Mexico",
+    name: "Hacienda Sol de Bernal",
+    location: "Bernal, Queretaro",
     price: "$980",
     unit: "/evento",
     rating: "4.9",
@@ -122,9 +122,54 @@ const venueCatalog = {
       "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1200&q=90"
     ]
   },
+  "glass-chalet": {
+    id: "glass-chalet",
+    name: "Refugio Nevado de Monterreal",
+    location: "Arteaga, Coahuila",
+    price: "$1,200",
+    unit: "/ por dia",
+    rating: "4.9",
+    image: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1400&q=85",
+    photos: [
+      "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1600&q=90",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=90",
+      "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=90",
+      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1200&q=90"
+    ]
+  },
+  "villa-terra": {
+    id: "villa-terra",
+    name: "Villa Brisa de Tulum",
+    location: "Tulum, Quintana Roo",
+    price: "$850",
+    unit: "/ por dia",
+    rating: "4.8",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85",
+    photos: [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=90",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=90",
+      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=90",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=90"
+    ]
+  },
+  "hacienda-aurora": {
+    id: "hacienda-aurora",
+    name: "Hacienda Aurora Colonial",
+    location: "San Miguel de Allende, Guanajuato",
+    price: "$980",
+    unit: "/ por dia",
+    rating: "4.7",
+    image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=85",
+    photos: [
+      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1600&q=90",
+      "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1200&q=90",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=90",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=90"
+    ]
+  },
   "terracotta-pavilion": {
     id: "terracotta-pavilion",
-    name: "The Terracotta Pavilion",
+    name: "Hacienda Los Arcos",
     location: "San Miguel de Allende, Guanajuato",
     price: "$1,200",
     unit: "/ por evento",
@@ -141,7 +186,7 @@ const venueCatalog = {
 
 const urlVenueId = new URLSearchParams(window.location.search).get("venue");
 const storedVenue = JSON.parse(localStorage.getItem(selectedVenueKey) || "null");
-const venue = venueCatalog[urlVenueId] || (storedVenue && { ...venueCatalog[storedVenue.id], ...storedVenue }) || venueCatalog["terracotta-pavilion"];
+const venue = venueCatalog[urlVenueId] || (storedVenue && { ...storedVenue, ...venueCatalog[storedVenue.id] }) || venueCatalog["terracotta-pavilion"];
 const basePrice = Number(String(venue.price || "$1,200").replace(/[^0-9]/g, "")) || 1200;
 const serviceFee = 150;
 const photos = venue.photos || [venue.image, venueCatalog["terracotta-pavilion"].photos[1], venueCatalog["terracotta-pavilion"].photos[2], venueCatalog["terracotta-pavilion"].photos[3]];
@@ -262,3 +307,6 @@ renderSelectedVenue();
 renderThumbs();
 renderCarousel();
 syncFavoriteButton();
+
+
+

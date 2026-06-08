@@ -3,23 +3,23 @@
 const venues = [
   {
     id: "villa-laura",
-    name: "Villa L'Aura",
-    location: "Valle de Bravo, Mexico",
+    name: "Jardin Encanto Avandaro",
+    location: "Valle de Bravo, Estado de Mexico",
     rating: "4.9",
     capacity: 120,
-    price: "$50",
-    priceNumber: 50,
-    unit: "/hr",
+    price: "$850",
+    priceNumber: 850,
+    unit: "/evento",
     type: "wedding",
     size: "tall",
     featured: true,
-    tag: "Featured",
+    tag: "Bosque",
     image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "palais-marbre",
-    name: "Palais de Marbre",
-    location: "San Miguel de Allende",
+    name: "Hacienda Los Arcos",
+    location: "San Miguel de Allende, Guanajuato",
     rating: "5.0",
     capacity: 500,
     price: "$1,200",
@@ -27,13 +27,13 @@ const venues = [
     unit: "/evento",
     type: "gala",
     size: "small",
-    tag: "Gala",
+    tag: "Hacienda",
     image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "apex-skyline",
-    name: "Apex Skyline Lounge",
-    location: "Los Cabos, Baja California",
+    name: "Terraza Mar de Cortes",
+    location: "Los Cabos, Baja California Sur",
     rating: "4.9",
     capacity: 80,
     price: "$600",
@@ -41,26 +41,26 @@ const venues = [
     unit: "/evento",
     type: "corporate",
     size: "small",
-    tag: "Skyline",
+    tag: "Vista al mar",
     image: "https://images.unsplash.com/photo-1517638851339-a711cfcf3279?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "serenity-pavilion",
-    name: "Serenity Pavilion",
+    name: "Pabellon Cenote Azul",
     location: "Tulum, Quintana Roo",
     rating: "4.8",
-    capacity: 12,
-    price: "$120",
-    priceNumber: 120,
+    capacity: 60,
+    price: "$520",
+    priceNumber: 520,
     unit: "/dia",
     type: "private",
     size: "tall",
-    tag: "Private",
+    tag: "Riviera Maya",
     image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "glass-foundry",
-    name: "The Glass Foundry",
+    name: "Casa Puerto Escondido",
     location: "Puerto Escondido, Oaxaca",
     rating: "4.7",
     capacity: 250,
@@ -69,12 +69,12 @@ const venues = [
     unit: "/evento",
     type: "corporate",
     size: "medium",
-    tag: "Corporate",
+    tag: "Costa",
     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "casa-jacaranda",
-    name: "Casa Jacaranda",
+    name: "Casona Jacaranda",
     location: "Merida, Yucatan",
     rating: "4.8",
     capacity: 180,
@@ -83,27 +83,27 @@ const venues = [
     unit: "/evento",
     type: "wedding",
     size: "small",
-    tag: "Wedding",
+    tag: "Colonial",
     image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "terraza-nube",
-    name: "Terraza Nube",
-    location: "Ciudad de Mexico",
+    name: "Terraza Reforma 360",
+    location: "Ciudad de Mexico, CDMX",
     rating: "4.6",
-    capacity: 60,
-    price: "$300",
-    priceNumber: 300,
+    capacity: 140,
+    price: "$700",
+    priceNumber: 700,
     unit: "/evento",
     type: "private",
     size: "small",
-    tag: "Rooftop",
+    tag: "Urbano",
     image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=90"
   },
   {
     id: "hacienda-solara",
-    name: "Hacienda Solara",
-    location: "Queretaro, Mexico",
+    name: "Hacienda Sol de Bernal",
+    location: "Bernal, Queretaro",
     rating: "4.9",
     capacity: 340,
     price: "$980",
@@ -111,7 +111,7 @@ const venues = [
     unit: "/evento",
     type: "gala",
     size: "medium",
-    tag: "Hacienda",
+    tag: "Pueblo Magico",
     image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=90"
   }
 ];
@@ -330,6 +330,8 @@ if (footerNewsletter) {
 }
 
 renderVenues();
+
+
 
 
 
