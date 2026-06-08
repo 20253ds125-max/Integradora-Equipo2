@@ -1,7 +1,7 @@
 ﻿const bookings = JSON.parse(localStorage.getItem("gedsBookings") || "[]");
 const selectedVenue = JSON.parse(localStorage.getItem("gedsSelectedVenue") || "null") || {};
 const latest = bookings[0] || {
-  venue: selectedVenue.name || "The Terracotta Pavilion",
+  venue: selectedVenue.name || "Hacienda Los Arcos",
   guests: Number(localStorage.getItem("gedsBookingGuests") || "25"),
   subtotal: Number(selectedVenue.basePrice || 1200),
   serviceFee: 150,
@@ -36,3 +36,4 @@ const image = document.querySelector("[data-ticket-image]");
 if (image && selectedVenue.image) image.src = selectedVenue.image;
 
 document.querySelector("[data-print-ticket]").addEventListener("click", () => window.print());
+
