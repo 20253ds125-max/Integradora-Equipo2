@@ -3,11 +3,11 @@
 const featuredVenues = [
   {
     id: "glass-chalet",
-    name: "The Glass Chalet",
-    location: "Valle de Bravo, Mexico",
+    name: "Refugio Nevado de Monterreal",
+    location: "Arteaga, Coahuila",
     price: "$1,200",
     unit: "/ por dia",
-    tag: "Top rated",
+    tag: "Sierra",
     rating: "4.9",
     large: true,
     image:
@@ -15,28 +15,40 @@ const featuredVenues = [
   },
   {
     id: "villa-terra",
-    name: "Villa Terra",
+    name: "Villa Brisa de Tulum",
     location: "Tulum, Quintana Roo",
     price: "$850",
     unit: "/ por dia",
-    tag: "Beach",
+    tag: "Playa",
     rating: "4.8",
     image:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85"
   },
   {
     id: "hacienda-aurora",
-    name: "Hacienda Aurora",
-    location: "San Miguel de Allende",
+    name: "Hacienda Aurora Colonial",
+    location: "San Miguel de Allende, Guanajuato",
     price: "$980",
     unit: "/ por dia",
-    tag: "Historic",
+    tag: "Historico",
     rating: "4.7",
     image:
       "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=85"
   }
 ];
-
+const venueDirectory = {
+  "villa-laura": { name: "Jardin Encanto Avandaro", location: "Valle de Bravo, Estado de Mexico", price: "$850", unit: "/evento", rating: "4.9", tag: "Bosque", image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=90" },
+  "palais-marbre": { name: "Hacienda Los Arcos", location: "San Miguel de Allende, Guanajuato", price: "$1,200", unit: "/evento", rating: "5.0", tag: "Hacienda", image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=900&q=90" },
+  "apex-skyline": { name: "Terraza Mar de Cortes", location: "Los Cabos, Baja California Sur", price: "$600", unit: "/evento", rating: "4.9", tag: "Vista al mar", image: "https://images.unsplash.com/photo-1517638851339-a711cfcf3279?auto=format&fit=crop&w=900&q=90" },
+  "serenity-pavilion": { name: "Pabellon Cenote Azul", location: "Tulum, Quintana Roo", price: "$520", unit: "/dia", rating: "4.8", tag: "Riviera Maya", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=90" },
+  "glass-foundry": { name: "Casa Puerto Escondido", location: "Puerto Escondido, Oaxaca", price: "$450", unit: "/evento", rating: "4.7", tag: "Costa", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=90" },
+  "casa-jacaranda": { name: "Casona Jacaranda", location: "Merida, Yucatan", price: "$760", unit: "/evento", rating: "4.8", tag: "Colonial", image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=90" },
+  "terraza-nube": { name: "Terraza Reforma 360", location: "Ciudad de Mexico, CDMX", price: "$700", unit: "/evento", rating: "4.6", tag: "Urbano", image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=90" },
+  "hacienda-solara": { name: "Hacienda Sol de Bernal", location: "Bernal, Queretaro", price: "$980", unit: "/evento", rating: "4.9", tag: "Pueblo Magico", image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=90" },
+  "glass-chalet": { name: "Refugio Nevado de Monterreal", location: "Arteaga, Coahuila", price: "$1,200", unit: "/ por dia", rating: "4.9", tag: "Sierra", image: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1400&q=85" },
+  "villa-terra": { name: "Villa Brisa de Tulum", location: "Tulum, Quintana Roo", price: "$850", unit: "/ por dia", rating: "4.8", tag: "Playa", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85" },
+  "hacienda-aurora": { name: "Hacienda Aurora Colonial", location: "San Miguel de Allende, Guanajuato", price: "$980", unit: "/ por dia", rating: "4.7", tag: "Historico", image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=85" }
+};
 const favoritesContainer = document.querySelector("[data-favorites]");
 const featuredContainer = document.querySelector("[data-featured]");
 const menuToggle = document.querySelector("[data-menu-toggle]");
@@ -249,5 +261,9 @@ newsletterForm.addEventListener("submit", (event) => {
 
 renderFavorites();
 renderFeaturedVenues();
+
+
+
+
 
 

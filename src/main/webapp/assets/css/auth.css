@@ -112,3 +112,28 @@ button { cursor: pointer; }
   font-weight: 600;
   letter-spacing: 0.01em;
 }
+
+/* Compact UI polish: botones uniformes y escala menor. */
+:root {
+  --button-shadow: 0 10px 22px rgba(61, 39, 31, 0.15);
+  --button-shadow-hover: 0 14px 28px rgba(61, 39, 31, 0.22);
+  --glass: rgba(255, 248, 245, 0.72);
+}
+body { font-size: 14px; }
+button, a.primary-button, a.outline-button, .primary-button, .outline-button, .ghost-button, .favorite-button, .carousel-control, .upload-box, .role-toggle label {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+button, a.primary-button, a.outline-button, .primary-button, .outline-button, .ghost-button, .favorite-button, .carousel-control, .upload-box, .role-toggle label {
+  box-shadow: var(--button-shadow);
+}
+button:hover, a.primary-button:hover, a.outline-button:hover, .primary-button:hover, .outline-button:hover, .ghost-button:hover, .favorite-button:hover, .carousel-control:hover, .upload-box:hover, .role-toggle label:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow-hover);
+}
+input, textarea, select { font-size: .92rem; }
+/* auth compact sizing */
+.auth-header { min-height: 64px; padding-inline: 22px; }
+.brand { font-size: 1.55rem; }
+.login-card, .register-card { transform: scale(.92); transform-origin: center top; }
+.login-shell, .register-panel { padding-block: 40px; }
+.primary-button, .outline-button { min-height: 46px; }

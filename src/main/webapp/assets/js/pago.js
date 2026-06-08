@@ -1,8 +1,8 @@
 ﻿const bookingStorageKey = "gedsBookings";
 const selectedVenueKey = "gedsSelectedVenue";
 const selectedVenue = JSON.parse(localStorage.getItem(selectedVenueKey) || "null") || {
-  name: "The Terracotta Pavilion",
-  location: "San Miguel de Allende",
+  name: "Hacienda Los Arcos",
+  location: "San Miguel de Allende, Guanajuato",
   image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=500&q=85",
   basePrice: 1200,
   price: "$1,200"
@@ -53,5 +53,6 @@ if (paymentForm) paymentForm.addEventListener("submit", (event) => {
   if (statusText) statusText.textContent = "Pago registrado localmente. Generando ticket de prueba.";
   setTimeout(() => { window.location.href = "ticket.html"; }, 900);
 });
+
 
 
