@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Extra | Event Online</title>
+
+    <link rel="stylesheet" href="assets/css/services.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="catalog-header">
+
+    <div class="brand-group">
+
+        <button
+                class="menu-button"
+                type="button"
+                aria-label="Abrir menú">
+
+            <span></span>
+
+        </button>
+
+        <a class="brand" href="index.html">
+            Event Online
+        </a>
+
+    </div>
+
+    <nav class="top-nav">
+
+        <a href="catalogo.html">
+            Explorar
+        </a>
+
+        <a class="active" href="extraServices.html">
+            Servicios
+        </a>
+
+        <a href="ticket.html">
+            Ticket
+        </a>
+
+        <a href="mesas.html">
+            Mesas
+        </a>
+
+        <a href="login.html">
+            Perfil
+        </a>
+
+        <a href="admin.html">
+            Admin
+        </a>
+
+    </nav>
+
+    <div class="header-actions">
+
+
+        <a
+                class="host-button"
+                href="publicar-recinto.html">
+
+            Publicar recinto
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<section class="catalogo-servicios">
+
+
+    <aside class="sidebar">
+
+        <h2>Filtros</h2>
+
+        <input
+                type="text"
+                id="buscador"
+                placeholder="Buscar servicios..."
+        >
+
+        <div class="grupo-filtro">
+
+            <h3>Categoría</h3>
+
+            <button class="filtro activo" data-categoria="todos">
+                Todos
+            </button>
+
+            <button class="filtro" data-categoria="musica">
+                Música
+            </button>
+
+            <button class="filtro" data-categoria="catering">
+                Catering
+            </button>
+
+            <button class="filtro" data-categoria="decoracion">
+                Decoración
+            </button>
+
+            <button class="filtro" data-categoria="foto">
+                Fotografía
+            </button>
+
+        </div>
+
+        <div class="grupo-filtro">
+
+            <h3>Presupuesto máximo</h3>
+
+            <input
+                    type="range"
+                    id="precioMax"
+                    min="1000"
+                    max="50000"
+                    step="500"
+                    value="50000"
+            >
+
+            <span id="valorPrecio">
+                $50,000
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <main class="contenido">
+
+        <div class="encabezado">
+
+            <h1>Servicios Extra</h1>
+
+            <p>
+                Complementa tu evento con experiencias únicas
+            </p>
+
+        </div>
+
+        <div
+                class="grid-servicios"
+                id="contenedorServicios">
+
+        </div>
+
+    </main>
+
+    <!-- PANEL LATERAL -->
+    <aside class="carrito-servicios">
+
+        <h2>Mi Evento</h2>
+
+        <div id="listaServicios">
+
+            <p class="sin-servicios">
+                Aún no has agregado servicios
+            </p>
+
+        </div>
+
+        <div class="total-box">
+
+            <span>Total</span>
+
+            <strong id="totalServicio">
+                $0
+            </strong>
+
+        </div>
+
+        <button
+                class="btn-vaciar"
+                onclick="vaciarEvento()">
+
+            🗑 Vaciar evento
+
+        </button>
+
+        <button class="btn-continuar">
+
+            Continuar
+
+        </button>
+
+    </aside>
+
+</section>
+<script src="assets/js/evento.js"></script>
+<script src="assets/js/services.js"></script>
+<div id="toast"></div>
+</body>
+</html>
