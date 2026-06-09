@@ -1,41 +1,28 @@
-### Maven ###
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-.kotlin
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
 
-### IntelliJ IDEA ###
+# Carpetas de IntelliJ
 .idea/
-*.iws
 *.iml
-*.ipr
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+out/
+gen/
 
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+# Variables de entorno
+.env
+
+# Archivos temporales del sistema
 .DS_Store
 Thumbs.db
 
-### Compilados ###
-out/
+target/
