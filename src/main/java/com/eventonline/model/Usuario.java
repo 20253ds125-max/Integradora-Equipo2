@@ -8,12 +8,10 @@ public class Usuario {
     private String direccionFoto;
     private String rol;
 
-    public Usuario(String correo, int idUsuario, String nombre, String contrasena, String direccionFoto, String rol) {
+    public Usuario(String correo, String nombre, String contrasena, String rol) {
         this.correo = correo;
-        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
-        this.direccionFoto = direccionFoto;
         this.rol = rol;
     }
 

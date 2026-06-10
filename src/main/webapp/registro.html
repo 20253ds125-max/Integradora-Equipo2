@@ -26,8 +26,18 @@
         <div class="register-card">
           <h2 id="registerTitle">Crea tu cuenta</h2>
           <p>Ingresa tus datos para comenzar.</p>
-          <form class="auth-form" data-auth-form>
-
+          <form action="registro" method="POST" class="auth-form" data-auth-form>
+            <fieldset class="role-toggle">
+              <legend>Soy...</legend>
+              <label>
+                <input type="radio" name="role" value="planner" checked />
+                <span>Planner</span>
+              </label>
+              <label>
+                <input type="radio" name="role" value="vendor" />
+                <span>Proveedor</span>
+              </label>
+            </fieldset>
             <label>
               <span>Nombre completo</span>
               <input type="text" name="name" placeholder="Ej. Elias Thorne" required />

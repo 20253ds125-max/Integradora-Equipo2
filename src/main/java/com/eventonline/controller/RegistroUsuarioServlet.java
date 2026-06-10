@@ -1,5 +1,9 @@
 
+import com.eventonline.dao.RegistroDAO;
 import com.eventonline.model.Usuario;
+import com.eventonline.utils.Alertas;
+import com.eventonline.utils.Encriptacion;
+import com.eventonline.utils.Validaciones;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,11 +27,11 @@ public class RegistroUsuarioServlet extends HttpServlet {
         String rol = "usuario";
 
         try {
-            if(vali.validacionEmail(email)&& vali.validacionPass(pass)&& vali.validacuonNom(nombre)){
-                pass= new Encriptacion().Encriptar(pass);
-                Usuario usuario = new Usuario(email,nombre,pass,rol);
-                nuevoUsuario.registroUsuario(usuario);
-            }
+           if(vali.validacionEmail(email)&& vali.validacionPass(pass)&& vali.validacuonNom(nombre)){
+               pass= new Encriptacion().Encriptar(pass);
+               Usuario usuario = new Usuario(email,nombre,pass,rol);
+               nuevoUsuario.registroUsuario(usuario);
+           }
         }catch (Alertas e){
             System.out.println(e.getMessage());
         }catch (SQLException e){

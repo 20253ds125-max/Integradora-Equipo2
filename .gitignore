@@ -1,3 +1,20 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Carpetas de IntelliJ
+.idea/
+*.iml
+out/
+gen/
+
 ### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -6,9 +23,7 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
-.idea/
 *.iws
-*.iml
 *.ipr
 
 ### Eclipse ###
@@ -33,9 +48,17 @@ build/
 ### VS Code ###
 .vscode/
 
+# Variables de entorno
+src/main/resources/.env
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
 ### Mac OS ###
 .DS_Store
 Thumbs.db
 
-### Compilados ###
-out/
+
+
+
