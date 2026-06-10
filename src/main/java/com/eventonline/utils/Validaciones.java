@@ -1,7 +1,6 @@
 package com.eventonline.utils;
 
 public class Validaciones {
-    Validaciones vali= new Validaciones();
 
     public boolean validacionEmail(String email) throws Alertas {
         if(email==null||email.trim().isEmpty()){

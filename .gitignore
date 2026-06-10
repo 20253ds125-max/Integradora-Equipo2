@@ -9,13 +9,12 @@
 /dataSources/
 /dataSources.local.xml
 
-<<<<<<< HEAD
 # Carpetas de IntelliJ
 .idea/
 *.iml
 out/
 gen/
-=======
+
 ### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -24,9 +23,7 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
-.idea/
 *.iws
-*.iml
 *.ipr
 
 ### Eclipse ###
@@ -47,27 +44,21 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
->>>>>>> master
 
 ### VS Code ###
 .vscode/
 
-<<<<<<< HEAD
 # Variables de entorno
-.env
+src/main/resources/.env
 
 # Archivos temporales del sistema
 .DS_Store
 Thumbs.db
 
-target/
-=======
 ### Mac OS ###
 .DS_Store
 Thumbs.db
 
-### Compilados ###
-out/
-#Base de datos
-.env
->>>>>>> master
+
+
+

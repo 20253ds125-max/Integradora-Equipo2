@@ -1,6 +1,6 @@
 package com.eventonline.controller;
 
-import com.eventonline.dao.UsuariosDao;
+import com.eventonline.dao.RegistroDAO;
 import com.eventonline.model.Usuario;
 import com.eventonline.utils.Alertas;
 import com.eventonline.utils.Encriptacion;
@@ -19,7 +19,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UsuariosDao nuevoUsuario = new UsuariosDao();
+        RegistroDAO nuevoUsuario = new RegistroDAO();
         Validaciones vali= new Validaciones();
 
         String nombre = request.getParameter("name");
