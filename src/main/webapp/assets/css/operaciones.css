@@ -149,3 +149,66 @@ button { cursor: pointer; }
 .primary-button.compact, .outline-button.compact { min-height: 40px; padding: 0 14px; font-size: .78rem; }
 .table-capacity { margin-top: 42px; color: var(--muted); font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; pointer-events: none; }
 
+
+/* Compact UI polish: escala menor, paneles cristalinos y botones uniformes. */
+:root {
+  --button-shadow: 0 10px 22px rgba(61, 39, 31, 0.15);
+  --button-shadow-hover: 0 14px 28px rgba(61, 39, 31, 0.22);
+  --glass: rgba(255, 248, 245, 0.72);
+}
+body { font-size: 14px; }
+button, .primary-button, .outline-button, .danger-button, .action-row button, .payment-tabs button, .seat, .guest-card {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+button, .primary-button, .outline-button, .danger-button, .action-row button, .payment-tabs button, .guest-card {
+  box-shadow: var(--button-shadow);
+}
+button:hover, .primary-button:hover, .outline-button:hover, .danger-button:hover, .action-row button:hover, .payment-tabs button:hover, .seat:hover, .guest-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow-hover);
+}
+.app-header { min-height: 64px; grid-template-columns: 180px 1fr 190px; padding-inline: 22px; }
+.brand { font-size: 1.55rem; }
+.app-header nav { gap: 24px; }
+.app-header nav a { font-size: .82rem; }
+.avatar { width: 36px; height: 36px; }
+.page-shell { padding: clamp(26px, 4vw, 52px) clamp(18px, 3vw, 34px); }
+.page-title { margin-bottom: 24px; }
+.page-title h1 { font-size: clamp(2.3rem, 4.8vw, 4rem); }
+.panel { background: rgba(255, 253, 251, .78); backdrop-filter: blur(14px) saturate(1.08); }
+.primary-button, .outline-button, .danger-button { min-height: 46px; padding-inline: 22px; }
+.checkout-layout { gap: 24px; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .72fr); }
+.checkout-form, .summary-card { padding: 24px; }
+.checkout-form { gap: 16px; }
+.checkout-form input { min-height: 48px; }
+.summary-card { top: 82px; }
+.admin-layout { grid-template-columns: 190px minmax(0,1fr); gap: 20px; }
+.admin-sidebar { padding: 14px; background: rgba(255, 248, 245, .68); backdrop-filter: blur(16px); }
+.admin-sidebar a { padding: 10px 12px; font-size: .82rem; }
+.admin-toolbar { margin-bottom: 18px; }
+.admin-toolbar h1 { font-size: 1.9rem; }
+.stats-grid { gap: 14px; margin-bottom: 18px; }
+.stat-card { padding: 18px; }
+.stat-card strong { font-size: 2.3rem; }
+.venue-table th, .venue-table td { padding: 13px; }
+.seating-shell { grid-template-columns: 292px minmax(0,1fr); min-height: calc(100vh - 64px); }
+.guest-panel { padding: 16px; background: rgba(255, 250, 247, .74); backdrop-filter: blur(16px); }
+.guest-panel h1 { margin-bottom: 12px; font-size: 1.7rem; }
+.guest-import { padding: 12px; gap: 8px; background: rgba(255, 253, 251, .76); backdrop-filter: blur(12px); }
+.guest-panel textarea { min-height: 92px; }
+.guest-card { padding: 8px; border-radius: 10px; }
+.guest-avatar { width: 36px; height: 36px; }
+.floor-plan { min-height: 650px; padding: 28px; }
+.tables-area { min-height: 590px; }
+.table-card { width: 168px; height: 168px; background: rgba(255, 253, 251, .86); backdrop-filter: blur(12px); }
+.table-card input { width: 116px; font-size: .82rem; }
+.table-capacity { margin-top: 36px; font-size: .62rem; }
+.seat { width: 30px; height: 30px; transform: translate(-50%, -50%) rotate(var(--seat-angle)) translate(108px) rotate(calc(-1 * var(--seat-angle))); }
+.seating-actions { padding-top: 16px; }
+.ticket-card { padding: clamp(20px, 3vw, 34px); }
+.ticket-head h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
+@media (max-width: 980px) {
+  .app-header { grid-template-columns: 1fr auto; }
+  .seating-shell { grid-template-columns: 1fr; }
+  .guest-panel { max-height: none; }
+}
