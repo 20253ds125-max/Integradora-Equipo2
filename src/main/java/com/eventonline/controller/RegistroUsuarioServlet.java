@@ -1,3 +1,4 @@
+package com.eventonline.controller;
 
 import com.eventonline.dao.RegistroDAO;
 import com.eventonline.model.Usuario;
