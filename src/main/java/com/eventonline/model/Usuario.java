@@ -1,17 +1,19 @@
 package com.eventonline.model;
 
+import com.eventonline.utils.Alertas;
+
 public class Usuario {
     private int idUsuario;
     private String nombre;
-    private String correo;
+    private String email;
     private String contrasena;
     private String direccionFoto;
     private String rol;
 
-    public Usuario(String correo, String nombre, String contrasena, String rol) {
-        this.correo = correo;
-        this.nombre = nombre;
-        this.contrasena = contrasena;
+    public Usuario(String correo, String nombre, String contrasena, String rol) throws Alertas {
+        setEmail(correo);
+        setNombre(nombre);
+        setContrasena(contrasena);
         this.rol = rol;
     }
 
@@ -23,28 +25,37 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) throws Alertas {
+        if(email==null||email.trim().isEmpty()||!email.contains("@")){
+            throw new Alertas("Error en el campo de nombre");
+        }
+        this.email =email;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombre) throws Alertas {
+        if(nombre==null||nombre.trim().isEmpty()){
+            throw new Alertas("Error en el campo de nombre");
+        }
+        this.nombre=nombre;
     }
 
     public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setContrasena(String pass) throws Alertas {
+        if(pass==null||pass.trim().isEmpty()){
+            throw new Alertas("Error en el campo de contraseña");
+        }
+        contrasena=pass;
     }
 
     public String getDireccionFoto() {

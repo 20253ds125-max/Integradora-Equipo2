@@ -60,5 +60,6 @@
         </div>
       </section>
     </main>
+    <jsp:include page="alerts.jsp" />
   </body>
 </html>
