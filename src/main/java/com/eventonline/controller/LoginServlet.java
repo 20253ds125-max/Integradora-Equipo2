@@ -1,4 +1,4 @@
-package com.eventonline.model.user;
+/*package com.eventonline.model.user;
 
 import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
@@ -64,4 +64,4 @@ public class LoginServlet extends HttpServlet{
 
 
 }
-
+*/

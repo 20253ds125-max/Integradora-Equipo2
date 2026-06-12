@@ -27,7 +27,7 @@
 
             <h2 id="registerTitle">Crea tu cuenta</h2>
             <p>Ingresa tus datos para comenzar.</p>
-            <form class="auth-form" data-auth-form>
+            <form class="auth-form" data-auth-form method="post" action="registro">
 
                 <label>
                     <span>Nombre completo</span>
@@ -53,5 +53,4 @@
     </main>
     <jsp:include page="alerts.jsp" />
   </body>
->>>>>>> df900631a698bdb808cb97d936962ccff65998ff:src/main/webapp/registro.jsp
 </html>
