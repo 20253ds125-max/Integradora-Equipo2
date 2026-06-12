@@ -4,28 +4,31 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.*;
 
 public class Conexion {
-    public Connection obtenerConexion()throws SQLException{
-        Connection con = null;
+
+    private static final String URL;
+    private static final String USER;
+    private static final String PASS;
+
+    static {
         Dotenv dotenv = Dotenv.configure().load();
 
-        String host=dotenv.get("DB_HOST");
-        String port=dotenv.get("DB_PORT");
-        String user= dotenv.get("DB_USER");
-        String pass= dotenv.get("DB_PASSWORD");
-        String dbName= dotenv.get("DB_NAME");
+        String host = dotenv.get("DB_HOST");
+        String port = dotenv.get("DB_PORT");
+        String dbName = dotenv.get("DB_NAME");
 
-        String url = "jdbc:oracle:thin:@" + host + ":" + port + "/" + dbName;
+        USER = dotenv.get("DB_USER");
+        PASS = dotenv.get("DB_PASSWORD");
+
+        URL = "jdbc:oracle:thin:@" + host + ":" + port + "/" + dbName;
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            con=DriverManager.getConnection(url,user,pass);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
         }
+    }
 
-        return con;
+    public Connection obtenerConexion()throws SQLException{
+        return DriverManager.getConnection(URL,USER,PASS);
     }
 }
