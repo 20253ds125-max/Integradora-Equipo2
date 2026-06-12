@@ -49,7 +49,9 @@
             <p class="switch-copy">Ya tienes una cuenta? <a href="login.html">Sign in</a></p>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </div>
-    </section>
-</main>
-</body>
+      </section>
+    </main>
+    <jsp:include page="alerts.jsp" />
+  </body>
+>>>>>>> df900631a698bdb808cb97d936962ccff65998ff:src/main/webapp/registro.jsp
 </html>
