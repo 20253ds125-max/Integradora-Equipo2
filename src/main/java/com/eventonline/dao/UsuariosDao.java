@@ -1,33 +1,43 @@
 package com.eventonline.dao;
 
 import com.eventonline.model.Usuario;
+import com.eventonline.utils.Alertas;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuariosDao {
     private final Conexion conexionConfig=new Conexion();
 
-    public boolean registroUsuario(Usuario usuario)throws SQLException{
-        String accion= "INSERT INTO usuarios (nombre, correo, contraseña, tarjeta, direccion_foto, rol) VALUES (?, ?, ?, ?, ?, ?)";
+    public Usuario verificarUsuario(String email,String pass)throws SQLException{
+        String accion= "SELECT id_usuario, nombre, correo, contrasena, rol FROM usuarios WHERE correo = ?";
+        Usuario encontrado = null;
 
-        try(Connection con=conexionConfig.obtenerConexion();
+        try(Connection con = conexionConfig.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(accion)){
 
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getEmail());
-            ps.setString(3, usuario.getContrasena());
-            ps.setString(5, usuario.getDireccionFoto());
-            ps.setString(6, usuario.getRol());
+            ps.setString(1,email);
 
-            int filasInsertadas= ps.executeUpdate();
+            try (ResultSet rs=ps.executeQuery()){
+                if(rs.next()){
+                    String encriptada= rs.getString("contrasena");
+                    if(BCrypt.checkpw(pass,encriptada)){
+                        encontrado = new Usuario(
+                                rs.getInt("id_usuario"),
+                                rs.getString("nombre"),
+                                rs.getString("correo"),
+                                encriptada,
+                                rs.getString("rol")
+                                        );
+                    }
+                }
 
-            return filasInsertadas>0;
-        }catch (SQLException e){
-            e.printStackTrace();
-            return false;
+            }
         }
-
+    return encontrado;
     }
+
 }

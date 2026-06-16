@@ -36,7 +36,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
             request.getRequestDispatcher("alerts.jsp").forward(request,response);
         }catch (SQLException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("alerts").forward(request,response);
+            request.getRequestDispatcher("alerts.jsp").forward(request,response);
         }
 
     }

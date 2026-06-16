@@ -18,7 +18,7 @@
         <a href="catalogo.html">Explorar</a>
         <a href="catalogo.html#guardados">Guardados</a>
         <a href="catalogo.html#reservas">Reservas</a>
-        <a class="active" href="login.html">Perfil</a>
+        <a class="active" href="login.jsp">Perfil</a>
     </nav>
     <div class="auth-actions">
         <a class="search-link" href="catalogo.html" aria-label="Buscar">Buscar</a>
@@ -30,7 +30,7 @@
     <section class="login-card" aria-labelledby="loginTitle">
         <h1 id="loginTitle">Welcome</h1>
         <p>Ingresa tus credenciales para acceder a GEDS.</p>
-        <form class="auth-form" data-auth-form>
+        <form class="auth-form"  method="post" action="login" >
             <label>
                 <span>Email</span>
                 <input type="email" name="email" placeholder="name@ejemplo.com" required />
@@ -50,7 +50,7 @@
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
     </section>
 </main>
-
+<jsp:include page="alerts.jsp" />
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/auth.js"></script>
 </body>
