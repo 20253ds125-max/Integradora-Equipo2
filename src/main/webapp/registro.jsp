@@ -46,7 +46,7 @@
                 </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
-            <p class="switch-copy">Ya tienes una cuenta? <a href="login.html">Sign in</a></p>
+            <p class="switch-copy">Ya tienes una cuenta? <a href="login.jsp">Sign in</a></p>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </div>
       </section>

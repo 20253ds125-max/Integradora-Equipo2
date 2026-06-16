@@ -7,8 +7,17 @@ public class Usuario {
     private String nombre;
     private String email;
     private String contrasena;
-    private String direccionFoto;
     private String rol;
+
+    public Usuario(int idUsuario, String nombre, String email, String contrasena, String rol) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.rol = rol;
+    }
+
+
 
     public Usuario(String correo, String nombre, String contrasena, String rol) throws Alertas {
         setEmail(correo);
@@ -57,15 +66,6 @@ public class Usuario {
         }
         contrasena=pass;
     }
-
-    public String getDireccionFoto() {
-        return direccionFoto;
-    }
-
-    public void setDireccionFoto(String direccionFoto) {
-        this.direccionFoto = direccionFoto;
-    }
-
     public String getRol() {
         return rol;
     }
