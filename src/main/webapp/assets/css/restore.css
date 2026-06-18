@@ -25,7 +25,7 @@ body {
     min-height: 100vh;
 }
 
-/* PANEL IZQUIERDO */
+
 
 .left-panel {
     flex: 1;
@@ -71,7 +71,6 @@ body {
     max-width: 520px;
 }
 
-/* PANEL DERECHO */
 
 .right-panel {
     flex: 1;
@@ -217,4 +216,24 @@ input:focus {
     .card {
         padding: 35px;
     }
+}
+
+.logo {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    transition: .3s;
+}
+
+.brand:hover {
+    opacity: .9;
+    color: white;
 }

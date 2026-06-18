@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Publicar Servicio Extra</title>
+
+    <link rel="stylesheet" href="assets/css/serviciosExtra.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Event Online
+    </a>
+
+    <nav>
+        <a href="#">Explorar</a>
+        <a href="#">Guardados</a>
+        <a href="#">Reservas</a>
+        <a href="#" class="active">Perfil</a>
+    </nav>
+
+    <a href="#" class="search">
+        Buscar
+    </a>
+
+</header>
+
+<main class="page">
+
+    <section class="page-header">
+
+        <h1>Publica tus servicios extra</h1>
+
+        <p>
+            Complementa la experiencia de los clientes con servicios exclusivos
+            para eventos memorables.
+        </p>
+
+    </section>
+
+    <div class="grid">
+
+        <!-- IZQUIERDA -->
+        <div class="left-column">
+
+            <div class="card">
+
+                <h2>Información del servicio</h2>
+
+                <label>Nombre del servicio</label>
+                <input type="text" placeholder="Ej. Fotografía Premium">
+
+                <label>Tipo de servicio</label>
+                <select>
+                    <option>Fotografía</option>
+                    <option>Video</option>
+                    <option>DJ</option>
+                    <option>Música en vivo</option>
+                    <option>Decoración</option>
+                    <option>Catering</option>
+                    <option>Iluminación</option>
+                    <option>Otro</option>
+                </select>
+
+                <label>Descripción</label>
+                <textarea placeholder="Describe el servicio..."></textarea>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Detalles comerciales</h2>
+
+                <div class="two-columns">
+
+                    <div>
+                        <label>Precio base</label>
+                        <input type="number" placeholder="$0">
+                    </div>
+
+                    <div>
+                        <label>Capacidad</label>
+                        <input type="number" placeholder="Eventos por día">
+                    </div>
+
+                </div>
+
+                <label>Anticipación requerida (días)</label>
+                <input type="number" placeholder="7">
+
+            </div>
+
+            <div class="card">
+
+                <h2>Características incluidas</h2>
+
+                <div class="features-grid">
+
+                    <label class="feature-card">
+                        <input type="checkbox">
+                        <span>🎥</span>
+                        <h4>Equipo incluido</h4>
+                        <p>Incluye equipo profesional.</p>
+                    </label>
+
+                    <label class="feature-card">
+                        <input type="checkbox">
+                        <span>👨‍💼</span>
+                        <h4>Personal incluido</h4>
+                        <p>Personal capacitado.</p>
+                    </label>
+
+                    <label class="feature-card">
+                        <input type="checkbox">
+                        <span>🔧</span>
+                        <h4>Montaje</h4>
+                        <p>Instalación completa.</p>
+                    </label>
+
+                    <label class="feature-card">
+                        <input type="checkbox">
+                        <span>📦</span>
+                        <h4>Desmontaje</h4>
+                        <p>Retiro al finalizar.</p>
+                    </label>
+
+                    <label class="feature-card">
+                        <input type="checkbox">
+                        <span>🚚</span>
+                        <h4>A domicilio</h4>
+                        <p>Servicio en cualquier ubicación.</p>
+                    </label>
+
+                    <label class="feature-card">
+                        <input type="checkbox">
+                        <span>📅</span>
+                        <h4>Fines de semana</h4>
+                        <p>Disponible sábados y domingos.</p>
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="right-column">
+
+            <div class="card">
+
+                <h2>Fotos del servicio</h2>
+
+                <div class="upload-box" id="uploadBox">
+
+                    <input type="file" id="fileInput" multiple hidden>
+
+                    <p>Click o arrastra para subir</p>
+
+                    <small>JPEG o PNG de alta resolución</small>
+
+                </div>
+
+                <div class="preview" id="preview"></div>
+
+                <button class="btn-primary">
+                    Enviar revisión
+                </button>
+
+                <button class="btn-secondary">
+                    Guardar borrador
+                </button>
+
+            </div>
+
+            <div class="tip">
+
+                <h3>Tip concierge</h3>
+
+                <p>
+                    Los servicios con fotografías profesionales y descripciones
+                    detalladas reciben más solicitudes de reserva.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+
+    © 2026 Event Online Spaces. Todos los derechos reservados.
+
+</footer>
+
+<script src="assets/js/serviciosExtra.js"></script>
+
+</body>
+</html>
