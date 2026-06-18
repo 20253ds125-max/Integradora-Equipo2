@@ -24,10 +24,9 @@
 
     <section class="register-panel" aria-labelledby="registerTitle">
         <div class="register-card">
-
             <h2 id="registerTitle">Crea tu cuenta</h2>
             <p>Ingresa tus datos para comenzar.</p>
-            <form class="auth-form" data-auth-form method="post" action="registro">
+            <form class="auth-form" data-auth-form>
 
                 <label>
                     <span>Nombre completo</span>
@@ -38,7 +37,7 @@
                     <input type="email" name="email" placeholder="elias@gedsstudio.com" required />
                 </label>
                 <label>
-                    <span>Password</span>
+                    <span>Contraseña</span>
                     <span class="password-field">
                 <input type="password" name="password" placeholder="********" required data-password-input />
 
@@ -46,11 +45,10 @@
                 </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
-            <p class="switch-copy">Ya tienes una cuenta? <a href="login.jsp">Sign in</a></p>
+            <p class="switch-copy">Ya tienes una cuenta? <a href="login.html">Iniciar Sesión</a></p>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </div>
-      </section>
-    </main>
-    <jsp:include page="alerts.jsp" />
-  </body>
+    </section>
+</main>
+</body>
 </html>
