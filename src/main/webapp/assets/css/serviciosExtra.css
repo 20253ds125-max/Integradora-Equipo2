@@ -1,0 +1,301 @@
+:root{
+    --primary:#9f4b2b;
+    --primary-light:#e7d6cf;
+    --background:#faf7f5;
+    --card:#ffffff;
+    --border:#e8ddd7;
+    --text:#352824;
+    --muted:#7d716b;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--background);
+    color:var(--text);
+}
+
+
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 40px;
+    border-bottom:1px solid var(--border);
+    background:white;
+}
+
+.logo{
+    text-decoration:none;
+    color:var(--primary);
+    font-weight:700;
+    font-size:1.4rem;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+}
+
+nav a,
+.search{
+    text-decoration:none;
+    color:var(--text);
+}
+
+.active{
+    color:var(--primary);
+}
+
+
+
+.page{
+    padding:40px;
+}
+
+.page-header h1{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+    color:var(--primary);
+}
+
+.page-header p{
+    margin-top:10px;
+    color:var(--muted);
+    max-width:700px;
+}
+
+
+
+.grid{
+    margin-top:35px;
+
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+}
+
+.card{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.04);
+}
+
+.card h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    margin-top:15px;
+    font-weight:600;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:none;
+    background:#f3efec;
+
+    padding:14px;
+    border-radius:12px;
+
+    font-family:inherit;
+}
+
+textarea{
+    height:130px;
+    resize:none;
+}
+
+.two-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.checkbox-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.checkbox-grid label{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin:0;
+}
+
+
+
+.upload-box{
+    border:2px dashed #d8b7aa;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+    cursor:pointer;
+}
+
+.preview{
+    display:flex;
+    gap:10px;
+    margin:20px 0;
+    flex-wrap:wrap;
+}
+
+.preview img{
+    width:100px;
+    height:80px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+
+
+.btn-primary{
+    width:100%;
+    border:none;
+    border-radius:999px;
+
+    padding:15px;
+
+    background:var(--primary);
+    color:white;
+
+    cursor:pointer;
+
+    margin-top:10px;
+}
+
+.btn-secondary{
+    width:100%;
+    padding:15px;
+
+    margin-top:10px;
+
+    background:white;
+    border:1px solid var(--primary);
+
+    color:var(--primary);
+
+    border-radius:999px;
+    cursor:pointer;
+}
+
+
+.tip{
+    border:1px solid #e8c15a;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+}
+
+.tip h3{
+    margin-bottom:10px;
+}
+
+
+footer{
+    margin-top:50px;
+    background:var(--primary);
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+
+@media(max-width:1000px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .two-columns{
+        grid-template-columns:1fr;
+    }
+
+    .checkbox-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.feature-card{
+    position:relative;
+
+    background:#f8f5f2;
+
+    border:2px solid transparent;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.feature-card input{
+    position:absolute;
+    opacity:0;
+}
+
+.feature-card span{
+    font-size:2rem;
+}
+
+.feature-card h4{
+    margin-top:10px;
+    color:#352824;
+}
+
+.feature-card p{
+    margin-top:8px;
+    color:#7d716b;
+    font-size:.9rem;
+}
+
+.feature-card:hover{
+    transform:translateY(-4px);
+}
+
+.feature-card:has(input:checked){
+    border-color:#9f4b2b;
+    background:#fff5ef;
+}
