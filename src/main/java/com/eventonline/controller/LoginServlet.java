@@ -1,44 +1,42 @@
 package com.eventonline.controller;
 
-import com.eventonline.dao.RegistroDAO;
-import com.eventonline.model.Usuario;
+import com.eventonline.dao.UsuariosDao;
 import com.eventonline.utils.Alertas;
+import com.eventonline.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-@WebServlet("/registro")
-public class RegistroUsuarioServlet extends HttpServlet {
+
+@WebServlet ("/login")
+public class LoginServlet extends HttpServlet {
+
+    private final UsuariosDao usuariosDao = new UsuariosDao();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RegistroDAO registroDAO = new RegistroDAO();
 
-        String nombre = request.getParameter("name");
-        String email = request.getParameter("email");
+        String email= request.getParameter("email");
         String pass = request.getParameter("password");
-        String rol = "usuario";
 
-        try {
-
-            Usuario usuario = new Usuario(email,nombre,pass,rol);
-
-            if(registroDAO.registroUsuario(usuario)){
+        try{
+            Usuario encontrado= usuariosDao.verificarUsuario(email,pass);
+            if(encontrado!=null){
+                HttpSession session = request.getSession();
+                session.setAttribute("UsuarioLog",encontrado);
                 response.sendRedirect("index.html");
+            }else{
+                request.setAttribute("error","El correo o la contraseña es incorrecta");
+                request.getRequestDispatcher("login.jsp").forward(request,response);
             }
-
-        }catch (Alertas e){
-            request.setAttribute("Error de validacion :",e.getMessage());
-            request.getRequestDispatcher("alerts.jsp").forward(request,response);
         }catch (SQLException e){
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("alerts.jsp").forward(request,response);
         }
-
     }
-
 }

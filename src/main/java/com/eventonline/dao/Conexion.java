@@ -1,27 +1,34 @@
 package com.eventonline.dao;
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.*;
 
 public class Conexion {
-    public Connection obtenerConexion()throws SQLException{
-        Connection con = null;
 
-        String host=System.getenv("DB_HOST");
-        String port=System.getenv("DB_PORT");
-        String user= System.getenv("DB_USER");
-        String pass= System.getenv("DB_PASSWORD");
-        String name= System.getenv("DB_NAME");
+    private static final String URL;
+    private static final String USER;
+    private static final String PASS;
 
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + name + "?useSSL=true&requireSSL=true";
+    static {
+        Dotenv dotenv = Dotenv.configure().load();
 
+        String host = dotenv.get("DB_HOST");
+        String port = dotenv.get("DB_PORT");
+        String dbName = dotenv.get("DB_NAME");
+
+        USER = dotenv.get("DB_USER");
+        PASS = dotenv.get("DB_PASSWORD");
+
+        URL = "jdbc:oracle:thin:@" + host + ":" + port + "/" + dbName;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con=DriverManager.getConnection(url,user,pass);
+            Class.forName("oracle.jdbc.OracleDriver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
 
-        return con;
+    public Connection obtenerConexion()throws SQLException{
+        return DriverManager.getConnection(URL,USER,PASS);
     }
 }
