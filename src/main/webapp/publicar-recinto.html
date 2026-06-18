@@ -60,9 +60,22 @@
                     </label>
 
                     <label class="mini-card">
-                        <span>Precio: </span>
-                        <input type="number" name="seated" min="0" placeholder="0" />
-                        <small>Por evento</small>
+                        <label class="mini-card">
+                            <span>Precio base</span>
+
+                            <div class="price-input">
+                                <span>$</span>
+                                <input
+                                        type="number"
+                                        name="precio"
+                                        min="0"
+                                        step="100"
+                                        placeholder="0"
+                                />
+                            </div>
+
+                            <small>Por evento</small>
+                        </label>
                     </label>
                 </div>
                 <div class="service-grid">
