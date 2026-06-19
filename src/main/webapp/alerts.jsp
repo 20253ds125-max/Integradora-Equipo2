@@ -8,10 +8,11 @@
 <script>
     Swal.fire({
         icon: 'error',
-        title: '¡Error!',
+        title: '¡Atención!',
         text: '<%= errorMsn %>',
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'Corregir'
+        confirmButtonColor: '#7c5315',
+        confirmButtonText: 'Entendido',
+        backdrop: `rgba(0, 0, 0, 0.4)`
     });
 </script>
 <%
