@@ -1,4 +1,27 @@
 ﻿const favoriteStorageKey = "gedsFavorites";
+const randomImages = [
+    "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1517638851339-a711cfcf3279?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=90",
+
+    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=90"
+];
+
+function getRandomImage() {
+    return randomImages[
+        Math.floor(Math.random() * randomImages.length)
+        ];
+}
 
 const venues = [
   {
@@ -14,7 +37,7 @@ const venues = [
     size: "tall",
     featured: true,
     tag: "Bosque",
-    image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   },
   {
     id: "palais-marbre",
@@ -28,7 +51,7 @@ const venues = [
     type: "gala",
     size: "small",
     tag: "Hacienda",
-    image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=900&q=90"
+    image: getRandomImage()
   },
   {
     id: "apex-skyline",
@@ -42,7 +65,7 @@ const venues = [
     type: "corporate",
     size: "small",
     tag: "Vista al mar",
-    image: "https://images.unsplash.com/photo-1517638851339-a711cfcf3279?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   },
   {
     id: "serenity-pavilion",
@@ -56,7 +79,7 @@ const venues = [
     type: "private",
     size: "tall",
     tag: "Riviera Maya",
-    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   },
   {
     id: "glass-foundry",
@@ -70,7 +93,7 @@ const venues = [
     type: "corporate",
     size: "medium",
     tag: "Costa",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   },
   {
     id: "casa-jacaranda",
@@ -84,7 +107,7 @@ const venues = [
     type: "wedding",
     size: "small",
     tag: "Colonial",
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   },
   {
     id: "terraza-nube",
@@ -98,7 +121,7 @@ const venues = [
     type: "private",
     size: "small",
     tag: "Urbano",
-    image: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   },
   {
     id: "hacienda-solara",
@@ -112,7 +135,7 @@ const venues = [
     type: "gala",
     size: "medium",
     tag: "Pueblo Magico",
-    image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=90"
+      image: getRandomImage()
   }
 ];
 
@@ -204,25 +227,64 @@ function filteredVenues() {
 }
 
 function venueTemplate(venue) {
-  const active = isFavorite(venue.id);
-  return `
+    const active = isFavorite(venue.id);
+
+    return `
     <article class="catalog-card ${venue.size}">
-      <div class="card-image" style='${imageStyle(venue.image)}'>
-        <button class="favorite-button ${active ? "active" : ""}" type="button" data-venue-id="${venue.id}" aria-label="Guardar ${venue.name}">${active ? "&hearts;" : "&#9825;"}</button>
+      
+      <div class="card-image">
+        
+        <img src="${venue.image}" alt="${venue.name}">
+
+        <button 
+          class="favorite-button ${active ? "active" : ""}" 
+          type="button" 
+          data-venue-id="${venue.id}"
+          aria-label="Guardar ${venue.name}">
+          
+          ${active ? "&hearts;" : "&#9825;"}
+        </button>
+
         ${venue.featured ? '<span class="featured-tag">Featured</span>' : ""}
+
       </div>
+
       <div class="card-body">
+
         <div class="card-title-row">
-          <h2><a href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">${venue.name}</a></h2>
+          <h2>
+            <a href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">
+              ${venue.name}
+            </a>
+          </h2>
+
           <span class="rating">&#9733; ${venue.rating}</span>
         </div>
-        <p class="location">Ubicacion: ${venue.location}</p>
+
+        <p class="location">
+          Ubicación: ${venue.location}
+        </p>
+
         <div class="card-divider"></div>
+
         <div class="card-footer">
-          <span class="capacity">Hasta ${venue.capacity} invitados</span>
-          <strong class="price">${venue.price}<span>${venue.unit}</span></strong>
-          <a class="details-link" href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">Ver detalles</a>
+          <span class="capacity">
+            Hasta ${venue.capacity} invitados
+          </span>
+
+          <strong class="price">
+            ${venue.price}<span>${venue.unit}</span>
+          </strong>
+
+          <a 
+            class="details-link"
+            href="detalle-recinto.html?venue=${venue.id}"
+            data-detail-id="${venue.id}">
+            
+            Ver detalles
+          </a>
         </div>
+
       </div>
     </article>
   `;
@@ -250,18 +312,24 @@ function closeSidebar() {
   document.body.classList.remove("filters-open");
 }
 
-sidebarToggle.addEventListener("click", () => {
-  filtersPanel.classList.add("open");
-  document.body.classList.add("filters-open");
-});
+if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", () => {
+        filtersPanel.classList.add("open");
+        document.body.classList.add("filters-open");
+    });
+}
 
-closeFilters.addEventListener("click", closeSidebar);
+if (closeFilters) {
+    closeFilters.addEventListener("click", closeSidebar);
+}
 
-focusSearch.addEventListener("click", () => {
-  filtersPanel.classList.add("open");
-  document.body.classList.add("filters-open");
-  citySearch.focus();
-});
+if (focusSearch) {
+    focusSearch.addEventListener("click", () => {
+        filtersPanel.classList.add("open");
+        document.body.classList.add("filters-open");
+        citySearch.focus();
+    });
+}
 
 eventFilters.addEventListener("click", (event) => {
   const button = event.target.closest("button");
