@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios | Event Online Admin</title>
+
+    <link rel="stylesheet" href="assets/css/usuarios.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="admin-header">
+
+    <div class="logo">
+        Event Online
+    </div>
+
+    <nav>
+        <a href="admin.html">Admin</a>
+        <a href="admin-recintos.html">Recintos</a>
+        <a class="active" href="usuarios.html">Usuarios</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="configuracion.html">Configuración</a>
+    </nav>
+
+</header>
+
+<main class="admin-layout">
+
+    <aside class="sidebar">
+
+        <h2>Administración</h2>
+        <a href="admin-recintos.html">
+            Recintos
+        </a>
+        <a class="active" href="usuarios.html">
+            Usuarios
+        </a>
+        <a href="reportes.html">
+            Reportes
+        </a>
+        <a href="configuracion.html">
+            Configuración
+        </a>
+
+    </aside>
+
+    <section class="content">
+
+        <div class="top-content">
+
+            <div>
+                <h1>Gestión de usuarios</h1>
+
+                <p>
+                    Administra usuarios registrados en la plataforma.
+                </p>
+            </div>
+
+            <button class="primary-btn">
+                Nuevo usuario
+            </button>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span>Total usuarios</span>
+                <strong>1,284</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Usuarios activos</span>
+                <strong>1,020</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Administradores</span>
+                <strong>12</strong>
+            </div>
+
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                <tr>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Status</th>
+                    <th>Acciones</th>
+                </tr>
+
+                </thead>
+
+                <tbody id="usuariosBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="main-footer">
+    <p>
+        © 2026 Event Online Spaces. Todos los derechos reservados.
+    </p>
+</footer>
+
+<script src="assets/js/usuarios.js"></script>
+
+</body>
+</html>

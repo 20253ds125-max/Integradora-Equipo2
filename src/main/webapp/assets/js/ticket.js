@@ -19,14 +19,14 @@ function write(selector, value) {
   if (element) element.textContent = value;
 }
 
-const ticketId = `GEDS-${new Date(latest.paidAt).getFullYear()}-${String(new Date(latest.paidAt).getTime()).slice(-6)}`;
+const ticketId = `EO-${new Date(latest.paidAt).getFullYear()}-${String(new Date(latest.paidAt).getTime()).slice(-6)}`;
 const issued = new Date(latest.paidAt).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" });
 
 write("[data-ticket-id]", ticketId);
 write("[data-ticket-venue]", latest.venue || selectedVenue.name || "Recinto seleccionado");
-write("[data-ticket-location]", selectedVenue.location || "Ubicacion del recinto");
+write("[data-ticket-location]", selectedVenue.location || "Ubicación del recinto");
 write("[data-ticket-date]", `Emitido: ${issued}`);
-write("[data-ticket-guests]", `${latest.guests} invitados`);
+write("[data-ticket-guests]", `${latest.guests} `);
 write("[data-ticket-subtotal]", money(latest.subtotal));
 write("[data-ticket-service]", money(latest.serviceFee));
 write("[data-ticket-deposit]", money(latest.damageDeposit));

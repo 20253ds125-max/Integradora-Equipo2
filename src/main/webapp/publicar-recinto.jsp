@@ -27,7 +27,7 @@ return;
         <a href="catalogo.html">Explorar</a>
         <a href="catalogo.html#guardados">Guardados</a>
         <a href="catalogo.html#reservas">Reservas</a>
-        <a class="active" href="login.jsp">Perfil</a>
+        <a class="active" href="perfil.html">Perfil</a>
     </nav>
     <div class="header-actions">
         <a href="catalogo.html">Buscar</a>
