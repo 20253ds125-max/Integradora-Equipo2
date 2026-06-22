@@ -1,0 +1,239 @@
+:root {
+    --primary: #9f4b2b;
+    --primary-hover: #8a3f22;
+    --text: #2b2320;
+    --muted: #80756f;
+    --bg: #faf6f3;
+    --card: #ffffff;
+    --input: #f1ece8;
+    --border: #e7ddd7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+
+.left-panel {
+    flex: 1;
+    position: relative;
+    color: white;
+    padding: 60px;
+
+    background:
+            linear-gradient(
+                    rgba(92, 34, 15, .75),
+                    rgba(92, 34, 15, .75)
+            ),
+            url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1400&q=80');
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    line-height: 1.1;
+    max-width: 550px;
+    margin-bottom: 25px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 520px;
+}
+
+
+.right-panel {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px;
+
+    background:
+            radial-gradient(
+                    circle,
+                    rgba(159, 75, 43, 0.12) 1px,
+                    transparent 1px
+            );
+
+    background-size: 20px 20px;
+}
+
+.card {
+    width: 100%;
+    max-width: 550px;
+
+    background: var(--card);
+
+    padding: 55px;
+
+    border: 1px solid var(--border);
+    border-radius: 24px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.05);
+}
+
+.card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--muted);
+    margin-bottom: 35px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+
+    font-weight: 600;
+    color: var(--text);
+}
+
+input {
+    width: 100%;
+
+    padding: 16px 18px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: var(--input);
+
+    font-size: 15px;
+
+    outline: none;
+    transition: .3s;
+}
+
+input:focus {
+    box-shadow: 0 0 0 3px rgba(159,75,43,.15);
+}
+
+.btn-primary {
+    width: 100%;
+
+    border: none;
+    border-radius: 999px;
+
+    padding: 16px;
+
+    background: var(--primary);
+    color: white;
+
+    font-weight: 600;
+    font-size: 15px;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.success-message {
+    display: none;
+
+    margin-top: 20px;
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #ecf9f0;
+    color: #2d6a4f;
+
+    text-align: center;
+}
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.login-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        min-height: 45vh;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .card {
+        padding: 35px;
+    }
+}
+
+.logo {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    transition: .3s;
+}
+
+.brand:hover {
+    opacity: .9;
+    color: white;
+}
