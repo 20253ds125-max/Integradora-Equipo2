@@ -1,0 +1,272 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #f5efec;
+    font-family: 'Poppins', sans-serif;
+}
+
+.team-section{
+    padding: 90px 8%;
+}
+
+.team-header span{
+    color: #a46a4d;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+.team-header h2{
+    margin-top: 15px;
+    font-size: 58px;
+    color: #2b2320;
+    max-width: 750px;
+    line-height: 1.1;
+    font-family: 'Playfair Display', serif;
+}
+
+.team-header p{
+    margin-top: 20px;
+    max-width: 750px;
+    color: #5f5a57;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.team-container{
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,320px));
+    gap: 30px;
+    justify-content: center;
+}
+
+.team-card{
+    background: #ffffff;
+    border-radius: 28px;
+    overflow: hidden;
+    transition: 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.team-card:hover{
+    transform: translateY(-10px);
+}
+
+
+.team-image{
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.team-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+.team-info{
+    padding: 22px;
+}
+
+.team-info h3{
+    font-size: 22px;
+    color: #2b2320;
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+}
+
+.team-info p{
+    color: #8c817b;
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+
+.team-info a{
+    text-decoration: none;
+    color: #a55d3f;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.team-info a:hover{
+    color: #7f4328;
+}
+
+.empty-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #d8c6bd;
+    background: transparent;
+    min-height: 480px;
+}
+
+.team-placeholder{
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: #a55d3f;
+    color: white;
+    font-size: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+@media(max-width: 768px){
+
+    .team-header h2{
+        font-size: 42px;
+    }
+
+    .team-header p{
+        font-size: 16px;
+    }
+
+    .team-container{
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.team-modal{
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    width: 380px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.modal-header h3{
+    color: #2b2320;
+    font-size: 28px;
+    font-family: 'Playfair Display', serif;
+}
+
+.close-modal{
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    color: #7a706c;
+}
+
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label{
+    margin-bottom: 8px;
+    color: #5f5a57;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-group input{
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #ddd2cb;
+    background: rgba(255,255,255,0.8);
+    outline: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.input-group input:focus{
+    border-color: #a55d3f;
+}
+
+.save-member{
+    margin-top: 10px;
+    padding: 16px;
+    border: none;
+    border-radius: 18px;
+    background: #a55d3f;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-member:hover{
+    background: #87492d;
+    transform: translateY(-2px);
+}
+
+@media(max-width: 768px){
+    .team-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%) scale(0.8);
+
+    width: 380px;
+
+    background: rgba(255,255,255,0.78);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,0.4);
+
+    border-radius: 28px;
+
+    padding: 28px;
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+
+    z-index: 1000;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: 0.35s ease;
+}
+
+    .team-modal.active{
+        opacity: 1;
+
+        visibility: visible;
+
+        pointer-events: auto;
+
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+
+}

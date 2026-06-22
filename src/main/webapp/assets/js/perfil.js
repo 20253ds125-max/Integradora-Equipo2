@@ -1,6 +1,6 @@
 const usuario = {
-    nombre: "Mariana López",
-    correo: "mariana@email.com"
+    nombre: "User-name",
+    correo: "user-name@email.com"
 };
 
 document.getElementById("userName").textContent =
