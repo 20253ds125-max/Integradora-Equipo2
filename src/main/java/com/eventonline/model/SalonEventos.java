@@ -9,11 +9,11 @@ public class SalonEventos {
     private String descripcion;
     private int capacidad;
     private String ubicacion;
-    private int precio;
+    private double precio;
     private List<String> fotos;
     private String fotoPrincipal;
 
-    public SalonEventos(String nombre,String descripcion,int capacidad,String ubicacion,int precio,List<String> fotos)throws Alertas{
+    public SalonEventos(String nombre,String descripcion,int capacidad,String ubicacion,double precio,List<String> fotos)throws Alertas{
         setNombre(nombre);
         setDescripcion(descripcion);
         setCapacidad(capacidad);
@@ -78,11 +78,11 @@ public class SalonEventos {
         this.ubicacion = ubicacion;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) throws Alertas {
+    public void setPrecio(double precio) throws Alertas {
         if (precio < 0) {
             throw new Alertas("El precio de renta no puede ser un número negativo.");
         }

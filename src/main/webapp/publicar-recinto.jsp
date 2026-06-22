@@ -1,4 +1,13 @@
-﻿<!doctype html>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+jakarta.servlet.http.HttpSession sesion = request.getSession(false);
+if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
+request.setAttribute("error", "Por favor, inicia sesión para publicar tu recinto.");
+request.getRequestDispatcher("login.jsp").forward(request, response);
+return;
+}
+%>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -32,7 +41,7 @@
         <p>Comparte la elegancia de tu espacio con nuestra comunidad curada. Completa los detalles para iniciar la revision del concierge.</p>
     </section>
 
-    <form class="publish-layout" data-publish-form>
+    <form class="publish-layout" data-publish-form method="post" action="publicar-recinto" enctype="multipart/form-data">
         <section class="form-stack">
             <article class="panel">
                 <h2>Identidad del recinto</h2>
@@ -85,7 +94,7 @@
             <article class="panel photos-panel">
                 <h2>Fotos del recinto</h2>
                 <label class="upload-box">
-                    <input type="file" accept="image/png,image/jpeg" multiple data-photo-input />
+                    <input type="file" accept="image/png,image/jpeg" multiple data-photo-input name="photos"/>
                     <strong>Click o arrastra para subir</strong>
                     <span>JPEG o PNG de alta resolucion</span>
                 </label>
@@ -109,5 +118,6 @@
 
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/publicar.js"></script>
+<jsp:include page="alerts.jsp" />
 </body>
 </html>

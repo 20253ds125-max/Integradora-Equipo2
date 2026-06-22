@@ -30,7 +30,7 @@
     <section class="login-card" aria-labelledby="loginTitle">
         <h1 id="loginTitle">Bienvenido</h1>
         <p>Ingresa tus credenciales para acceder a EO.</p>
-        <form class="auth-form" data-auth-form>
+        <form class="auth-form" data-auth-form method="post" action="login" >
             <label>
                 <span>Email</span>
                 <input type="email" name="email" placeholder="name@ejemplo.com" required />
@@ -46,10 +46,11 @@
         </form>
         <div class="divider"><span>O continua con</span></div>
         <p class="switch-copy">No tienes una cuenta?</p>
-        <a class="outline-button" href="registro.html">Crear cuenta</a>
+        <a class="outline-button" href="registro.jsp">Crear cuenta </a>
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
     </section>
 </main>
+<jsp:include page="alerts.jsp" />
 
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/auth.js"></script>

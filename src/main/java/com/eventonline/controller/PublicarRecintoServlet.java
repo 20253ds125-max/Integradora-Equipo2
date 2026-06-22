@@ -1,8 +1,10 @@
 package com.eventonline.controller;
 
-import com.eventonline.dao.RegistrarSalon;
+import com.eventonline.dao.Salones;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
+import com.eventonline.service.CloudDinary;
+import com.eventonline.utils.Alertas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
+import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/publicar-recinto")
 @MultipartConfig(
@@ -20,8 +25,8 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 50
 )
 public class PublicarRecintoServlet extends HttpServlet {
-    private final RegistrarSalon registrarSalon = new RegistrarSalon();
-    private final SalonEventos salonEventos = new SalonEventos();
+    private final Salones salones = new Salones();
+    private CloudDinary cloudinaryService = new CloudDinary();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -39,25 +44,37 @@ public class PublicarRecintoServlet extends HttpServlet {
         String strCapacidad= request.getParameter("seated");
         String strPrecio= request.getParameter("precio");
 
+        int capacidad=0;
+        double precio = 0;
         try {
-            int capacidad=Integer.parseInt(strCapacidad);
-            int precio=Integer.parseInt(strPrecio);
+            capacidad=Integer.parseInt(strCapacidad);
+            precio=Double.parseDouble(strPrecio);
         } catch (NumberFormatException e) {
-
+            request.setAttribute("error",e.getMessage());
+            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
+            return;
         }
 
-        java.util.Collection<jakarta.servlet.http.Part> partes = request.getParts();
+        try{
+            List<String> rutasFotos=cloudinaryService.subirFotos(request.getParts());
 
-        for(jakarta.servlet.http.Part parte: partes){
-            if(parte.getName().equals("photos")&&parte.getSize()>0){
-                String nombreOriginal = parte.getSubmittedFileName();
-                long tamanoBytes = parte.getSize();
-                String tipoContenido = parte.getContentType();
+            SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos);
+
+            if(salones.registroSalon(salonesEventos,usuario.getIdUsuario())){
+                response.sendRedirect("index.html");
+            }else{
+                throw new Alertas("error en la base de datos");
             }
+        } catch (Alertas e) {
+            request.setAttribute("error",e.getMessage());
+            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
+        }catch (SQLException e){
+            request.setAttribute("error","Error en la base de datos: "+e.getMessage());
+            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
+        }catch (Exception e){
+            request.setAttribute("error","al subir imagenes: "+e.getMessage());
+            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
         }
-
-
-
 
     }
 }
