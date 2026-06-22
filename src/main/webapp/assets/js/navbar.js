@@ -31,13 +31,13 @@ function generarMenu() {
 
 
         {
-            nombre: "Tickets",
-            href: "ticket.html"
+            nombre: "Perfil",
+            href: "perfil.html"
         },
 
         {
             nombre: "Favoritos",
-            href: "favoritos.html"
+            href: "#favoritos"
         }
     ];
 

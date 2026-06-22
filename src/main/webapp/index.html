@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-            name="description"
-            content="Event Online, plataforma para descubrir y reservar espacios para eventos sociales en Mexico."
-    />
+    <meta name="description" content="Event Online, plataforma para descubrir y reservar espacios para eventos sociales en Mexico." />
     <title>Event Online | Gestión de eventos sociales</title>
+
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet"
-    />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
 <header class="site-header" data-header>
     <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
@@ -24,8 +23,8 @@
     <nav class="desktop-nav" aria-label="Navegacion principal">
         <a class="active" href="#inicio">Descubrir</a>
         <a href="catalogo.html">Recintos</a>
-        <a href="#concierge">Event Concierge</a>
-        <a href="#favoritos">Favoritos</a>
+        <a href="#nosotros">Nosotros</a>
+
       </nav>
 
       <div class="header-actions">
@@ -37,12 +36,13 @@
     </header>
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegacion movil">
-    <a href="#newsletter">Contacto</a>
+
     <a href="login.jsp">Login</a>
     <a href="registro.jsp">Registro</a>
     <a href="publicar-recinto.html">Publicar recinto</a>
     <a href="mesas.html">Mesas</a>
     <a href="admin.html">Admin</a>
+    <a href="#favoritos">Favoritos</a>
 </nav>
 
 <main>
@@ -56,19 +56,48 @@
             </p>
 
             <form class="search-panel" data-hero-search>
-                <label>
-                    <span>Dónde</span>
-                    <input type="text" name="place" placeholder="Busca destinos" autocomplete="off" />
-                </label>
-                <label>
-                    <span>Cuándo</span>
-                    <input type="date" name="date" />
-                </label>
-                <label>
-                    <span>Invitados</span>
-                    <input type="number" name="guests" min="1" max="1500" placeholder="Numero" />
-                </label>
-                <button type="submit" aria-label="Buscar"><span aria-hidden="true">Buscar</span></button>
+
+                <div class="field">
+                    <label for="place">Dónde</label>
+                    <div class="input-wrapper">
+                        <span class="icon">📍</span>
+                        <input
+                                type="text"
+                                id="place"
+                                name="place"
+                                placeholder="Ciudad, playa, hacienda..."
+                                autocomplete="off"
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="calendar">Cuándo</label>
+                    <div class="input-wrapper">
+                        <span class="icon">📅</span>
+                        <input type="text" id="calendar" name="date" placeholder="Selecciona fecha" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="guests">Invitados</label>
+                    <div class="input-wrapper">
+                        <span class="icon">👥</span>
+                        <input
+                                type="number"
+                                id="guests"
+                                name="guests"
+                                min="1"
+                                max="1500"
+                                placeholder="Cantidad"
+                        />
+                    </div>
+                </div>
+
+                <button type="submit" class="search-btn">
+                    🔍 Buscar
+                </button>
+
             </form>
         </div>
     </section>
@@ -121,7 +150,7 @@
                     Explorar recintos
                 </a>
 
-                <a class="ghost-button" href="#newsletter">
+                <a class="ghost-button" href="contacto-equipo.html">
                     Contactar equipo
                 </a>
             </div>
@@ -132,17 +161,13 @@
                     src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=85"
                     alt="Equipo organizando un evento"
             />
-
+           <br>
             <article class="about-card">
-                <div class="card-icon" aria-hidden="true">+</div>
 
                 <div>
                     <h3>Gestión inteligente</h3>
-
-                    <span>Reservas y organización en un solo lugar</span>
-
                     <p>
-                        Centralizamos la búsqueda de recintos, administración de
+                        Reservas y organización en un solo lugar. Centralizamos la búsqueda de recintos, administración de
                         eventos y contacto con clientes para ofrecer una experiencia
                         moderna y eficiente.
                     </p>
@@ -169,7 +194,8 @@
     </form>
 </dialog>
 
-<script src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
 
