@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-            name="description"
-            content="Event Online, plataforma para descubrir y reservar espacios para eventos sociales en Mexico."
-    />
+    <meta name="description" content="Event Online, plataforma para descubrir y reservar espacios para eventos sociales en Mexico." />
     <title>Event Online | Gestión de eventos sociales</title>
+
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet"
-    />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
 <header class="site-header" data-header>
     <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
@@ -57,19 +56,48 @@
             </p>
 
             <form class="search-panel" data-hero-search>
-                <label>
-                    <span>Dónde</span>
-                    <input type="text" name="place" placeholder="Busca destinos" autocomplete="off" />
-                </label>
-                <label>
-                    <span>Cuándo</span>
-                    <input type="date" name="date" />
-                </label>
-                <label>
-                    <span>Invitados</span>
-                    <input type="number" name="guests" min="1" max="1500" placeholder="Numero" />
-                </label>
-                <button type="submit" aria-label="Buscar"><span aria-hidden="true">Buscar</span></button>
+
+                <div class="field">
+                    <label for="place">Dónde</label>
+                    <div class="input-wrapper">
+                        <span class="icon">📍</span>
+                        <input
+                                type="text"
+                                id="place"
+                                name="place"
+                                placeholder="Ciudad, playa, hacienda..."
+                                autocomplete="off"
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="calendar">Cuándo</label>
+                    <div class="input-wrapper">
+                        <span class="icon">📅</span>
+                        <input type="text" id="calendar" name="date" placeholder="Selecciona fecha" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="guests">Invitados</label>
+                    <div class="input-wrapper">
+                        <span class="icon">👥</span>
+                        <input
+                                type="number"
+                                id="guests"
+                                name="guests"
+                                min="1"
+                                max="1500"
+                                placeholder="Cantidad"
+                        />
+                    </div>
+                </div>
+
+                <button type="submit" class="search-btn">
+                    🔍 Buscar
+                </button>
+
             </form>
         </div>
     </section>
@@ -166,7 +194,8 @@
     </form>
 </dialog>
 
-<script src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
 
