@@ -245,7 +245,7 @@ function venueTemplate(venue) {
           ${active ? "&hearts;" : "&#9825;"}
         </button>
 
-        ${venue.featured ? '<span class="featured-tag">Featured</span>' : ""}
+        
 
       </div>
 

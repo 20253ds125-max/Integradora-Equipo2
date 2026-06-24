@@ -20,7 +20,7 @@ function generarMenu() {
     const enlaces = [
 
         {
-            nombre: "Explorar",
+            nombre: "Catálogo",
             href: "catalogo.html"
         },
 
@@ -35,10 +35,7 @@ function generarMenu() {
             href: "perfil.html"
         },
 
-        {
-            nombre: "Favoritos",
-            href: "#favoritos"
-        }
+
     ];
 
     nav.innerHTML = enlaces.map(enlace => `

@@ -34,27 +34,15 @@
     <nav class="top-nav">
 
         <a href="catalogo.html">
-            Explorar
+            Recintos
         </a>
 
         <a class="active" href="extraServices.html">
             Servicios
         </a>
 
-        <a href="ticket.html">
-            Ticket
-        </a>
-
-        <a href="mesas.html">
-            Mesas
-        </a>
-
-        <a href="login.jsp">
+        <a href="perfil.html">
             Perfil
-        </a>
-
-        <a href="admin.html">
-            Admin
         </a>
 
     </nav>
@@ -64,7 +52,7 @@
 
         <a
                 class="host-button"
-                href="publicar-recinto.jsp">
+                href="publicarServicio.html">
 
             Publicar servicio
 
@@ -80,12 +68,11 @@
 
     <aside class="sidebar">
 
-        <h2>Filtros</h2>
 
         <input
                 type="text"
                 id="buscador"
-                placeholder="Buscar servicios..."
+                placeholder="Buscar servicio..."
         >
 
         <div class="grupo-filtro">
@@ -114,24 +101,6 @@
 
         </div>
 
-        <div class="grupo-filtro">
-
-            <h3>Presupuesto máximo</h3>
-
-            <input
-                    type="range"
-                    id="precioMax"
-                    min="1000"
-                    max="50000"
-                    step="500"
-                    value="50000"
-            >
-
-            <span id="valorPrecio">
-                $50,000
-            </span>
-
-        </div>
 
     </aside>
 
@@ -156,48 +125,15 @@
 
     </main>
 
-    <!-- PANEL LATERAL -->
-    <aside class="carrito-servicios">
-
-        <h2>Mi Evento</h2>
-
-        <div id="listaServicios">
-
-            <p class="sin-servicios">
-                Aún no has agregado servicios
-            </p>
-
-        </div>
-
-        <div class="total-box">
-
-            <span>Total</span>
-
-            <strong id="totalServicio">
-                $0
-            </strong>
-
-        </div>
-
-        <button
-                class="btn-vaciar"
-                onclick="vaciarEvento()">
-
-            🗑 Vaciar evento
-
-        </button>
-
-        <button class="btn-continuar">
-
-            Continuar
-
-        </button>
-
-    </aside>
-
 </section>
+
 <script src="assets/js/evento.js"></script>
 <script src="assets/js/services.js"></script>
 <div id="toast"></div>
+<footer class="main-footer">
+    <p>
+        © 2026 Event Online Spaces. Todos los derechos reservados.
+    </p>
+</footer>
 </body>
 </html>
