@@ -35,10 +35,7 @@ function generarMenu() {
             href: "perfil.html"
         },
 
-        {
-            nombre: "Favoritos",
-            href: "#favoritos"
-        }
+
     ];
 
     nav.innerHTML = enlaces.map(enlace => `
