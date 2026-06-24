@@ -20,7 +20,7 @@ function generarMenu() {
     const enlaces = [
 
         {
-            nombre: "Explorar",
+            nombre: "Catálogo",
             href: "catalogo.html"
         },
 

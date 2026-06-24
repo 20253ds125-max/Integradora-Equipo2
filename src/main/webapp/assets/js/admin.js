@@ -1,8 +1,8 @@
 ﻿const adminStorageKey = "gedsAdminVenues";
 const defaultVenues = [
-  { id: 1, name: "Hacienda Los Arcos", city: "San Miguel de Allende, Guanajuato", category: "Hacienda para gala", date: "Oct 24, 2026", status: "pending", image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=200&q=80" },
-  { id: 2, name: "Villa Brisa de Tulum", city: "Tulum, Quintana Roo", category: "Villa frente al mar", date: "Oct 21, 2026", status: "validated", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=200&q=80" },
-  { id: 3, name: "Casa Puerto Escondido", city: "Puerto Escondido, Oaxaca", category: "Casa de eventos costera", date: "Oct 18, 2026", status: "rejected", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80" }
+  { id: 1, name: "Hacienda Los Arcos", city: "San Miguel de Allende, Guanajuato", category: "Recinto", date: "Oct 24, 2026", status: "pending", image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=200&q=80" },
+  { id: 2, name: "Villa Brisa de Tulum", city: "Tulum, Quintana Roo", category: "Recinto", date: "Oct 21, 2026", status: "validated", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=200&q=80" },
+  { id: 3, name: "Groumet", city: "Puerto Escondido, Oaxaca", category: "Servicio", date: "Oct 18, 2026", status: "rejected", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80" }
 ];
 let venues = JSON.parse(localStorage.getItem(adminStorageKey) || JSON.stringify(defaultVenues));
 if (venues.some((venue) => /Paris|Brooklyn|Switzerland|Obsidian|Marble Peak|Loft Project/i.test(`${venue.name} ${venue.city}`))) {
