@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Acceso de usuarios a GEDS." />
+    <meta name="description" content="Acceso de usuarios a Event Online." />
     <title>Event Online | Login</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,21 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/auth.css" />
 </head>
-<body class="login-page">
-<header class="auth-header">
+<header>
     <a class="brand" href="index.html">Event Online</a>
-    <nav class="auth-nav" aria-label="Navegacion principal">
-        <a href="catalogo.html">Explorar</a>
-        <a href="catalogo.html#guardados">Guardados</a>
-        <a href="catalogo.html#reservas">Reservas</a>
-        <a class="active" href="login.html">Perfil</a>
-    </nav>
-    <div class="auth-actions">
-        <a class="search-link" href="catalogo.html" aria-label="Buscar">Buscar</a>
-
-    </div>
 </header>
-
+<body class="login-page">
 <main class="login-shell">
     <section class="login-card" aria-labelledby="loginTitle">
         <h1 id="loginTitle">Bienvenido</h1>
