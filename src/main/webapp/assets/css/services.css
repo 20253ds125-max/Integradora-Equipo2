@@ -50,6 +50,9 @@ body{
 
 .grupo-filtro{
     margin-top:30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    gap: 10px;
 }
 
 .grupo-filtro h3{
@@ -57,19 +60,31 @@ body{
     color:#a65f41;
 }
 
-.filtro{
-    border:none;
-    padding:12px 20px;
-    border-radius:30px;
-    background:white;
-    cursor:pointer;
-    margin:6px;
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
+.grupo-filtro {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-.filtro.activo{
-    background:#ab613f;
-    color:white;
+.filtro {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+    border-radius: 30px;
+}
+
+.filtro.activo {
+    background: #a65f41;
+    color: white;
+    border-color: #a65f41;
+}
+
+.btn.active {
+    background: #4a90e2;
+    color: white;
+    border-color: #4a90e2;
 }
 
 #precioMax{

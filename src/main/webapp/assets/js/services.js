@@ -365,6 +365,21 @@ function mostrarToast(
 
         },3000);
 }
+
+const filtros = document.querySelectorAll(".filtro");
+
+filtros.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        filtros.forEach(b => b.classList.remove("activo"));
+        btn.classList.add("activo");
+
+        const categoria = btn.dataset.categoria;
+        console.log("Filtrando por:", categoria);
+
+        // aquí luego conectas tu filtro real de recintos/servicios
+    });
+});
 renderizarServicios(servicios);
 
 actualizarPanel();
