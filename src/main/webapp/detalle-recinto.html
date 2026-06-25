@@ -1,125 +1,182 @@
 ﻿<!doctype html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Detalle de recinto para eventos sociales en GEDS." />
     <title>Event Online | Detalle del recinto</title>
+
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="assets/css/detalle.css" />
-  </head>
-  <body>
-    <header class="detail-header">
-      <div class="brand-group">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="detail-header">
+    <div class="brand-group">
         <a class="menu-link" href="catalogo.html" aria-label="Volver al catalogo"><span></span></a>
         <a class="brand" href="index.html">Event Online</a>
-      </div>
-      <nav aria-label="Navegacion principal">
+    </div>
+
+    <nav aria-label="Navegacion principal">
         <a class="active" href="catalogo.html">Recintos</a>
         <a href="extraServices.html">Servicios extra</a>
         <a href="perfil.html">Perfil</a>
-      </nav>
+    </nav>
+</header>
 
-    </header>
+<main>
 
-    <main>
-      <section class="gallery-section" aria-label="Galeria de fotografias del recinto">
+    <!-- GALERIA -->
+    <section class="gallery-section" aria-label="Galeria del recinto">
         <div class="carousel" data-carousel>
-          <button class="carousel-control prev" type="button" data-carousel-prev aria-label="Foto anterior">Prev</button>
-          <img data-carousel-image src="" alt="Fotografia del recinto" />
-          <button class="carousel-control next" type="button" data-carousel-next aria-label="Foto siguiente">Next</button>
-          <div class="carousel-count" data-carousel-count></div>
-        </div>
-        <div class="thumbnail-row" data-carousel-thumbs></div>
-      </section>
+            <button class="carousel-control prev" type="button" data-carousel-prev>‹</button>
 
-      <section class="detail-layout">
+            <img data-carousel-image src="" alt="Fotografia del recinto" />
+
+            <button class="carousel-control next" type="button" data-carousel-next>›</button>
+
+            <div class="carousel-count" data-carousel-count></div>
+        </div>
+
+        <div class="thumbnail-row" data-carousel-thumbs></div>
+    </section>
+
+    <!-- LAYOUT PRINCIPAL -->
+    <section class="detail-layout">
+
+        <!-- CONTENIDO IZQUIERDO -->
         <article class="venue-detail">
-          <div class="title-row">
-            <div>
-              <h1>Hacienda Los Arcos</h1>
-              <p class="location">San Miguel de Allende, Guanajuato</p>
+
+            <div class="title-row">
+                <div>
+                    <h1>Hacienda Los Arcos</h1>
+                    <p class="location">San Miguel de Allende, Guanajuato</p>
+                </div>
             </div>
 
-          </div>
+            <!-- DESCRIPCIÓN -->
+            <section class="content-block">
+                <h2>About the Atmosphere</h2>
 
+                <p>
+                    Ubicado entre paisajes naturales, Hacienda Los Arcos ofrece un ambiente cálido y refinado para celebraciones íntimas.
+                    Su arquitectura abierta y materiales naturales crean una experiencia elegante.
+                </p>
 
+                <p>
+                    Ideal para bodas, cenas privadas y eventos curados con estética natural mexicana.
+                </p>
+            </section>
 
-          <section class="content-block">
-            <h2>About the Atmosphere</h2>
-            <p>
-              Ubicado entre paisajes naturales, Hacienda Los Arcos ofrece un ambiente calido y refinado para celebraciones intimas. Su arquitectura abierta, materiales naturales y atmosfera serena crean una experiencia elegante y cercana al entorno.
-            </p>
-            <p>
-              Ideal para cenas privadas, bodas y reuniones curadas, el espacio combina diseno atemporal con la belleza del campo mexicano.
-            </p>
-          </section>
+            <!-- SERVICIOS -->
+            <section class="services-section">
+                <h2>Servicios recomendados</h2>
 
-          <article class="host-card">
+                <!-- IMPORTANTE: este contenedor lo llena tu JS -->
+                <div class="services-grid" id="randomServices"></div>
+            </section>
 
-
-
-          </article>
         </article>
 
+        <!-- SIDEBAR -->
         <aside class="booking-panel" id="bookingPanel">
-          <div class="price-row">
-            <strong>$1,200</strong><span>/ por evento</span>
-            <button class="favorite-button" type="button" data-detail-favorite aria-label="Guardar en favoritos">&#9825;</button>
-          </div>
 
-          <section>
-            <h2>Selecciona tu fecha</h2>
-            <div class="calendar-card">
-              <div class="calendar-head">
-                <strong>Octubre 2026</strong>
-                <div><button type="button">Prev</button><button type="button">Next</button></div>
-              </div>
-              <div class="calendar-grid" aria-label="Calendario de ejemplo">
-                <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
-                <button type="button">29</button><button type="button">30</button><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button><button type="button">5</button>
-                <button type="button">6</button><button type="button">7</button><button type="button">8</button><button type="button">9</button><button type="button">10</button><button class="selected" type="button">11</button><button type="button">12</button>
-              </div>
+            <div class="price-row">
+                <strong>$1,200</strong>
+                <span>/ por evento</span>
+
+                <button class="favorite-button" type="button" data-detail-favorite>
+                    ♡
+                </button>
             </div>
-          </section>
 
-          <label class="select-field">
-            <span>Duración</span>
-            <select>
-              <option>Dia completo (8:00 AM - 10:00 PM)</option>
-              <option>Medio día</option>
-              <option>Evento nocturno</option>
-            </select>
-          </label>
+            <!-- CALENDARIO -->
+            <section>
+                <h2>Selecciona tu fecha</h2>
 
-          <section class="guest-control">
-            <span>Invitados</span>
-            <div>
-              <button type="button" data-guest-minus>-</button>
-              <strong><span data-guest-count>25</span> guests</strong>
-              <button type="button" data-guest-plus>+</button>
+                <div class="calendar-card">
+                    <div class="calendar-head">
+                        <strong>Octubre 2026</strong>
+
+                        <div>
+                            <button type="button">‹</button>
+                            <button type="button">›</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid">
+                        <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+
+                        <button type="button">29</button>
+                        <button type="button">30</button>
+                        <button type="button">1</button>
+                        <button type="button">2</button>
+                        <button type="button">3</button>
+                        <button type="button">4</button>
+                        <button type="button">5</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DURACIÓN -->
+            <label class="select-field">
+                <span>Duración</span>
+                <select>
+                    <option>Día completo (8:00 AM - 10:00 PM)</option>
+                    <option>Medio día</option>
+                    <option>Evento nocturno</option>
+                </select>
+            </label>
+
+            <!-- INVITADOS -->
+            <section class="guest-control">
+                <span>Invitados</span>
+
+                <div>
+                    <button type="button" data-guest-minus>-</button>
+
+                    <strong>
+                        <span data-guest-count>25</span> guests
+                    </strong>
+
+                    <button type="button" data-guest-plus>+</button>
+                </div>
+            </section>
+
+            <!-- COSTOS -->
+            <div class="cost-list">
+                <p><span>Renta del recinto</span><strong>$1,200.00</strong></p>
+                <p><span>Servicio de limpieza</span><strong>$150.00</strong></p>
+                <p class="total"><span>Total</span><strong>$1,350.00</strong></p>
             </div>
-          </section>
 
-          <div class="cost-list">
-            <p><span>Renta del recinto</span><strong>$1,200.00</strong></p>
-            <p><span>Servicio de limpieza</span><strong>$150.00</strong></p>
-            <p class="total"><span>Total</span><strong>$1,350.00</strong></p>
-          </div>
+            <a class="primary-button" href="pago.html">
+                Añadir al carrito
+            </a>
 
-          <a class="primary-button" href="pago.html" data-check-availability>Añadir al carrito</a>
-          <p class="panel-note" data-booking-status>No se realizará ningun cargo todavía.</p>
+            <p class="panel-note">
+                No se realizará ningún cargo todavía.
+            </p>
+
         </aside>
-      </section>
-    </main>
 
-    <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
-    <script src="assets/js/detalle.js"></script>
-  </body>
+    </section>
+
+</main>
+
+<footer class="rights-footer">
+    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
+</footer>
+
+<script src="assets/js/detalle.js"></script>
+</body>
 </html>
-
 
 
