@@ -24,12 +24,17 @@ body{
 
 .navbar{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-
     padding:20px 40px;
     border-bottom:1px solid var(--border);
     background:white;
+}
+
+
+nav{
+    margin: 0 auto;
+    display:flex;
+    gap:30px;
 }
 
 .logo{
