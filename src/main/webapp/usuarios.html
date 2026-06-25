@@ -1,123 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Usuarios | Event Online Admin</title>
-
-    <link rel="stylesheet" href="assets/css/usuarios.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/operaciones.css" />
 </head>
 <body>
 
-<header class="admin-header">
-
-    <div class="logo">
-        Event Online
-    </div>
-
+<header class="app-header">
+    <a class="brand" href="index.html">Event Online</a>
     <nav>
-        <a href="admin.html">Admin</a>
-        <a href="admin-recintos.html">Recintos</a>
-        <a class="active" href="usuarios.html">Usuarios</a>
-        <a href="reportes.html">Reportes</a>
+        <a class="active" href="admin.html">Administración</a>
+        <a href="catalogo.html">Recintos</a>
+        <a href="perfil.html">Perfil</a>
     </nav>
-
+    <div class="header-actions">
+        <a class="avatar" href="" aria-label="Perfil"></a>
+    </div>
 </header>
 
-<main class="admin-layout">
+<main class="page-shell admin-layout">
 
-    <aside class="sidebar">
-
+    <aside class="panel admin-sidebar">
         <h2>Administración</h2>
-        <a href="admin-recintos.html">
-            Recintos
-        </a>
-        <a class="active" href="usuarios.html">
-            Usuarios
-        </a>
-        <a href="reportes.html">
-            Reportes
-        </a>
-
-
+        <a href="admin.html">Recintos</a>
+        <a class="active" href="usuarios.html">Usuarios</a>
+        <a href="admin-servicios.html">Servicios Extra</a>
     </aside>
 
-    <section class="content">
-
-        <div class="top-content">
-
+    <section>
+        <div class="admin-toolbar">
             <div>
                 <h1>Gestión de usuarios</h1>
-
-                <p>
-                    Administra usuarios registrados en la plataforma.
-                </p>
+                <p>Administra usuarios registrados en la plataforma.</p>
             </div>
-
-            <button class="primary-btn">
-                Nuevo usuario
-            </button>
-
+            <button class="primary-button">Nuevo Admin</button>
         </div>
 
         <div class="stats-grid">
-
-            <div class="stat-card">
+            <article class="panel stat-card">
                 <span>Total usuarios</span>
                 <strong>1,284</strong>
-            </div>
-
-            <div class="stat-card">
+            </article>
+            <article class="panel stat-card">
                 <span>Usuarios activos</span>
                 <strong>1,020</strong>
-            </div>
-
-            <div class="stat-card">
+            </article>
+            <article class="panel stat-card">
                 <span>Administradores</span>
                 <strong>12</strong>
-            </div>
-
+            </article>
         </div>
 
-        <div class="table-container">
-
-            <table>
-
-                <thead>
-
-                <tr>
-                    <th>Usuario</th>
-                    <th>Correo</th>
-                    <th>Rol</th>
-                    <th>Status</th>
-                    <th>Acciones</th>
-                </tr>
-
-                </thead>
-
-                <tbody id="usuariosBody">
-
-                </tbody>
-
-            </table>
-
-        </div>
+        <table class="venue-table">
+            <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th style="text-align: right; padding-right: 24px;">Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="usuariosBody">
+            </tbody>
+        </table>
 
     </section>
 
 </main>
 
-<footer class="main-footer">
-    <p>
-        © 2026 Event Online Spaces. Todos los derechos reservados.
-    </p>
+<footer class="rights-footer">
+    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
 </footer>
 
 <script src="assets/js/usuarios.js"></script>
-
 </body>
 </html>

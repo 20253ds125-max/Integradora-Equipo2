@@ -1,1 +1,0 @@
-console.log("Módulo de reportes cargado");
