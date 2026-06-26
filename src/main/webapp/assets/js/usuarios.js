@@ -1,59 +1,30 @@
-const usuarios = [
-    {
-        nombre:"Mariana López",
-        correo:"mariana@email.com",
-        rol:"Administrador",
-        status:"Activo"
-    },
+document.addEventListener('DOMContentLoaded', () => {
 
-    {
-        nombre:"Carlos Ruiz",
-        correo:"carlos@email.com",
-        rol:"Usuario",
-        status:"Activo"
-    },
+    const tbody = document.getElementById('usuariosBody');
 
-    {
-        nombre:"Ana Torres",
-        correo:"ana@email.com",
-        rol:"Usuario",
-        status:"Inactivo"
-    }
-];
+    const usuarios = [
+        { nombre: 'Juan Pérez', correo: 'juan@example.com', rol: 'Administrador' },
+        { nombre: 'Mariana López', correo: 'mariana@email.com', rol: 'Administrador' },
+        { nombre: 'Carlos Ruiz', correo: 'carlos@email.com', rol: 'Usuario' },
+        { nombre: 'Ana Torres', correo: 'ana@email.com', rol: 'Usuario' }
+    ];
 
-const tbody =
-    document.getElementById("usuariosBody");
+    let htmlContenido = '';
 
-usuarios.forEach(usuario => {
+    usuarios.forEach(usuario => {
+        htmlContenido += `
+            <tr>
+                <td><strong>${usuario.nombre}</strong></td>
+                <td>${usuario.correo}</td>
+                <td>${usuario.rol}</td>
+                <td style="text-align: right; padding-right: 24px;">
+                    <div class="action-row" style="display: inline-block;">
+                        <button class="delete">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
 
-    tbody.innerHTML += `
-    
-        <tr>
-
-            <td>${usuario.nombre}</td>
-
-            <td>${usuario.correo}</td>
-
-            <td>${usuario.rol}</td>
-
-            <td>
-                <span class="status ${
-        usuario.status === "Activo"
-            ? "active-status"
-            : "inactive-status"
-    }">
-                    ${usuario.status}
-                </span>
-            </td>
-
-            <td>
-                <button class="action-btn">
-                    Editar
-                </button>
-            </td>
-
-        </tr>
-    
-    `;
-
+    tbody.innerHTML = htmlContenido;
 });
