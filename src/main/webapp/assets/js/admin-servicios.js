@@ -77,8 +77,8 @@ const renderTable = () => {
         const tr = document.createElement('tr');
 
         tr.innerHTML = `
-            <td>
-                <div class="venue-cell">
+            <td style="vertical-align: middle;">
+                <div class="venue-cell" style="display: flex; align-items: center; gap: 12px;">
                     <img src="${service.URL_FOTO}" alt="${service.NOMBRE_SERVICIO}">
                     <div>
                         <div style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--ink); font-size: 14px; margin-bottom: 3px; letter-spacing: -0.2px;">
@@ -90,17 +90,18 @@ const renderTable = () => {
                     </div>
                 </div>
             </td>
-            <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--ink); font-size: 14px; width: 140px; min-width: 140px;">
+            <td style="vertical-align: middle; font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--ink); font-size: 14px; width: 140px; min-width: 140px;">
                 ${formatCurrency(service.PRECIO)}
             </td>
-            <td style="width: 160px; min-width: 160px;">
+            
+            <td style="text-align: center; vertical-align: middle; width: 160px; min-width: 160px;">
                 <span class="status ${statusInfo.className}" style="font-family: 'Montserrat', sans-serif;">${statusInfo.label}</span>
             </td>
            
-            <td style="width: 200px; min-width: 200px; text-align: right;">
-                <div class="action-row" style="justify-content: flex-end; display: flex; gap: 8px;">
-                    <button onclick="updateStatus(${service.ID_SE}, 'validated')" style="font-family: 'Montserrat', sans-serif;">Aceptar</button>
-                    <button class="delete" onclick="updateStatus(${service.ID_SE}, 'rejected')" style="font-family: 'Montserrat', sans-serif;">Rechazar</button>
+            <td style="vertical-align: middle; width: 220px; min-width: 220px;">
+                <div class="action-row" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: flex-end; align-items: center; gap: 8px;">
+                    <button onclick="updateStatus(${service.ID_SE}, 'validated')" style="font-family: 'Montserrat', sans-serif; white-space: nowrap;">Aceptar</button>
+                    <button class="delete" onclick="updateStatus(${service.ID_SE}, 'rejected')" style="font-family: 'Montserrat', sans-serif; white-space: nowrap;">Rechazar</button>
                 </div>
             </td>
         `;
