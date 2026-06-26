@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><strong>${usuario.nombre}</strong></td>
                 <td>${usuario.correo}</td>
                 <td>${usuario.rol}</td>
-                <td style="text-align: right; padding-right: 24px;">
+                <td style="text-align: center; padding-right: 24px;">
                     <div class="action-row" style="display: inline-block;">
+                        <button >Editar</button>
                         <button class="delete">Eliminar</button>
                     </div>
                 </td>
