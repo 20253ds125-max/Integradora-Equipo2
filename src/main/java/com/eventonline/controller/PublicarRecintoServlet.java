@@ -44,24 +44,29 @@ public class PublicarRecintoServlet extends HttpServlet {
         String strCapacidad= request.getParameter("seated");
         String strPrecio= request.getParameter("precio");
 
+
+
         int capacidad=0;
         double precio = 0;
         try {
             capacidad=Integer.parseInt(strCapacidad);
             precio=Double.parseDouble(strPrecio);
+            System.out.println("convertir");
         } catch (NumberFormatException e) {
-            request.setAttribute("error",e.getMessage());
+            request.setAttribute("error","Campos de capacidad o precio con valores no numericos"+e.getMessage());
             request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
             return;
         }
 
         try{
             List<String> rutasFotos=cloudinaryService.subirFotos(request.getParts());
+            System.out.println("rutas de fotos");
 
             SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos);
 
             if(salones.registroSalon(salonesEventos,usuario.getIdUsuario())){
                 response.sendRedirect("index.html");
+                return;
             }else{
                 throw new Alertas("error en la base de datos");
             }
