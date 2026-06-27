@@ -28,7 +28,9 @@ const defaultServices = [
         URL_FOTO: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=200&q=80",
         ID_USUARIO: 411,
         status: "rejected"
-    }
+    },
+
+
 ];
 
 // Cargar de LocalStorage o usar default
