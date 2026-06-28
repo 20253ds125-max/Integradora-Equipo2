@@ -276,13 +276,21 @@ function venueTemplate(venue) {
             ${venue.price}<span>${venue.unit}</span>
           </strong>
 
-          <a 
-            class="details-link"
-            href="detalle-recinto.html?venue=${venue.id}"
-            data-detail-id="${venue.id}">
-            
-            Ver detalles
-          </a>
+          <div class="card-actions">
+            <a 
+              class="details-link"
+              href="detalle-recinto.html?venue=${venue.id}"
+              data-detail-id="${venue.id}">
+              Ver detalles
+            </a>
+
+            <button
+              class="details-link cart-link"
+              type="button"
+              data-cart-venue="${venue.id}">
+              Añadir al carrito
+            </button>
+          </div>
         </div>
 
       </div>
@@ -378,6 +386,13 @@ results.addEventListener("click", (event) => {
   if (detailLink) {
     const selected = venues.find((item) => item.id === detailLink.dataset.detailId);
     if (selected) saveSelectedVenue(selected);
+    return;
+  }
+
+  const cartButton = event.target.closest("[data-cart-venue]");
+  if (cartButton) {
+    const selected = venues.find((item) => item.id === cartButton.dataset.cartVenue);
+    if (selected && window.GEDS_CART) window.GEDS_CART.addVenueToCart(selected);
     return;
   }
 

@@ -54,7 +54,7 @@
             <button class="ui-button ui-button--solid" type="button" data-scroll-to="profile-personal">Datos personales</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-bookings">Ver reservas</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-favorites">Ver favoritos</button>
-            <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-cart">Ir al carrito</button>
+            <a class="ui-button ui-button--ghost" href="mi-carrito-de-compra.html">Ir al carrito</a>
         </div>
     </aside>
 
@@ -396,7 +396,7 @@
         bookingsList.innerHTML = bookings
             .slice(0, 6)
             .map((booking) => {
-                const venue = toVenueCard(booking.venue || booking.recinto || booking);
+                const venue = toVenueCard(booking.venueDetails || booking.venue || booking.recinto || booking);
                 const date = booking.paidAt
                     ? new Date(booking.paidAt).toLocaleDateString("es-MX", { dateStyle: "medium" })
                     : "Fecha pendiente";
