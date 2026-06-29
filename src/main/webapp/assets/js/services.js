@@ -81,6 +81,9 @@ const servicios = [
     }
 ];
 
+const favoriteStorageKey = "gedsFavorites";
+const cartStorageKey = "eventOnlineEvento";
+
 const contenedor = document.getElementById("contenedorServicios");
 const buscador = document.getElementById("buscador");
 const filtros = document.querySelectorAll(".filtro");
@@ -109,12 +112,13 @@ function renderizarServicios(lista) {
     }
 
     lista.forEach((servicio) => {
+        const favoritoActivo = isFavoritoServicio(servicio.id);
         contenedor.innerHTML += `
             <article class="card">
                 <div class="imagen-container">
                     <img src="${servicio.imagen}" alt="${servicio.nombre}">
-                    <button class="btn-favorito" type="button" onclick="toggleFavorito(${servicio.id}, this)">
-                        ♡
+                    <button class="btn-favorito ${favoritoActivo ? "activo" : ""}" type="button" onclick="toggleFavorito(${servicio.id}, this)">
+                        ${favoritoActivo ? "♥" : "♡"}
                     </button>
                 </div>
 
@@ -159,9 +163,21 @@ function aplicarFiltros() {
 }
 
 function toggleFavorito(id, boton) {
-    boton.classList.toggle("activo");
-    boton.textContent = boton.classList.contains("activo") ? "♥" : "♡";
-    console.log("Favorito:", id);
+    const servicio = servicios.find((item) => item.id === id);
+    if (!servicio) return;
+
+    const favorites = getFavorites();
+    const exists = favorites.some((item) => item.id === String(id) && item.kind === "service");
+    const next = exists
+        ? favorites.filter((item) => !(item.id === String(id) && item.kind === "service"))
+        : [serviceForStorage(servicio), ...favorites];
+
+    saveFavorites(next);
+
+    if (boton) {
+        boton.classList.toggle("activo", !exists);
+        boton.textContent = exists ? "♡" : "♥";
+    }
 }
 
 function agregarEvento(id) {
@@ -170,7 +186,74 @@ function agregarEvento(id) {
 
     if (window.GEDS_CART) {
         window.GEDS_CART.addServiceToCart(servicio);
+        return;
     }
+
+    const fallbackCart = readCart();
+    const nextService = normalizeServiceForCart(servicio);
+    const exists = fallbackCart.servicios.some((item) => String(item.id) === String(nextService.id));
+    const nextCart = {
+        ...fallbackCart,
+        servicios: exists ? fallbackCart.servicios : [nextService, ...fallbackCart.servicios]
+    };
+    saveCart(nextCart);
+    window.location.href = "mi-carrito-de-compra.html";
+}
+
+function normalizeServiceForCart(servicio) {
+    return {
+        id: String(servicio.id),
+        name: servicio.nombre,
+        descripcion: servicio.descripcion,
+        price: Number(servicio.precio || 0),
+        category: servicio.categoria,
+        localidad: servicio.localidad,
+        localidadLabel: servicio.localidadLabel,
+        image: servicio.imagen
+    };
+}
+
+function serviceForStorage(servicio) {
+    return {
+        id: String(servicio.id),
+        kind: "service",
+        name: servicio.nombre,
+        location: servicio.localidadLabel,
+        price: `$${Number(servicio.precio || 0).toLocaleString("en-US")}`,
+        unit: "/servicio",
+        rating: "Nuevo",
+        image: servicio.imagen,
+        tag: "Servicio extra"
+    };
+}
+
+function getFavorites() {
+    try {
+        return JSON.parse(localStorage.getItem(favoriteStorageKey) || "[]");
+    } catch (error) {
+        return [];
+    }
+}
+
+function saveFavorites(favorites) {
+    localStorage.setItem(favoriteStorageKey, JSON.stringify(favorites));
+}
+
+function isFavoritoServicio(id) {
+    return getFavorites().some((item) => item.id === String(id) && item.kind === "service");
+}
+
+function readCart() {
+    try {
+        return JSON.parse(localStorage.getItem(cartStorageKey) || "{\"recinto\":null,\"servicios\":[],\"mesas\":[]}");
+    } catch (error) {
+        return { recinto: null, servicios: [], mesas: [] };
+    }
+}
+
+function saveCart(cart) {
+    localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+    return cart;
 }
 
 function actualizarPanel() {

@@ -106,7 +106,7 @@ function toggleFavorite(venue) {
 function renderFavorites() {
     if (!favoritesContainer) return;
 
-    const favorites = getFavorites();
+    const favorites = getFavorites().filter((item) => item.kind !== "service");
 
     if (favorites.length === 0) {
         favoritesContainer.innerHTML = `
