@@ -535,3 +535,17 @@ a{
         grid-template-columns:1fr;
     }
 }
+.ui-button{
+    min-height:46px;
+    border-radius:14px;
+    padding:12px 18px;
+    font-weight:700;
+    font-size:0.85rem;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    box-shadow:var(--shadow-soft);
+}
