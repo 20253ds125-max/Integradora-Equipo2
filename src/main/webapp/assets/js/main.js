@@ -106,7 +106,7 @@ function toggleFavorite(venue) {
 function renderFavorites() {
     if (!favoritesContainer) return;
 
-    const favorites = getFavorites();
+    const favorites = getFavorites().filter((item) => item.kind !== "service");
 
     if (favorites.length === 0) {
         favoritesContainer.innerHTML = `
@@ -148,6 +148,9 @@ function renderFeaturedVenues() {
         <div class="venue-body">
           <h3>${v.name}</h3>
           <p>${v.location}</p>
+          <button class="text-link venue-cart-button" type="button" data-cart-venue="${v.id}">
+            Añadir al carrito
+          </button>
           <span>${v.price}</span>
         </div>
       </article>
@@ -183,6 +186,13 @@ openSearchButtons.forEach((btn) => {
 });
 
 featuredContainer?.addEventListener("click", (e) => {
+    const cartBtn = e.target.closest("[data-cart-venue]");
+    if (cartBtn && window.GEDS_CART) {
+        const venue = featuredVenues.find((v) => v.id === cartBtn.dataset.cartVenue);
+        if (venue) window.GEDS_CART.addVenueToCart(venue);
+        return;
+    }
+
     const btn = e.target.closest("[data-venue-id]");
     if (!btn) return;
 
@@ -269,6 +279,9 @@ function renderSearchResults(venues) {
                 <span class="tag">${venue.tag || ""}</span>
                 <h3>${venue.name}</h3>
                 <p>${venue.location}</p>
+                <button class="text-link venue-cart-button" type="button" data-cart-venue="${venue.id}">
+                    Añadir al carrito
+                </button>
 
                 <div class="venue-footer">
                     <div class="price">${venue.price} <span>${venue.unit || ""}</span></div>

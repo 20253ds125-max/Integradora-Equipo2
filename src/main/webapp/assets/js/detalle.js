@@ -67,6 +67,21 @@ function saveFavorites(list) {
     localStorage.setItem(favoriteStorageKey, JSON.stringify(list));
 }
 
+function venueForStorage(source) {
+    if (!source) return null;
+    return {
+        id: source.id,
+        kind: source.kind || "venue",
+        name: source.name,
+        location: source.location,
+        price: source.price,
+        unit: source.unit || "/evento",
+        rating: source.rating || "0.0",
+        image: source.image || "",
+        tag: source.tag || "Seleccionado"
+    };
+}
+
 function isFavorite() {
     return getFavorites().some((v) => v.id === venue.id);
 }
@@ -85,7 +100,7 @@ function toggleFavorite() {
 
     const next = exists
         ? favorites.filter((v) => v.id !== venue.id)
-        : [venue, ...favorites];
+        : [venueForStorage(venue), ...favorites];
 
     saveFavorites(next);
     syncFavoriteButton();
@@ -240,7 +255,7 @@ function renderServices() {
         .map(
             (s) => `
       <div class="service-card">
-        <img src="${servicio.imagen}" alt="${servicio.nombre}" loading="lazy">
+        <img src="${s.imagen}" alt="${s.nombre}" loading="lazy">
         <div class="service-info">
           <h3>${s.nombre}</h3>
           <p>${s.categoria}</p>

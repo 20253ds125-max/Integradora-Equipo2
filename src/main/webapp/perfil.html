@@ -54,7 +54,7 @@
             <button class="ui-button ui-button--solid" type="button" data-scroll-to="profile-personal">Datos personales</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-bookings">Ver reservas</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-favorites">Ver favoritos</button>
-            <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-cart">Ir al carrito</button>
+            <a class="ui-button ui-button--ghost" href="mi-carrito-de-compra.html">Ir al carrito</a>
         </div>
     </aside>
 
@@ -314,6 +314,7 @@
         const normalized = fallbackVenues[source.id] || {};
         return {
             id: source.id || normalized.id || "recinto",
+            kind: source.kind || normalized.kind || "venue",
             name: source.name || normalized.name || "Recinto seleccionado",
             location: source.location || normalized.location || "Ubicación no disponible",
             price: source.price || normalized.price || "$0",
@@ -396,7 +397,7 @@
         bookingsList.innerHTML = bookings
             .slice(0, 6)
             .map((booking) => {
-                const venue = toVenueCard(booking.venue || booking.recinto || booking);
+                const venue = toVenueCard(booking.venueDetails || booking.venue || booking.recinto || booking);
                 const date = booking.paidAt
                     ? new Date(booking.paidAt).toLocaleDateString("es-MX", { dateStyle: "medium" })
                     : "Fecha pendiente";
@@ -426,7 +427,7 @@
         const favorites = getFavorites();
         if (!favorites.length) {
             favoritesList.innerHTML = `
-                <p class="empty-state">Aún no has guardado favoritos. Puedes marcarlos con el corazón desde catálogo o detalle.</p>
+                <p class="empty-state">Aún no has guardado favoritos. Puedes marcarlos con el corazón desde catálogo, detalle o servicios extra.</p>
             `;
             return;
         }
@@ -560,6 +561,9 @@
     toggleEditing(false);
     setActiveTab("profile-personal");
     renderProfile();
+
+    window.addEventListener("storage", renderProfile);
+    window.addEventListener("focus", renderProfile);
 })();
 </script>
 </body>

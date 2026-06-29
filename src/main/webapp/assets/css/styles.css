@@ -439,6 +439,15 @@ h2 {
   padding: 26px 30px 30px;
 }
 
+.venue-cart-button {
+  width: fit-content;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  padding: 0;
+  text-align: left;
+}
+
 .venue-meta {
   display: flex;
   align-items: center;
