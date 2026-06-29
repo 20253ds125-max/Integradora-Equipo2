@@ -1,6 +1,6 @@
 # Event Online - Gestión de Eventos Sociales
 
-GEDS es una plataforma web enfocada en la gestión, exploración y reservación de recintos para eventos sociales.
+Event Online es una plataforma web enfocada en la gestión, exploración y reservación de recintos para eventos sociales.
 El sistema permite a los usuarios descubrir espacios, administrar favoritos, realizar reservas, gestionar pagos y organizar invitados de manera interactiva.
 
 ---
