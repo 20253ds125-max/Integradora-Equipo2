@@ -582,6 +582,21 @@ button { cursor: pointer; }
   font-weight: 800;
 }
 
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cart-link {
+  border: 0;
+  background: transparent;
+  appearance: none;
+  padding: 0;
+}
+
 .card-body h2 a:hover,
 .details-link:hover {
   color: var(--clay-dark);
@@ -594,13 +609,13 @@ button { cursor: pointer; }
   --glass: rgba(255, 248, 245, 0.72);
 }
 body { font-size: 14px; }
-button, .host-button, .sort-button, .load-more, .details-link, .favorite-button, .pill-group button, .capacity-grid button, .price-grid button {
+button, .host-button, .sort-button, .load-more, .details-link, .cart-link, .favorite-button, .pill-group button, .capacity-grid button, .price-grid button {
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
 }
-button, .host-button, .sort-button, .load-more, .details-link, .pill-group button, .capacity-grid button, .price-grid button {
+button, .host-button, .sort-button, .load-more, .details-link, .cart-link, .pill-group button, .capacity-grid button, .price-grid button {
   box-shadow: var(--button-shadow);
 }
-button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details-link:hover, .favorite-button:hover, .pill-group button:hover, .capacity-grid button:hover, .price-grid button:hover {
+button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details-link:hover, .cart-link:hover, .favorite-button:hover, .pill-group button:hover, .capacity-grid button:hover, .price-grid button:hover {
   transform: translateY(-2px);
   box-shadow: var(--button-shadow-hover);
 }
@@ -647,4 +662,22 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
 .load-more { min-height: 50px; min-width: 250px; }
 @media (max-width: 1120px) {
   .filters-panel { width: min(300px, 86vw); padding: 16px; background: rgba(255, 248, 245, .76); }
+}
+
+.card-image{
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+
+    transition: transform .4s ease;
+}
+
+.catalog-card:hover .card-image img{
+    transform: scale(1.05);
 }

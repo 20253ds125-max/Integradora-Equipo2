@@ -1,15 +1,20 @@
-﻿const bookingStorageKey = "gedsBookings";
+const bookingStorageKey = "gedsBookings";
 const selectedVenueKey = "gedsSelectedVenue";
-const selectedVenue = JSON.parse(localStorage.getItem(selectedVenueKey) || "null") || {
+
+const cartState = window.GEDS_CART ? window.GEDS_CART.getCartSummary() : null;
+const selectedVenue = cartState?.recinto || JSON.parse(localStorage.getItem(selectedVenueKey) || "null") || {
   name: "Hacienda Los Arcos",
   location: "San Miguel de Allende, Guanajuato",
   image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=500&q=85",
   basePrice: 1200,
   price: "$1,200"
 };
+
 const guests = Number(localStorage.getItem("gedsBookingGuests") || "25");
-const subtotal = Number(selectedVenue.basePrice || String(selectedVenue.price || "$1,200").replace(/[^0-9]/g, "")) || 1200;
-const serviceFee = 150;
+const venueSubtotal = Number(selectedVenue.basePrice || String(selectedVenue.price || "$1,200").replace(/[^0-9]/g, "")) || 1200;
+const servicesTotal = cartState ? (cartState.servicios || []).reduce((sum, item) => sum + Number(item.price || 0), 0) : 0;
+const subtotal = venueSubtotal + servicesTotal;
+const serviceFee = cartState && subtotal > 0 ? 150 : 0;
 const damageDeposit = Math.round((subtotal + serviceFee) * 0.3);
 const total = subtotal + serviceFee + damageDeposit;
 
@@ -24,16 +29,18 @@ const summaryImage = document.querySelector(".summary-venue img");
 const summaryTitle = document.querySelector(".summary-venue h2");
 const summaryLocation = document.querySelector(".summary-venue p:first-of-type");
 const rentalAmount = document.querySelector(".cost-list p:first-child strong");
+const servicesAmount = document.querySelector(".cost-list p:nth-child(2) strong");
 
 function money(value) {
-  return `$${value.toLocaleString("en-US")}.00`;
+  return `$${Number(value || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 if (summaryImage && selectedVenue.image) summaryImage.src = selectedVenue.image;
 if (summaryTitle) summaryTitle.textContent = selectedVenue.name;
 if (summaryLocation) summaryLocation.textContent = selectedVenue.location;
 if (summaryGuestLine) summaryGuestLine.textContent = `Oct 24, 2026 - ${guests} invitados`;
-if (rentalAmount) rentalAmount.textContent = money(subtotal);
+if (rentalAmount) rentalAmount.textContent = money(venueSubtotal);
+if (servicesAmount) servicesAmount.textContent = money(servicesTotal || serviceFee);
 if (depositAmount) depositAmount.textContent = money(damageDeposit);
 if (totalAmount) totalAmount.textContent = money(total);
 if (payButton) payButton.textContent = `Confirmar y pagar ${money(total)}`;
@@ -48,11 +55,18 @@ paymentTabs.forEach((button) => {
 if (paymentForm) paymentForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const bookings = JSON.parse(localStorage.getItem(bookingStorageKey) || "[]");
-  bookings.unshift({ venue: selectedVenue.name, guests, subtotal, serviceFee, damageDeposit, total, paidAt: new Date().toISOString() });
+  bookings.unshift({
+    venue: selectedVenue.name,
+    venueDetails: selectedVenue,
+    services: cartState?.servicios || [],
+    guests,
+    subtotal,
+    serviceFee,
+    damageDeposit,
+    total,
+    paidAt: new Date().toISOString()
+  });
   localStorage.setItem(bookingStorageKey, JSON.stringify(bookings));
   if (statusText) statusText.textContent = "Pago registrado localmente. Generando ticket de prueba.";
   setTimeout(() => { window.location.href = "ticket.html"; }, 900);
 });
-
-
-

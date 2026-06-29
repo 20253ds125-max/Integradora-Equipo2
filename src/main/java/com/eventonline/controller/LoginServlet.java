@@ -1,6 +1,7 @@
-package com.eventonline.model.user;
+package com.eventonline.controller;
 
 import com.eventonline.dao.UsuariosDao;
+import com.eventonline.utils.Alertas;
 import com.eventonline.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,57 +11,32 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
-@WebServlet ("/login");
-public class LoginServlet extends HttpServlet{
+@WebServlet ("/login")
+public class LoginServlet extends HttpServlet {
 
     private final UsuariosDao usuariosDao = new UsuariosDao();
 
     @Override
-    protected  void doPost (HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType ("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        String email= request.getParameter("email");
+        String pass = request.getParameter("password");
 
-        String correo = request.getParameter("correo");
-        String contrasena = request.getParameter("contrasena");
-
-        if (correo == null || correo.isBlank () || contrasena == null || contrasena.isBlank()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print("{\"error\":\"Correo y contrsena son obligatorias.\"}");
-            return;
-        }
-
-        try {
-            Usuario usuario = usuariosDao.buscarPorCredenciales(correo, contrasena);
-            if (usuario == null) {
-                response.setStatus(HtttpSeveletResponse.SC_UNAUTHORIZED);
-                out.print("{\"error\":\"Correo o contrasenia incorrectos \"}");
-                return;
+        try{
+            Usuario encontrado= usuariosDao.verificarUsuario(email,pass);
+            if(encontrado!=null){
+                HttpSession session = request.getSession();
+                session.setAttribute("UsuarioLog",encontrado);
+                response.sendRedirect("index.html");
+            }else{
+                request.setAttribute("error","El correo o la contraseña es incorrecta");
+                request.getRequestDispatcher("login.jsp").forward(request,response);
             }
-
-            HttpSession session = request.getSession(true);
-            session.setAttribute("usuario", usuario);
-            session.setMaxInactiveInterval(60 * 60);
-
-            response.setStatus(HttpServeletResponse.SC_OK);
-            out.print ("{\"mensaje\":\"Sesion iniciada\","
-                    +"\"nombre\":\"" + usuario.getNombre() + "\","
-                    + "\"rol\":\"" + usuario.getRol () + "\"}");
-
-        }catch (Exception e ) {
-            response.setStatus(HttpServeletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print("{\"error\":\"Error del servidor\"}");
+        }catch (SQLException e){
+            request.setAttribute("error",e.getMessage());
+            request.getRequestDispatcher("alerts.jsp").forward(request,response);
         }
     }
-
-    @Override
-    protected void doGet (HttpServeletRequeste requeste, HttpServeletResponse response)
-        throws ServeletException, IOException {
-        response.sendRedirect (requeste.getContextPath() + "/login.html");
-    }
-
-
-
 }
