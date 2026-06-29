@@ -267,31 +267,34 @@ function venueTemplate(venue) {
 
         <div class="card-divider"></div>
 
-        <div class="card-footer">
-          <span class="capacity">
-            Hasta ${venue.capacity} invitados
-          </span>
+        
+<div class="card-footer">
+  <div class="footer-info-row">
+    <span class="capacity">
+      Hasta ${venue.capacity} invitados
+    </span>
 
-          <strong class="price">
-            ${venue.price}<span>${venue.unit}</span>
-          </strong>
+    <strong class="price">
+      ${venue.price}<span>${venue.unit}</span>
+    </strong>
+  </div>
 
-          <div class="card-actions">
-            <a 
-              class="details-link"
-              href="detalle-recinto.html?venue=${venue.id}"
-              data-detail-id="${venue.id}">
-              Ver detalles
-            </a>
+  <div class="card-actions">
+    <a 
+      class="details-link"
+      href="detalle-recinto.html?venue=${venue.id}"
+      data-detail-id="${venue.id}">
+      Ver detalles
+    </a>
 
-            <button
-              class="details-link cart-link"
-              type="button"
-              data-cart-venue="${venue.id}">
-              Añadir al carrito
-            </button>
-          </div>
-        </div>
+    <button
+      class="cart-link"
+      type="button"
+      data-cart-venue="${venue.id}">
+      Añadir al carrito
+    </button>
+  </div>
+</div>
 
       </div>
     </article>
