@@ -15,7 +15,25 @@
     <link rel="stylesheet" href="assets/css/catalogo.css" />
 </head>
 <body>
-<div id="navbar-container"></div>
+<header class="catalog-header">
+    <div class="brand-group">
+        <button class="menu-button" type="button" aria-label="Abrir menú">
+            <span></span>
+        </button>
+
+        <a class="brand" href="index.html">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="catalogo.html">Recintos</a>
+        <a class="active" href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
+    </nav>
+
+    <div class="header-actions">
+        <a class="host-button" href="publicar-recinto.jsp">Publicar recinto</a>
+    </div>
+</header>
 
 <main class="catalog-shell">
     <aside class="filters-panel" data-filters-panel>
@@ -77,7 +95,6 @@
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="assets/js/navbar.js"></script>
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/catalogo.js"></script>
 </body>
