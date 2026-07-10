@@ -32,7 +32,7 @@ const rentalAmount = document.querySelector(".cost-list p:first-child strong");
 const servicesAmount = document.querySelector(".cost-list p:nth-child(2) strong");
 
 function money(value) {
-  return `$${Number(value || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return `$${Number(value || 0).toLocaleString("MXN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 if (summaryImage && selectedVenue.image) summaryImage.src = selectedVenue.image;
