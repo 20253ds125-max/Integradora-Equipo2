@@ -16,7 +16,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
     private final RegistroDAO registroDAO = new RegistroDAO();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       ;
+
 
         String nombre = request.getParameter("name");
         String email = request.getParameter("email");
@@ -31,7 +31,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
                 response.sendRedirect("index.html");
             }
 
-        }catch (Alertas e){
+        }catch (IllegalArgumentException e){
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("registro.jsp").forward(request,response);
         }catch (SQLException e){
