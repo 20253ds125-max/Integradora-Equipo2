@@ -2,7 +2,6 @@ package com.eventonline.controller;
 
 import com.eventonline.dao.RegistroDAO;
 import com.eventonline.model.Usuario;
-import com.eventonline.utils.Alertas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
