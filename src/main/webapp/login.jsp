@@ -39,7 +39,7 @@
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
     </section>
 </main>
-<jsp:include page="alerts.jsp" />
+<jsp:include page="WEB-INF/alerts.jsp" />
 
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/auth.js"></script>

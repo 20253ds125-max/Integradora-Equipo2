@@ -1,8 +1,7 @@
 package com.eventonline.model;
 
-import com.eventonline.utils.Alertas;
-
 public class Usuario {
+
     private int idUsuario;
     private String nombre;
     private String email;
@@ -11,15 +10,13 @@ public class Usuario {
 
     public Usuario(int idUsuario, String nombre, String email, String contrasena, String rol) {
         this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.email = email;
-        this.contrasena = contrasena;
-        this.rol = rol;
+        setNombre(nombre);
+        setEmail(email);
+        setContrasena(contrasena);
+        setRol(rol);
     }
 
-
-
-    public Usuario(String correo, String nombre, String contrasena, String rol) throws Alertas {
+    public Usuario(String correo, String nombre, String contrasena, String rol) {
         setEmail(correo);
         setNombre(nombre);
         setContrasena(contrasena);
@@ -38,34 +35,35 @@ public class Usuario {
         return email;
     }
 
-    public void setEmail(String email) throws Alertas {
-        if(email==null||email.trim().isEmpty()||!email.contains("@")){
-            throw new Alertas("Error en el campo de nombre");
+    public void setEmail(String email) {
+        if (email == null || email.trim().isEmpty() || !email.contains("@")) {
+            throw new IllegalArgumentException("El email es inválido o está vacío.");
         }
-        this.email =email;
+        this.email = email;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) throws Alertas {
-        if(nombre==null||nombre.trim().isEmpty()){
-            throw new Alertas("Error en el campo de nombre");
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de nombre: no puede estar vacío.");
         }
-        this.nombre=nombre;
+        this.nombre = nombre;
     }
 
     public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String pass) throws Alertas {
-        if(pass==null||pass.trim().isEmpty()){
-            throw new Alertas("Error en el campo de contraseña");
+    public void setContrasena(String pass) {
+        if (pass == null || pass.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
         }
-        contrasena=pass;
+        this.contrasena = pass;
     }
+
     public String getRol() {
         return rol;
     }

@@ -49,6 +49,6 @@
         </div>
     </section>
 </main>
-<jsp:include page="alerts.jsp" />
+<jsp:include page="WEB-INF/alerts.jsp" />
 </body>
 </html>
