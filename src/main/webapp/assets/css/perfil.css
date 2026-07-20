@@ -38,23 +38,8 @@ a{
     text-decoration:none;
 }
 
-/* ==========================================================================
-   CABECERA ACTUALIZADA (ESTILO CATÁLOGO)
-   ========================================================================== */
-.profile-header {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    display: grid;
-    grid-template-columns: 210px 1fr 250px;
-    align-items: center;
-    min-height: 66px;
-    padding-inline: 22px;
-    border-bottom: 1px solid rgba(125, 86, 72, 0.08);
-    background: rgba(255, 248, 245, 0.96);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 8px 26px rgba(70, 45, 35, 0.04);
-}
+
+
 
 .brand-group, .header-actions, .top-nav {
     display: flex;
@@ -602,4 +587,115 @@ a{
     .cart-venue{
         grid-template-columns:1fr;
     }
+}
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:30;
+
+    display:grid;
+    grid-template-columns:210px 1fr 250px;
+    align-items:center;
+
+    height:66px;
+    padding:0 32px;
+
+    background:rgba(255,248,245,.96);
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(125,86,72,.08);
+    box-shadow:0 8px 26px rgba(70,45,35,.04);
+}
+
+.brand-group,
+.top-nav,
+.header-actions{
+    display:flex;
+    align-items:center;
+}
+
+.brand-group{
+    gap:18px;
+}
+
+.brand{
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.65rem;
+    font-weight:700;
+    color:#a44f35;
+}
+
+.top-nav{
+    justify-content:center;
+    gap:28px;
+}
+
+.top-nav a{
+    position:relative;
+    color:#57443d;
+    font-size:.88rem;
+    font-weight:800;
+    letter-spacing:.02em;
+}
+
+.top-nav a.active{
+    color:#a44f35;
+}
+
+.top-nav a.active::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:-15px;
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+    background:#8a6a05;
+
+    transform:translateX(-50%);
+}
+
+.header-actions{
+    justify-content:flex-end;
+    gap:18px;
+}
+.header-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-height:38px;
+    padding:0 22px;
+
+    border-radius:999px;
+
+    background:#a44f35;
+    color:white;
+
+    font-weight:800;
+
+    transition:.2s;
+    box-shadow:0 8px 20px rgba(125,61,45,.2);
+}
+
+.header-button:hover{
+    background:#853e29;
+}
+@media (max-width:760px){
+
+    .site-header{
+        grid-template-columns:1fr auto;
+        padding:0 18px;
+    }
+
+    .top-nav{
+        display:none;
+    }
+
+    .header-button{
+        display:none;
+    }
+
 }
