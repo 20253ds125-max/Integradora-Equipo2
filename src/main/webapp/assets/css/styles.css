@@ -1118,7 +1118,7 @@ featured-grid .catalog-card,
 
 .featured-grid .card-image,
 .featured-grid .imagen-container {
-    height: 380px; /* Altura estilizada como en el Figma */
+    height: 380px;
     width: 100%;
 }
 
@@ -1179,7 +1179,6 @@ featured-grid .catalog-card,
     line-height: 1.5;
 }
 
-/* --- TARJETA DE CONTÁCTANOS ABAJO --- */
 .contact-banner {
     background: #ffffff;
     border-radius: 20px;
