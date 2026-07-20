@@ -1,9 +1,9 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Event Online, plataforma para descubrir y reservar espacios para eventos sociales en Mexico." />
+    <meta name="description" content="Event Online, plataforma para descubrir y reservar espacios para eventos sociales en México." />
     <title>Event Online | Gestión de eventos sociales</title>
 
     <link rel="preconnect" href="https://images.unsplash.com" />
@@ -20,39 +20,37 @@
 <header class="site-header" data-header>
     <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
 
-    <nav class="desktop-nav" aria-label="Navegacion principal">
+    <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="catalogo.html">Recintos</a>
         <a href="extraServices.html">Servicios</a>
         <a href="#nosotros">Nosotros</a>
+    </nav>
 
-      </nav>
-
-      <div class="header-actions">
-        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menu">
-          <span aria-hidden="true"></span>
+    <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
         </button>
-      </div>
-    </header>
+    </div>
+</header>
 
-<nav class="mobile-nav" data-mobile-nav aria-label="Navegacion movil">
-
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
     <a href="WEB-INF/login.jsp">Iniciar sesión o registrarte</a>
     <a href="contacto-equipo.html">Contacta al equipo</a>
     <a href="">Administrador</a>
 </nav>
 
 <main>
-    <section class="hero" id="inicio" aria-label="Busqueda de recintos">
+
+    <section class="hero" id="inicio" aria-label="Búsqueda de recintos">
         <div class="hero-media" role="img" aria-label="Recinto moderno iluminado al atardecer"></div>
         <div class="hero-content">
-            <h1>Descubre recintos extraordinarios en Mexico</h1>
+            <h1>Descubre recintos extraordinarios en México</h1>
             <p>
                 Explora espacios seleccionados para bodas, celebraciones y reuniones que merecen
                 algo realmente especial.
             </p>
 
             <form class="search-panel" data-hero-search>
-
                 <div class="field">
                     <label for="place">Dónde</label>
                     <div class="input-wrapper">
@@ -90,87 +88,93 @@
                     </div>
                 </div>
 
-                <button type="submit" class="search-btn">
+                <button type="submit" class="search-btn" aria-label="Buscar">
                     🔍
                 </button>
-
             </form>
         </div>
     </section>
 
 
-
     <section class="section featured-section" id="recintos">
-        <div class="section-heading">
-            <p class="eyebrow">Recintos destacados</p>
-            <h2>Espacios excepcionales dignos de celebrarse</h2>
-        </div>
+        <div class="section-container">
+            <div class="section-heading">
+                <p class="eyebrow">Recintos destacados</p>
+                <h2>Espacios excepcionales dignos de celebrarse</h2>
+            </div>
 
-        <div class="featured-grid" data-featured></div>
+
+            <div class="featured-grid" data-featured></div>
+        </div>
     </section>
 
     <section class="about-section" id="nosotros">
-        <div class="about-copy">
-            <p class="eyebrow gold">Sobre nosotros</p>
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-copy">
+                    <p class="eyebrow gold">Sobre nosotros</p>
 
-            <h2>
-                Simplificamos la gestión y reserva de espacios para eventos
-            </h2>
-            <br>
+                    <h2>Simplificamos la gestión y reserva de espacios para eventos</h2>
 
-            <p>
-                En Event Online conectamos personas con los mejores recintos para
-                bodas, fiestas, reuniones y celebraciones especiales en México.
-                Nuestra plataforma permite descubrir, comparar y reservar espacios
-                de manera rápida, segura y organizada.
-            </p>
+                    <p>
+                        En Event Online conectamos personas con los mejores recintos para
+                        bodas, fiestas, reuniones y celebraciones especiales en México.
+                        Nuestra plataforma permite descubrir, comparar y reservar espacios
+                        de manera rápida, segura y organizada.
+                    </p>
 
-            <p>
-                Ayudamos a anfitriones, organizadores y empresas a encontrar el
-                lugar ideal mientras optimizamos la administración de reservas,
-                disponibilidad y atención personalizada.
-            </p>
+                    <p>
+                        Ayudamos a anfitriones, organizadores y empresas a encontrar el
+                        lugar ideal mientras optimizamos la administración de reservas,
+                        disponibilidad y atención personalizada.
+                    </p>
 
-            <div class="button-row">
-                <a class="primary-button" href="catalogo.html">
-                    Explorar recintos
-                </a>
+                    <div class="button-row">
+                        <a class="primary-button" href="catalogo.html">Explorar recintos</a>
+                        <a class="ghost-button" href="contacto-equipo.html">Contactar equipo</a>
+                    </div>
+                </div>
 
-                <a class="ghost-button" href="contacto-equipo.html">
-                    Contactar equipo
-                </a>
+                <div class="about-media">
+                    <img
+                            src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=85"
+                            alt="Equipo organizando un evento"
+                    />
+
+                    <article class="about-card">
+                        <h3>Gestión inteligente</h3>
+                        <p>
+                            Reservas y organización en un solo lugar. Centralizamos la búsqueda de recintos, administración de
+                            eventos y contacto con clientes para ofrecer una experiencia
+                            moderna y eficiente.
+                        </p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="contact-banner">
+                <div class="contact-title">
+                    <h3>Contáctanos</h3>
+                    <p>Estamos a su disposición para cualquier asunto que ocurra</p>
+                </div>
+                <div class="contact-info">
+                    <p><strong>Horarios:</strong> Lunes a sábado 9am-16pm</p>
+                    <p><strong>Email:</strong> eventonline@gmail.com</p>
+                    <p><strong>Teléfono:</strong> 5519873454</p>
+                </div>
             </div>
         </div>
-
-        <div class="about-media">
-            <img
-                    src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=85"
-                    alt="Equipo organizando un evento"
-            />
-           <br>
-            <article class="about-card">
-
-                <div>
-                    <h3>Gestión inteligente</h3>
-                    <p>
-                        Reservas y organización en un solo lugar. Centralizamos la búsqueda de recintos, administración de
-                        eventos y contacto con clientes para ofrecer una experiencia
-                        moderna y eficiente.
-                    </p>
-                </div>
-            </article>
-        </div>
     </section>
-
-
 </main>
 
-<footer class="site-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+<footer class="site-footer legal-only">
+    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
+</footer>
 
 <dialog class="search-dialog" data-search-dialog>
     <form method="dialog">
         <button class="close-button" type="submit" aria-label="Cerrar">&times;</button>
-        <p class="eyebrow">Búsqueda rapida</p>
+        <p class="eyebrow">Búsqueda rápida</p>
         <h2>Encuentra tu siguiente espacio</h2>
         <label>
             <span>Destino o tipo de evento</span>
@@ -185,10 +189,3 @@
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
-
-
-
-
-
-
-
