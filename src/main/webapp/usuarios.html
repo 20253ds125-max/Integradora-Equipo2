@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Online | Administración</title>
+    <title>Usuarios | Event Online Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -24,48 +24,59 @@
 </header>
 
 <main class="page-shell admin-layout">
+
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
-        <a class="active" href="admin.html">Recintos</a>
-        <a href="usuarios.html">Usuarios</a>
+        <a href="admin.html">Recintos</a>
+        <a class="active" href="usuarios.html">Usuarios</a>
         <a href="admin-servicios.html">Servicios Extra</a>
     </aside>
 
     <section>
         <div class="admin-toolbar">
             <div>
-                <h1>Gestión de recintos</h1>
-                <p>Aprueba, edita o elimina espacios publicados en la plataforma.</p>
+                <h1>Gestión de usuarios</h1>
+                <p>Administra usuarios registrados en la plataforma.</p>
             </div>
+            <button class="primary-button">Nuevo Admin</button>
         </div>
 
         <div class="stats-grid">
             <article class="panel stat-card">
-                <span>Pendientes</span><strong data-stat-pending>12</strong>
+                <span>Total usuarios</span>
+                <strong>1,284</strong>
             </article>
             <article class="panel stat-card">
-                <span>Validados</span><strong data-stat-valid>84</strong>
+                <span>Usuarios activos</span>
+                <strong>1,020</strong>
             </article>
             <article class="panel stat-card">
-                <span>Total</span><strong data-stat-total>142</strong>
+                <span>Administradores</span>
+                <strong>12</strong>
             </article>
         </div>
+
         <table class="venue-table">
             <thead>
             <tr>
-                <th>Recinto</th>
-                <th>Fecha</th>
-                <th>Status</th>
-                <th>Acciones</th>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th style="text-align: center; padding-right: 24px;">Acciones</th>
             </tr>
             </thead>
-            <tbody data-admin-rows>
+            <tbody id="usuariosBody">
             </tbody>
         </table>
+
     </section>
+
 </main>
 
-<footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
-<script src="assets/js/admin.js"></script>
+<footer class="rights-footer">
+    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
+</footer>
+
+<script src="assets/js/usuarios.js"></script>
 </body>
 </html>

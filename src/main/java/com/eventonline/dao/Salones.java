@@ -13,10 +13,12 @@ public class Salones {
 
         String accionFotos= "INSERT INTO fotos (ubicacion,id_salon_eventos) VALUES (?,?)";
 
+        String[] columnasId = {"ID_PUBLICACION_EVENTOS"};
+
         try(Connection con = conexionConfig.obtenerConexion()){
             con.setAutoCommit(false);
 
-            try(PreparedStatement psSalon = con.prepareStatement(accionSalon, Statement.RETURN_GENERATED_KEYS)){
+            try(PreparedStatement psSalon = con.prepareStatement(accionSalon,columnasId)){
 
                 psSalon.setString(1,salonesEventos.getNombre());
                 psSalon.setString(2,salonesEventos.getDescripcion());
@@ -37,7 +39,11 @@ public class Salones {
                         idGenerado=rs.getInt(1);
                     }
                 }
-                if(salonesEventos.getFotos().size()>1){
+                if (idGenerado == 0) {
+                    con.rollback();
+                    return false;
+                }
+                if(salonesEventos.getFotos().size()>=1){
                     try(PreparedStatement psFotos= con.prepareStatement(accionFotos)) {
                         for(int i=1;i<salonesEventos.getFotos().size();i++){
                             psFotos.setString(1,salonesEventos.getFotos().get(i));
