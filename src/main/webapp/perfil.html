@@ -40,6 +40,7 @@
 
         <div class="rail-actions">
             <button class="ui-button ui-button--solid" type="button" data-scroll-to="profile-personal">Datos personales</button>
+            <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-resser">Mis publicaciones</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-bookings">Ver reservas</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-favorites">Ver favoritos</button>
             <a class="ui-button ui-button--ghost" href="mi-carrito-de-compra.html">Ir al carrito</a>
@@ -84,6 +85,16 @@
                     </div>
                 </form>
             </article>
+            <article class="panel-card glass-panel hidden" id="profile-resser" data-panel>
+                <div class="panel-head">
+                    <div>
+                        <p class="eyebrow">Mis Reservas y Servicios</p>
+                        <h2>Publicaciones</h2>
+                    </div>
+                </div>
+
+                <div class="cards-grid" data-publications-list></div>
+            </article>
 
             <article class="panel-card glass-panel hidden" id="profile-bookings" data-panel>
                 <div class="panel-head">
@@ -92,7 +103,8 @@
                         <h2>Reservas recientes</h2>
                     </div>
                 </div>
-                <div class="cards-grid" data-bookings-list></div>
+
+                <div class="cards-grid" data-real-bookings-list></div>
             </article>
 
             <article class="panel-card glass-panel hidden" id="profile-favorites" data-panel>

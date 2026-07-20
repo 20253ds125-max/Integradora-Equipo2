@@ -4,6 +4,8 @@
     const favoritesKey = "gedsFavorites";
     const selectedVenueKey = "gedsSelectedVenue";
     const cartKey = "eventOnlineEvento";
+    const publicationsList = document.querySelector("[data-publications-list]");
+    const realBookingsList = document.querySelector("[data-real-bookings-list]");
 
     const defaultProfile = {
         name: "María Fernanda",
@@ -230,25 +232,52 @@
     }
 
     function renderBookings() {
-        if (!bookingsList) return;
         const bookings = getBookings();
-        if (!bookings.length) {
-            bookingsList.innerHTML = `
-                <p class="empty-state">Aún no tienes reservas guardadas. Cuando confirmes un recinto, aparecerá aquí.</p>
+
+
+        if (publicationsList) {
+            if (!bookings.length) {
+                publicationsList.innerHTML = `
+                <p class="empty-state">Aún no tienes publicaciones guardadas. Cuando publiques un recinto, aparecerá aquí.</p>
             `;
-            return;
+            } else {
+                publicationsList.innerHTML = bookings.slice(0, 6).map(booking => {
+                    const venue = toVenueCard(booking.venueDetails || booking.venue || booking.recinto || booking);
+                    const date = booking.paidAt ? new Date(booking.paidAt).toLocaleDateString("es-MX", { dateStyle: "medium" }) : "Fecha pendiente";
+                    const total = booking.total || (parsePrice(venue.price) * 1.3);
+
+                    return `
+                    <article class="booking-card">
+                        <img src="${venue.image}" alt="${venue.name}">
+                        <div class="booking-body">
+                            <span class="booking-tag" style="background: #eef2f7; color: #475569;">Publicado</span>
+                            <h3>${venue.name}</h3>
+                            <p class="booking-meta">${venue.location}</p>
+                            <p class="booking-meta">Creado el ${date}</p>
+                            <strong class="booking-price">${money(total)}</strong>
+                            <div class="booking-actions">
+                                <a class="ui-button ui-button--ghost" href="editar-publicacion.html?id=${venue.id}">Editar recinto</a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                }).join("");
+            }
         }
 
-        bookingsList.innerHTML = bookings
-            .slice(0, 6)
-            .map((booking) => {
-                const venue = toVenueCard(booking.venueDetails || booking.venue || booking.recinto || booking);
-                const date = booking.paidAt
-                    ? new Date(booking.paidAt).toLocaleDateString("es-MX", { dateStyle: "medium" })
-                    : "Fecha pendiente";
-                const total = booking.total || (parsePrice(venue.price) * 1.3);
 
-                return `
+        if (realBookingsList) {
+            if (!bookings.length) {
+                realBookingsList.innerHTML = `
+                <p class="empty-state">Aún no tienes reservas guardadas. Cuando confirmes un recinto, aparecerá aquí.</p>
+            `;
+            } else {
+                realBookingsList.innerHTML = bookings.slice(0, 6).map(booking => {
+                    const venue = toVenueCard(booking.venueDetails || booking.venue || booking.recinto || booking);
+                    const date = booking.paidAt ? new Date(booking.paidAt).toLocaleDateString("es-MX", { dateStyle: "medium" }) : "Fecha pendiente";
+                    const total = booking.total || (parsePrice(venue.price) * 1.3);
+
+                    return `
                     <article class="booking-card">
                         <img src="${venue.image}" alt="${venue.name}">
                         <div class="booking-body">
@@ -258,14 +287,15 @@
                             <p class="booking-meta">${date} · ${booking.guests || 0} invitados</p>
                             <strong class="booking-price">${money(total)}</strong>
                             <div class="booking-actions">
-                                <a class="ui-button ui-button--ghost" href="ticket.html">Ver ticket</a>
-                                <a class="ui-button ui-button--solid" href="pago.html">Pagar de nuevo</a>
+                                <a class="ui-button ui-button--ghost" href="ticket.html?id=${booking.id || ''}">Ver ticket</a>
+                                <a class="ui-button ui-button--solid" href="pago.html?id=${booking.id || ''}">Pagar de nuevo</a>
                             </div>
                         </div>
                     </article>
                 `;
-            })
-            .join("");
+                }).join("");
+            }
+        }
     }
 
     function renderFavorites() {
@@ -366,20 +396,49 @@
 
     tabs.forEach((button) => {
         button.addEventListener("click", () => {
-            setActiveTab(button.dataset.tab);
-            document.getElementById(button.dataset.tab)?.scrollIntoView({ behavior: "smooth", block: "start" });
+            const targetId = button.dataset.tab;
+            cambiarSeccionActiva(targetId);
         });
     });
 
     scrollButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            const target = document.getElementById(button.dataset.scrollTo);
-            if (target) {
-                setActiveTab(target.id);
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
+            const targetId = button.dataset.scrollTo;
+            cambiarSeccionActiva(targetId);
         });
     });
+
+    function cambiarSeccionActiva(targetId) {
+        const targetPanel = document.getElementById(targetId);
+        if (!targetPanel) return;
+
+
+        panels.forEach((panel) => {
+            panel.classList.toggle("hidden", panel.id !== targetId);
+        });
+
+
+        scrollButtons.forEach((btn) => {
+            if (btn.dataset.scrollTo === targetId) {
+                btn.classList.add("ui-button--solid");
+                btn.classList.remove("ui-button--ghost");
+            } else {
+                btn.classList.add("ui-button--ghost");
+                btn.classList.remove("ui-button--solid");
+            }
+        });
+
+
+        tabs.forEach((btn) => {
+            btn.classList.toggle("is-active", btn.dataset.tab === targetId);
+        });
+
+
+        targetPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+
+    cambiarSeccionActiva("profile-personal");
 
     if (editButton) editButton.addEventListener("click", () => toggleEditing(true));
 
