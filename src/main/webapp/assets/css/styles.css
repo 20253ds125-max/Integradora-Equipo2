@@ -623,7 +623,6 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
     text-shadow: 0 3px 8px rgba(127, 59, 33, 0.35);
 }
 
-/* La flecha se mueve un poquito a la derecha al hacer hover */
 .venue-card-button:hover::after {
     transform: translateX(4px);
 }
