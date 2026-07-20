@@ -4,7 +4,6 @@ import com.eventonline.dao.Salones;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
 import com.eventonline.service.CloudDinary;
-import com.eventonline.utils.Alertas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -68,9 +66,9 @@ public class PublicarRecintoServlet extends HttpServlet {
                 response.sendRedirect("index.html");
                 return;
             }else{
-                throw new Alertas("error en la base de datos");
+                throw new IllegalArgumentException("error en la base de datos");
             }
-        } catch (Alertas e) {
+        } catch (IllegalArgumentException e) {
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
         }catch (SQLException e){

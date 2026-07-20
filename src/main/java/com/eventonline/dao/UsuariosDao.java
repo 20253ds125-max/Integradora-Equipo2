@@ -1,7 +1,6 @@
 package com.eventonline.dao;
 
 import com.eventonline.model.Usuario;
-import com.eventonline.utils.Alertas;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;

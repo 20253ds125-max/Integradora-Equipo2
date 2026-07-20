@@ -26,9 +26,9 @@ html{
 body{
     min-height:100vh;
     background:
-        radial-gradient(circle at top left, rgba(164,79,53,.08), transparent 36%),
-        radial-gradient(circle at bottom right, rgba(145,112,95,.09), transparent 34%),
-        var(--bg);
+            radial-gradient(circle at top left, rgba(164,79,53,.08), transparent 36%),
+            radial-gradient(circle at bottom right, rgba(145,112,95,.09), transparent 34%),
+            var(--bg);
     color:var(--text);
     font-family:"Montserrat",sans-serif;
 }
@@ -38,48 +38,118 @@ a{
     text-decoration:none;
 }
 
-.profile-header{
-    position:sticky;
-    top:0;
-    z-index:20;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    padding:18px 32px;
-    background:rgba(248,240,236,.85);
-    border-bottom:1px solid rgba(157,79,56,.12);
-    backdrop-filter:blur(16px);
+/* ==========================================================================
+   CABECERA ACTUALIZADA (ESTILO CATÁLOGO)
+   ========================================================================== */
+.profile-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: 210px 1fr 250px;
+    align-items: center;
+    min-height: 66px;
+    padding-inline: 22px;
+    border-bottom: 1px solid rgba(125, 86, 72, 0.08);
+    background: rgba(255, 248, 245, 0.96);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 26px rgba(70, 45, 35, 0.04);
 }
 
-.brand a{
-    font-family:"Cormorant Garamond",serif;
-    font-size:2rem;
-    font-weight:700;
-    color:var(--primary);
-    letter-spacing:0;
+.brand-group, .header-actions, .top-nav {
+    display: flex;
+    align-items: center;
 }
 
-.top-nav{
-    display:flex;
-    align-items:center;
-    gap:28px;
-    flex-wrap:wrap;
-    justify-content:center;
+.brand-group {
+    gap: 18px;
 }
 
-.top-nav a{
-    font-weight:600;
-    color:var(--muted);
-    padding-bottom:6px;
-    border-bottom:2px solid transparent;
+.brand a {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0;
 }
 
-.top-nav a.is-active{
-    color:var(--primary);
-    border-color:var(--primary);
+.menu-button {
+    border: 0;
+    background: transparent;
+    color: var(--primary);
+    display: grid;
+    gap: 5px;
+    width: 28px;
+    padding: 0;
+    cursor: pointer;
 }
 
+.menu-button::before, .menu-button::after, .menu-button span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    content: "";
+}
+
+.top-nav {
+    justify-content: center;
+    gap: 28px;
+}
+
+.top-nav a {
+    position: relative;
+    color: #57443d;
+    font-size: .88rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.top-nav a.active {
+    color: var(--primary);
+}
+
+.top-nav a.active::after {
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #8a6a05;
+    content: "";
+    transform: translateX(-50%);
+}
+
+.header-actions {
+    justify-content: end;
+    gap: 18px;
+}
+
+.host-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: white;
+    padding-inline: 22px;
+    font-weight: 800;
+    box-shadow: 0 8px 20px rgba(164, 79, 53, 0.2);
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.host-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(164, 79, 53, 0.22);
+    background: var(--primary-dark);
+}
+
+/* ==========================================================================
+   DISEÑO GENERAL DE LA PÁGINA DE PERFIL
+   ========================================================================== */
 .profile-page{
     width:min(1360px, calc(100% - 32px));
     margin:24px auto 48px;
@@ -98,29 +168,36 @@ a{
 
 .profile-rail{
     align-self:start;
-    padding:22px;
+    padding:26px 22px;
     position:sticky;
     top:98px;
 }
 
+/* Identidad con estructura vertical (Texto arriba, Imagen abajo) */
 .profile-identity{
     display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:14px;
+    text-align:center;
+    gap:22px;
 }
 
+/* Logotipo circular refinado adaptado a la referencia */
 .profile-identity img{
-    width:72px;
-    height:72px;
-    object-fit:cover;
-    border-radius:18px;
-    box-shadow:var(--shadow-soft);
-    flex-shrink:0;
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: var(--shadow-soft);
+    flex-shrink: 0;
 }
 
 .profile-info{
-    flex:1;
-    min-width:0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-identity h1,
@@ -129,10 +206,21 @@ a{
     font-size:clamp(1.4rem, 4vw, 2rem);
     line-height:1.02;
     margin:0;
-
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
+}
+
+/* Nombre apilado en dos líneas */
+.profile-info h2 {
+    font-family: "Montserrat", sans-serif;
+    color: var(--text);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: normal; /* Permite el salto de línea del <br> */
+    text-overflow: unset;
+    overflow: visible;
 }
 
 .eyebrow{
@@ -142,29 +230,6 @@ a{
     color:var(--primary);
     font-weight:700;
     margin-bottom:6px;
-}
-
-.rail-summary{
-    margin-top:18px;
-    padding:16px;
-    border-radius:18px;
-    background:rgba(255,255,255,.55);
-    display:grid;
-    gap:10px;
-    box-shadow:inset 0 0 0 1px rgba(157,79,56,.08);
-}
-
-.rail-summary div{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    color:var(--muted);
-    font-size:.92rem;
-}
-
-.rail-summary strong{
-    color:var(--text);
-    font-size:1rem;
 }
 
 .rail-actions{
@@ -215,6 +280,11 @@ a{
     padding:12px 18px;
     font-weight:700;
     box-shadow:var(--shadow-soft);
+    font-size:0.85rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
 .ui-button:hover,
@@ -508,14 +578,12 @@ a{
 
 @media (max-width: 760px){
     .profile-header{
-        padding:16px 18px;
-        flex-direction:column;
-        align-items:flex-start;
+        grid-template-columns: 1fr auto;
+        padding: 12px 18px;
     }
 
-    .top-nav{
-        gap:16px;
-        justify-content:flex-start;
+    .top-nav, .host-button {
+        display: none;
     }
 
     .profile-page{
@@ -534,18 +602,4 @@ a{
     .cart-venue{
         grid-template-columns:1fr;
     }
-}
-.ui-button{
-    min-height:46px;
-    border-radius:14px;
-    padding:12px 18px;
-    font-weight:700;
-    font-size:0.85rem;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-
-    box-shadow:var(--shadow-soft);
 }
