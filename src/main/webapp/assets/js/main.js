@@ -151,7 +151,10 @@ function renderFeaturedVenues() {
           <button class="text-link venue-cart-button" type="button" data-cart-venue="${v.id}">
             Añadir al carrito
           </button>
-          <span>${v.price}</span>
+          <div class="price">
+    ${v.price}
+    <span>${v.unit}</span>
+</div>
         </div>
       </article>
     `
@@ -213,7 +216,7 @@ favoritesContainer?.addEventListener("click", (e) => {
     syncFavoriteButtons();
 });
 
-heroSearch.addEventListener("submit", (event) => {
+heroSearch?.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const formData = new FormData(heroSearch);
@@ -225,7 +228,10 @@ heroSearch.addEventListener("submit", (event) => {
 
     const allVenues = [
         ...featuredVenues,
-        ...Object.values(venueDirectory)
+        ...Object.entries(venueDirectory).map(([id, venue]) => ({
+            id,
+            ...venue
+        }))
     ];
 
     const results = allVenues.filter((venue) => {
@@ -264,31 +270,65 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderSearchResults(venues) {
     const container = document.querySelector("[data-featured]");
 
+    if (!container) return;
+
     if (!venues.length) {
         container.innerHTML = `
-            <p style="padding:20px;">No se encontraron recintos con esos filtros.</p>
+            <p style="padding:20px;">
+                No se encontraron recintos con esos filtros.
+            </p>
         `;
         return;
     }
 
     container.innerHTML = venues.map((venue) => `
         <article class="venue-card">
-            <div class="venue-image" style="${imageStyle(venue.image)}"></div>
+
+            <div class="venue-image" style="${imageStyle(venue.image)}">
+
+                <button 
+                    class="favorite-button ${isFavorite(venue.id) ? "active" : ""}" 
+                    data-venue-id="${venue.id}">
+                    ${isFavorite(venue.id) ? "♥" : "♡"}
+                </button>
+
+            </div>
+
 
             <div class="venue-body">
-                <span class="tag">${venue.tag || ""}</span>
+
+                <span class="tag">
+                    ${venue.tag || ""}
+                </span>
+
                 <h3>${venue.name}</h3>
+
                 <p>${venue.location}</p>
-                <button class="text-link venue-cart-button" type="button" data-cart-venue="${venue.id}">
+
+
+                <button 
+                    class="text-link venue-cart-button"
+                    type="button"
+                    data-cart-venue="${venue.id}">
                     Añadir al carrito
                 </button>
 
+
                 <div class="venue-footer">
-                    <div class="price">${venue.price} <span>${venue.unit || ""}</span></div>
+                    <div class="price">
+                        ${venue.price}
+                        <span>
+                            ${venue.unit || ""}
+                        </span>
+                    </div>
                 </div>
+
             </div>
+
         </article>
     `).join("");
+
+    syncFavoriteButtons();
 }
 
 
