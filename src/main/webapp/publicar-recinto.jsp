@@ -118,6 +118,6 @@ return;
 
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/publicar.js"></script>
-<jsp:include page="alerts.jsp" />
+<jsp:include page="WEB-INF/alerts.jsp" />
 </body>
 </html>
