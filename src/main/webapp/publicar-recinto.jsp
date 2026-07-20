@@ -1,11 +1,11 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-jakarta.servlet.http.HttpSession sesion = request.getSession(false);
-if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
-request.setAttribute("error", "Por favor, inicia sesión para publicar tu recinto.");
-request.getRequestDispatcher("login.jsp").forward(request, response);
-return;
-}
+    jakarta.servlet.http.HttpSession sesion = request.getSession(false);
+    if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
+        request.setAttribute("error", "Por favor, inicia sesión para publicar tu recinto.");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+        return;
+    }
 %>
 <!doctype html>
 <html lang="es">
@@ -31,61 +31,49 @@ return;
     </nav>
     <div class="header-actions">
         <a href="catalogo.html">Buscar</a>
-
     </div>
 </header>
 
 <main class="publish-shell">
     <section class="publish-intro">
         <h1>Publica tu recinto</h1>
-        <p>Comparte la elegancia de tu espacio con nuestra comunidad curada. Completa los detalles para iniciar la revision del concierge.</p>
+        <p>Comparte la elegancia de tu espacio con nuestra comunidad curada. Completa los detalles para iniciar la revisión del concierge.</p>
     </section>
 
     <form class="publish-layout" data-publish-form method="post" action="publicar-recinto" enctype="multipart/form-data">
         <section class="form-stack">
             <article class="panel">
                 <h2>Identidad del recinto</h2>
-                <label>
+                <label class="form-field">
                     <span>Nombre del recinto</span>
                     <input type="text" name="venueName" placeholder="Ej. Villa d'Este Pavilion" required />
                 </label>
-                <label>
+                <label class="form-field">
                     <span>Ubicación</span>
                     <input type="text" name="location" placeholder="Calle, ciudad, estado" required />
                 </label>
-                <label>
+                <label class="form-field">
                     <span>Descripción</span>
-                    <textarea name="description" placeholder="Describe la historia, estilo arquitectonico y atmosfera..." required></textarea>
+                    <textarea name="description" placeholder="Describe la historia, estilo arquitectónico y atmósfera..." required></textarea>
                 </label>
             </article>
 
             <article class="panel">
                 <h2>Capacidad</h2>
                 <div class="capacity-row">
-                    <label class="mini-card">
-                        <span>Capacidad máxima del salón: </span>
-                        <input type="number" name="seated" min="0" placeholder="0" />
-                        <small>Ideal para cenas o ceremonias.</small>
-                    </label>
+                    <div class="mini-card">
+                        <label for="seated">Capacidad máxima del salón:</label>
+                        <input type="number" id="seated" name="seated" min="0" placeholder="0" />
+                    </div>
 
-                    <label class="mini-card">
-                        <label class="mini-card">
-
-                            <span>Precio base</span>
-
-                            <div class="price-input">
-                                <span>$</span>
-                                <input
-                                        type="number"
-                                        name="precio"
-                                        min="0"
-                                        step="100"
-                                        placeholder="0"
-                                />
-                            </div>
-                            <small>Por evento</small>
-                        </label>
-                    </label>
+                    <div class="mini-card">
+                        <label for="precio">Precio base</label>
+                        <div class="price-input">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="precio" name="precio" min="0" step="100" placeholder="0" />
+                        </div>
+                        <small>Por evento</small>
+                    </div>
                 </div>
             </article>
         </section>
@@ -96,7 +84,7 @@ return;
                 <label class="upload-box">
                     <input type="file" accept="image/png,image/jpeg" multiple data-photo-input name="photos"/>
                     <strong>Click o arrastra para subir</strong>
-                    <span>JPEG o PNG de alta resolucion</span>
+                    <span>JPEG o PNG de alta resolución</span>
                 </label>
                 <div class="photo-grid" data-photo-grid>
                     <div class="photo-thumb filled"></div>
@@ -104,12 +92,12 @@ return;
                     <div class="photo-thumb"></div>
                 </div>
                 <button class="primary-button" type="submit">Enviar a revisión</button>
-                <button class="outline-button" type="button" data-save-draft>Guardar borrador</button>
                 <p class="aside-note">Tu publicación será revisada por el equipo de planeación en 24 a 48 horas.</p>
             </article>
-            <article class="tip-card">
+
+            <article class="tip">
                 <h2>Tip concierge</h2>
-                <p>Los recintos con fotografía profesional y descripción clara reciben mas solicitudes premium.</p>
+                <p>Los recintos con fotografía profesional y descripción clara reciben más solicitudes premium.</p>
             </article>
         </aside>
     </form>
@@ -118,6 +106,6 @@ return;
 
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/publicar.js"></script>
-<jsp:include page="WEB-INF/alerts.jsp" />
 </body>
+<jsp:include page="WEB-INF/alerts.jsp" />
 </html>
