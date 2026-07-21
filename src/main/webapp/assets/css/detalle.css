@@ -238,3 +238,31 @@ input, textarea, select { font-size: .92rem; }
     transform:translateY(-5px);
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
+
+.special-button {
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+
+}
+
+
+.special-button,
+.ghost-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0 26px;
+    font-weight: 800;
+    box-shadow: var(--button-shadow);
+}
+
+.special-button {
+    background: var(--clay);
+    color: white;
+}
+
+.special-button:hover {
+    background: var(--clay-dark);
+}

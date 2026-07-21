@@ -258,7 +258,6 @@ function venueTemplate(venue) {
             </a>
           </h2>
 
-          <span class="rating">&#9733; ${venue.rating}</span>
         </div>
 
         <p class="location">
