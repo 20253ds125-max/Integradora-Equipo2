@@ -10,12 +10,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght=600;700&family=Montserrat:wght=400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/auth.css" />
+    <link rel="stylesheet" href="../assets/css/auth.css" />
 </head>
 <body class="register-page">
 <main class="register-shell">
     <section class="register-visual" aria-label="Inspiracion GEDS">
-        <a class="brand" href="index.html">Event Online</a>
+        <a class="brand" href="../index.html">Event Online</a>
         <div>
             <h1>Donde el patrimonio encuentra curacion moderna.</h1>
             <p>Unete a una comunidad exclusiva de planners y proveedores dedicados a experiencias memorables.</p>
@@ -49,6 +49,6 @@
         </div>
     </section>
 </main>
-<jsp:include page="WEB-INF/alerts.jsp" />
+<jsp:include page="alerts.jsp" />
 </body>
 </html>

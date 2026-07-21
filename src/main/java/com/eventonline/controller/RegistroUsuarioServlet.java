@@ -1,6 +1,6 @@
 package com.eventonline.controller;
 
-import com.eventonline.dao.RegistroDAO;
+import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,10 +12,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 @WebServlet("/registro")
 public class RegistroUsuarioServlet extends HttpServlet {
-    private final RegistroDAO registroDAO = new RegistroDAO();
+    private final UsuariosDao usuariosDao = new UsuariosDao();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
         String nombre = request.getParameter("name");
         String email = request.getParameter("email");
@@ -26,7 +25,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
             Usuario usuario = new Usuario(email,nombre,pass,rol);
 
-            if(registroDAO.registroUsuario(usuario)){
+            if(usuariosDao.registroUsuario(usuario)){
                 response.sendRedirect("index.html");
             }
 
