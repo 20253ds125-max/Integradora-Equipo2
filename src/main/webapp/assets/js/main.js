@@ -148,9 +148,9 @@ function renderFeaturedVenues() {
         <div class="venue-body">
           <h3>${v.name}</h3>
           <p>${v.location}</p>
-          <button class="text-link venue-cart-button" type="button" data-cart-venue="${v.id}">
-            Añadir al carrito
-          </button>
+          <a href="detalle-recinto.html"${v.id} class="text-link venue-card-button" type="button" data-cart-venue="${v.id}">
+            Ver Detalles
+          </a>
           <div class="price">
     ${v.price}
     <span>${v.unit}</span>

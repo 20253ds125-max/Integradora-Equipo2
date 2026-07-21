@@ -14,6 +14,7 @@
     --serif: "Cormorant Garamond", Georgia, serif;
     --sans: "Montserrat", Arial, sans-serif;
     --button-shadow: 0 10px 22px rgba(61, 39, 31, 0.16);
+    --button-shadow-1: 0 18px 45px rgba(61, 39, 31, 0.11);
     --button-shadow-hover: 0 14px 28px rgba(61, 39, 31, 0.22);
     --glass: rgba(255, 248, 245, 0.72);
 }
@@ -580,13 +581,50 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
     padding: 26px 30px 30px;
 }
 
-.venue-cart-button {
-    width: fit-content;
-    border: 0;
+
+.venue-card-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;                           /* Espacio entre el texto y la flecha */
+    padding: 6px 0;
+    border: none;
     background: transparent;
-    appearance: none;
-    padding: 0;
-    text-align: left;
+
+    /* Texto destacado con color de marca */
+    color: #9f4b2b;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: none;
+
+    /* Sombra suave exclusiva para el texto */
+    text-shadow: 0 2px 6px rgba(159, 75, 43, 0.2);
+
+    /* Transición suave */
+    transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+/* Flecha al final */
+.venue-card-button::after {
+    content: "→";
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: transform 180ms ease;
+}
+
+.venue-card-button:hover {
+    color: #7f3b21;
+    text-decoration: underline;
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+    text-shadow: 0 3px 8px rgba(127, 59, 33, 0.35);
+}
+
+.venue-card-button:hover::after {
+    transform: translateX(4px);
 }
 
 .venue-meta {
@@ -1118,7 +1156,7 @@ featured-grid .catalog-card,
 
 .featured-grid .card-image,
 .featured-grid .imagen-container {
-    height: 380px; /* Altura estilizada como en el Figma */
+    height: 380px;
     width: 100%;
 }
 
@@ -1179,7 +1217,6 @@ featured-grid .catalog-card,
     line-height: 1.5;
 }
 
-/* --- TARJETA DE CONTÁCTANOS ABAJO --- */
 .contact-banner {
     background: #ffffff;
     border-radius: 20px;

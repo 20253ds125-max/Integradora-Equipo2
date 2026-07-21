@@ -290,13 +290,13 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
 }
 .catalog-heading h1 {
     color: var(--clay);
-    font-size: clamp(2.6rem, 4vw, 4rem);
+    font-size: clamp(2rem, 2vw, 2rem);
     line-height: 0.9;
 }
 .catalog-heading p {
     margin: 10px 0 0;
     color: var(--muted);
-    font-size: .98rem;
+    font-size: .5rem;
 }
 .sort-button {
     flex: 0 0 auto;
@@ -308,14 +308,12 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
     box-shadow: 0 8px 20px rgba(61, 39, 31, 0.08);
 }
 
-/* Clean 3 Column Grid */
 .venue-masonry {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 32px 22px;
 }
 
-/* Unified Catalog Card Style */
 .catalog-card {
     display: flex;
     flex-direction: column;
@@ -444,7 +442,6 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
     font-weight: 500;
 }
 
-/* Actions Buttons Grid (Match to .host-button Style) */
 .card-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -516,7 +513,6 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
     white-space: nowrap;
 }
 
-/* Legal Footer */
 .catalog-footer.legal-only {
     display: block;
     padding: 28px 20px;
