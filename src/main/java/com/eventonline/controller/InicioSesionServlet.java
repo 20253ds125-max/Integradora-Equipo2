@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet ("/login")
-public class LoginServlet extends HttpServlet {
+public class InicioSesionServlet extends HttpServlet {
 
     private final UsuariosDao usuariosDao = new UsuariosDao();
 
@@ -30,11 +30,11 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("index.html");
             }else{
                 request.setAttribute("error","El correo o la contraseña es incorrecta");
-                request.getRequestDispatcher("login.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
             }
         }catch (SQLException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("alerts.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
         }
     }
 }
