@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="assets/css/auth.css" />
+
 </head>
 <body class="login-page">
 
@@ -22,8 +23,6 @@
         <a href="extraServices.html">Servicios</a>
         <a href="#nosotros">Nosotros</a>
     </nav>
-
-
 </header>
 
 

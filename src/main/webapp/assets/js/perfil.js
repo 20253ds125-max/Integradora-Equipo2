@@ -215,7 +215,7 @@
             input.value = profileValues[input.dataset.field] || "";
         });
 
-        // Protecciones aplicadas aquí para evitar bloqueos por elementos faltantes en el HTML
+
         if (userDisplay) userDisplay.innerHTML = profileValues.name.replace(" ", "<br>");
         if (userEmail) userEmail.textContent = profileValues.email;
 
@@ -256,7 +256,14 @@
                             <p class="booking-meta">Creado el ${date}</p>
                             <strong class="booking-price">${money(total)}</strong>
                             <div class="booking-actions">
-                                <a class="ui-button ui-button--ghost" href="editar-publicacion.html?id=${venue.id}">Editar recinto</a>
+                             <button
+                             type="button"
+                             class="ui-button ui-button--ghost abrir-modal-edicion"
+                             data-venue-id="${venue.id}"
+                             data-venue-name="${venue.name}"
+                             data-venue-location="${venue.location}"
+                             data-venue-price="${parsePrice(venue.price)}">Editar recinto</button>
+                             <a class="ui-button ui-button--ghost">Reportar daños</a>
                             </div>
                         </div>
                     </article>
@@ -475,4 +482,61 @@
 
     window.addEventListener("storage", renderProfile);
     window.addEventListener("focus", renderProfile);
+    const modal = document.getElementById(
+        "modalEditarRecinto"
+    );
+
+    const cerrarModal = document.getElementById(
+        "cerrarModal"
+    );
+
+    const cancelarModal = document.getElementById(
+        "cancelarModal"
+    );
+
+    document.addEventListener("click", (e) => {
+
+        const boton =
+            e.target.closest(".abrir-modal-edicion");
+
+        if (!boton) return;
+
+        document.getElementById("editNombre").value =
+            boton.dataset.venueName;
+
+        document.getElementById("editUbicacion").value =
+            boton.dataset.venueLocation;
+
+        document.getElementById("editPrecio").value =
+            boton.dataset.venuePrice;
+
+        modal.classList.add("active");
+
+    });
+
+    cerrarModal.addEventListener("click", () => {
+        modal.classList.remove("active");
+    });
+
+    cancelarModal.addEventListener("click", () => {
+        modal.classList.remove("active");
+    });
+
+    modal.addEventListener("click", (e) => {
+
+        if (e.target === modal) {
+            modal.classList.remove("active");
+        }
+
+    });
+
+    document
+        .getElementById("formEditarRecinto")
+        .addEventListener("submit", (e) => {
+
+            e.preventDefault();
+
+            modal.classList.remove("active");
+
+        });
 })();
