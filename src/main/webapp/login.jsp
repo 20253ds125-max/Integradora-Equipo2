@@ -6,23 +6,29 @@
     <meta name="description" content="Acceso de usuarios a Event Online." />
     <title>Event Online | Iniciar Sesión</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="stylesheet" href="assets/css/auth.css" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
 </head>
 <body class="login-page">
 
-<header class="site-header" data-header>
-    <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
+<header class="catalog-header">
 
-    <nav class="desktop-nav" aria-label="Navegación principal">
+    <div class="brand-group">
+        <a class="brand" href="index.html">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
         <a href="catalogo.html">Recintos</a>
         <a href="extraServices.html">Servicios</a>
-        <a href="#nosotros">Nosotros</a>
     </nav>
+
+    <div class="header-actions">
+        <a class="host-button" href="register.html">Crear cuenta</a>
+    </div>
+
 </header>
 
 
