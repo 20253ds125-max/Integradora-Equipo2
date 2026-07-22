@@ -129,7 +129,13 @@ button { cursor: pointer; }
 .cost-list .total { border-top: 1px solid var(--line); padding-top: 16px; color: var(--ink); font-weight: 800; }
 .primary-button { width: 100%; min-height: 68px; border: 0; border-radius: 999px; background: var(--clay); color: white; font-size: 1.05rem; font-weight: 700; box-shadow: 0 14px 24px rgba(125, 61, 45, 0.2); }
 .panel-note { margin: 18px 0 0; color: #9a8982; font-size: 0.85rem; text-align: center; }
-.rights-footer { padding: 28px 20px; background: #8f4b3a; color: #fff8f3; text-align: center; font-weight: 600; }
+.rights-footer {display: block;
+    padding: 8px 20px;
+    background: #8f4b3a;
+    color: #fff8f3;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-align: center; }
 @media (max-width: 1060px) { .detail-header { grid-template-columns: 1fr auto; } .detail-header nav { display: none; } .detail-layout { grid-template-columns: 1fr; } .booking-panel { position: static; } }
 @media (max-width: 720px) { .gallery-section { padding-top: 20px; } .carousel { min-height: 340px; height: 56vh; } .thumbnail-row { grid-template-columns: repeat(2, 1fr); } .detail-layout { padding-bottom: 54px; } .title-row, .host-card { grid-template-columns: 1fr; display: grid; } .amenities-grid { grid-template-columns: 1fr; } .feature-row { gap: 14px; } .venue-detail h1 { font-size: 3.4rem; } }
 

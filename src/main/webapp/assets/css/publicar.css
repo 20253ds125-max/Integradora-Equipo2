@@ -213,7 +213,7 @@ button:hover, a.primary-button:hover, a.outline-button:hover, .primary-button:ho
 .form-status { min-height: 24px; color: var(--clay); font-weight: 800; text-align: center; }
 
 .rights-footer {
-    padding: 26px 20px;
+    padding: 8px 20px;
     text-align: center;
     border-top: 0;
     background: #8f4b3a;
