@@ -12,14 +12,14 @@
 <body>
 <header class="app-header">
     <a class="brand" href="index.html">Event Online</a>
-    <nav>
-        <a href="catalogo.html">Explorar</a>
-        <a href="index.html#favoritos">Favoritos</a>
-        <a class="active" href="ticket.html">Ticket</a>
-        <a href="mesas.html">Mesas</a>
-        <a href="admin.html">Admin</a>
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="catalogo.html">Recintos</a>
+        <a class="active" href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
     </nav>
-    <div class="header-actions"><a href="catalogo.html">Buscar</a><a class="avatar" href="login.html" aria-label="Perfil"></a></div>
+    <div class="header-actions">
+        <a class="avatar" href="WEB-INF/login.jsp" aria-label="Perfil"></a>
+    </div>
 </header>
 
 <main class="page-shell ticket-shell">
@@ -43,14 +43,14 @@
             <div>
                 <h3 data-ticket-venue>Hacienda Los Arcos</h3>
                 <p data-ticket-location>San Miguel de Allende, Guanajuato</p>
-                <p data-ticket-date>Fecha de emision</p>
+                <p data-ticket-date>Fecha de emisión</p>
             </div>
         </div>
 
         <div class="ticket-lines">
-            <p><span>Invitados</span><strong data-ticket-guests>25</strong></p>
+            <p><span>Número de invitados</span><strong data-ticket-guests>25</strong></p>
             <p><span>Renta del recinto</span><strong data-ticket-subtotal>$1,200.00</strong></p>
-            <p><span>Service fee</span><strong data-ticket-service>$150.00</strong></p>
+            <p><span>Servicios extra</span><strong data-ticket-service>$150.00</strong></p>
             <p><span>Déposito por daños (30%)</span><strong data-ticket-deposit>$405.00</strong></p>
             <p class="ticket-total"><span>Total pagado</span><strong data-ticket-total>$1,755.00</strong></p>
         </div>
@@ -63,11 +63,12 @@
         <div class="ticket-actions">
             <button class="primary-button" type="button" data-print-ticket>Imprimir ticket</button>
             <a class="outline-button" href="mesas.html">Asignar mesas</a>
+            <a class="outline-button" href="invitaciones.html">Enviar invitaciones</a>
         </div>
     </article>
 </main>
 
-<footer class="rights-footer">&copy; 2026 GEDS Spaces. Todos los derechos reservados.</footer>
+<footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script src="assets/js/ticket.js"></script>
 </body>
 </html>

@@ -12,21 +12,29 @@
   <body>
     <header class="app-header">
       <a class="brand" href="index.html">Event Online</a>
-      <nav><a href="catalogo.html">Explorar</a><a href="index.html#favoritos">Favoritos</a><a class="active" href="pago.html">Pago</a><a href="../ticket.html">Ticket</a><a href="mesas.html">Mesas</a><a href="admin.html">Admin</a></nav>
-      <div class="header-actions"><a href="catalogo.html">Buscar</a><a class="avatar" href="login.html" aria-label="Perfil"></a></div>
+        <nav class="top-nav" aria-label="Navegación">
+            <a href="catalogo.html">Recintos</a>
+            <a href="extraServices.html">Servicios</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+      <div class="header-actions">
+          <a href="catalogo.html">Buscar</a>
+          <a class="avatar" href="WEB-INF/login.jsp" aria-label="Perfil"></a>
+      </div>
     </header>
     <main class="page-shell checkout-layout">
       <section>
         <div class="page-title"><a href="detalle-recinto.html">Regresar al detalle</a><h1>Pago seguro</h1><p>Tu información de pago se mantiene protegida. El total incluye deposito de garantia por daños.</p></div>
-        <form class="panel checkout-form" data-payment-form>
-          <div class="payment-tabs"><button class="active" type="button">Apple Pay</button><button type="button">Google Pay</button></div>
-          <div class="divider-text">O paga con tarjeta</div>
-          <label>Nombre del titular<input type="text" placeholder="Nombre como aparece en la tarjeta" required /></label>
-          <label>Numero de tarjeta<input type="text" placeholder="0000 0000 0000 0000" required /></label>
-          <div class="field-grid"><label>Vencimiento<input type="text" placeholder="MM / YY" required /></label><label>CVV<input type="password" placeholder="123" required /></label></div>
-          <label class="check-row"><input type="checkbox" /> Guardar tarjeta para futuras reservas</label>
-          <button class="primary-button" type="submit" data-pay-button>Confirmar y pagar $1,755.00</button>
-          <p class="panel-note" data-payment-status>Transaccion segura encriptada.</p>
+        <form action="PagoServlet" method="POST" class="panel checkout-form">
+          <label>Nombre del titular<input type="text" name="nombreTitular" placeholder="Nombre como aparece en la tarjeta" required /></label>
+          <label>Numero de tarjeta<input type="text" name="numeroTarjeta" placeholder="0000 0000 0000 0000" required /></label>
+          <div class="field-grid">
+            <label>Vencimiento<input type="text" name="vencimiento" placeholder="MM / YY" required /></label>
+            <label>CVV<input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" pattern="\d*" inputmode="numeric" required /></label>
+          </div>
+
+          <button class="primary-button" type="submit">Confirmar y pagar $1,105.00</button>
+          <p class="panel-note" data-payment-status>Transacción segura encriptada.</p>
         </form>
       </section>
       <aside class="panel summary-card">
@@ -34,15 +42,15 @@
         <div class="summary-venue"><img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=500&q=85" alt="Hacienda Los Arcos" /><div><h2>Hacienda Los Arcos</h2><p>San Miguel de Allende, Guanajuato</p><p data-summary-guests>Oct 24, 2026 - 25 invitados</p></div></div>
         <div class="cost-list">
           <p><span>Renta del recinto</span><strong>$1,200.00</strong></p>
-          <p><span>Extra service</span><strong>$150.00</strong></p>
+          <p><span>Servicios extra</span><strong>$150.00</strong></p>
           <p class="deposit"><span>Déposito por daños (30%)</span><strong data-deposit-amount>$405.00</strong></p>
           <p class="total"><span>Total a pagar</span><strong data-total-amount>$1,755.00</strong></p>
         </div>
         <div class="protection-box"><strong>Déposito de garantía</strong><br />El 30% cubre posibles daños o problemas ocasionados durante el evento. Puede ser reembolsable tras la revision del recinto.</div>
       </aside>
     </main>
-    <footer class="rights-footer">&copy; 2026 GEDS Spaces. Todos los derechos reservados.</footer>
-    <script src="assets/js/pago.js"></script>
+    <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+  </body>
   </body>
 </html>
 

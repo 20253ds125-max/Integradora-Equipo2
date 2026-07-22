@@ -15,7 +15,22 @@
     <link rel="stylesheet" href="assets/css/catalogo.css" />
 </head>
 <body>
-<div id="navbar-container"></div>
+<header class="site-header">
+    <div class="brand-group">
+
+        <a class="brand" href="index.html">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a class="active" href="catalogo.html">Recintos</a>
+        <a href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
+    </nav>
+
+    <div class="header-actions">
+        <a class="host-button" href="WEB-INF/publicar-recinto.jsp">Publicar recinto</a>
+    </div>
+</header>
 
 <main class="catalog-shell">
     <aside class="filters-panel" data-filters-panel>
@@ -26,28 +41,17 @@
 
         <label class="search-field">
             <span class="sr-only">Buscar ciudad o region</span>
-            <input type="search" placeholder="Buscar ciudades o regiones en Mexico..." data-city-search />
+            <input type="search" placeholder="Buscar en ciudad o región" data-city-search />
             <span aria-hidden="true">Ubicación</span>
         </label>
 
         <section class="filter-block" aria-labelledby="eventTypeTitle">
-            <h2 id="eventTypeTitle">Tipo de evento</h2>
+
             <div class="pill-group" data-event-filters>
-                <button class="active" type="button" data-filter="all">Todos</button>
-                <button type="button" data-filter="wedding">Bodas</button>
-                <button type="button" data-filter="corporate">Corporativo</button>
-                <button type="button" data-filter="private">Privado</button>
-                <button type="button" data-filter="gala">Gala y formal</button>
             </div>
         </section>
 
         <section class="filter-block" aria-labelledby="priceTitle">
-            <h2 id="priceTitle">Costo máximo</h2>
-            <div class="range-track" aria-hidden="true"><span></span></div>
-            <div class="range-labels">
-                <span>$50</span>
-                <span>$2,000+</span>
-            </div>
             <div class="price-grid" data-price-filters>
                 <button type="button" data-price="150">Hasta $150</button>
                 <button type="button" data-price="500">Hasta $500</button>
@@ -75,7 +79,7 @@
                 <h1>Descubre recintos</h1>
                 <p>Espacios curados en Mexico para cada ocasión</p>
             </div>
-            <button class="sort-button" type="button">Ordenar: recomendados</button>
+
         </div>
 
         <div class="venue-masonry" id="catalogResults" data-catalog-results></div>
@@ -88,7 +92,7 @@
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="assets/js/navbar.js"></script>
+<script src="assets/js/cart.js"></script>
 <script src="assets/js/catalogo.js"></script>
 </body>
 </html>
