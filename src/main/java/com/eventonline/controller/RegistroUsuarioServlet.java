@@ -27,14 +27,16 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
             if(usuariosDao.registroUsuario(usuario)){
                 response.sendRedirect("index.html");
+            }else{
+                throw new IllegalArgumentException("Correo ya existente");
             }
 
         }catch (IllegalArgumentException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("registro.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
         }catch (SQLException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("registro.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
         }
 
     }
