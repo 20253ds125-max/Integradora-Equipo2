@@ -8,11 +8,11 @@
     const realBookingsList = document.querySelector("[data-real-bookings-list]");
 
     const defaultProfile = {
-        name: "María Fernanda",
-        email: "maria.fernanda@email.com",
+        name: "Alejandro Campos",
+        email: "ale.campos@email.com",
         phone: "+52 55 1234 5678",
-        city: "Ciudad de México",
-        address: "Av. Reforma 123, CDMX"
+        city: "Jojutla",
+        address: "Av. Reforma 123, Joju"
     };
 
     const fallbackVenues = {
@@ -494,12 +494,15 @@
         "cancelarModal"
     );
 
+    let recintoEditando = null;
+
     document.addEventListener("click", (e) => {
 
-        const boton =
-            e.target.closest(".abrir-modal-edicion");
+        const boton = e.target.closest(".abrir-modal-edicion");
 
         if (!boton) return;
+
+        recintoEditando = boton.dataset.venueId;
 
         document.getElementById("editNombre").value =
             boton.dataset.venueName;
@@ -511,7 +514,6 @@
             boton.dataset.venuePrice;
 
         modal.classList.add("active");
-
     });
 
     cerrarModal.addEventListener("click", () => {
@@ -536,7 +538,31 @@
 
             e.preventDefault();
 
-            modal.classList.remove("active");
+            const nuevoNombre =
+                document.getElementById("editNombre").value;
 
+            const nuevaUbicacion =
+                document.getElementById("editUbicacion").value;
+
+            const nuevoPrecio =
+                document.getElementById("editPrecio").value;
+
+            const bookings = getBookings();
+
+
+            bookings[0].venueDetails.name = nuevoNombre;
+            bookings[0].venueDetails.location = nuevaUbicacion;
+            bookings[0].venueDetails.price = `$${nuevoPrecio}`;
+            bookings[0].total= parseInt(nuevoPrecio);
+
+            writeJSON(bookingsKey, bookings);
+
+            console.log(
+                JSON.parse(localStorage.getItem("gedsBookings"))
+            );
+
+            renderBookings();
+
+            modal.classList.remove("active");
         });
 })();
