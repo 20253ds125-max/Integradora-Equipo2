@@ -1,123 +1,110 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-jakarta.servlet.http.HttpSession sesion = request.getSession(false);
-if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
-request.setAttribute("error", "Por favor, inicia sesión para publicar tu recinto.");
-request.getRequestDispatcher("login.jsp").forward(request, response);
-return;
-}
+    jakarta.servlet.http.HttpSession sesion = request.getSession(false);
+    if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
+        request.setAttribute("error", "Por favor, inicia sesión para publicar tu recinto.");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+        return;
+    }
 %>
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Publica un recinto nuevo en GEDS." />
+    <meta name="description" content="Publica un recinto nuevo en Event Online." />
     <title>Event Online | Publicar recinto</title>
-    <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/publicar.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/publicar.css" />
 </head>
 <body>
-<header class="publish-header">
-    <a class="brand" href="../index.html">Event Online</a>
-    <nav aria-label="Navegacion principal">
-        <a href="../catalogo.html">Explorar</a>
-        <a href="../catalogo.html#guardados">Guardados</a>
-        <a href="../catalogo.html#reservas">Reservas</a>
-        <a class="active" href="../perfil.html">Perfil</a>
-    </nav>
-    <div class="header-actions">
-        <a href="../catalogo.html">Buscar</a>
 
-    </div>
+
+<header class="site-header" data-header>
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
+
+    <nav class="desktop-nav" aria-label="Navegación principal">
+        <a href="catalogo.html">Recintos</a>
+        <a href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
+    </nav>
+
+
 </header>
 
-<main class="publish-shell">
-    <section class="publish-intro">
+
+<main class="page">
+    <section class="page-header">
         <h1>Publica tu recinto</h1>
-        <p>Comparte la elegancia de tu espacio con nuestra comunidad curada. Completa los detalles para iniciar la revision del concierge.</p>
+        <p>Comparte la elegancia de tu espacio con nuestra comunidad curada. Completa los detalles para iniciar la revisión del concierge.</p>
     </section>
 
-    <form class="publish-layout" data-publish-form method="post" action="publicar-recinto" enctype="multipart/form-data">
+    <form class="grid" method="post" action="publicar-recinto" enctype="multipart/form-data">
+
         <section class="form-stack">
-            <article class="panel">
+
+            <article class="card">
                 <h2>Identidad del recinto</h2>
-                <label>
-                    <span>Nombre del recinto</span>
-                    <input type="text" name="venueName" placeholder="Ej. Villa d'Este Pavilion" required />
-                </label>
-                <label>
-                    <span>Ubicación</span>
-                    <input type="text" name="location" placeholder="Calle, ciudad, estado" required />
-                </label>
-                <label>
-                    <span>Descripción</span>
-                    <textarea name="description" placeholder="Describe la historia, estilo arquitectonico y atmosfera..." required></textarea>
-                </label>
+                <label for="venueName">Nombre del recinto</label>
+                <input type="text" id="venueName" name="venueName" placeholder="Ej. Villa d'Este Pavilion" required />
+
+                <label for="location">Ubicación</label>
+                <input type="text" id="location" name="location" placeholder="Calle, ciudad, estado" required />
+
+                <label for="description">Descripción</label>
+                <textarea id="description" name="description" placeholder="Describe la historia, estilo arquitectónico y atmósfera..." required></textarea>
             </article>
 
-            <article class="panel">
-                <h2>Capacidad</h2>
-                <div class="capacity-row">
-                    <label class="mini-card">
-                        <span>Capacidad máxima del salón: </span>
-                        <input type="number" name="seated" min="0" placeholder="0" />
-                        <small>Ideal para cenas o ceremonias.</small>
-                    </label>
-
-                    <label class="mini-card">
-                        <label class="mini-card">
-
-                            <span>Precio base</span>
-
-                            <div class="price-input">
-                                <span>$</span>
-                                <input
-                                        type="number"
-                                        name="precio"
-                                        min="0"
-                                        step="100"
-                                        placeholder="0"
-                                />
-                            </div>
-                            <small>Por evento</small>
-                        </label>
-                    </label>
+            <article class="card">
+                <h2>Capacidad y Precio</h2>
+                <div class="two-columns">
+                    <div>
+                        <label for="seated">Capacidad máxima del salón</label>
+                        <input type="number" id="seated" name="seated" min="0" placeholder="0 personas" />
+                    </div>
+                    <div>
+                        <label for="precio">Precio base (Por evento)</label>
+                        <input type="number" id="precio" name="precio" min="0" step="100" placeholder="$ 0.00" />
+                    </div>
                 </div>
             </article>
+
         </section>
 
-        <aside class="publish-aside">
-            <article class="panel photos-panel">
+        <aside>
+            <article class="card">
                 <h2>Fotos del recinto</h2>
-                <label class="upload-box">
-                    <input type="file" accept="image/png,image/jpeg" multiple data-photo-input name="photos"/>
+
+                <div class="upload-box" id="uploadBox">
+                    <input type="file" id="photos" name="photos" accept="image/png,image/jpeg" multiple style="display: none;" />
                     <strong>Click o arrastra para subir</strong>
-                    <span>JPEG o PNG de alta resolucion</span>
-                </label>
-                <div class="photo-grid" data-photo-grid>
-                    <div class="photo-thumb filled"></div>
-                    <div class="photo-thumb"></div>
-                    <div class="photo-thumb"></div>
+                    <p>JPEG o PNG de alta resolución</p>
                 </div>
-                <button class="primary-button" type="submit">Enviar a revisión</button>
-                <button class="outline-button" type="button" data-save-draft>Guardar borrador</button>
-                <p class="aside-note">Tu publicación será revisada por el equipo de planeación en 24 a 48 horas.</p>
+
+                <div class="preview" id="photoPreview">
+                </div>
+
+                <button class="btn-primary" type="submit">Enviar a revisión</button>
+                <p style="margin-top: 15px; font-size: 0.85rem; color: var(--muted); text-align: center;">Tu publicación será revisada por el equipo de planeación en 24 a 48 horas.</p>
             </article>
-            <article class="tip-card">
-                <h2>Tip concierge</h2>
-                <p>Los recintos con fotografía profesional y descripción clara reciben mas solicitudes premium.</p>
+
+            <article class="tip">
+                <h3>Tip concierge</h3>
+                <p>Los recintos con fotografía profesional y descripción clara reciben más solicitudes premium.</p>
             </article>
         </aside>
+
     </form>
-    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
 </main>
 
-<footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
-<script src="../assets/js/publicar.js"></script>
+<footer class="main-footer">
+    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
+</footer>
+
+<script src="assets/js/publicar.js"></script>
 <jsp:include page="alerts.jsp" />
+
 </body>
 </html>
