@@ -16,12 +16,12 @@
 <body class="login-page">
 
 <header class="site-header" data-header>
-    <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
+    <a class="brand" href="index.html" aria-label="Ir al inicio">Event Online</a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="catalogo.html">Recintos</a>
         <a href="extraServices.html">Servicios</a>
-        <a href="#nosotros">Nosotros</a>
+        <a href="contacto-equipo.html">Nosotros</a>
     </nav>
 </header>
 
@@ -40,7 +40,7 @@
             <label>
           <span class="split-label">
             Contraseña
-            <a href="restore.html">¿Olvidaste tu contraseña?</a>
+            <a href="Restore.html">¿Olvidaste tu contraseña?</a>
           </span>
                 <span class="password-field">
             <input type="password" name="password" placeholder="••••••••" required data-password-input />
