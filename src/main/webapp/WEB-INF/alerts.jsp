@@ -9,7 +9,7 @@
     Swal.fire({
         icon: 'error',
         title: '¡Atención!',
-        text: '<%= errorMsn %>',
+        text: `<%= errorMsn %>`,
         confirmButtonColor: '#7c5315',
         confirmButtonText: 'Entendido',
         backdrop: `rgba(0, 0, 0, 0.4)`

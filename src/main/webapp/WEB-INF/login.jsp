@@ -20,7 +20,7 @@
     <section class="login-card" aria-labelledby="loginTitle">
         <h1 id="loginTitle">Bienvenido</h1>
         <p>Ingresa tus credenciales para acceder a EO.</p>
-        <form class="auth-form" data-auth-form method="post" action="${pageContext.request.contextPath}/login" >
+        <form class="auth-form" method="post" action="${pageContext.request.contextPath}/login" >
             <label>
                 <span>Email</span>
                 <input type="email" name="email" placeholder="name@ejemplo.com" required />

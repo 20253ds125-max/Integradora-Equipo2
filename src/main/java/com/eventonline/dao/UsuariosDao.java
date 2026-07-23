@@ -1,6 +1,7 @@
 package com.eventonline.dao;
 
 import com.eventonline.model.Usuario;
+import oracle.jdbc.proxy.annotation.Pre;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
@@ -69,6 +70,61 @@ public class UsuariosDao {
 
             int filasInsertadas = ps.executeUpdate();
             return filasInsertadas > 0;
+        }
+    }
+
+    public int registrarIntento(String email)throws SQLException{
+        String accionActualizar="UPDATE usuarios SET intentos = intentos + 1 WHERE correo = ?";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(accionActualizar)){
+            ps.setString(1,email);
+            ps.executeUpdate();
+        }
+        String accionBuscar="SELECT intentos FROM usuarios WHERE correo=?";
+        try(Connection con= conexionConfig.obtenerConexion();
+            PreparedStatement ps= con.prepareStatement(accionBuscar)){
+            ps.setString(1,email);
+            try(ResultSet rs= ps.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt("intentos");
+                }
+
+            }
+
+        }
+        return 0;
+    }
+
+    public void bloquearCuenta(String email)throws SQLException{
+        String accionBloquear="UPDATE usuarios SET tiempo_bloqueado = ? WHERE correo = ?";
+        java.sql.Timestamp tiempoBloqueo = java.sql.Timestamp.valueOf(
+                java.time.LocalDateTime.now().plusMinutes(15)
+        );
+        try(Connection con= conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(accionBloquear)){
+            ps.setTimestamp(1,tiempoBloqueo);
+            ps.setString(2,email);
+            ps.executeUpdate();
+        }
+    }
+
+    public void resetearIntentos(String email)throws SQLException{
+        String accionReset="UPDATE usuarios SET intentos = 0,tiempo_bloqueado = NULL WHERE correo = ?";
+        try(Connection con = conexionConfig.obtenerConexion();
+        PreparedStatement ps= con.prepareStatement(accionReset) ){
+            ps.setString(1,email);
+            ps.executeUpdate();
+        }
+    }
+
+    public boolean estadoBloqueado(String email)throws SQLException{
+        String accionBuscar="SELECT id_usuario FROM usuarios WHERE correo = ? AND tiempo_bloqueado > SYSTIMESTAMP";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(accionBuscar)){
+            ps.setString(1,email);
+            try(ResultSet rs = ps.executeQuery()){
+                return rs.next();
+            }
         }
     }
 
