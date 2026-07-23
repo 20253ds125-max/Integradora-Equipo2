@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/publicar.css" />
+    <link rel="stylesheet" href="assets/css/serviciosExtra.css" />
 </head>
 <body>
 
@@ -79,8 +79,8 @@
 
                 <div class="upload-box" id="uploadBox">
                     <input type="file" id="photos" name="photos" accept="image/png,image/jpeg" multiple style="display: none;" />
-                    <strong>Click o arrastra para subir</strong>
-                    <p>JPEG o PNG de alta resolución</p>
+                    <p>Click o arrastra para subir</p>
+                    <small>JPEG o PNG de alta resolución</small>
                 </div>
 
                 <div class="preview" id="photoPreview">
