@@ -1,7 +1,6 @@
 package com.eventonline.dao;
 
 import com.eventonline.model.Usuario;
-import oracle.jdbc.proxy.annotation.Pre;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
@@ -127,6 +126,36 @@ public class UsuariosDao {
             }
         }
     }
+    public void enviarCodigoVerificacion(String email, String codigo) throws SQLException {
+        String actualizarCodigo="UPDATE usuarios SET codigo = ?,tiempo_codigo =? WHERE correo = ?";
+        java.sql.Timestamp tiempoCodigo = java.sql.Timestamp.valueOf(
+                java.time.LocalDateTime.now().plusMinutes(15)
+        );
+        try(Connection con= conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(actualizarCodigo) ){
+            ps.setString(1,codigo);
+            ps.setTimestamp(2,tiempoCodigo);
+            ps.setString(3,email);
+            ps.executeQuery();
+        }
+    }
+
+    public boolean comparaCodigo(String email, String codigo) throws SQLException {
+        java.sql.Timestamp tiempoActual = java.sql.Timestamp.valueOf(
+                java.time.LocalDateTime.now().plusMinutes(15)
+        );
+        String compara="SELECT COUNT(*) FROM usuarios WHERE correo = ? AND codigo = ? AND tiempo_codigo > ? ";
+        try(Connection con= conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(compara) ){
+            ps.setString(1,email);
+            ps.setString(2,codigo);
+            ps.setTimestamp(3,tiempoActual);
+            try(ResultSet rs =ps.executeQuery()){
+                return rs.getInt(1) ==1;
+            }
+        }
+    }
+
 
     private String encriptaContrasena(String pass) {
         return BCrypt.hashpw(pass, BCrypt.gensalt());
