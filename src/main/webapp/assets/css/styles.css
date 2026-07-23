@@ -1038,7 +1038,7 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
 
 .site-footer.legal-only {
     display: block;
-    padding: 28px 20px;
+    padding: 8px 20px;
     background: #8f4b3a;
     color: #fff8f3;
     font-weight: 600;

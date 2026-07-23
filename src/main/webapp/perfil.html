@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil | Event Online</title>
+    <title>Prueba 12345</title>
 
     <link rel="stylesheet" href="assets/css/perfil.css">
 
@@ -23,8 +23,6 @@
         <a href="extraServices.html">Servicios</a>
         <a class="active" href="perfil.html">Perfil</a>
     </nav>
-
-
 </header>
 
 <main class="profile-page">
@@ -32,7 +30,7 @@
         <div class="profile-identity">
             <div class="profile-info">
                 <p class="eyebrow">MI CUENTA</p>
-                <h2 data-user-display>Maria<br>Fernanda</h2>
+                <h2 data-user-display>Alejandro<br>Campos</h2>
             </div>
 
             <img data-avatar src="assets/logo.png" alt="Logotipo Event Online">
@@ -149,6 +147,64 @@
         </section>
     </section>
 </main>
+<footer class="site-footer legal-only">
+    ©2026 Event Online Spaces. Todos los derechos reservados.
+</footer>
+<div class="modal-overlay" id="modalEditarRecinto">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Editar recinto</h2>
+
+            <button
+                    type="button"
+                    class="modal-close"
+                    id="cerrarModal">
+                &times;
+            </button>
+        </div>
+
+        <form id="formEditarRecinto">
+
+            <label>
+                Nombre del recinto
+                <input type="text" id="editNombre">
+            </label>
+
+            <label>
+                Ubicación
+                <input type="text" id="editUbicacion">
+            </label>
+
+            <label>
+                Precio
+                <input type="number" id="editPrecio">
+            </label>
+
+            <div class="modal-actions">
+
+                <button
+                        type="button"
+                        class="ui-button ui-button--ghost"
+                        id="cancelarModal">
+                    Cancelar
+                </button>
+
+                <button
+                        type="submit"
+                        class="ui-button ui-button--solid">
+                    Guardar cambios
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 
 <script src="assets/js/perfil.js"></script>
 </body>
