@@ -142,7 +142,7 @@ public class UsuariosDao {
 
     public boolean comparaCodigo(String email, String codigo) throws SQLException {
         java.sql.Timestamp tiempoActual = java.sql.Timestamp.valueOf(
-                java.time.LocalDateTime.now().plusMinutes(15)
+                java.time.LocalDateTime.now()
         );
         String compara="SELECT COUNT(*) FROM usuarios WHERE correo = ? AND codigo = ? AND tiempo_codigo > ? ";
         try(Connection con= conexionConfig.obtenerConexion();
@@ -151,8 +151,22 @@ public class UsuariosDao {
             ps.setString(2,codigo);
             ps.setTimestamp(3,tiempoActual);
             try(ResultSet rs =ps.executeQuery()){
-                return rs.getInt(1) ==1;
+                if(rs.next()){
+                    return rs.getInt(1)>0;
+                }
             }
+        }
+        return false;
+    }
+    public boolean cambiarContrasena(String email,String contrasena)throws SQLException{
+        String accionCambiarContra="UPDATE usuarios SET contrasena = ? WHERE correo = ?";
+        String encryptPass = encriptaContrasena(contrasena);
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(accionCambiarContra) ){
+            ps.setString(1,encryptPass);
+            ps.setString(2,email);
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas == 1;
         }
     }
 

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/restore.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/restore.css">
 </head>
 <body>
 
@@ -19,7 +20,7 @@
     <section class="left-panel">
 
         <div class="logo">
-            <a class="brand" href="index.html">Event Online</a>
+            <a class="brand" href="${pageContext.request.contextPath}/index.html">Event Online</a>
         </div>
 
         <div class="hero-content">
@@ -42,37 +43,28 @@
             <h2>Restablecer contraseña</h2>
 
             <p class="subtitle">
-                Ingresa la contraseña nueva. Asegurate de no olvidarla.
+                Ingresa la contraseña nueva. Asegúrate de no olvidarla.
             </p>
 
-            <form id="resetForm" action="codigoVerificacion.html">
+            <form method="post" id="resetForm" action="${pageContext.request.contextPath}/cambiarContra">
 
+                <input name="correo" type="hidden" value="${correo}" >
                 <div class="input-group">
                     <label for="new-password">Nueva contraseña</label>
                     <div class="password-wrapper">
                         <input type="password" id="new-password" name="password" placeholder="••••••••" required />
-                        <button type="button" class="toggle-password" aria-label="Mostrar contraseña">
-                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                        </button>
-
-                        </button>
                     </div>
                 </div>
 
-                <button  type="submit" class="btn-primary">
+                <button type="submit" class="btn-primary">
                     Guardar nueva contraseña
                 </button>
 
             </form>
 
-
-
             <div class="login-link">
                 ¿Ya recordaste tu contraseña?
-                <a href="login.jsp">Iniciar sesión</a>
+                <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión</a>
             </div>
 
         </div>
@@ -80,8 +72,6 @@
     </section>
 
 </div>
-
-<script src="assets/js/restore.js"></script>
 
 </body>
 </html>

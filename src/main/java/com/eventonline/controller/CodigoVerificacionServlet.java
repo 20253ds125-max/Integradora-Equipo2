@@ -28,13 +28,18 @@ public class CodigoVerificacionServlet extends HttpServlet {
         String digito6 = request.getParameter("digito6");
 
         String codigoIngresado = digito1 + digito2 + digito3 + digito4 + digito5 + digito6;
+        System.out.println(codigoIngresado);
 
         try {
             if (usuariosDao.comparaCodigo(correo, codigoIngresado)) {
-
+                request.setAttribute("correo",correo);
+                request.getRequestDispatcher("/WEB-INF/cambiar-contrasena.jsp").forward(request,response);
+            }else {
+                request.setAttribute("error","Codigo incorrecto");
+                request.getRequestDispatcher("/WEB-INF/codigoVerificacion.jsp").forward(request,response);
             }
         } catch (SQLException e) {
-            request.setAttribute("error", "ERROR INTERNO :c");
+            request.setAttribute("error", "ERROR INTERNO :c "+e.getMessage());
             request.getRequestDispatcher("/WEB-INF/codigoVerificacion.jsp").forward(request, response);
         }
 
