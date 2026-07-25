@@ -427,3 +427,9 @@ button, .host-button, .filtro, .btn-agregar {
         display: none;
     }
 }
+.header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+}
