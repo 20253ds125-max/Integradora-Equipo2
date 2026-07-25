@@ -288,20 +288,19 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
     gap: 24px;
     margin-bottom: 28px;
 }
- .catalog-heading h1 {
-     margin: 0;
-     font-family: var(--serif);
-     font-size: clamp(2.6rem, 4vw, 4rem);
-     line-height: 0.9;
-     color: var(--clay);
- }
+.catalog-heading h1 {
+    color: var(--clay);
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
 
- .catalog-heading p {
-     margin: 10px 0 0;
-     color: var(--muted);
-     font-size: 0.98rem;
- }
-
+.catalog-heading p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
 .sort-button {
     flex: 0 0 auto;
     min-height: 38px;

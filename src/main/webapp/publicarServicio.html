@@ -5,25 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Publicar Servicio Extra</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="assets/css/serviciosExtra.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
+<header class="site-header">
+    <div class="brand-group">
 
-<header class="site-header" data-header>
-    <a class="brand" href="index.html" aria-label="Ir al inicio">Event Online</a>
+        <a class="brand" href="index.html">Event Online</a>
+    </div>
 
-    <nav class="desktop-nav" aria-label="Navegación principal">
-        <a href="catalogo.html">Recintos</a>
-        <a href="extraServices.html">Servicios</a>
+    <nav class="top-nav" aria-label="Navegación">
+        <a  href="catalogo.html">Recintos</a>
+        <a class="active" href="extraServices.html">Servicios</a>
         <a href="perfil.html">Perfil</a>
     </nav>
-
-
+    <div class="header-actions"></div>
 </header>
 
 <main class="page">
@@ -107,17 +114,21 @@
                 <div class="preview" id="preview"></div>
 
                 <button class="btn-primary">
-                    Enviar a revisión
+                    Enviar revisión
                 </button>
-                <p style="margin-top: 15px; font-size: 0.85rem; color: var(--muted); text-align: center;">Tu publicación será revisada por el equipo de planeación en 24 a 48 horas.</p>
-
 
             </div>
 
-            <article class="tip">
+            <div class="tip">
+
                 <h3>Tip concierge</h3>
-                <p>Los recintos con fotografía profesional y descripción clara reciben más solicitudes premium.</p>
-            </article>
+
+                <p>
+                    Los servicios con fotografías profesionales y descripciones
+                    detalladas reciben más solicitudes de reserva.
+                </p>
+
+            </div>
 
         </div>
 
