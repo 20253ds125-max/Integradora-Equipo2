@@ -5,8 +5,10 @@ public class Usuario {
     private int idUsuario;
     private String nombre;
     private String email;
+
     private String contrasena;
     private String rol;
+
 
     public Usuario(int idUsuario, String nombre, String email, String contrasena, String rol) {
         this.idUsuario = idUsuario;
@@ -21,6 +23,10 @@ public class Usuario {
         setNombre(nombre);
         setContrasena(contrasena);
         this.rol = rol;
+    }
+    public Usuario(String correo, String contrasena) {
+        setEmail(correo);
+        setContrasena(contrasena);
     }
 
     public int getIdUsuario() {

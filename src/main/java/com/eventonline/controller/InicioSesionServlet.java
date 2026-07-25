@@ -23,11 +23,31 @@ public class InicioSesionServlet extends HttpServlet {
         String pass = request.getParameter("password");
 
         try{
-            Usuario encontrado= usuariosDao.verificarUsuario(email,pass);
+
+            Usuario encontrado= usuariosDao.buscarUsuarioPorCorreo(email);
             if(encontrado!=null){
-                HttpSession session = request.getSession();
-                session.setAttribute("UsuarioLog",encontrado);
-                response.sendRedirect("index.html");
+                if(usuariosDao.estadoBloqueado(email)){
+                    request.setAttribute("error","Tu cuenta tiene un bloqueo activo intenta mas tarde");
+                    request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+                    return;
+                }
+                if(usuariosDao.verificarUsuario(email,pass)!=null){
+                    usuariosDao.resetearIntentos(email);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("UsuarioLog",encontrado);
+                    response.sendRedirect(request.getContextPath()+"/index.html");
+                }
+                else {
+                    int intentos = usuariosDao.registrarIntento(email);
+                    if(intentos>=3){
+                        usuariosDao.bloquearCuenta(email);
+                        request.setAttribute("error","Tu cuenta tiene un bloqueo activo, intentalo mas tarde");
+                    }else {
+                        int intentosRestantes=3-intentos;
+                        request.setAttribute("error","Te restan "+intentosRestantes+" intento(s)");
+                    }
+                    request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+                }
             }else{
                 request.setAttribute("error","El correo o la contraseña es incorrecta");
                 request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
