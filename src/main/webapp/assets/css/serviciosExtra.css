@@ -15,44 +15,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Montserrat', Arial, sans-serif;
     background: var(--background);
     color: var(--text);
 }
 
-.navbar {
-    display: flex;
-    align-items: center;
-    padding: 20px 40px;
-    border-bottom: 1px solid var(--border);
-    background: white;
-}
-
-.navbar nav {
-    margin: 0 auto;
-    display: flex;
-    gap: 30px;
-}
-
-.navbar .logo {
-    text-decoration: none;
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 1.4rem;
-}
-
-.navbar nav a,
-.search {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-}
-
-.navbar nav a.active {
-    color: var(--primary);
-}
 
 .page {
     padding: 40px;
@@ -288,4 +257,96 @@ footer {
     font-weight: 600;
     letter-spacing: 0.01em;
     text-align: center;
+}
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:30;
+
+    display:grid;
+    grid-template-columns:210px 1fr 250px;
+    align-items:center;
+
+    height:66px;
+    padding:0 32px;
+
+    background:rgba(255,248,245,.96);
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(125,86,72,.08);
+    box-shadow:0 8px 26px rgba(70,45,35,.04);
+}
+
+.brand-group,
+.top-nav,
+.header-actions{
+    display:flex;
+    align-items:center;
+}
+
+.brand-group{
+    gap:18px;
+}
+
+.brand{
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.65rem;
+    font-weight:700;
+    color:#a44f35;
+    text-decoration: none;
+}
+.brand:hover{
+    color: #7d3d2d;
+}
+
+.top-nav{
+    justify-content:center;
+    gap:28px;
+}
+
+.top-nav a{
+    position: relative;
+    color: #57443d;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: .88rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-decoration: none;
+}
+
+.top-nav a.active{
+    color:#a44f35;
+}
+
+.top-nav a.active::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #8a6a05;
+    transform: translateX(-50%);
+}
+
+.header-actions{
+    justify-content:flex-end;
+    gap:18px;
+}
+@media (max-width:760px){
+
+    .site-header{
+        grid-template-columns:1fr auto;
+        padding:0 18px;
+    }
+
+    .top-nav{
+        display:none;
+    }
+
+    .header-button{
+        display:none;
+    }
+
 }

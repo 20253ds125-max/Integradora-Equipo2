@@ -21,18 +21,17 @@ return;
     <link rel="stylesheet" href="../assets/css/publicar.css" />
 </head>
 <body>
-<header class="publish-header">
-    <a class="brand" href="../index.html">Event Online</a>
-    <nav aria-label="Navegacion principal">
-        <a href="../catalogo.html">Explorar</a>
-        <a href="../catalogo.html#guardados">Guardados</a>
-        <a href="../catalogo.html#reservas">Reservas</a>
-        <a class="active" href="../perfil.html">Perfil</a>
-    </nav>
-    <div class="header-actions">
-        <a href="../catalogo.html">Buscar</a>
+<header class="site-header">
+    <div class="brand-group">
 
+        <a class="brand" href="index.html">Event Online</a>
     </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a class="active" href="catalogo.html">Recintos</a>
+        <a href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
+    </nav>
 </header>
 
 <main class="publish-shell">
