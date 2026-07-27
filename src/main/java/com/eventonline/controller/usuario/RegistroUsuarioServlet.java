@@ -30,7 +30,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
             usuarioService.registrarUsuario(usuario);
 
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
 
         } catch (IllegalArgumentException e) {
 

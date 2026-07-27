@@ -77,7 +77,6 @@ return;
             </tr>
             </thead>
             <tbody data-admin-rows>
-            <!-- Verificamos si la lista está vacía -->
             <c:if test="${empty salonesPendientes}">
                 <tr>
                     <td colspan="3" style="text-align: center; padding: 24px; color: var(--muted);">
@@ -86,14 +85,12 @@ return;
                 </tr>
             </c:if>
 
-            <!-- Iteramos sobre la lista -->
             <c:forEach var="salon" items="${salonesPendientes}">
                 <tr>
-                    <!-- COLUMNA 1: Imagen y datos del recinto -->
+
                     <td>
-                        <!-- Usamos tu clase .venue-cell para alinear imagen y texto lado a lado -->
+
                         <div class="venue-cell">
-                            <!-- Imprimimos la URL de Cloudinary (Asegúrate de que la variable sea fotoPrincipal o urlPortada según tu modelo) -->
                             <img src="${not empty salon.fotoPrincipal ? fn:trim(salon.fotoPrincipal) : 'https://via.placeholder.com/58x52?text=Sin+Foto'}"
                                  alt="Portada de ${salon.nombre}"
                                  onerror="this.src='https://via.placeholder.com/58x52?text=Sin+Foto';" />
@@ -103,11 +100,8 @@ return;
                             </div>
                         </div>
                     </td>
-
-                    <!-- COLUMNA 2: Fecha -->
                     <td style="color: var(--muted);">${salon.fecha}</td>
 
-                    <!-- COLUMNA 3: Botones de Acción -->
                     <td>
                         <div class="action-row">
                             <form action="${pageContext.request.contextPath}/AprobarRecintoServlet" method="POST" style="margin: 0;">
