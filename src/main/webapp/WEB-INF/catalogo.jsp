@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -12,23 +13,23 @@
             href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
             rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/css/catalogo.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css" />
 </head>
 <body>
 <header class="site-header">
     <div class="brand-group">
 
-        <a class="brand" href="index.html">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
-        <a class="active" href="catalogo.html">Recintos</a>
-        <a href="extraServices.html">Servicios</a>
-        <a href="perfil.html">Perfil</a>
+        <a class="active" href="app/catalogo">Recintos</a>
+        <a href="app/extraServices">Servicios</a>
+        <a href="app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
-        <a class="host-button" href="WEB-INF/publicar-recinto.jsp">Publicar recinto</a>
+        <a class="host-button" href="${pageContext.request.contextPath}/app/publicar-recinto">Publicar recinto</a>
     </div>
 </header>
 
@@ -92,8 +93,8 @@
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/catalogo.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/cart.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/catalogo.js"></script>
 </body>
 </html>
 

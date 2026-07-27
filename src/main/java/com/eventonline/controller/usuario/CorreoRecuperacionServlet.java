@@ -1,4 +1,4 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.dao.UsuariosDao;
 import com.eventonline.util.CorreoElectronico;

@@ -20,7 +20,7 @@
     <section class="left-panel">
 
         <div class="logo">
-            <a class="brand" href="${pageContext.request.contextPath}/index.html">Event Online</a>
+            <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
         </div>
 
         <div class="hero-content">

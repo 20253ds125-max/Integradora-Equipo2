@@ -49,7 +49,7 @@ public class PublicarRecintoServlet extends HttpServlet {
         try {
             capacidad=Integer.parseInt(strCapacidad);
             precio=Double.parseDouble(strPrecio);
-            System.out.println("convertir");
+
         } catch (NumberFormatException e) {
             request.setAttribute("error","Campos de capacidad o precio con valores no numericos"+e.getMessage());
             request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
@@ -58,12 +58,15 @@ public class PublicarRecintoServlet extends HttpServlet {
 
         try{
             List<String> rutasFotos=cloudinaryService.subirFotos(request.getParts());
-            System.out.println("rutas de fotos");
+            java.sql.Timestamp fecha = java.sql.Timestamp.valueOf(
+                    java.time.LocalDateTime.now()
+            );
 
-            SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos);
+            SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos,fecha);
 
+            salonesEventos.validarDatosPublicacion();
             if(salonesDao.registroSalon(salonesEventos,usuario.getIdUsuario())){
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
                 return;
             }else{
                 throw new IllegalArgumentException("error en la base de datos");

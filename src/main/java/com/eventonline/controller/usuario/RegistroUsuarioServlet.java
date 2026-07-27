@@ -1,4 +1,4 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
@@ -25,8 +25,11 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
             Usuario usuario = new Usuario(email,nombre,pass,rol);
 
+            usuario.validarDatosRegistro();
+
             if(usuariosDao.registroUsuario(usuario)){
-                response.sendRedirect("index.html");
+                request.setAttribute("error","Cuenta creada inicia sesion");
+                request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
             }else{
                 throw new IllegalArgumentException("Correo ya existente");
             }

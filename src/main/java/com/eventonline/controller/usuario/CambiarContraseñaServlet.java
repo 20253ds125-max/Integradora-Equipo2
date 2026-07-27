@@ -1,4 +1,4 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.security.PrivateKey;
 import java.sql.SQLException;
 
 @WebServlet("/cambiarContra")
@@ -24,6 +23,8 @@ public class CambiarContraseñaServlet extends HttpServlet {
 
         try{
             Usuario usuario= new Usuario(correo,pass);
+
+            usuario.validarCambioContrasena();
             if(usuariosDao.cambiarContrasena(correo,pass)){
                 request.setAttribute("exito", "Contraseña Actualizada");
                 request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
