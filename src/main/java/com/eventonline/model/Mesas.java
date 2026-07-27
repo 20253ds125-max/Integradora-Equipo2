@@ -9,7 +9,7 @@ public class Mesas {
     private String nombre;
     private int capacidad;
     private int idUsuario;
-    private List<Invitado> invitados = new ArrayList<>();
+    private List<Invitados> invitados = new ArrayList<>();
 
     public Mesas(){
 
