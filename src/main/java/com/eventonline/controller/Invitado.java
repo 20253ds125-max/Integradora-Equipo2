@@ -42,4 +42,18 @@ public class Mesa {
         }
         this.nombre = nombre.trim();
     }
+
+    public int getCapacidad(){
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad){
+        if(capacidad == 10){
+            throw  new IllegalArgumentException("Capacidad maxima de 10 personas");
+        }
+        this.capacidad= capacidad;
+    }
+
+    public int getIdUsuario()
+
 }
