@@ -54,6 +54,16 @@ public class Mesa {
         this.capacidad= capacidad;
     }
 
-    public int getIdUsuario()
+    public int getIdUsuario(){
+        return  idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario){
+        this.idUsuario = idUsuario;
+    }
+
+    public  void setInvitados(List<Invitados> invitados){
+        this.invitados = invitados != null ? invitados : new ArrayList<>();
+    }
 
 }
