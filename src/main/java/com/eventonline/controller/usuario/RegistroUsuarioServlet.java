@@ -1,4 +1,4 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.model.Usuario;
 import com.eventonline.service.UsuarioService;
@@ -30,7 +30,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
             usuarioService.registrarUsuario(usuario);
 
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
 
         } catch (IllegalArgumentException e) {
 

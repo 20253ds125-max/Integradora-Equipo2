@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -21,9 +22,9 @@
     <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
-        <a href="catalogo.html">Recintos</a>
-        <a href="extraServices.html">Servicios</a>
-        <a href="perfil.html">Perfil</a>
+        <a href="app/catalogo">Recintos</a>
+        <a href="app/extraServices">Servicios</a>
+        <a href="app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
@@ -36,7 +37,7 @@
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
     <a href="app/login">Iniciar sesión o registrarte</a>
     <a href="contacto-equipo.html">Contacta al equipo</a>
-    <a href="admin.html">Administrador</a>
+    <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
 </nav>
 
 <main>
@@ -130,7 +131,7 @@
                     </p>
 
                     <div class="button-row">
-                        <a class="primary-button" href="catalogo.html">Explorar recintos</a>
+                        <a class="primary-button" href="WEB-INF/catalogo.jsp">Explorar recintos</a>
                         <a class="ghost-button" href="contacto-equipo.html">Contactar equipo</a>
                     </div>
                 </div>

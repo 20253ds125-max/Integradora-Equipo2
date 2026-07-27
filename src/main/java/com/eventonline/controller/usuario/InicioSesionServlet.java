@@ -1,4 +1,4 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
@@ -35,7 +35,7 @@ public class InicioSesionServlet extends HttpServlet {
                     usuariosDao.resetearIntentos(email);
                     HttpSession session = request.getSession();
                     session.setAttribute("UsuarioLog",encontrado);
-                    response.sendRedirect(request.getContextPath()+"/index.html");
+                    response.sendRedirect(request.getContextPath()+"/index.jsp");
                 }
                 else {
                     int intentos = usuariosDao.registrarIntento(email);

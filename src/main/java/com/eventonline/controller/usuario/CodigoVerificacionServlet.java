@@ -1,4 +1,4 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.dao.UsuariosDao;
 import jakarta.servlet.ServletException;
@@ -28,7 +28,6 @@ public class CodigoVerificacionServlet extends HttpServlet {
         String digito6 = request.getParameter("digito6");
 
         String codigoIngresado = digito1 + digito2 + digito3 + digito4 + digito5 + digito6;
-        System.out.println(codigoIngresado);
 
         try {
             if (usuariosDao.comparaCodigo(correo, codigoIngresado)) {
