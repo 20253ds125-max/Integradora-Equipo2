@@ -12,21 +12,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css" />
 </head>
-<header>
-    <a class="brand" href="${pageContext.request.contextPath}/index.html">Event Online</a>
-</header>
 <body class="login-page">
+<header class="catalog-header">
+    <div class="brand-group">
+        <a class="brand" href="${pageContext.request.contextPath}/index.html">
+            Event Online
+        </a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="${pageContext.request.contextPath}/catalogo.html">Recintos</a>
+        <a href="${pageContext.request.contextPath}/extraServices.html">Servicios</a>
+        <a href="${pageContext.request.contextPath}/perfil.html">Perfil</a>
+    </nav>
+
+    <div class="header-actions"></div>
+</header>
 <main class="login-shell">
     <section class="login-card" aria-labelledby="loginTitle">
         <h1 id="loginTitle">Bienvenido</h1>
         <p>Ingresa tus credenciales para acceder a EO.</p>
-        <form class="auth-form" data-auth-form method="post" action="${pageContext.request.contextPath}/login" >
+        <form class="auth-form" method="post" action="${pageContext.request.contextPath}/login" >
             <label>
                 <span>Email</span>
                 <input type="email" name="email" placeholder="name@ejemplo.com" required />
             </label>
             <label>
-                <span class="split-label">Password <a href="#">Olvide mi contraseña</a></span>
+                <span class="split-label">Password <a href="${pageContext.request.contextPath}/app/restablecer-correo">Olvide mi contraseña</a></span>
                 <span class="password-field">
               <input type="password" name="password" placeholder="********" required data-password-input />
 

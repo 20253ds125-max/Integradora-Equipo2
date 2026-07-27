@@ -1,11 +1,10 @@
 package com.eventonline.dao;
 
 import com.eventonline.model.SalonEventos;
-import com.eventonline.model.Usuario;
 
 import java.sql.*;
 
-public class Salones {
+public class SalonesDao {
     private final Conexion conexionConfig = new Conexion();
 
     public boolean registroSalon(SalonEventos salonesEventos, int idUsuario)throws SQLException {

@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/restore.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/restore.css">
 </head>
 <body>
 
@@ -19,7 +20,7 @@
     <section class="left-panel">
 
         <div class="logo">
-            <a class="brand" href="index.html">Event Online</a>
+            <a class="brand" href="../index.html">Event Online</a>
         </div>
 
         <div class="hero-content">
@@ -45,24 +46,23 @@
                 Ingresa tu correo electrónico para recibir un código de recuperación.
             </p>
 
-            <form id="resetForm">
+            <form action="${pageContext.request.contextPath}/correoRecuperacion" method="post">
 
                 <div class="form-group">
                     <label for="email">Email</label>
 
                     <input
                             type="email"
+                            name="correo"
                             id="email"
                             placeholder="ejemplo@correo.com"
                             required
                     >
                 </div>
 
-                <a href="codigoVerificacion.html" style="text-decoration: none;">
-                    <button type="button" class="btn-primary">
-                        Enviar código de recuperación
-                    </button>
-                </a>
+                <button type="submit" class="btn-primary">
+                    Enviar código de recuperación
+                </button>
 
             </form>
 
@@ -70,7 +70,7 @@
 
             <div class="login-link">
                 ¿Ya recordaste tu contraseña?
-                <a href="login.html">Iniciar sesión</a>
+                <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión</a>
             </div>
 
         </div>
@@ -78,8 +78,7 @@
     </section>
 
 </div>
-
-<script src="/assets/js/restore.js"></script>
+<jsp:include page="alerts.jsp" />
 
 </body>
 </html>

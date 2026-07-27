@@ -250,24 +250,23 @@ button, .host-button, .filtro, .btn-agregar {
 }
 
 .contenido {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+    margin-bottom: 28px;
+    padding-top: 0;
 }
 
 .encabezado h1 {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: clamp(2.6rem, 4vw, 4rem);
-    line-height: 0.9;
-    color: var(--clay);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #a44f35;;
+    line-height: 1.1;
+    margin:0;
 }
 
 .encabezado p {
-    margin: 10px 0 0;
-    color: var(--muted);
-    font-size: 0.98rem;
+    margin-top: 8px;
+    color: #6f5d57;
+    font-size: 0.95rem;
 }
 
 .grid-servicios {
@@ -427,4 +426,10 @@ button, .host-button, .filtro, .btn-agregar {
     .top-nav, .host-button {
         display: none;
     }
+}
+.header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
 }
