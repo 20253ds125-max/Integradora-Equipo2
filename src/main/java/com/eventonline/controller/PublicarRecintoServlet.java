@@ -1,6 +1,6 @@
 package com.eventonline.controller;
 
-import com.eventonline.dao.Salones;
+import com.eventonline.dao.SalonesDao;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
 import com.eventonline.service.CloudDinary;
@@ -23,7 +23,7 @@ import java.util.List;
         maxRequestSize = 1024 * 1024 * 50
 )
 public class PublicarRecintoServlet extends HttpServlet {
-    private final Salones salones = new Salones();
+    private final SalonesDao salonesDao = new SalonesDao();
     private CloudDinary cloudinaryService = new CloudDinary();
 
     @Override
@@ -62,7 +62,7 @@ public class PublicarRecintoServlet extends HttpServlet {
 
             SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos);
 
-            if(salones.registroSalon(salonesEventos,usuario.getIdUsuario())){
+            if(salonesDao.registroSalon(salonesEventos,usuario.getIdUsuario())){
                 response.sendRedirect("index.html");
                 return;
             }else{

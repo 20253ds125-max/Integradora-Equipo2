@@ -290,13 +290,16 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
 }
 .catalog-heading h1 {
     color: var(--clay);
-    font-size: clamp(2rem, 2vw, 2rem);
-    line-height: 0.9;
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
 }
+
 .catalog-heading p {
-    margin: 10px 0 0;
+    margin: 8px 0 0;
     color: var(--muted);
-    font-size: .5rem;
+    font-size: 0.95rem;
 }
 .sort-button {
     flex: 0 0 auto;
@@ -515,15 +518,12 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
 
 .catalog-footer.legal-only {
     display: block;
-    padding: 28px 20px;
-    text-align: center;
-    border-top: 0;
+    padding: 8px 20px;
     background: #8f4b3a;
     color: #fff8f3;
     font-weight: 600;
     letter-spacing: 0.01em;
-    flex-shrink: 0;
-    width: 100%;
+    text-align: center;
 }
 
 

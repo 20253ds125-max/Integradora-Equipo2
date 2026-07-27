@@ -5,26 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Publicar Servicio Extra</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="assets/css/serviciosExtra.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
-<header class="navbar">
+<header class="site-header">
+    <div class="brand-group">
 
-    <a href="index.html" class="logo">
-        Event Online
-    </a>
+        <a class="brand" href="index.html">Event Online</a>
+    </div>
 
-    <nav>
-        <a href="catalogo.html">Recintos</a>
-        <a href="extraServices.html" class="active">Servicios extra</a>
+    <nav class="top-nav" aria-label="Navegación">
+        <a  href="catalogo.html">Recintos</a>
+        <a class="active" href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
     </nav>
-
-
+    <div class="header-actions"></div>
 </header>
 
 <main class="page">
@@ -130,11 +136,7 @@
 
 </main>
 
-<footer>
-
-    © 2026 Event Online Spaces. Todos los derechos reservados.
-
-</footer>
+<footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
 
 <script src="assets/js/serviciosExtra.js"></script>
 
