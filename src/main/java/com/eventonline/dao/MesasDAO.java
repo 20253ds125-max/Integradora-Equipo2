@@ -37,7 +37,48 @@ public class MesasDAO {
                     }
                 }
             }
+
+            try (PreparedStatement ps = con.prepareStatement(sqlInvitados)){
+                ps.setInt(1, idUsuario);
+                try(ResultSet rs = ps.executeQuery()){
+                    while (rs.next()){
+                        Invitado invitado = new Invitado();
+                        invitado.setIdInvitado(rs.getInt("id_invitado"));
+                        invitado.setNombre(rs.getString("nombre"));
+                        invitado.setCorreo(rs.getString("correo"));
+                        invitado.setIdMesa(rs.getInt("id_mesa"));
+                        invitado.setInvitacionEnviada("S".equals(rs.getString("invitacion_enviada")));
+
+                        Mesa mesa = mesasPorId.get(invitado.getIdMesa());
+                        if (mesa != null) {
+                            mesa.getInvitados().add(invitado);
+                        }
+                    }
+                }
+            }
         }
+        return new ArrayList<>(mesasPorId.values());
+
+    }
+    public Mesa crearMesa(Mesa mesa) throws SQLException{
+        String sql = "INSERT INTO mesas ( nombre, capacidad, id_usuario) values (?, ?, ?)";
+        String[] columnaId = {"ID_MESA"};
+
+        try(Connection con = conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(sql, columnaId)){
+
+            ps.setString(1,mesa.getNombre());
+            ps.setInt(2, mesa.getCapacidad());
+            ps.setInt(3, mesa.getIdUsuario());
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()){
+                if(rs.next()){
+                    mesa.setIdMesa(rs.getInt(1));
+                }
+            }
+        }
+        return mesa;
     }
 
 }
