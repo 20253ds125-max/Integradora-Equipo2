@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/registro")
+@WebServlet(name = "registro", value = "/registro")
 public class RegistroUsuarioServlet extends HttpServlet {
 
     private final UsuarioService usuarioService = new UsuarioService();
@@ -25,20 +25,23 @@ public class RegistroUsuarioServlet extends HttpServlet {
         String rol = "usuario";
 
         try {
-            Usuario usuario = new Usuario(email,nombre,pass,rol);
 
-            if (usuarioService.registrarUsuario(usuario)) {
-                response.sendRedirect("index.html");
-            } else {
-                throw new IllegalArgumentException("Correo ya existente");
-            }
+            Usuario usuario = new Usuario(email, nombre, pass, rol);
+
+            usuarioService.registrarUsuario(usuario);
+
+            response.sendRedirect("index.html");
 
         } catch (IllegalArgumentException e) {
+
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
+
         } catch (SQLException e) {
+
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
+
         }
     }
 }

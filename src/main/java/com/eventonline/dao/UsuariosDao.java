@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuariosDao {
+
     private final Conexion conexionConfig = new Conexion();
 
     private Usuario armarUsuario(ResultSet rs) throws SQLException {
@@ -69,6 +70,26 @@ public class UsuariosDao {
 
             int filasInsertadas = ps.executeUpdate();
             return filasInsertadas > 0;
+        }
+    }
+
+    public boolean guardarUsuario(Usuario usuario) throws SQLException {
+
+        String accion = "INSERT INTO usuarios (nombre, correo, contrasena, rol) VALUES (?, ?, ?, ?) ";
+
+        String passwordEncrypt = encriptaContrasena(usuario.getContrasena());
+
+        try (Connection con = conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(accion)){
+
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getEmail());
+            ps.setString(3, passwordEncrypt);
+            ps.setString(4, usuario.getRol());
+
+            int filasInsertadas = ps.executeUpdate();
+            return filasInsertadas > 0;
+
         }
     }
 
