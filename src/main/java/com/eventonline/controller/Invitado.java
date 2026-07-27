@@ -1,66 +1,45 @@
+package  com.eventonline.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class Invitado{
+public class Mesa {
+
+    private int idMesa;
     private String nombre;
-    private String apellido;
-    private String email;
+    private int capacidad;
+    private int idUsuario;
+    private List<Invitado> invitados = new ArrayList<>();
 
-    public Invitado(String nombre, String apellido, String email) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
+    public Mesa(){
+
     }
-    @Override
-    public String toString(){
-        return "Invitado{"+"nombre="+nombre +
-        ", apellido=" + apellido +
-        ", email=" + email +'}';
+    public Mesa(String nombre, int capacidad, int idUsuario){
+        setNombre(nombre);
+        setCapacidad(capacidad);
+        this.idUsuario = idUsuario;
     }
-    
-}
 
-class Mesas{
-    private int numeroMesa;
-    private List<Invitado> asientos;
+    public int getIdMesa(){
+        return  idMesa;
+    }
 
-    public Mesas(int numeroMesa, int capacidad){
-        this.numeroMesa = numeroMesa;
-        this.asientos = new ArrayList<>();
+    public void setIdMesa(int idMesa){
+        this.idMesa =idMesa;
+    }
 
-        for(int i = 0; i <capacidad; i++){
-            asientos.add(null);
+    public String getNombre() {
+        return  nombre;
+    }
+
+    public void setNombre(String nombre){
+        if (nombre == null || nombre.trim().isEmpty()){
+            throw new IllegalArgumentException("El nombre de la mesa es obligatorio");
         }
-    }
-
-    public void asignarInvitado(int asiento, Invitado invitado){
-        if(asiento >= 0 && asiento < asientos.size()){
-            asientos.set(asiento, invitado);
-            System.out.println("Invitado" + invitado + " asignado al asiento" + asiento + " en la mesa " + numeroMesa);
+        if (nombre.length()>100){
+            throw new IllegalArgumentException("El nombre de la mesa es demasiado largo");
 
         }
-    }
-
-    public void quitarInvitado(int asiento){
-        if(asiento >= 0 && asiento < asientos.size()){
-            System.out.println("Invitado" + asientos.get(asiento) + "eliminado de la mesa" + asiento);
-            asientos.set(asiento, null);
-        }
-    }
-  
-    @Override
-public String toString(){
-    return "Mesa" + numeroMesa + ":" +asientos;
-}
-}
-
-class Salon{
-    private List<Mesa> mesas;
-    private List<Invitado> invitados;
-
-    public Salon(){
-        this.mesas = new ArrayList<>();
-        this.invitados = new ArrayList<>();
+        this.nombre = nombre.trim();
     }
 }
