@@ -9,8 +9,7 @@
   --text: #352824;
   --muted: #7d716b;
   --input-bg: #f3efec;
-
-  --serif: 'Playfair Display', Georgia, serif;
+    --serif: "Cormorant Garamond", Georgia, serif;
   --sans: 'Inter', sans-serif;
 
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
@@ -366,19 +365,48 @@ button {
   .role-toggle { grid-template-columns: 1fr; }
 }
 
+
+.host-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: #9d4f38;
+    color: white;
+    font-weight: 800;
+    transition: .2s;
+}
+
+.host-button:hover {
+    background: #7d3d2d;
+    transform: translateY(-1px);
+}
+.hero {
+  position: relative;
+  min-height: 76vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+.login-shell {
+    min-height:calc(100vh - 80px);
+    margin-top:0;
+}
+
 .catalog-header {
     position: sticky;
     top: 0;
     z-index: 30;
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    align-items:center;
-    width:100%;
-    min-height:66px;
-    padding:0 32px;
-    border-bottom:1px solid rgba(125,86,72,.08);
-    background:rgba(255,248,245,.96);
-    backdrop-filter:blur(14px);
+    display: grid;
+    grid-template-columns: 210px 1fr 250px;
+    align-items: center;
+    min-height: 66px;
+    padding: 0 32px;
+    border-bottom: 1px solid rgba(125, 86, 72, .08);
+    background: rgba(255, 248, 245, .96);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 26px rgba(70, 45, 35, .04);
 }
 
 .brand-group {
@@ -388,7 +416,7 @@ button {
 }
 
 .brand {
-    font-family: var(--serif);
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 1.65rem;
     font-weight: 700;
     color: #9d4f38;
@@ -398,7 +426,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-self: center;
     gap: 28px;
 }
 
@@ -424,49 +451,4 @@ button {
     border-radius: 50%;
     background: #8a6a05;
     transform: translateX(-50%);
-}
-
-.header-actions {
-    display: flex;
-    justify-content: flex-end;
-    justify-self: end;
-}
-
-.host-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 0 22px;
-    border-radius: 999px;
-    background: #9d4f38;
-    color: white;
-    font-weight: 800;
-    transition: .2s;
-}
-
-.host-button:hover {
-    background: #7d3d2d;
-    transform: translateY(-1px);
-}
-@media (max-width:760px) {
-    .catalog-header {
-        grid-template-columns: 1fr auto;
-        padding: 0 18px;
-    }
-
-    .top-nav,
-    .host-button {
-        display: none;
-    }
-}
-.hero {
-  position: relative;
-  min-height: 76vh;
-  overflow: hidden;
-  isolation: isolate;
-}
-.login-shell {
-    min-height:calc(100vh - 80px);
-    margin-top:0;
 }
