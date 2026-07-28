@@ -2,6 +2,8 @@ package com.eventonline.service;
 
 import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
+import com.eventonline.util.CorreoElectronico;
+import com.eventonline.util.GeneradorCodigo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -47,5 +49,33 @@ public class UsuarioService {
         }
     }
 
-    // accesibilidad -> public,private,protected static
+    public void correoRecuperacion(String correo)throws SQLException,IllegalArgumentException{
+        CorreoElectronico correoElectronico= new CorreoElectronico();
+
+        if(usuariosDao.buscarUsuarioPorCorreo(correo)==null) {
+            throw new IllegalArgumentException("Correo no esta registrado");
+        }
+        String codigo = GeneradorCodigo.generarCodigo();
+
+        usuariosDao.enviarCodigoVerificacion(correo,codigo);
+        boolean correoEnviado = correoElectronico.enviarCodigoVerificacion(correo, codigo);
+
+        if (!correoEnviado) {
+            throw new IllegalArgumentException("No se pudo enviar el correo de verificación. Intenta nuevamente");
+        }
+
+
+    }
+
+    public void verificacionDeCodigo(String correo,String codigoIngresado)throws SQLException,IllegalArgumentException{
+        if (!usuariosDao.comparaCodigo(correo, codigoIngresado)) {
+            throw new IllegalArgumentException("Codigo incorrecto");
+        }
+    }
+    public void cambiarContrasena(Usuario usuario)throws SQLException,IllegalArgumentException{
+        usuario.validarCambioContrasena();
+        if(!usuariosDao.cambiarContrasena(usuario.getEmail(), usuario.getContrasena())){
+            throw new IllegalArgumentException("Error al cambiar la contraseña");
+        }
+    }
 }

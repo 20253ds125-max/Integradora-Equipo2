@@ -151,7 +151,7 @@ public class UsuariosDao {
             ps.setString(1,codigo);
             ps.setTimestamp(2,tiempoCodigo);
             ps.setString(3,email);
-            ps.executeQuery();
+            ps.executeUpdate();
         }
     }
 
