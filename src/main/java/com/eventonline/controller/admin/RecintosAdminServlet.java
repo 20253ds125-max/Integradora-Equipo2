@@ -2,6 +2,7 @@ package com.eventonline.controller.admin;
 
 import com.eventonline.dao.SalonesDao;
 import com.eventonline.model.SalonEventos;
+import com.eventonline.service.AdminService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +21,7 @@ public class RecintosAdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List <SalonEventos> listaSalones = new SalonesDao().buscarPendientes();
+            List <SalonEventos> listaSalones = new AdminService().recintosAdmin();
             request.setAttribute("salonesPendientes",listaSalones);
             request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
         } catch (SQLException e) {

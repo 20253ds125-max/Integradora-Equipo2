@@ -10,7 +10,7 @@ public class SalonesDao {
     private final Conexion conexionConfig = new Conexion();
 
     public boolean registroSalon(SalonEventos salonesEventos, int idUsuario)throws SQLException {
-        String accionSalon = "INSERT INTO publicacion_salon_eventos (nombre_lugar,descripcion,capacidad,ubicacion,precio,url_portada,id_usuario) VALUES (?,?,?,?,?,?,?)";
+        String accionSalon = "INSERT INTO publicacion_salon_eventos (nombre_lugar,descripcion,capacidad,ubicacion,precio,url_portada,id_usuario,fecha) VALUES (?,?,?,?,?,?,?,?)";
 
         String accionFotos = "INSERT INTO fotos (ubicacion,id_salon_eventos) VALUES (?,?)";
 
@@ -28,6 +28,7 @@ public class SalonesDao {
                 psSalon.setDouble(5, salonesEventos.getPrecio());
                 psSalon.setString(6, salonesEventos.getFotoPrincipal());
                 psSalon.setInt(7, idUsuario);
+                psSalon.setTimestamp(8,salonesEventos.getFecha());
 
                 int filassInsertadas = psSalon.executeUpdate();
                 if (filassInsertadas == 0) {

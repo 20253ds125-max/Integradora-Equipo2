@@ -1,4 +1,5 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 jakarta.servlet.http.HttpSession sesion = request.getSession(false);
 if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
@@ -100,7 +101,9 @@ return;
                             </div>
                         </div>
                     </td>
-                    <td style="color: var(--muted);">${salon.fecha}</td>
+                    <td style="color: var(--muted);">
+                            <fmt:formatDate value="${salon.fecha}" pattern="yyy-MM-dd"/>
+                    </td>
 
                     <td>
                         <div class="action-row">
