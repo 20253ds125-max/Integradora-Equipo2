@@ -1,7 +1,7 @@
 package com.eventonline.controller.usuario;
 
-import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
+import com.eventonline.service.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/cambiarContra")
-public class CambiarContraseñaServlet extends HttpServlet {
+public class CambiarContrasenaServlet extends HttpServlet {
 
-    private final UsuariosDao usuariosDao = new UsuariosDao();
+    private final UsuarioService usuarioService = new UsuarioService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,17 +24,16 @@ public class CambiarContraseñaServlet extends HttpServlet {
         try{
             Usuario usuario= new Usuario(correo,pass);
 
-            usuario.validarCambioContrasena();
-            if(usuariosDao.cambiarContrasena(correo,pass)){
-                request.setAttribute("exito", "Contraseña Actualizada");
-                request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            }
+            usuarioService.cambiarContrasena(usuario);
+
+            request.setAttribute("exito", "Contraseña Actualizada");
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("error", "Error en la bd ");
             request.getRequestDispatcher("/WEB-INF/cambiar-contraseña.jsp").forward(request, response);
         }catch (IllegalArgumentException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/cambiar-contraseña.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/cambiar-contrasena.jsp").forward(request, response);
 
         }
     }
