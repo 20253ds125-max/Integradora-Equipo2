@@ -1,10 +1,9 @@
 package com.eventonline.controller;
 
-import com.eventonline.dao.Salones;
+import com.eventonline.dao.SalonesDao;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
 import com.eventonline.service.CloudDinary;
-import com.eventonline.utils.Alertas;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,7 +23,7 @@ import java.util.List;
         maxRequestSize = 1024 * 1024 * 50
 )
 public class PublicarRecintoServlet extends HttpServlet {
-    private final Salones salones = new Salones();
+    private final SalonesDao salonesDao = new SalonesDao();
     private CloudDinary cloudinaryService = new CloudDinary();
 
     @Override
@@ -44,28 +42,36 @@ public class PublicarRecintoServlet extends HttpServlet {
         String strCapacidad= request.getParameter("seated");
         String strPrecio= request.getParameter("precio");
 
+
+
         int capacidad=0;
         double precio = 0;
         try {
             capacidad=Integer.parseInt(strCapacidad);
             precio=Double.parseDouble(strPrecio);
+
         } catch (NumberFormatException e) {
-            request.setAttribute("error",e.getMessage());
+            request.setAttribute("error","Campos de capacidad o precio con valores no numericos"+e.getMessage());
             request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
             return;
         }
 
         try{
             List<String> rutasFotos=cloudinaryService.subirFotos(request.getParts());
+            java.sql.Timestamp fecha = java.sql.Timestamp.valueOf(
+                    java.time.LocalDateTime.now()
+            );
 
-            SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos);
+            SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos,fecha);
 
-            if(salones.registroSalon(salonesEventos,usuario.getIdUsuario())){
-                response.sendRedirect("index.html");
+            salonesEventos.validarDatosPublicacion();
+            if(salonesDao.registroSalon(salonesEventos,usuario.getIdUsuario())){
+                response.sendRedirect("index.jsp");
+                return;
             }else{
-                throw new Alertas("error en la base de datos");
+                throw new IllegalArgumentException("error en la base de datos");
             }
-        } catch (Alertas e) {
+        } catch (IllegalArgumentException e) {
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
         }catch (SQLException e){

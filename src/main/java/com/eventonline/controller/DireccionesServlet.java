@@ -1,0 +1,25 @@
+package com.eventonline.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.time.temporal.ValueRange;
+
+@WebServlet("/app/*")
+public class DireccionesServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String direccion = req.getPathInfo();
+
+        if(direccion == null||direccion.equals("/")){
+            req.getRequestDispatcher("/index.jsp").forward(req,resp);
+            return;
+        }
+        req.getRequestDispatcher("/WEB-INF"+direccion+".jsp").forward(req,resp);
+    }
+}

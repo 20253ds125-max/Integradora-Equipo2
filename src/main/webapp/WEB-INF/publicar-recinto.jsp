@@ -1,0 +1,122 @@
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%
+jakarta.servlet.http.HttpSession sesion = request.getSession(false);
+if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
+request.setAttribute("error", "Por favor, inicia sesión para publicar tu recinto.");
+request.getRequestDispatcher("login.jsp").forward(request, response);
+return;
+}
+%>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Publica un recinto nuevo en GEDS." />
+    <title>Event Online | Publicar recinto</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/publicar.css" />
+</head>
+<body>
+<header class="site-header">
+    <div class="brand-group">
+
+        <a class="brand" href="${pageContext.request.contextPath}/index.html">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a class="active" href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/perfil">Perfil</a>
+    </nav>
+</header>
+
+<main class="publish-shell">
+    <section class="publish-intro">
+        <h1>Publica tu recinto</h1>
+        <p>Comparte la elegancia de tu espacio con nuestra comunidad curada. Completa los detalles para iniciar la revision del concierge.</p>
+    </section>
+
+    <form class="publish-layout" data-publish-form method="post" action="${pageContext.request.contextPath}/publicar-recinto" enctype="multipart/form-data">
+        <section class="form-stack">
+            <article class="panel">
+                <h2>Identidad del recinto</h2>
+                <label>
+                    <span>Nombre del recinto</span>
+                    <input type="text" name="venueName" placeholder="Ej. Villa d'Este Pavilion" required />
+                </label>
+                <label>
+                    <span>Ubicación</span>
+                    <input type="text" name="location" placeholder="Calle, ciudad, estado" required />
+                </label>
+                <label>
+                    <span>Descripción</span>
+                    <textarea name="description" placeholder="Describe la historia, estilo arquitectonico y atmosfera..." required></textarea>
+                </label>
+            </article>
+
+            <article class="panel">
+                <h2>Capacidad</h2>
+                <div class="capacity-row">
+                    <label class="mini-card">
+                        <span>Capacidad máxima del salón: </span>
+                        <input type="number" name="seated" min="0" placeholder="0" />
+                        <small>Ideal para cenas o ceremonias.</small>
+                    </label>
+
+                    <label class="mini-card">
+                        <label class="mini-card">
+
+                            <span>Precio base</span>
+
+                            <div class="price-input">
+                                <span>$</span>
+                                <input
+                                        type="number"
+                                        name="precio"
+                                        min="0"
+                                        step="100"
+                                        placeholder="0"
+                                />
+                            </div>
+                            <small>Por evento</small>
+                        </label>
+                    </label>
+                </div>
+            </article>
+        </section>
+
+        <aside class="publish-aside">
+            <article class="panel photos-panel">
+                <h2>Fotos del recinto</h2>
+                <label class="upload-box">
+                    <input type="file" accept="image/png,image/jpeg" multiple data-photo-input name="photos"/>
+                    <strong>Click o arrastra para subir</strong>
+                    <span>JPEG o PNG de alta resolucion</span>
+                </label>
+                <div class="photo-grid" data-photo-grid>
+                    <div class="photo-thumb filled"></div>
+                    <div class="photo-thumb"></div>
+                    <div class="photo-thumb"></div>
+                </div>
+                <button class="primary-button" type="submit">Enviar a revisión</button>
+                <button class="outline-button" type="button" data-save-draft>Guardar borrador</button>
+                <p class="aside-note">Tu publicación será revisada por el equipo de planeación en 24 a 48 horas.</p>
+            </article>
+            <article class="tip-card">
+                <h2>Tip concierge</h2>
+                <p>Los recintos con fotografía profesional y descripción clara reciben mas solicitudes premium.</p>
+            </article>
+        </aside>
+    </form>
+    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</main>
+
+<footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+<script src="${pageContext.request.contextPath}/assets/js/publicar.js"></script>
+<jsp:include page="alerts.jsp" />
+</body>
+</html>

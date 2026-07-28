@@ -10,31 +10,96 @@
     <link rel="stylesheet" href="assets/css/operaciones.css" />
   </head>
   <body>
-    <header class="app-header"><a class="brand" href="index.html">Event Online</a>
-      <nav><a href="catalogo.html">Explorar</a>
-        <a href="index.html#favoritos">Favoritos</a><a href="ticket.html">Ticket</a>
-        <a class="active" href="mesas.html">Mesas</a>
-        <a href="admin.html">Admin</a></nav><div class="header-actions">
-        <button type="button" data-save-layout>Guardar layout</button><a class="avatar" href="login.jsp" aria-label="Perfil"></a>
+    <header class="app-header"><a class="brand" href="index.jsp">Event Online</a>
+        <nav class="top-nav" aria-label="Navegación">
+            <a href="WEB-INF/catalogo.jsp">Recintos</a>
+            <a class="active" href="extraServices.html">Servicios</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+        <div class="header-actions">
+        <a class="avatar" href="WEB-INF/login.jsp" aria-label="Perfil"></a>
       </div>
     </header>
     <main class="seating-shell">
-      <aside class="guest-panel">
-        <h1>Invitados</h1>
-        <section class="guest-import">
-          <label for="guestImport">Lista del cliente</label>
-          <textarea id="guestImport" data-guest-import placeholder="Pega aqui la lista, un invitado por linea"></textarea>
-          <div class="guest-import-actions">
-            <button class="primary-button compact" type="button" data-import-guests>Cargar lista</button>
-            <button class="outline-button compact" type="button" data-clear-guests>Limpiar</button>
-          </div>
-          <p data-guest-import-status>Las mesas tienen 10 lugares cada una.</p>
+        <aside class="guest-panel">
+            <h1>Invitados</h1>
+
+            <div class="assigned-meter">
+                <span>Total Asignados:</span>
+                <strong id="total-global-count" style="font-size: 1.5rem; color: var(--clay); display: block; margin-top: 4px;">0</strong>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--line); margin: 20px 0;">
+
+            <form id="form-lateral-invitado" style="display: grid; gap: 14px;">
+                <div style="display: grid; gap: 6px;">
+                    <label style="color: var(--muted); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">Nombre del Invitado</label>
+                    <input type="text" id="lateral-nombre" placeholder="Ej. Alejandro Campos" required style="min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-warm); padding: 0 12px; outline: 0;">
+                </div>
+
+                <div style="display: grid; gap: 6px;">
+                    <label style="color: var(--muted); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">Correo Electrónico</label>
+                    <input type="email" id="lateral-correo" placeholder="ejemplo@correo.com" required style="min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-warm); padding: 0 12px; outline: 0;">
+                </div>
+
+                <div style="display: grid; gap: 6px;">
+                    <label style="color: var(--muted); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">Asignar a Mesa</label>
+                    <select id="lateral-mesa-select" required style="min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-warm); padding: 0 12px; outline: 0; color: var(--ink); font-weight: 600;">
+                    </select>
+                </div>
+
+                <button type="submit" class="primary-button" style="min-height: 42px; margin-top: 10px; font-size: 0.85rem; width: 100%;">
+                    Registrar e Inscribir
+                </button>
+            </form>
+        </aside>
+
+        <section class="floor-plan">
+
+            <div class="tables-area" data-tables-area></div>
+
+            <div class="seating-actions" style="display: flex; justify-content: end; gap: 14px; margin-top: 24px;">
+                <button type="button" class="outline-button" data-add-table>Agregar mesa</button>
+                <button type="button" class="outline-button" id="btn-abrir-envio" style="border-color: var(--gold); color: var(--gold);">Enviar invitaciones</button>
+                <button type="button" class="primary-button" data-save-layout>Guardar layout</button>
+            </div>
         </section>
-        <input type="search" placeholder="Buscar invitado..." data-guest-search />
-        <div class="guest-list" data-guest-list></div>
-        <div class="assigned-meter"><span data-assigned-count>0</span> / <span data-total-count>0</span> asignados<div class="meter"><span data-meter-bar style="width:0%"></span></div></div>
-      </aside>
-      <section class="floor-plan"><div class="tables-area" data-tables-area></div><div class="seating-actions"><button class="outline-button" type="button" data-add-table>Agregar mesa</button><button class="primary-button" type="button" data-save-layout-bottom>Guardar layout</button></div></section>
+
+
+        <div id="modal-envio" class="modal-overlay" style="display: none;">
+
+            <div class="modal-container" style="max-width: 520px;">
+                <div class="modal-header">
+                    <h2>Vista Previa de Invitación</h2>
+                    <button type="button" class="btn-close-modal" id="btn-cerrar-envio">&times;</button>
+                </div>
+
+
+                <div class="event-digital-ticket">
+                    <span class="ticket-badge">Invitación Digital</span>
+                    <h3 class="ticket-title">Nombre del Evento</h3>
+                    <p class="ticket-subtitle">Event Online Showcase</p>
+
+                    <div class="ticket-meta">
+                        <div><strong>FECHA:</strong><br>09 de Julio, 2026</div>
+                        <div><strong>LUGAR:</strong><br>Jardín de Eventos</div>
+                    </div>
+
+                    <p class="ticket-footer-note">Tu mesa asignada se notificará en este pase digital.</p>
+                </div>
+
+
+                <div class="modal-footer-info">
+                    <label>Destinatarios listos para envío</label>
+                    <p>Se enviará la invitación digital a un total de <strong id="modal-total-notificar">0</strong> invitados distribuidos en sus respectivas mesas.</p>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="outline-button" id="btn-cancelar-envio">Cancelar</button>
+                    <button type="button" class="primary-button" id="btn-confirmar-envio" style="background: var(--green);">Confirmar y Enviar pases</button>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
     <script src="assets/js/mesas.js"></script>

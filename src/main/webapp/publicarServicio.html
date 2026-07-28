@@ -5,31 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Publicar Servicio Extra</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="assets/css/serviciosExtra.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
-<header class="navbar">
+<header class="site-header">
+    <div class="brand-group">
 
-    <a href="index.html" class="logo">
-        Event Online
-    </a>
+        <a class="brand" href="index.jsp">Event Online</a>
+    </div>
 
-    <nav>
-        <a href="#">Explorar</a>
-        <a href="#">Guardados</a>
-        <a href="#">Reservas</a>
-        <a href="#" class="active">Perfil</a>
+    <nav class="top-nav" aria-label="Navegación">
+        <a  href="WEB-INF/catalogo.jsp">Recintos</a>
+        <a class="active" href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
     </nav>
-
-    <a href="#" class="search">
-        Buscar
-    </a>
-
+    <div class="header-actions"></div>
 </header>
 
 <main class="page">
@@ -47,7 +48,7 @@
 
     <div class="grid">
 
-        <!-- IZQUIERDA -->
+
         <div class="left-column">
 
             <div class="card">
@@ -85,67 +86,9 @@
                         <input type="number" placeholder="$0">
                     </div>
 
-                    <div>
-                        <label>Capacidad</label>
-                        <input type="number" placeholder="Eventos por día">
-                    </div>
 
                 </div>
 
-                <label>Anticipación requerida (días)</label>
-                <input type="number" placeholder="7">
-
-            </div>
-
-            <div class="card">
-
-                <h2>Características incluidas</h2>
-
-                <div class="features-grid">
-
-                    <label class="feature-card">
-                        <input type="checkbox">
-                        <span>🎥</span>
-                        <h4>Equipo incluido</h4>
-                        <p>Incluye equipo profesional.</p>
-                    </label>
-
-                    <label class="feature-card">
-                        <input type="checkbox">
-                        <span>👨‍💼</span>
-                        <h4>Personal incluido</h4>
-                        <p>Personal capacitado.</p>
-                    </label>
-
-                    <label class="feature-card">
-                        <input type="checkbox">
-                        <span>🔧</span>
-                        <h4>Montaje</h4>
-                        <p>Instalación completa.</p>
-                    </label>
-
-                    <label class="feature-card">
-                        <input type="checkbox">
-                        <span>📦</span>
-                        <h4>Desmontaje</h4>
-                        <p>Retiro al finalizar.</p>
-                    </label>
-
-                    <label class="feature-card">
-                        <input type="checkbox">
-                        <span>🚚</span>
-                        <h4>A domicilio</h4>
-                        <p>Servicio en cualquier ubicación.</p>
-                    </label>
-
-                    <label class="feature-card">
-                        <input type="checkbox">
-                        <span>📅</span>
-                        <h4>Fines de semana</h4>
-                        <p>Disponible sábados y domingos.</p>
-                    </label>
-
-                </div>
 
             </div>
 
@@ -174,10 +117,6 @@
                     Enviar revisión
                 </button>
 
-                <button class="btn-secondary">
-                    Guardar borrador
-                </button>
-
             </div>
 
             <div class="tip">
@@ -197,11 +136,7 @@
 
 </main>
 
-<footer>
-
-    © 2026 Event Online Spaces. Todos los derechos reservados.
-
-</footer>
+<footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
 
 <script src="assets/js/serviciosExtra.js"></script>
 

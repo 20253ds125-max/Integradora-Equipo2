@@ -1,8 +1,7 @@
 package com.eventonline.model;
 
-import com.eventonline.utils.Alertas;
-
 public class Usuario {
+
     private int idUsuario;
     private String nombre;
     private String email;
@@ -17,13 +16,34 @@ public class Usuario {
         this.rol = rol;
     }
 
-
-
-    public Usuario(String correo, String nombre, String contrasena, String rol) throws Alertas {
-        setEmail(correo);
-        setNombre(nombre);
-        setContrasena(contrasena);
+    public Usuario(String correo, String nombre, String contrasena, String rol) {
+        this.email = correo;
+        this.nombre = nombre;
+        this.contrasena = contrasena;
         this.rol = rol;
+    }
+
+    public Usuario(String correo, String contrasena) {
+        this.email = correo;
+        this.contrasena = contrasena;
+    }
+
+    public void validarDatosRegistro() {
+        if (this.email == null || this.email.trim().isEmpty() || !this.email.contains("@")) {
+            throw new IllegalArgumentException("El email es inválido o está vacío.");
+        }
+        if (this.nombre == null || this.nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de nombre: no puede estar vacío.");
+        }
+        if (this.contrasena == null || this.contrasena.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
+        }
+    }
+
+    public void validarCambioContrasena() {
+        if (this.contrasena == null || this.contrasena.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
+        }
     }
 
     public int getIdUsuario() {
@@ -38,34 +58,26 @@ public class Usuario {
         return email;
     }
 
-    public void setEmail(String email) throws Alertas {
-        if(email==null||email.trim().isEmpty()||!email.contains("@")){
-            throw new Alertas("Error en el campo de nombre");
-        }
-        this.email =email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) throws Alertas {
-        if(nombre==null||nombre.trim().isEmpty()){
-            throw new Alertas("Error en el campo de nombre");
-        }
-        this.nombre=nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String pass) throws Alertas {
-        if(pass==null||pass.trim().isEmpty()){
-            throw new Alertas("Error en el campo de contraseña");
-        }
-        contrasena=pass;
+    public void setContrasena(String pass) {
+        this.contrasena = pass;
     }
+
     public String getRol() {
         return rol;
     }

@@ -8,196 +8,80 @@
     <link rel="stylesheet" href="assets/css/services.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header class="catalog-header">
-
     <div class="brand-group">
-
-        <button
-                class="menu-button"
-                type="button"
-                aria-label="Abrir menú">
-
-            <span></span>
-
-        </button>
-
-        <a class="brand" href="index.html">
-            Event Online
-        </a>
-
+        <a class="brand" href="index.jsp">Event Online</a>
     </div>
 
-    <nav class="top-nav">
-
-        <a href="catalogo.html">
-            Explorar
-        </a>
-
-        <a class="active" href="extraServices.html">
-            Servicios
-        </a>
-
-        <a href="ticket.html">
-            Ticket
-        </a>
-
-        <a href="mesas.html">
-            Mesas
-        </a>
-
-        <a href="login.jsp">
-            Perfil
-        </a>
-
-        <a href="admin.html">
-            Admin
-        </a>
-
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="WEB-INF/catalogo.jsp">Recintos</a>
+        <a class="active" href="extraServices.html">Servicios</a>
+        <a href="perfil.html">Perfil</a>
     </nav>
 
     <div class="header-actions">
-
-
-        <a
-                class="host-button"
-                href="publicar-recinto.jsp">
-
-            Publicar recinto
-
-        </a>
-
+        <a class="host-button" href="publicarServicio.html">Publicar servicio</a>
     </div>
-
 </header>
 
-
 <section class="catalogo-servicios">
-
-
     <aside class="sidebar">
-
-        <h2>Filtros</h2>
-
         <input
                 type="text"
                 id="buscador"
-                placeholder="Buscar servicios..."
+                placeholder="Buscar en ciudad o región"
         >
 
         <div class="grupo-filtro">
+            <h3>Localidad</h3>
 
-            <h3>Categoría</h3>
-
-            <button class="filtro activo" data-categoria="todos">
-                Todos
-            </button>
-
-            <button class="filtro" data-categoria="musica">
-                Música
-            </button>
-
-            <button class="filtro" data-categoria="catering">
-                Catering
-            </button>
-
-            <button class="filtro" data-categoria="decoracion">
-                Decoración
-            </button>
-
-            <button class="filtro" data-categoria="foto">
-                Fotografía
-            </button>
-
+            <div class="filter-options">
+                <button class="filtro activo" data-localidad="todas" type="button">Todas</button>
+                <button class="filtro" data-localidad="cdmx" type="button">CDMX</button>
+                <button class="filtro" data-localidad="san-miguel" type="button">San Miguel</button>
+                <button class="filtro" data-localidad="tulum" type="button">Tulum</button>
+                <button class="filtro" data-localidad="merida" type="button">Mérida</button>
+                <button class="filtro" data-localidad="cabos" type="button">Los Cabos</button>
+            </div>
         </div>
 
         <div class="grupo-filtro">
+            <h3>Categoría</h3>
 
-            <h3>Presupuesto máximo</h3>
-
-            <input
-                    type="range"
-                    id="precioMax"
-                    min="1000"
-                    max="50000"
-                    step="500"
-                    value="50000"
-            >
-
-            <span id="valorPrecio">
-                $50,000
-            </span>
-
+            <div class="filter-options">
+                <button class="filtro activo" data-categoria="todos" type="button">Todos</button>
+                <button class="filtro" data-categoria="musica" type="button">Música</button>
+                <button class="filtro" data-categoria="catering" type="button">Catering</button>
+                <button class="filtro" data-categoria="decoracion" type="button">Decoración</button>
+                <button class="filtro" data-categoria="foto" type="button">Fotografía</button>
+                <button class="filtro" data-categoria="video" type="button">Video</button>
+                <button class="filtro" data-categoria="dj" type="button">DJ</button>
+                <button class="filtro" data-categoria="musica-en-vivo" type="button">Música en vivo</button>
+                <button class="filtro" data-categoria="iluminacion" type="button">Iluminación</button>
+            </div>
         </div>
-
     </aside>
-
 
     <main class="contenido">
-
         <div class="encabezado">
-
             <h1>Servicios Extra</h1>
-
-            <p>
-                Complementa tu evento con experiencias únicas
-            </p>
-
+            <p>Complementa tu evento con experiencias únicas</p>
         </div>
 
-        <div
-                class="grid-servicios"
-                id="contenedorServicios">
-
-        </div>
-
+        <div class="grid-servicios" id="contenedorServicios"></div>
     </main>
-
-    <!-- PANEL LATERAL -->
-    <aside class="carrito-servicios">
-
-        <h2>Mi Evento</h2>
-
-        <div id="listaServicios">
-
-            <p class="sin-servicios">
-                Aún no has agregado servicios
-            </p>
-
-        </div>
-
-        <div class="total-box">
-
-            <span>Total</span>
-
-            <strong id="totalServicio">
-                $0
-            </strong>
-
-        </div>
-
-        <button
-                class="btn-vaciar"
-                onclick="vaciarEvento()">
-
-            🗑 Vaciar evento
-
-        </button>
-
-        <button class="btn-continuar">
-
-            Continuar
-
-        </button>
-
-    </aside>
-
 </section>
+
 <script src="assets/js/evento.js"></script>
+<script src="assets/js/cart.js"></script>
 <script src="assets/js/services.js"></script>
-<div id="toast"></div>
+
+<footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
+
 </body>
 </html>
