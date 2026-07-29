@@ -207,8 +207,9 @@
 
 </div>
 
-
 <script src="${pageContext.request.contextPath}/assets/js/perfil.js"></script>
+<jsp:include page="alerts.jsp" />
+
 </body>
 </html>
 

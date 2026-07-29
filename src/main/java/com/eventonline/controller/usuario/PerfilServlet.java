@@ -22,8 +22,11 @@ public class PerfilServlet extends HttpServlet {
 
         // Si no hay una sesion o no hay un usario autenticado redirije al login
         if (session == null || session.getAttribute("UsuarioLog") == null) {
-            resp.sendRedirect(req.getContextPath() + "/app/login");
+
+            req.setAttribute("error", "Primero inicia sesion");
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req,resp);
             return;
+
         }
 
         // Recuperar el usuario autenticado
