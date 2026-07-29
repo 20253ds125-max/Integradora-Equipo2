@@ -36,7 +36,7 @@
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
     <a href="app/login">Iniciar sesión o registrarte</a>
-    <a href="contacto-equipo.html">Contacta al equipo</a>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
     <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
 </nav>
 
