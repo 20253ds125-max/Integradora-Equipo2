@@ -19,7 +19,7 @@
 
 <body>
 <header class="site-header" data-header>
-    <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/" aria-label="Ir al inicio">Event Online</a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="app/catalogo">Recintos</a>
