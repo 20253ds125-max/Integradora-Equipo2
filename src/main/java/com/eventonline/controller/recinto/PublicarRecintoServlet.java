@@ -23,7 +23,7 @@ import java.util.List;
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 50
 )
-public class PublicarRecintoServlet extends HttpServlet {
+public class    PublicarRecintoServlet extends HttpServlet {
     private final RecintoService recintoService = new RecintoService();
 
     @Override

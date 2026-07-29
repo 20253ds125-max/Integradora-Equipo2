@@ -37,8 +37,8 @@
     <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     <nav>
         <a class="active" href="${pageContext.request.contextPath}/admin">Administración</a>
-        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
     <div class="header-actions">
         <a class="avatar" href="" aria-label="Perfil"></a>
