@@ -165,7 +165,7 @@ public class MesasServlet extends HttpServlet {
 
     private JSONObject mesasAJson(Mesas mesas){
         JSONArray invitado = new JSONArray();
-        for (Invitados invitados : mesas.getInvitado()){
+        for (Invitados invitados : mesas.getInvitados()){
             invitado.put(invitadosAJson(invitados));
         }
         return new JSONObject()
