@@ -34,7 +34,7 @@
 <body>
 
 <header class="app-header">
-    <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     <nav>
         <a class="active" href="${pageContext.request.contextPath}/admin">Administración</a>
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
