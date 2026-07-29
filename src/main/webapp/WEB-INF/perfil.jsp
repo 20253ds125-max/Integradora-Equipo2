@@ -15,7 +15,7 @@
 <body>
 <header class="site-header">
     <div class="brand-group">
-        <a class="brand" href="${pageContext.request.contextPath}/app/index">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
     <nav class="top-nav" aria-label="Navegación">

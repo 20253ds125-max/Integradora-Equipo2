@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css" />
 </head>
 <header>
-    <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
 </header>
 <body class="login-page">
 <main class="login-shell">
