@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +15,7 @@
 <header class="site-header">
     <div class="brand-group">
 
-        <a class="brand" href="index.jsp">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
@@ -147,13 +147,8 @@
                     luis.camd@gmail.com
                 </a>
             </div>
-
         </div>
-
-
     </div>
-
-
 
 </section>
 <footer class="site-footer legal-only">

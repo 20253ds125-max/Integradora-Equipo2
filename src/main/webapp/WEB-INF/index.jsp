@@ -19,12 +19,12 @@
 
 <body>
 <header class="site-header" data-header>
-    <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/" aria-label="Ir al inicio">Event Online</a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="app/catalogo">Recintos</a>
         <a href="app/extraServices">Servicios</a>
-        <a href="app/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
@@ -36,7 +36,7 @@
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
     <a href="app/login">Iniciar sesión o registrarte</a>
-    <a href="contacto-equipo.html">Contacta al equipo</a>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
     <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
 </nav>
 
