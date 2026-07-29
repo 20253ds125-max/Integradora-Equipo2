@@ -48,7 +48,7 @@ public class Mesas {
     }
 
     public void setCapacidad(int capacidad){
-        if(capacidad == 10){
+        if(capacidad <=0 || capacidad >10){
             throw  new IllegalArgumentException("Capacidad maxima de 10 personas");
         }
         this.capacidad= capacidad;
@@ -60,6 +60,10 @@ public class Mesas {
 
     public void setIdUsuario(int idUsuario){
         this.idUsuario = idUsuario;
+    }
+
+    public List<Invitados> getInvitados(){
+        return  invitado;
     }
 
     public  void setInvitados(List<Invitados> invitado){

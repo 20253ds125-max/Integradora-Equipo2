@@ -32,7 +32,7 @@ public class EnviarInvitacionesServlet extends HttpServlet {
             resp.getWriter().write(new JSONObject().put("success", false).put("error", "No has iniciado sesion").toString());
             return;
         }
-        Usuario usuario = (Usuario) session.getAttribute(UsuarioLog);
+        Usuario usuario = (Usuario) session.getAttribute("UsuarioLog");
         String nombreEvento = valorOPorDefecto(req.getParameter("nombreEvento"), "Nombre del Evento");
         String fechaEvento = valorOPorDefecto(req.getParameter("fechaEvento"), "09 de Julio, 2026");
         String lugarEvento = valorOPorDefecto(req.getParameter("lugarEvento"), "Jardín de Eventos");

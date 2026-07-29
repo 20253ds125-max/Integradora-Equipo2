@@ -2,7 +2,6 @@ package com.eventonline.dao;
 
 import com.eventonline.model.Invitados;
 import com.eventonline.model.Mesas;
-import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class MesasDAO {
 
                         Mesas mesas = mesasPorId.get(invitados.getIdMesa());
                         if (mesas != null) {
-                            mesas.getInvitados.add(invitados);
+                            mesas.getInvitados().add(invitados);
                         }
                     }
                 }

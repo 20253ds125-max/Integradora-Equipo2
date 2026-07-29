@@ -20,7 +20,7 @@ const modalTotalNotificar = document.getElementById("modal-total-notificar");
 async function apiGet() {
     const respuesta = await fetch("mesas-api", { credentials: "same-origin" });
     if (respuesta.status === 401) {
-        window.location.href = "login.jsp";
+        window.location.href = "WEB-INF/login.jsp";
         return null;
     }
     return respuesta.json();
@@ -35,7 +35,7 @@ async function apiPost(parametros) {
         body: cuerpo
     });
     if (respuesta.status === 401) {
-        window.location.href = "login.jsp";
+        window.location.href = "WEB-INF/login.jsp";
         return null;
     }
     return respuesta.json();
@@ -214,7 +214,7 @@ if (btnConfirmarEnvio) {
             });
 
             if (respuesta.status === 401) {
-                window.location.href = "login.jsp";
+                window.location.href = "WEB-INF/login.jsp";
                 return;
             }
 
