@@ -4,7 +4,9 @@ import com.eventonline.model.SalonEventos;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SalonesDao {
     private final Conexion conexionConfig = new Conexion();
@@ -82,5 +84,61 @@ public class SalonesDao {
             }
             return salonesPendientes;
         }
+    }
+    public boolean aceptarSolicitud(int idSalonEventos)throws  SQLException{
+        String cambiarEstado="Update publicacion_salon_eventos SET estado = 'APROBADO' WHERE id_publicacion_eventos = ?";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(cambiarEstado) ){
+            ps.setInt(1,idSalonEventos);
+            int modificados = ps.executeUpdate();
+            return modificados==1;
+        }
+    }
+    public List<String> obtenerUrlFotos(int idSalonEventos)throws SQLException{
+        List<String>listaUrl= new ArrayList<>();
+        String buscarUrl="SELECT ubicacion FROM fotos WHERE id_salon_eventos=?";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscarUrl) ){
+            ps.setInt(1,idSalonEventos);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                String url=rs.getString("ubicacion");
+                listaUrl.add(url);
+            }
+            return listaUrl;
+        }
+    }
+    public boolean borrarRegistro(int idSalonEventos)throws SQLException{
+      String borrarRegistro = "DELETE FROM publicacion_Salon_Eventos WHERE id_publicacion_eventos = ?";
+
+      try (Connection con = conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(borrarRegistro) ){
+          ps.setInt(1,idSalonEventos);
+          return ps.executeUpdate()>0;
+
+      }
+    }
+
+    public Map<String, String> obtenerDatosParaCorreo(int idSalonEventos) throws SQLException {
+        String query = "SELECT p.nombre_lugar, p.url_portada, u.correo " +
+                "FROM publicacion_salon_eventos p " +
+                "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
+                "WHERE p.id_publicacion_eventos = ?";
+
+        Map<String, String> datos = new HashMap<>();
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, idSalonEventos);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    datos.put("nombre", rs.getString("nombre_lugar"));
+                    datos.put("imagen", rs.getString("url_portada"));
+                    datos.put("correo", rs.getString("correo"));
+                }
+            }
+        }
+        return datos;
     }
 }

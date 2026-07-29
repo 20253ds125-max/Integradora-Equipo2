@@ -41,7 +41,6 @@ public class CorreoElectronico {
             message.setContent(cuerpoHTML, "text/html; charset=utf-8");
 
             Transport.send(message);
-            System.out.println(" Correo enviado exitosamente a: " + correoDestino);
             return true;
 
         } catch (Exception e) {
@@ -71,6 +70,28 @@ public class CorreoElectronico {
                 + "  <p>Gracias por registrarte en <strong>Event Online</strong>. Estamos felices de tenerte con nosotros.</p>"
                 + "  <a href='http://localhost:8080/tu-app/login' style='background: #7c5315; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Iniciar Sesión</a>"
                 + "</body></html>";
+
+        return enviarCorreoHTML(correoDestino, asunto, html);
+    }
+    public boolean enviarAceptacionSolicitud(String correoDestino, String nombreRecinto, String urlImagen) {
+        // Replicamos la lógica del JSP: Si no hay imagen, usamos un placeholder un poco más grande para el correo
+        String imagenSrc = (urlImagen != null && !urlImagen.trim().isEmpty())
+                ? urlImagen.trim()
+                : "https://via.placeholder.com/500x250?text=Sin+Foto";
+
+        String asunto = "¡Tu recinto ha sido aprobado! 🎉 - Event Online";
+        String html = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
+                + "<div style='max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; text-align: center;'>"
+
+                + "  <img src='" + imagenSrc + "' alt='Portada de " + nombreRecinto + "' style='width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;' />"
+
+                + "  <h2 style='color: #7c5315;'>¡Felicidades!</h2>"
+                + "  <p>Nos complace informarte que tu solicitud para publicar <strong>" + nombreRecinto + "</strong> ha sido <strong>aprobada</strong> por nuestro equipo de administración.</p>"
+                + "  <p>Tu recinto ya se encuentra activo y visible para todos los clientes en nuestra plataforma.</p>"
+                + "  <br><br>"
+                + "  <br><br>"
+                + "  <p style='font-size: 12px; color: #777;'>Gracias por confiar en Event Online.</p>"
+                + "</div></body></html>";
 
         return enviarCorreoHTML(correoDestino, asunto, html);
     }
