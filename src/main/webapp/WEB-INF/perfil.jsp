@@ -15,12 +15,11 @@
 <body>
 <header class="site-header">
     <div class="brand-group">
-
-        <a class="brand" href="index.jsp">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/app/index">Event Online</a>
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
-        <a href="WEB-INF/catalogo.jsp">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
         <a href="extraServices.html">Servicios</a>
         <a class="active" href="perfil.html">Perfil</a>
     </nav>

@@ -25,7 +25,7 @@
     <nav class="top-nav" aria-label="Navegación">
         <a class="active" href="app/catalogo">Recintos</a>
         <a href="app/extraServices">Servicios</a>
-        <a href="app/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
