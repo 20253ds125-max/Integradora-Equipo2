@@ -2,6 +2,7 @@ package com.eventonline.dao;
 
 import com.eventonline.model.Invitados;
 import com.eventonline.model.Mesas;
+import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MesasDAO {
         String sqlInvitados = "SELECT i.id_invitado, i.nombre, i.correo, i.mesa, i.invitacion_enviada" +
                 "FROM invitacion i JOIN mesas m ON i.id_mesa = m.id_mesa" +
                 "WHERE m.id_usuario = ? ORDER BY i.id_invitado";
-        Map<Integer, Mesa> mesasPorId = new LinkedHashMap<>();
+        Map<Integer, Mesas> mesasPorId = new LinkedHashMap<>();
 
         try(Connection con = conexionConfig.obtenerConexion()){
 
@@ -28,12 +29,12 @@ public class MesasDAO {
                 ps.setInt(1, idUsuario);
                 try(ResultSet rs = ps.executeQuery()){
                     while (rs.next()){
-                        Mesa mesa  = new Mesa();
-                        mesa.setIdMesa(rs.getInt("id_mesa"));
-                        mesa.setNombre(rs.getString("nombre"));
-                        mesa.setCapacidad(rs.getInt("capacidad"));
-                        mesa.setIdUsuario(idUsuario);
-                        mesasPorId.put(mesa.getIdMesa(), mesa);
+                        Mesas mesas  = new Mesas();
+                        mesas.setIdMesa(rs.getInt("id_mesa"));
+                        mesas.setNombre(rs.getString("nombre"));
+                        mesas.setCapacidad(rs.getInt("capacidad"));
+                        mesas.setIdUsuario(idUsuario);
+                        mesasPorId.put(mesas.getIdMesa(), mesas);
                     }
                 }
             }
@@ -42,16 +43,16 @@ public class MesasDAO {
                 ps.setInt(1, idUsuario);
                 try(ResultSet rs = ps.executeQuery()){
                     while (rs.next()){
-                        Invitado invitado = new Invitado();
-                        invitado.setIdInvitado(rs.getInt("id_invitado"));
-                        invitado.setNombre(rs.getString("nombre"));
-                        invitado.setCorreo(rs.getString("correo"));
-                        invitado.setIdMesa(rs.getInt("id_mesa"));
-                        invitado.setInvitacionEnviada("S".equals(rs.getString("invitacion_enviada")));
+                        Invitados invitados = new Invitados();
+                        invitados.setIdInvitado(rs.getInt("id_invitado"));
+                        invitados.setNombre(rs.getString("nombre"));
+                        invitados.setCorreo(rs.getString("correo"));
+                        invitados.setIdMesa(rs.getInt("id_mesa"));
+                        invitados.setInvitacionEnviada("S".equals(rs.getString("invitacion_enviada")));
 
-                        Mesa mesa = mesasPorId.get(invitado.getIdMesa());
-                        if (mesa != null) {
-                            mesa.getInvitados().add(invitado);
+                        Mesas mesas = mesasPorId.get(invitados.getIdMesa());
+                        if (mesas != null) {
+                            mesas.getInvitados.add(invitados);
                         }
                     }
                 }
@@ -60,7 +61,7 @@ public class MesasDAO {
         return new ArrayList<>(mesasPorId.values());
 
     }
-    public Mesa crearMesa(Mesa mesa) throws SQLException{
+    public Mesas crearMesa(Mesas mesa) throws SQLException{
         String sql = "INSERT INTO mesas ( nombre, capacidad, id_usuario) values (?, ?, ?)";
         String[] columnaId = {"ID_MESA"};
 
@@ -80,5 +81,131 @@ public class MesasDAO {
         }
         return mesa;
     }
+    public boolean renombrarMesa(int idMesa, String nuevoNombre, int idUsuario) throws SQLException{
+        String sql = "UPDATE mesas SET nombre = ? WHERE id_mesa =? AND id_usuario = ?";
 
+        try (Connection con = conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, nuevoNombre);
+            ps.setInt(2, idMesa);
+            ps.setInt(3, idUsuario);
+            return ps.executeUpdate()>0;
+        }
+    }
+    public boolean eliminarMesa(int idMesa, int idUsuario) throws SQLException{
+        String sql ="DELETE FROM mesas WHERE id_mesa =? AND id_usuario =?";
+        try(Connection con = conexionConfig.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, idMesa);
+            ps.setInt(2, idUsuario);
+            return ps.executeUpdate()>0;
+        }
+    }
+
+    public Invitados agregarInvitado( Invitados invitados, int idUsuario) throws  SQLException{
+        String sqlValidaMesa = "SELECT capacidad, (SELECT COUNT(*) FROM invitados WHERE id_mesa =m.id_mesa) AS ocupados"+
+                "FROM mesas m WHERE m.id_mesa =? AND m.id_usuario =?";
+        String sqlInsert = "INSERT INTO invitados (nombre, correo, id_mesa) VALUES(?, ?, ?)";
+        String[] columnaId = {"ID_INVITADOS"};
+
+        try (Connection con = conexionConfig.obtenerConexion()){
+            con.setAutoCommit(false);
+
+            try {
+                int capacidad;
+                int ocupados;
+                try(PreparedStatement ps = con.prepareStatement(sqlValidaMesa)){
+                    ps.setInt(1,invitados.getIdMesa());
+                    ps.setInt(2,idUsuario);
+                    try(ResultSet rs = ps.executeQuery()){
+                        if (!rs.next()){
+                            con.rollback();
+                            throw new IllegalArgumentException("La mesa indicada no existe");
+
+                        }
+                        capacidad = rs.getInt("capacidad");
+                        ocupados =rs.getInt("ocupados");
+                    }
+                }
+
+                int limite = Math.min(capacidad, MAX_INVITADOS_POR_MESA);
+                if (ocupados >=limite){
+                    con.rollback();
+                    throw new IllegalArgumentException("La mesa alcanzo su capacidad maxima");
+
+                }
+                try(PreparedStatement ps = con.prepareStatement(sqlInsert, columnaId)){
+                    ps.setString(1, invitados.getNombre());
+                    ps.setString(2, invitados.getCorreo());
+                    ps.setInt(3, invitados.getIdMesa());
+                    ps.executeUpdate();
+
+                    try(ResultSet rs = ps.getGeneratedKeys()){
+                        if(rs.next()){
+                            invitados.setIdInvitado(rs.getInt(1));
+                        }
+                    }
+                }
+                con.commit();
+                return invitados;
+
+            }catch (SQLException | IllegalArgumentException e){
+                con.rollback();
+                throw e;
+            }
+        }
+    }
+
+    public boolean eliminarInvitado( int idInvitado, int idUsuario) throws SQLException{
+        String sql ="DELETE FROM invitados WHERE id_invitado =? AND id_mesa IN"+
+                "(SELECT id_mesa FROM mesas WHERE id_usuario =?)";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, idInvitado);
+            ps.setInt(2, idUsuario);
+            return ps.executeUpdate()>0;
+        }
+    }
+
+    public List<Invitados> obtenerInvitadosPendientes(int idUsuario) throws SQLException {
+        String sql = "SELECT i.id_invitado, i.nombre, i.correo, i.id_mesa " +
+                "FROM invitados i JOIN mesas m ON i.id_mesa = m.id_mesa " +
+                "WHERE m.id_usuario = ? AND i.invitacion_enviada = 'N'";
+
+        List<Invitados> pendientes = new ArrayList<>();
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Invitados invitados = new Invitados();
+                    invitados.setIdInvitado(rs.getInt("id_invitado"));
+                    invitados.setNombre(rs.getString("nombre"));
+                    invitados.setCorreo(rs.getString("correo"));
+                    invitados.setIdMesa(rs.getInt("id_mesa"));
+                    pendientes.add(invitados);
+                }
+            }
+        }
+        return pendientes;
+    }
+
+    public void  marcarInvitacionEnviada(int idInvitado) throws SQLException{
+        String sql ="UPDATE invitados SET invitacion_enviada = `s`, fecha_envio = SYSTIMESTAMP WHERE id-invitado = ?";
+        try(Connection con =conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, idInvitado);
+            ps.executeUpdate();
+        }
+    }
+    public String obtenerNombreMesaDeInvitado( int idMesa) throws SQLException{
+        String sql ="SLECT nombre FROM mesas WHERE id_mesa =?";
+        try(Connection con = conexionConfig.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1,idMesa);
+            try(ResultSet rs = ps.executeQuery()){
+                return rs.next() ? rs.getString("nombre") : "";
+            }
+        }
+    }
 }
