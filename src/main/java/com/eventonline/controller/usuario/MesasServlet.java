@@ -88,5 +88,53 @@ public class MesasServlet extends HttpServlet {
         escribir(resp, new JSONObject().put("success", true).put("mesa", mesaAJson(nueva)));
 
     }
+     private void renombrarMesa(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
+         throws SQLException, IOException{
+        int idMesa = parseEntero(req.getParameter("idMesa"), "idMesa");
+        String nombre = req.getParameter("nombre");
+        if (nombre == null || nombre.trim().isEmpty()){
+            throw new IllegalArgumentException("El nombre de la mesa es obligatorio");
+
+        }
+        boolean actualizado = mesasDAO.renombrarMesa(idMesa, nombre.trim(), usuario.getIdUsuario());
+        if (!actualizado){
+            throw new IllegalArgumentException("La mesa no existe o no te pertenece");
+        }
+        escribir(resp, new JSONObject().put("succes", true));
+     }
+
+     private void eliminarMesa(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
+         throws SQLException, IOException{
+        int idMesa = parseEntero(req.getParameter("idMesa"), "idMesa");
+        boolean eliminado = mesasDAO.eliminarMesa(idMesa, usuario.getIdUsuario());
+        if (!eliminado){
+            throw new IllegalArgumentException("La mesa no existe o no te pertenece");
+
+        }
+        escribir(resp, new JSONObject().put("success", true));
+     }
+
+     private void agregarInvitado(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
+         throws SQLException, IOException{
+        int idMesa =parseEntero(req.getParameter("idMesa"), "idMesa");
+        String nombre = req.getParameter("nombre");
+        String correo = req.getParameter("correo");
+
+        Invitados invitados = new Invitados(nombre, correo, idMesa);
+        mesasDAO.agregarInvitado(invitados, usuario.getIdUsuario());
+        escribir(resp, new JSONObject().put("success", true).put("invitado", invitadosAJson(invitados)));
+
+     }
+     private void eliminarInvitado(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
+         throws SQLException, IOException{
+        int idInvitados = parseEntero(req.getParameter("idInvitados"), "idInvitados");
+        boolean eliminado = mesasDAO.eliminarInvitado(idInvitados, usuario.getIdUsuario());
+        if (!eliminado){
+            throw new IllegalArgumentException("El invitado no existe o no te pertenece");
+
+        }
+        escribir(resp, new JSONObject().put("success", true));
+     }
+
 
 }
