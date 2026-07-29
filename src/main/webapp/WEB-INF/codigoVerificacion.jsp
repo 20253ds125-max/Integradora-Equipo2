@@ -19,7 +19,7 @@
         <div class="overlay"></div>
 
         <div class="logo">
-            <a href="${pageContext.request.contextPath}/index.html">Event Online</a>
+            <a href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
         </div>
 
         <div class="content">

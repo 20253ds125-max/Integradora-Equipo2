@@ -17,7 +17,7 @@ public class DireccionesServlet extends HttpServlet {
         String direccion = req.getPathInfo();
 
         if(direccion == null||direccion.equals("/")){
-            req.getRequestDispatcher("/index.html").forward(req,resp);
+            req.getRequestDispatcher("/index.jsp").forward(req,resp);
             return;
         }
         req.getRequestDispatcher("/WEB-INF"+direccion+".jsp").forward(req,resp);

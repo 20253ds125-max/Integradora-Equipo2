@@ -83,7 +83,7 @@ function renderCartPage() {
     venueNode.textContent = cart.recinto ? cart.recinto.name : "Sin recinto";
 
     if (checkoutLink) {
-        checkoutLink.href = cart.total > 0 ? "pago.html" : "catalogo.html";
+        checkoutLink.href = cart.total > 0 ? "pago.html" : "catalogo.jsp";
     }
 }
 

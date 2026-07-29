@@ -1,6 +1,7 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
 import com.eventonline.dao.UsuariosDao;
+import com.eventonline.service.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 @WebServlet("/verificarCodigo")
 public class CodigoVerificacionServlet extends HttpServlet {
 
-    private final UsuariosDao usuariosDao = new UsuariosDao();
+    UsuarioService usuarioService = new UsuarioService();
 
 
     @Override
@@ -28,18 +29,16 @@ public class CodigoVerificacionServlet extends HttpServlet {
         String digito6 = request.getParameter("digito6");
 
         String codigoIngresado = digito1 + digito2 + digito3 + digito4 + digito5 + digito6;
-        System.out.println(codigoIngresado);
 
         try {
-            if (usuariosDao.comparaCodigo(correo, codigoIngresado)) {
-                request.setAttribute("correo",correo);
-                request.getRequestDispatcher("/WEB-INF/cambiar-contrasena.jsp").forward(request,response);
-            }else {
-                request.setAttribute("error","Codigo incorrecto");
-                request.getRequestDispatcher("/WEB-INF/codigoVerificacion.jsp").forward(request,response);
-            }
+            usuarioService.verificacionDeCodigo(correo,codigoIngresado);
+            request.setAttribute("correo",correo);
+            request.getRequestDispatcher("/WEB-INF/cambiar-contrasena.jsp").forward(request,response);
         } catch (SQLException e) {
             request.setAttribute("error", "ERROR INTERNO :c "+e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/codigoVerificacion.jsp").forward(request, response);
+        }catch (IllegalArgumentException e){
+            request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/codigoVerificacion.jsp").forward(request, response);
         }
 

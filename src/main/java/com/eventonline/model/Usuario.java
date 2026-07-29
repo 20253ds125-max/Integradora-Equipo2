@@ -5,28 +5,45 @@ public class Usuario {
     private int idUsuario;
     private String nombre;
     private String email;
-
     private String contrasena;
     private String rol;
 
-
     public Usuario(int idUsuario, String nombre, String email, String contrasena, String rol) {
         this.idUsuario = idUsuario;
-        setNombre(nombre);
-        setEmail(email);
-        setContrasena(contrasena);
-        setRol(rol);
+        this.nombre = nombre;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.rol = rol;
     }
 
     public Usuario(String correo, String nombre, String contrasena, String rol) {
-        setEmail(correo);
-        setNombre(nombre);
-        setContrasena(contrasena);
+        this.email = correo;
+        this.nombre = nombre;
+        this.contrasena = contrasena;
         this.rol = rol;
     }
+
     public Usuario(String correo, String contrasena) {
-        setEmail(correo);
-        setContrasena(contrasena);
+        this.email = correo;
+        this.contrasena = contrasena;
+    }
+
+    public void validarDatosRegistro() {
+        if (this.email == null || this.email.trim().isEmpty() || !this.email.contains("@")) {
+            throw new IllegalArgumentException("El email es inválido o está vacío.");
+        }
+        if (this.nombre == null || this.nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de nombre: no puede estar vacío.");
+        }
+        if (this.contrasena == null || this.contrasena.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
+        }
+    }
+
+    public void validarCambioContrasena() {
+        if (this.contrasena == null || this.contrasena.trim().isEmpty()) {
+            throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
+        }
     }
 
     public int getIdUsuario() {
@@ -42,9 +59,6 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        if (email == null || email.trim().isEmpty() || !email.contains("@")) {
-            throw new IllegalArgumentException("El email es inválido o está vacío.");
-        }
         this.email = email;
     }
 
@@ -53,9 +67,6 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("Error en el campo de nombre: no puede estar vacío.");
-        }
         this.nombre = nombre;
     }
 
@@ -64,9 +75,6 @@ public class Usuario {
     }
 
     public void setContrasena(String pass) {
-        if (pass == null || pass.trim().isEmpty()) {
-            throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
-        }
         this.contrasena = pass;
     }
 

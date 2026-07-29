@@ -1,7 +1,7 @@
-package com.eventonline.controller;
+package com.eventonline.controller.usuario;
 
-import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.Usuario;
+import com.eventonline.service.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,9 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
-@WebServlet("/registro")
+
+@WebServlet(name = "registro", value = "/registro")
 public class RegistroUsuarioServlet extends HttpServlet {
-    private final UsuariosDao usuariosDao = new UsuariosDao();
+
+    private final UsuarioService usuarioService = new UsuarioService();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -23,22 +26,22 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
         try {
 
-            Usuario usuario = new Usuario(email,nombre,pass,rol);
+            Usuario usuario = new Usuario(email, nombre, pass, rol);
 
-            if(usuariosDao.registroUsuario(usuario)){
-                response.sendRedirect("index.html");
-            }else{
-                throw new IllegalArgumentException("Correo ya existente");
-            }
+            usuarioService.registrarUsuario(usuario);
 
-        }catch (IllegalArgumentException e){
+            response.sendRedirect("index.jsp");
+
+        } catch (IllegalArgumentException e) {
+
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
-        }catch (SQLException e){
+
+        } catch (SQLException e) {
+
             request.setAttribute("error",e.getMessage());
             request.getRequestDispatcher("/WEB-INF/registro.jsp").forward(request,response);
+
         }
-
     }
-
 }
