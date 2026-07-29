@@ -5,6 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.http.Part;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,5 +38,23 @@ public class CloudDinary {
             }
         }
         return rutasFotos;
+    }
+    public void borrarFotos(List<String>rutasFotos){
+        try {
+            for (String url : rutasFotos) {
+                String idUrl = extraerIdFoto(url);
+                cloudinary.uploader().destroy(idUrl, ObjectUtils.emptyMap());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private String extraerIdFoto(String url){
+        int inicio=url.lastIndexOf("/")+1;
+        int fin=url.lastIndexOf(".");
+        if(inicio>0&&fin>inicio){
+            return url.substring(inicio,fin);
+        }
+        return null;
     }
 }

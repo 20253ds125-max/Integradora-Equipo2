@@ -1,7 +1,5 @@
 package com.eventonline.controller.admin;
 
-import com.eventonline.dao.SalonesDao;
-import com.eventonline.model.SalonEventos;
 import com.eventonline.service.AdminService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,15 +9,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+@WebServlet("/RechazarRecintoServlet")
+public class RechazarSolicitudServlet extends HttpServlet {
 
-@WebServlet("/adminRecintos")
-public class RecintosAdminServlet extends HttpServlet {
-
+    private final AdminService adminService = new AdminService();
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         jakarta.servlet.http.HttpSession sesion = request.getSession(false);
 
         if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
@@ -36,13 +32,17 @@ public class RecintosAdminServlet extends HttpServlet {
             return;
         }
         try {
-            List <SalonEventos> listaSalones = new AdminService().recintosAdmin();
-            request.setAttribute("salonesPendientes",listaSalones);
+            int idSalonEventos= Integer.parseInt(request.getParameter("idRecinto"));
+            adminService.denegarRecinto(idSalonEventos);
+            response.sendRedirect(request.getContextPath() + "/adminRecintos");
+        }catch(SQLException e){
+            request.setAttribute("error","Error al cambiar estado:"+e.getMessage());
             request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
-        } catch (SQLException e) {
-            request.setAttribute("error","Error al cargar los salones de eventos,intenta mas tarde");
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+        }catch (NumberFormatException e){
+            request.setAttribute("error","Error al cambiar estado:");
+            request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
         }
+
 
     }
 }

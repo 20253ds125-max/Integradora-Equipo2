@@ -1,9 +1,10 @@
-package com.eventonline.controller;
+package com.eventonline.controller.recinto;
 
 import com.eventonline.dao.SalonesDao;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
 import com.eventonline.service.CloudDinary;
+import com.eventonline.service.RecintoService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,8 +24,7 @@ import java.util.List;
         maxRequestSize = 1024 * 1024 * 50
 )
 public class PublicarRecintoServlet extends HttpServlet {
-    private final SalonesDao salonesDao = new SalonesDao();
-    private CloudDinary cloudinaryService = new CloudDinary();
+    private final RecintoService recintoService = new RecintoService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -43,40 +43,10 @@ public class PublicarRecintoServlet extends HttpServlet {
         String strPrecio= request.getParameter("precio");
 
 
-
-        int capacidad=0;
-        double precio = 0;
-        try {
-            capacidad=Integer.parseInt(strCapacidad);
-            precio=Double.parseDouble(strPrecio);
-
-        } catch (NumberFormatException e) {
-            request.setAttribute("error","Campos de capacidad o precio con valores no numericos"+e.getMessage());
-            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
-            return;
-        }
-
         try{
-            List<String> rutasFotos=cloudinaryService.subirFotos(request.getParts());
-            java.sql.Timestamp fecha = java.sql.Timestamp.valueOf(
-                    java.time.LocalDateTime.now()
-            );
-
-            SalonEventos salonesEventos =new SalonEventos(nombre,descripcion,capacidad,ubicacion,precio,rutasFotos,fecha);
-
-            salonesEventos.validarDatosPublicacion();
-            if(salonesDao.registroSalon(salonesEventos,usuario.getIdUsuario())){
-                response.sendRedirect("index.jsp");
-                return;
-            }else{
-                throw new IllegalArgumentException("error en la base de datos");
-            }
-        } catch (IllegalArgumentException e) {
-            request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
-        }catch (SQLException e){
-            request.setAttribute("error","Error en la base de datos: "+e.getMessage());
-            request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
+            recintoService.publicarRecinto(nombre,ubicacion,descripcion,strCapacidad,strPrecio,request,usuario);
+            response.sendRedirect("index.jsp");
+            return;
         }catch (Exception e){
             request.setAttribute("error","al subir imagenes: "+e.getMessage());
             request.getRequestDispatcher("publicar-recinto.jsp").forward(request,response);
