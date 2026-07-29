@@ -26,7 +26,7 @@ public class InicioSesionServlet extends HttpServlet {
         try{
             service.iniciarSesion(email,pass,request);
 
-            response.sendRedirect(request.getContextPath()+"/index.jsp");
+            response.sendRedirect(request.getContextPath()+"/");
 
         }catch (SQLException e){
             request.setAttribute("error",e.getMessage());
