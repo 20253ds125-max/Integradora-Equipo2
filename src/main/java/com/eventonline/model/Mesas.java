@@ -9,7 +9,7 @@ public class Mesas {
     private String nombre;
     private int capacidad;
     private int idUsuario;
-    private List<Invitados> invitados = new ArrayList<>();
+    private List<Invitados> invitado = new ArrayList<>();
 
     public Mesas(){
 
@@ -62,8 +62,8 @@ public class Mesas {
         this.idUsuario = idUsuario;
     }
 
-    public  void setInvitados(List<Invitados> invitados){
-        this.invitados = invitados != null ? invitados : new ArrayList<>();
+    public  void setInvitados(List<Invitados> invitado){
+        this.invitado = invitado != null ? invitado : new ArrayList<>();
     }
 
 }
