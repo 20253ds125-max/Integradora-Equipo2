@@ -146,12 +146,12 @@ public class SalonesDao {
 
         List<SalonEventos> catalogo = new ArrayList<>();
 
-        String buscarAprobados="Select id_publicacion_eventos,nombre_lugar,ubicacion,capacidad,precio,url_portada FROM publicacion_salon_eventos WHERE estado = APROBADO";
+        String buscarAprobados="Select id_publicacion_eventos,nombre_lugar,ubicacion,capacidad,precio,url_portada FROM publicacion_salon_eventos WHERE upper(estado) = 'APROBADO'";
 
         try(Connection con = conexionConfig.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(buscarAprobados) ){
             try (ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
+                while (rs.next()){
                     SalonEventos salonAprobado= new SalonEventos(
                             rs.getInt("id_publicacion_eventos"),
                             rs.getString("nombre_lugar"),
