@@ -1,25 +1,25 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Perfil | Event Online</title>
 
-    <link rel="stylesheet" href="assets/css/perfil.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css"/>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 <header class="site-header">
     <div class="brand-group">
-
-        <a class="brand" href="index.jsp">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
-        <a href="WEB-INF/catalogo.jsp">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
         <a href="extraServices.html">Servicios</a>
         <a class="active" href="perfil.html">Perfil</a>
     </nav>
@@ -33,7 +33,9 @@
                 <h2 data-user-display>Alejandro<br>Campos</h2>
             </div>
 
-            <img data-avatar src="assets/logo.png" alt="Logotipo Event Online">
+            <img data-avatar
+                 src="${pageContext.request.contextPath}/assets/logo.png"
+                 alt="Logotipo Event Online">
         </div>
 
         <div class="rail-actions">
@@ -205,7 +207,9 @@
 
 </div>
 
+<script src="${pageContext.request.contextPath}/assets/js/perfil.js"></script>
+<jsp:include page="alerts.jsp" />
 
-<script src="assets/js/perfil.js"></script>
 </body>
 </html>
+

@@ -19,13 +19,13 @@
 <header class="site-header">
     <div class="brand-group">
 
-        <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
         <a class="active" href="app/catalogo">Recintos</a>
         <a href="app/extraServices">Servicios</a>
-        <a href="app/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">

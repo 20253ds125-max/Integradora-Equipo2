@@ -20,6 +20,7 @@ public class SalonEventos {
 
     }
 
+
     public SalonEventos(int idSalonEventos, String nombre,String ubicacion,String fotoPrincipal,java.sql.Timestamp fecha) {
         this.idSalonEventos = idSalonEventos;
         this.nombre = nombre;

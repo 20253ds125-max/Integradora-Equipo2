@@ -1,21 +1,25 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%
-jakarta.servlet.http.HttpSession sesion = request.getSession(false);
-if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
-request.setAttribute("error", "Por favor inicia sesion con una cuenta de administrador.");
-request.getRequestDispatcher("login.jsp").forward(request, response);
-return;
-}
-%>
-<%
-if ("ADMIN".equalsIgnoreCase(((com.eventonline.model.Usuario) sesion.getAttribute("UsuarioLog")).getRol())) {
-request.setAttribute("error", "Por favor inicia sesion con una cuenta de administrador.");
-request.getRequestDispatcher("login.jsp").forward(request, response);
-return;
-}
-%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%
+    jakarta.servlet.http.HttpSession sesion = request.getSession(false);
+
+    if (sesion == null || sesion.getAttribute("UsuarioLog") == null) {
+        request.setAttribute("error", "Por favor inicia sesión para continuar.");
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        return;
+    }
+
+    com.eventonline.model.Usuario usuarioLogueado = (com.eventonline.model.Usuario) sesion.getAttribute("UsuarioLog");
+
+    if (!"ADMIN".equalsIgnoreCase(usuarioLogueado.getRol())) {
+        request.setAttribute("error", "Acceso denegado. Se requiere cuenta de administrador.");
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        return;
+    }
+%>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -30,11 +34,11 @@ return;
 <body>
 
 <header class="app-header">
-    <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     <nav>
         <a class="active" href="${pageContext.request.contextPath}/admin">Administración</a>
-        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
     <div class="header-actions">
         <a class="avatar" href="" aria-label="Perfil"></a>
@@ -100,7 +104,9 @@ return;
                             </div>
                         </div>
                     </td>
-                    <td style="color: var(--muted);">${salon.fecha}</td>
+                    <td style="color: var(--muted);">
+                            <fmt:formatDate value="${salon.fecha}" pattern="yyy-MM-dd"/>
+                    </td>
 
                     <td>
                         <div class="action-row">
@@ -127,5 +133,6 @@ return;
 </main>
 
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+<jsp:include page="alerts.jsp" />
 </body>
 </html>
