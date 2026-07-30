@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.temporal.ValueRange;
 
 @WebServlet("/app/*")
 public class DireccionesServlet extends HttpServlet {
@@ -16,10 +15,10 @@ public class DireccionesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String direccion = req.getPathInfo();
 
-        if(direccion == null||direccion.equals("/")){
-            req.getRequestDispatcher("/index.jsp").forward(req,resp);
+        if (direccion == null || direccion.equals("/")) {
+            req.getRequestDispatcher("/index.jsp").forward(req, resp);
             return;
         }
-        req.getRequestDispatcher("/WEB-INF"+direccion+".jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF" + direccion + ".jsp").forward(req, resp);
     }
 }

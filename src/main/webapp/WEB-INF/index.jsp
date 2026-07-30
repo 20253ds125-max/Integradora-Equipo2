@@ -13,7 +13,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
@@ -186,7 +186,7 @@
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/main.js" defer></script>
+<script src="${pageContext.request.contextPath}/assets/js/cart.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
 </body>
 </html>
