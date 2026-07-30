@@ -141,4 +141,29 @@ public class SalonesDao {
         }
         return datos;
     }
+
+    public List<SalonEventos> obtenerCatalogo()throws SQLException {
+
+        List<SalonEventos> catalogo = new ArrayList<>();
+
+        String buscarAprobados="Select id_publicacion_eventos,nombre_lugar,ubicacion,capacidad,precio,url_portada FROM publicacion_salon_eventos WHERE estado = APROBADO";
+
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscarAprobados) ){
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    SalonEventos salonAprobado= new SalonEventos(
+                            rs.getInt("id_publicacion_eventos"),
+                            rs.getString("nombre_lugar"),
+                            rs.getString("ubicacion"),
+                            rs.getInt("capacidad"),
+                            rs.getDouble("precio"),
+                            rs.getString("url_portada")
+                    );
+                    catalogo.add(salonAprobado);
+                }
+            }
+        }
+        return catalogo;
+    }
 }

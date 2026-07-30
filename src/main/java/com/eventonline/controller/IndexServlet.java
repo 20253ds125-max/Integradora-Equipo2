@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet (name = "indexServlet", value = "/")
+@WebServlet (name = "indexServlet", urlPatterns = {"", "/inicio"})
 public class IndexServlet extends HttpServlet {
 
     @Override
