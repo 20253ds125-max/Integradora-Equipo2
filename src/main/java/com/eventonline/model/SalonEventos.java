@@ -42,6 +42,16 @@ public class SalonEventos {
         this.fecha = fecha;
     }
 
+    public SalonEventos(int idSalonEventos, String nombre,String ubicacion,int capacidad, double precio,String fotoPrincipal ) {
+        this.idSalonEventos = idSalonEventos;
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.capacidad = capacidad;
+        this.precio = precio;
+        this.fotoPrincipal= fotoPrincipal;
+
+    }
+
     public void validarDatosPublicacion() {
         if (this.nombre == null || this.nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del salón es obligatorio.");

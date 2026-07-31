@@ -1,4 +1,8 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!doctype html>
 <html lang="es">
 <head>
@@ -83,7 +87,78 @@
 
         </div>
 
-        <div class="venue-masonry" id="catalogResults" data-catalog-results></div>
+        <div class="venue-masonry" id="catalogResults" data-catalog-results>
+
+            <%-- Si no hay salones aprobados --%>
+            <c:if test="${empty catalogo}">
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <h2>No se encontraron recintos</h2>
+                    <p>Por el momento no hay recintos disponibles en el catálogo.</p>
+                </div>
+            </c:if>
+
+            <%-- Recorremos la lista de salones enviada desde el Servlet --%>
+            <c:forEach var="salon" items="${catalogo}">
+                <article class="catalog-card">
+
+                    <div class="card-image">
+                        <img src="${not empty salon.fotoPrincipal ? fn:trim(salon.fotoPrincipal) : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
+                             alt="Foto de ${salon.nombre}"
+                             onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
+
+                        <button class="favorite-button"
+                                type="button"
+                                data-venue-id="${salon.idSalonEventos}"
+                                aria-label="Guardar ${salon.nombre}">
+                            &#9825;
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h2>
+                                <a href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                        ${salon.nombre}
+                                </a>
+                            </h2>
+                        </div>
+
+                        <p class="location">
+                            Ubicación: ${salon.ubicacion}
+                        </p>
+
+                        <div class="card-divider"></div>
+
+                        <div class="card-footer">
+                            <div class="footer-info-row">
+                        <span class="capacity">
+                            Hasta ${salon.capacidad} invitados
+                        </span>
+
+                                <strong class="price">
+                                    <fmt:formatNumber value="${salon.precio}" type="currency" currencySymbol="$" maxFractionDigits="0"/>
+                                    <span>/evento</span>
+                                </strong>
+                            </div>
+
+                            <div class="card-actions">
+                                <a class="details-link"
+                                   href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                    Ver detalles
+                                </a>
+
+                                <button class="cart-link"
+                                        type="button"
+                                        data-cart-venue="${salon.idSalonEventos}">
+                                    Añadir al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </c:forEach>
+
+        </div>
 
         <div class="load-more-wrap">
             <button class="load-more" type="button" data-load-more>Mostrar más espacios</button>
@@ -93,8 +168,6 @@
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/cart.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/catalogo.js"></script>
 </body>
 </html>
 

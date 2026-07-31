@@ -44,4 +44,8 @@ public class RecintoService {
             throw e;
         }
     }
+
+    public List<SalonEventos> obtenerCatalogo()throws SQLException {
+        return salonesDao.obtenerCatalogo();
+    }
 }

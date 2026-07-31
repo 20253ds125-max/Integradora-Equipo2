@@ -22,7 +22,7 @@
     <a class="brand" href="${pageContext.request.contextPath}/" aria-label="Ir al inicio">Event Online</a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
-        <a href="app/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="app/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
