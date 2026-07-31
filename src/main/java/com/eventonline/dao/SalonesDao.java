@@ -94,7 +94,7 @@ public class SalonesDao {
             return modificados==1;
         }
     }
-    public List<String> obtenerUrlFotos(int idSalonEventos)throws SQLException{
+    public List<String> obtenerUrlFoto(int idSalonEventos)throws SQLException{
         List<String>listaUrl= new ArrayList<>();
         String buscarUrl="SELECT ubicacion FROM fotos WHERE id_salon_eventos=?";
         try(Connection con = conexionConfig.obtenerConexion();
@@ -165,5 +165,37 @@ public class SalonesDao {
             }
         }
         return catalogo;
+    }
+    public SalonEventos obtenerSalon(int idSalon)throws SQLException{
+        String formarDetalles= "SELECT id_publicacion_eventos,nombre_lugar,descripcion, capacidad, ubicacion, precio, id_usuario FROM publicacion_salon_eventos WHERE id_publicacion_eventos = ?";
+        String buscarFotos="SELECT ubicacion FROM fotos WHERE id_salon_eventos = ?";
+        SalonEventos salonDetalles = null;
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(formarDetalles) ){
+            ps.setInt(1,idSalon);
+            try(ResultSet rs = ps.executeQuery();){
+                if(rs.next()) {
+                     salonDetalles = new SalonEventos(
+                            rs.getInt("id_publicacion_eventos"),
+                            rs.getString("nombre_lugar"),
+                            rs.getString("descripcion"),
+                            rs.getInt("capacidad"),
+                            rs.getString("ubicacion"),
+                            rs.getDouble("precio"),
+                            rs.getInt("id_usuario"));
+                    try (PreparedStatement psFotos = con.prepareStatement(buscarFotos);) {
+                        psFotos.setInt(1, idSalon);
+                        try (ResultSet rsFotos = psFotos.executeQuery()) {
+                            while (rsFotos.next()) {
+                                salonDetalles.setFotos(rsFotos.getString("ubicacion"));
+                            }
+
+                        }
+                    }
+                    return salonDetalles;
+                }
+            }
+        }
+        return null;
     }
 }

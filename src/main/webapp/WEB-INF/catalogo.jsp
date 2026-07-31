@@ -1,9 +1,7 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-<!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -27,7 +25,7 @@
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
-        <a class="active" href="app/catalogo">Recintos</a>
+        <a class="active" href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="app/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
@@ -89,7 +87,6 @@
 
         <div class="venue-masonry" id="catalogResults" data-catalog-results>
 
-            <%-- Si no hay salones aprobados --%>
             <c:if test="${empty catalogo}">
                 <div class="empty-state" style="grid-column: 1 / -1;">
                     <h2>No se encontraron recintos</h2>
@@ -97,7 +94,6 @@
                 </div>
             </c:if>
 
-            <%-- Recorremos la lista de salones enviada desde el Servlet --%>
             <c:forEach var="salon" items="${catalogo}">
                 <article class="catalog-card">
 

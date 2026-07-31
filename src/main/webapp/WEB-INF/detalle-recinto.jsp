@@ -1,119 +1,104 @@
-﻿<!doctype html>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Detalle de recinto para eventos sociales en GEDS." />
-    <title>Event Online | Detalle del recinto</title>
+
+    <title>Event Online | ${salonDetalles.nombre != null ? salonDetalles.nombre : 'Detalle del recinto'}</title>
 
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/detalle.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css" />
 </head>
 
 <body>
 
-
 <header class="detail-header">
     <div class="brand-group">
-        <a class="menu-link" href="WEB-INF/catalogo.jsp" aria-label="Volver al catalogo"><span></span></a>
-        <a class="brand" href="index.jsp">Event Online</a>
+        <a class="menu-link" href="${pageContext.request.contextPath}/catalogo" aria-label="Volver al catalogo"><span></span></a>
+        <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
     </div>
 
     <nav aria-label="Navegacion principal">
-        <a class="active" href="WEB-INF/catalogo.jsp">Recintos</a>
-        <a href="extraServices.html">Servicios extra</a>
-        <a href="perfil.html">Perfil</a>
+        <a class="active" href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios extra</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 </header>
 
 <main>
 
+    <c:if test="${not empty error}">
+        <div style="background-color: #f8d7da; color: #721c24; padding: 10px; text-align: center; border-radius: 8px; margin-bottom: 20px;">
+                ${error}
+        </div>
+    </c:if>
 
     <section class="gallery-section" aria-label="Galeria del recinto">
         <div class="carousel" data-carousel>
             <button class="carousel-control prev" type="button" data-carousel-prev>‹</button>
 
-            <img data-carousel-image src="" alt="Fotografia del recinto" />
+            <img data-carousel-image src="${salonDetalles.fotos[0]}" alt="Fotografia principal del recinto" onerror="this.onerror=null; this.src='https://placehold.co/800x600?text=Sin+Foto';"/>
 
             <button class="carousel-control next" type="button" data-carousel-next>›</button>
-
             <div class="carousel-count" data-carousel-count></div>
         </div>
 
-        <div class="thumbnail-row" data-carousel-thumbs></div>
+        <div class="thumbnail-row" data-carousel-thumbs>
+            <c:forEach var="foto" items="${salonDetalles.fotos}">
+                <img src="${foto}" alt="Miniatura" style="height: 60px; border-radius: 4px; cursor: pointer; object-fit: cover;" onerror="this.style.display='none';" />
+            </c:forEach>
+        </div>
     </section>
-
 
     <section class="detail-layout">
 
-
         <article class="venue-detail">
-
             <div class="title-row">
                 <div>
-                    <h1>Hacienda Los Arcos</h1>
-                    <p class="location">San Miguel de Allende, Guanajuato</p>
+                    <h1>${salonDetalles.nombre}</h1>
+                    <p class="location">${salonDetalles.ubicacion}</p>
                 </div>
             </div>
 
-
             <section class="content-block">
-                <h2>About the Atmosphere</h2>
-
-                <p>
-                    Ubicado entre paisajes naturales, Hacienda Los Arcos ofrece un ambiente cálido y refinado para celebraciones íntimas.
-                    Su arquitectura abierta y materiales naturales crean una experiencia elegante.
-                </p>
-
-                <p>
-                    Ideal para bodas, cenas privadas y eventos curados con estética natural mexicana.
-                </p>
+                <h2>Acerca del lugar</h2>
+                <p style="white-space: pre-wrap;">${salonDetalles.descripcion}</p>
+                <p><strong>Capacidad máxima:</strong> ${salonDetalles.capacidad} invitados.</p>
             </section>
-
 
             <section class="services-section">
                 <h2>Servicios recomendados</h2>
-
-
-                <div class="services-grid" id="randomServices"></div>
+                <div class="services-grid" id="randomServices">
+                </div>
             </section>
-
         </article>
 
-
         <aside class="booking-panel" id="bookingPanel">
-
             <div class="price-row">
-                <strong>$1,200</strong>
+                <strong>$${salonDetalles.precio}</strong>
                 <span>/ por evento</span>
-
-                <button class="favorite-button" type="button" data-detail-favorite>
-                    ♡
-                </button>
+                <button class="favorite-button" type="button" data-detail-favorite>♡</button>
             </div>
-
 
             <section>
                 <h2>Selecciona tu fecha</h2>
-
                 <div class="calendar-card">
                     <div class="calendar-head">
                         <strong>Octubre 2026</strong>
-
                         <div>
                             <button type="button">‹</button>
                             <button type="button">›</button>
                         </div>
                     </div>
-
                     <div class="calendar-grid">
                         <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
-
                         <button type="button">29</button>
                         <button type="button">30</button>
                         <button type="button">1</button>
@@ -124,7 +109,6 @@
                     </div>
                 </div>
             </section>
-
 
             <label class="select-field">
                 <span>Duración</span>
@@ -137,33 +121,25 @@
 
             <section class="guest-control">
                 <span>Invitados</span>
-
                 <div>
                     <button type="button" data-guest-minus>-</button>
-
-                    <strong>
-                        <span data-guest-count>25</span> guests
-                    </strong>
-
+                    <strong><span data-guest-count>25</span> guests</strong>
                     <button type="button" data-guest-plus>+</button>
                 </div>
             </section>
 
-
             <div class="cost-list">
-                <p><span>Renta del recinto</span><strong>$1,200.00</strong></p>
+                <!-- Precios Calculados -->
+                <p><span>Renta del recinto</span><strong>$${salonDetalles.precio}</strong></p>
                 <p><span>Servicio de limpieza</span><strong>$150.00</strong></p>
-                <p class="total"><span>Total</span><strong>$1,350.00</strong></p>
+                <p class="total"><span>Total</span><strong>$${salonDetalles.precio + 150}</strong></p>
             </div>
 
-            <a class="special-button" href="mi-carrito-de-compra.html">
+            <a class="special-button" href="${pageContext.request.contextPath}/carrito">
                 Añadir al carrito
             </a>
 
-            <p class="panel-note">
-                No se realizará ningún cargo todavía.
-            </p>
-
+            <p class="panel-note">No se realizará ningún cargo todavía.</p>
         </aside>
 
     </section>
@@ -174,8 +150,20 @@
     &copy; 2026 Event Online Spaces. Todos los derechos reservados.
 </footer>
 
-<script src="assets/js/detalle.js"></script>
+
+<script>
+    const fotosDesdeBD = [
+        <c:forEach var="foto" items="${salonDetalles.fotos}">
+        "${foto}",
+        </c:forEach>
+    ];
+
+
+    const precioBaseBD = ${salonDetalles.precio};
+    const nombreRecintoBD = "${salonDetalles.nombre}";
+</script>
+
+
+<script src="${pageContext.request.contextPath}/assets/js/detalle.js"></script>
 </body>
 </html>
-
-
