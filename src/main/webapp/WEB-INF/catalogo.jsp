@@ -106,12 +106,22 @@
                              alt="Foto de ${salon.nombre}"
                              onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
 
-                        <button class="favorite-button"
-                                type="button"
-                                data-venue-id="${salon.idSalonEventos}"
-                                aria-label="Guardar ${salon.nombre}">
-                            &#9825;
-                        </button>
+                        <form action="${pageContext.request.contextPath}/app/favoritos"
+                              method="post"
+                              class="favorite-form">
+
+                            <input
+                                    type="hidden"
+                                    name="idRecinto"
+                                    value="${salon.idSalonEventos}">
+
+                            <button class="favorite-button"
+                                    type="submit"
+                                    aria-label="Guardar ${salon.nombre}">
+                                &#9825;
+                            </button>
+
+                        </form>
                     </div>
 
                     <div class="card-body">
@@ -167,6 +177,8 @@
 </main>
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
+<jsp:include page="alerts.jsp" />
 
 </body>
 </html>
