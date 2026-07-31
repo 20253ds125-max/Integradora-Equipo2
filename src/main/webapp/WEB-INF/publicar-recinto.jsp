@@ -30,7 +30,7 @@ return;
     <nav class="top-nav" aria-label="Navegación">
         <a class="active" href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
-        <a href="${pageContext.request.contextPath}/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 </header>
 

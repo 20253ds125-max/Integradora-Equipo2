@@ -19,7 +19,7 @@
     </div>
 
     <nav class="top-nav" aria-label="Navegación">
-        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="extraServices.html">Servicios</a>
         <a class="active" href="perfil.html">Perfil</a>
     </nav>
