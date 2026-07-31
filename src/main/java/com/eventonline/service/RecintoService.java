@@ -1,5 +1,6 @@
 package com.eventonline.service;
 
+import com.eventonline.dao.FavoritosDao;
 import com.eventonline.dao.SalonesDao;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
@@ -8,9 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 public class RecintoService {
+
     private final SalonesDao salonesDao = new SalonesDao();
+    private final FavoritosDao favoritosDao = new FavoritosDao();
     private CloudDinary cloudinaryService = new CloudDinary();
 
     public void publicarRecinto(String nombre, String ubicacion, String descripcion, String strCapacidad, String strPrecio, HttpServletRequest request, Usuario usuario)throws Exception {
@@ -45,8 +49,27 @@ public class RecintoService {
         }
     }
 
-    public List<SalonEventos> obtenerCatalogo()throws SQLException {
-        return salonesDao.obtenerCatalogo();
+    public List<SalonEventos> obtenerCatalogo(Integer idUsuario)throws SQLException {
+
+        List<SalonEventos> catalogo = salonesDao.obtenerCatalogo();
+
+        // Si no hay usuario logueado simplemente regresamos el catalogo
+        if (idUsuario == null) {
+            return catalogo;
+        }
+
+        Set<Integer> favoritos = favoritosDao.obtenerIdsFavoritos(idUsuario);
+
+        for (SalonEventos salon : catalogo) {
+
+            if (favoritos.contains(salon.getIdSalonEventos())) {
+                salon.setFavorito(true);
+            }
+
+        }
+
+        return catalogo;
+
     }
 
     public SalonEventos detallesRecinto(int idRecinto)throws SQLException{

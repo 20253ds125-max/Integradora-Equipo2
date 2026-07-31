@@ -16,6 +16,7 @@ public class SalonEventos {
     private String fotoPrincipal;
     private java.sql.Timestamp fecha;
     private int idUsuario;
+    private boolean favorito;
 
 
 
@@ -111,6 +112,10 @@ public class SalonEventos {
         this.idSalonEventos = idSalonEventos;
     }
 
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -181,6 +186,10 @@ public class SalonEventos {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
     }
 
 }

@@ -645,3 +645,7 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
      }
 
  }
+
+ .favorite-button.is-favorite {
+     color: #e53935;
+ }

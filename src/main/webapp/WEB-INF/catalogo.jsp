@@ -114,7 +114,19 @@
                             <button class="favorite-button"
                                     type="submit"
                                     aria-label="Guardar ${salon.nombre}">
-                                &#9825;
+
+                                <c:choose>
+
+                                    <c:when test="${salon.favorito}">
+                                        &#9829;
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        &#9825;
+                                    </c:otherwise>
+
+                                </c:choose>
+
                             </button>
 
                         </form>
