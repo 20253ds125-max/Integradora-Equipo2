@@ -61,5 +61,8 @@
 
 </div>
 <jsp:include page="alerts.jsp" />
+
+<script src="${pageContext.request.contextPath}/assets/js/codigoVerificacion.js"></script>
+
 </body>
 </html>
