@@ -24,15 +24,21 @@ document.addEventListener("DOMContentLoaded", () => {
         // 3. Soporte para pegar el código completo (Ctrl + V)
         input.addEventListener("paste", (e) => {
             e.preventDefault();
+
+
             const pasteData = e.clipboardData.getData("text").trim();
 
             // Si los datos pegados contienen solo dígitos
-            if (/^\d+$/.test(pasteData)) {
-                const digits = pasteData.split("");
+            const digits = pasteData.split("");
+
+            if (pasteData.length > 0) {
+                // Separar el texto carácter por carácter
+                const characters = pasteData.split("");
 
                 inputs.forEach((inp, idx) => {
-                    if (digits[idx]) {
-                        inp.value = digits[idx];
+                    if (characters[idx]) {
+                        // Tomamos solo el primer carácter por si algún string viene con más de un símbolo
+                        inp.value = characters[idx].substring(0, 1);
                     }
                 });
 
