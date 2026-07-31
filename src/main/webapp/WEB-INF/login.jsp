@@ -27,7 +27,7 @@
             </label>
             <label>
                 <span class="split-label">Password <a href="${pageContext.request.contextPath}/app/restablecer-correo">Olvide mi contraseña</a></span>
-                <span class="password-field">-
+                <span class="password-field">
               <input type="password" name="password" placeholder="********" required data-password-input />
 
             </span>
