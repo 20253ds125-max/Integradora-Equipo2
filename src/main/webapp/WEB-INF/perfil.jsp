@@ -30,7 +30,7 @@
         <div class="profile-identity">
             <div class="profile-info">
                 <p class="eyebrow">MI CUENTA</p>
-                <h2 data-user-display>Alejandro<br>Campos</h2>
+                <h2 data-user-display>${usuario.nombre}</h2>
             </div>
 
             <img data-avatar
@@ -61,11 +61,11 @@
                 <form class="profile-form" data-profile-form>
                     <label>
                         Nombre completo
-                        <input type="text" name="name" data-field="name" disabled>
+                        <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled>
                     </label>
                     <label>
                         Correo electrónico
-                        <input type="email" name="email" data-field="email" disabled>
+                        <input type="email" name="email" value="${usuario.email}" data-field="email" disabled>
                     </label>
                     <label>
                         Teléfono

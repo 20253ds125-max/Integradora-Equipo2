@@ -116,8 +116,6 @@
     const countBookings = document.querySelector("[data-count-bookings]");
     const countFavorites = document.querySelector("[data-count-favorites]");
     const countCart = document.querySelector("[data-count-cart]");
-    const userDisplay = document.querySelector("[data-user-display]");
-    const userEmail = document.querySelector("[data-user-email]");
 
     const money = (value) =>
         `$${Number(value || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -204,20 +202,18 @@
 
     function renderProfile() {
         const profileValues = {
-            name: profile.name || defaultProfile.name,
-            email: profile.email || defaultProfile.email,
-            phone: profile.phone || defaultProfile.phone,
-            city: profile.city || defaultProfile.city,
-            address: profile.address || defaultProfile.address
+            phone: profile.phone || "",
+            city: profile.city || "",
+            address: profile.address || ""
         };
 
         document.querySelectorAll("[data-field]").forEach((input) => {
+            
+            if (input.dataset.field === "name") return;
+            if (input.dataset.field === "email") return;
+
             input.value = profileValues[input.dataset.field] || "";
         });
-
-
-        if (userDisplay) userDisplay.innerHTML = profileValues.name.replace(" ", "<br>");
-        if (userEmail) userEmail.textContent = profileValues.email;
 
         if (countBookings) countBookings.textContent = String(getBookings().length);
         if (countFavorites) countFavorites.textContent = String(getFavorites().length);
