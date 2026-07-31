@@ -34,7 +34,7 @@ public class AdminService {
         }
     }
     public void denegarRecinto(int idSalonEventos)throws SQLException{
-        List<String> urls = salonesDao.obtenerUrlFotos(idSalonEventos);
+        List<String> urls = salonesDao.obtenerUrlFoto(idSalonEventos);
         if(salonesDao.borrarRegistro(idSalonEventos)){
            cloudDinary.borrarFotos(urls);
         }

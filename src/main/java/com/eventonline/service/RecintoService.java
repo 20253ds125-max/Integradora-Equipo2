@@ -48,4 +48,8 @@ public class RecintoService {
     public List<SalonEventos> obtenerCatalogo()throws SQLException {
         return salonesDao.obtenerCatalogo();
     }
+
+    public SalonEventos detallesRecinto(int idRecinto)throws SQLException{
+        return salonesDao.obtenerSalon(idRecinto);
+    }
 }
