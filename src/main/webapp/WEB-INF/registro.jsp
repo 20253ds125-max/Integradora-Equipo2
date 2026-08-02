@@ -30,7 +30,6 @@
 
 <main class="register-shell">
     <section class="register-visual" aria-label="Inspiracion GEDS">
-        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
         <div>
             <h1>Donde el patrimonio encuentra curacion moderna.</h1>
             <p>Unete a una comunidad exclusiva de planners y proveedores dedicados a experiencias memorables.</p>
