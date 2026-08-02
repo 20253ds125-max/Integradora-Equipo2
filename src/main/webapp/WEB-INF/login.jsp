@@ -14,17 +14,16 @@
 </head>
 <header class="site-header">
     <div class="brand-group">
-
         <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
-    <nav class="top-nav" aria-label="Navegación">
+    <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
     </nav>
 
-
+    <div class="header-actions"></div>
 </header>
 
 <body class="login-page">

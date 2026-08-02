@@ -6,12 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Código - Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/codigoVerificacion.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/codigoVerificacion.css?v=1.1">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<header class="site-header">
+    <div class="brand-group">
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación principal">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
+    </nav>
+
+    <div class="header-actions"></div>
+</header>
+
 
 <div class="container">
 
@@ -60,6 +75,8 @@
     </section>
 
 </div>
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
 <jsp:include page="alerts.jsp" />
 
 <script src="${pageContext.request.contextPath}/assets/js/codigoVerificacion.js"></script>

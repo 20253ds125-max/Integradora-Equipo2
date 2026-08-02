@@ -8,12 +8,24 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/restore.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/restore.css?v=1.1">
 </head>
 <body>
+<header class="site-header">
+    <div class="brand-group">
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación principal">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
+    </nav>
+
+    <div class="header-actions"></div>
+</header>
 
 <div class="container">
 
@@ -78,6 +90,8 @@
     </section>
 
 </div>
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
 <jsp:include page="alerts.jsp" />
 
 </body>

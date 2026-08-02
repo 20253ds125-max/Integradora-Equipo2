@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Perfil | Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css?v=1.1"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 <header class="site-header">
@@ -18,11 +18,14 @@
         <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
-    <nav class="top-nav" aria-label="Navegación">
+    <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="extraServices.html">Servicios</a>
-        <a class="active" href="perfil.html">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a class="active" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
+
+    <div class="header-actions">
+    </div>
 </header>
 
 <main class="profile-page">
@@ -203,6 +206,8 @@
     </div>
 
 </div>
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
 
 <script src="${pageContext.request.contextPath}/assets/js/perfil.js"></script>
 <jsp:include page="alerts.jsp" />

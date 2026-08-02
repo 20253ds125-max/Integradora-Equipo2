@@ -12,24 +12,26 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=1.1" />
 </head>
 
 <body>
 
-<header class="detail-header">
+<header class="site-header">
     <div class="brand-group">
-        <a class="menu-link" href="${pageContext.request.contextPath}/catalogo" aria-label="Volver al catalogo"><span></span></a>
-        <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
-    <nav aria-label="Navegacion principal">
+    <nav class="top-nav" aria-label="Navegación principal">
         <a class="active" href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios extra</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
+
+    <div class="header-actions">
+    </div>
 </header>
 
 <main>
@@ -163,6 +165,7 @@
     const nombreRecintoBD = "${salonDetalles.nombre}";
 </script>
 
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
 <script src="${pageContext.request.contextPath}/assets/js/detalle.js"></script>
 </body>

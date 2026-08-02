@@ -9,24 +9,22 @@
     <meta name="description" content="Catalogo de recintos para eventos sociales en Mexico." />
     <title>Event Online | Catálogo de recintos</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet"
-    />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css?v=1.1" />
 </head>
 <body>
+
 <header class="site-header">
     <div class="brand-group">
-
         <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
-    <nav class="top-nav" aria-label="Navegación">
+    <nav class="top-nav" aria-label="Navegación principal">
         <a class="active" href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
