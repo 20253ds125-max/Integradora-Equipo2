@@ -149,9 +149,7 @@
         </section>
     </section>
 </main>
-<footer class="site-footer legal-only">
-    ©2026 Event Online Spaces. Todos los derechos reservados.
-</footer>
+
 <div class="modal-overlay" id="modalEditarRecinto">
 
     <div class="modal-content">
