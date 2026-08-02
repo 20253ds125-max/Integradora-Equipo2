@@ -9,6 +9,7 @@
     <title>Perfil | Event Online</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css?v=1.1"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
