@@ -12,9 +12,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css" />
 </head>
-<header>
-    <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+<header class="site-header">
+    <div class="brand-group">
+
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
+    </nav>
+
+
 </header>
+
 <body class="login-page">
 <main class="login-shell">
     <section class="login-card" aria-labelledby="loginTitle">
@@ -40,10 +52,10 @@
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
     </section>
 </main>
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
 <jsp:include page="alerts.jsp" />
 
-<footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
-<script src="${pageContext.request.contextPath}/assets/js/auth.js"></script>
 </body>
 </html>
 

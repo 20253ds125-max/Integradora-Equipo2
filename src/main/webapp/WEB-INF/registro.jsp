@@ -13,6 +13,21 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css" />
 </head>
 <body class="register-page">
+
+<header class="site-header">
+    <div class="brand-group">
+
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/contacto-equipo">Contactanos</a>
+    </nav>
+</header>
+
+
 <main class="register-shell">
     <section class="register-visual" aria-label="Inspiracion GEDS">
         <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
@@ -42,6 +57,14 @@
                         <input type="password" name="password" placeholder="********" required data-password-input />
                     </span>
                 </label>
+                <label>
+                    <span>Teléfono</span>
+                    <input type="tel" name="phone" placeholder="5586597852"  required>
+                </label>
+                <label>
+                    <span>Ciudad</span>
+                    <input type="text" name="city" placeholder="Cuernavaca"  required>
+                </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
             <p class="switch-copy">Ya tienes una cuenta? <a href="${pageContext.request.contextPath}/app/login">Iniciar Sesión</a></p>
@@ -49,6 +72,10 @@
         </div>
     </section>
 </main>
+
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
+
 <jsp:include page="alerts.jsp" />
 </body>
 </html>

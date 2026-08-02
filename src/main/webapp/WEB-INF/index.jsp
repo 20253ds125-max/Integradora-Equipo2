@@ -23,8 +23,8 @@
 
     <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
-        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">

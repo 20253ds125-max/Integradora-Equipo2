@@ -75,10 +75,7 @@
                         Ciudad
                         <input type="text" name="city" data-field="city" disabled>
                     </label>
-                    <label class="span-2">
-                        Dirección
-                        <input type="text" name="address" data-field="address" disabled>
-                    </label>
+
                     <div class="form-actions span-2">
                         <button class="ui-button ui-button--solid" type="button" data-edit-profile>Editar perfil</button>
                         <button class="ui-button ui-button--ghost" type="submit" data-save-profile hidden>Guardar cambios</button>
