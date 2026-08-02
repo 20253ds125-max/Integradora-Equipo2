@@ -9,13 +9,27 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght=600;700&family=Montserrat:wght=400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css?v=1.1" />
 </head>
 <body class="register-page">
+
+<header class="site-header">
+    <div class="brand-group">
+
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/contacto-equipo">Contactanos</a>
+    </nav>
+</header>
+
+
 <main class="register-shell">
     <section class="register-visual" aria-label="Inspiracion GEDS">
-        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
         <div>
             <h1>Donde el patrimonio encuentra curacion moderna.</h1>
             <p>Unete a una comunidad exclusiva de planners y proveedores dedicados a experiencias memorables.</p>
@@ -42,6 +56,14 @@
                         <input type="password" name="password" placeholder="********" required data-password-input />
                     </span>
                 </label>
+                <label>
+                    <span>Teléfono</span>
+                    <input type="tel" name="phone" placeholder="5586597852"  required>
+                </label>
+                <label>
+                    <span>Ciudad</span>
+                    <input type="text" name="city" placeholder="Cuernavaca"  required>
+                </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
             <p class="switch-copy">Ya tienes una cuenta? <a href="${pageContext.request.contextPath}/app/login">Iniciar Sesión</a></p>
@@ -49,6 +71,10 @@
         </div>
     </section>
 </main>
+
+<footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+
+
 <jsp:include page="alerts.jsp" />
 </body>
 </html>
