@@ -1,7 +1,6 @@
 package com.eventonline.controller.admin;
 
-import com.eventonline.dao.SalonesDao;
-import com.eventonline.model.SalonEventos;
+import com.eventonline.model.Servicio;
 import com.eventonline.service.AdminService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,12 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-
-@WebServlet("/adminRecintos")
-public class RecintosAdminServlet extends HttpServlet {
+@WebServlet("/admin-servicios")
+public class ServiciosAdminServlet extends HttpServlet {
 
     private final AdminService adminService = new AdminService();
 
@@ -37,14 +34,22 @@ public class RecintosAdminServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
-        try {
-            List <SalonEventos> listaSalones = adminService.recintosAdmin();
-            request.setAttribute("salonesPendientes",listaSalones);
-            request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
+
+        try{
+            List<Servicio> pendientes = adminService.serviciosAdmin();
+            request.setAttribute("pendientes",pendientes);
+            request.getRequestDispatcher("/WEB-INF/admin-servicios.jsp").forward(request,response);
+
         } catch (SQLException e) {
-            request.setAttribute("error","Error al cargar los salones de eventos,intenta mas tarde");
+            e.printStackTrace();
+            request.setAttribute("error","Error al cargar los recintos intenta mas tarde");
             request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,response);
         }
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req,resp);
     }
 }

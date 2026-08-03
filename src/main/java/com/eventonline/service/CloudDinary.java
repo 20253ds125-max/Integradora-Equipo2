@@ -49,6 +49,14 @@ public class CloudDinary {
             e.printStackTrace();
         }
     }
+    public void borrarFoto(String url){
+        try {
+                String idUrl = extraerIdFoto(url);
+                cloudinary.uploader().destroy(idUrl, ObjectUtils.emptyMap());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private String extraerIdFoto(String url){
         int inicio=url.lastIndexOf("/")+1;
         int fin=url.lastIndexOf(".");
@@ -56,5 +64,17 @@ public class CloudDinary {
             return url.substring(inicio,fin);
         }
         return null;
+    }
+    public String subirFoto(Part parte) throws Exception {
+
+        if (parte == null || parte.getSize() == 0) {
+            throw new IllegalArgumentException("El archivo de imagen está vacío o es nulo.");
+        }
+        InputStream inputStream = parte.getInputStream();
+        byte[] bytesImagen = inputStream.readAllBytes();
+
+        Map respuestaNube = cloudinary.uploader().upload(bytesImagen, ObjectUtils.emptyMap());
+
+        return (String) respuestaNube.get("secure_url");
     }
 }

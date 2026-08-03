@@ -1,7 +1,9 @@
 package com.eventonline.service;
 
 import com.eventonline.dao.SalonesDao;
+import com.eventonline.dao.ServiciosDAO;
 import com.eventonline.model.SalonEventos;
+import com.eventonline.model.Servicio;
 import com.eventonline.util.CorreoElectronico;
 
 import java.sql.SQLException;
@@ -10,6 +12,7 @@ import java.util.Map;
 
 public class AdminService {
 
+    private final ServiciosDAO serviciosDAO= new ServiciosDAO();
     private final SalonesDao salonesDao = new SalonesDao();
     private final CorreoElectronico correoElectronico= new CorreoElectronico();
     private final CloudDinary cloudDinary = new CloudDinary();
@@ -38,8 +41,30 @@ public class AdminService {
         if(salonesDao.borrarRegistro(idSalonEventos)){
            cloudDinary.borrarFotos(urls);
         }
+    }
+    public List<Servicio> serviciosAdmin()throws SQLException{
+        return serviciosDAO.buscarPendientes();
+    }
+    public void aceptarSolicitudRecinto(int idServicio)throws SQLException{
+        if(!serviciosDAO.aceptarSolicitud(idServicio)){
+            throw new SQLException("No se puede aprobar: el recinto no existe o ya fue aprobado");
+        }
+        Map<String, String> datos = serviciosDAO.obtenerDatosParaCorreo(idServicio);
+        if (!datos.isEmpty()) {
+            String correoDestino = datos.get("correo");
+            String nombreRecinto = datos.get("nombre");
+            String urlImagen = datos.get("imagen");
 
-
+            correoElectronico.enviarAceptacionSolicitud(correoDestino, nombreRecinto, urlImagen);
+        }
     }
 
+    public void denegarServicio(int idServicio)throws SQLException {
+        String url=serviciosDAO.buscarUrlFoto(idServicio);
+        if(serviciosDAO.rechazarSolicitud(idServicio)){
+            if(url!=null) {
+                cloudDinary.borrarFoto(url);
+            }
+        }
+    }
 }
