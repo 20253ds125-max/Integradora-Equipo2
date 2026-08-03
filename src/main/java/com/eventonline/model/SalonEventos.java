@@ -1,6 +1,7 @@
 package com.eventonline.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SalonEventos {
@@ -11,14 +12,27 @@ public class SalonEventos {
     private int capacidad;
     private String ubicacion;
     private double precio;
-    private List<String> fotos;
+    private List<String> fotos = new ArrayList<>();
     private String fotoPrincipal;
     private java.sql.Timestamp fecha;
+    private int idUsuario;
+    private boolean favorito;
+
 
 
     public SalonEventos(){
 
     }
+    public SalonEventos(int idSalonEventos, String nombre, String descripcion, int capacidad, String ubicacion, double precio,int idUsuario) {
+        this.idSalonEventos = idSalonEventos;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.capacidad = capacidad;
+        this.ubicacion = ubicacion;
+        this.precio = precio;
+        this.idUsuario = idUsuario;
+    }
+
 
     public SalonEventos(int idSalonEventos, String nombre,String ubicacion,String fotoPrincipal,java.sql.Timestamp fecha) {
         this.idSalonEventos = idSalonEventos;
@@ -39,6 +53,16 @@ public class SalonEventos {
             this.fotoPrincipal = fotos.getFirst();
         }
         this.fecha = fecha;
+    }
+
+    public SalonEventos(int idSalonEventos, String nombre,String ubicacion,int capacidad, double precio,String fotoPrincipal ) {
+        this.idSalonEventos = idSalonEventos;
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.capacidad = capacidad;
+        this.precio = precio;
+        this.fotoPrincipal= fotoPrincipal;
+
     }
 
     public void validarDatosPublicacion() {
@@ -88,6 +112,10 @@ public class SalonEventos {
         this.idSalonEventos = idSalonEventos;
     }
 
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -132,11 +160,8 @@ public class SalonEventos {
         return fotos;
     }
 
-    public void setFotos(List<String> fotos) {
-        this.fotos = fotos;
-        if (fotos != null && !fotos.isEmpty()) {
-            this.fotoPrincipal = fotos.getFirst();
-        }
+    public void setFotos(String foto) {
+        fotos.add(foto);
     }
 
     public String getFotoPrincipal() {
@@ -153,6 +178,18 @@ public class SalonEventos {
 
     public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
     }
 
 }

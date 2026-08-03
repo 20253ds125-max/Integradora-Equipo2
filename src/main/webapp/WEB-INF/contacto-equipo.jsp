@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contactar Equipo</title>
 
-    <link rel="stylesheet" href="assets/css/contacto-equipo.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/contacto-equipo.css?v=1.1" /></head>
 <body>
 <header class="site-header">
     <div class="brand-group">
-
-        <a class="brand" href="index.jsp">Event Online</a>
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
-    <nav class="top-nav" aria-label="Navegación">
-        <a href="WEB-INF/catalogo.jsp">Recintos</a>
-        <a href="extraServices.html">Servicios</a>
-        <a href="perfil.html">Perfil</a>
+    <nav class="top-nav" aria-label="Navegación principal">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a class="active" href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
     </nav>
 
-
+    <div class="header-actions"></div>
 </header>
 <section class="team-section">
 
@@ -147,13 +147,8 @@
                     luis.camd@gmail.com
                 </a>
             </div>
-
         </div>
-
-
     </div>
-
-
 
 </section>
 <footer class="site-footer legal-only">

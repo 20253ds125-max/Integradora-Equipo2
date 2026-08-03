@@ -107,7 +107,7 @@ function addVenueToCart(venue, options = {}) {
     });
 
     if (options.navigate !== false) {
-        window.location.href = options.redirectTo || "mi-carrito-de-compra.html";
+        window.location.href = options.redirectTo || "mi-carrito-de-compra";
     }
 
     return next;

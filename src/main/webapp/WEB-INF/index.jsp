@@ -13,18 +13,18 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body>
 <header class="site-header" data-header>
-    <a class="brand" href="#inicio" aria-label="Ir al inicio">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/" aria-label="Ir al inicio">Event Online</a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
-        <a href="app/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
-        <a href="app/perfil">Perfil</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
@@ -36,7 +36,7 @@
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
     <a href="app/login">Iniciar sesión o registrarte</a>
-    <a href="contacto-equipo.html">Contacta al equipo</a>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
     <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
 </nav>
 
@@ -185,8 +185,9 @@
     </form>
 </dialog>
 
+<jsp:include page="alerts.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/main.js" defer></script>
+<script src="${pageContext.request.contextPath}/assets/js/cart.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
 </body>
 </html>
