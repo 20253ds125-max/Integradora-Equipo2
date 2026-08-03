@@ -10,11 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/AprobarRecintoServlet")
-public class AceptarSolicitudServlet extends HttpServlet {
+@WebServlet("/RechazarRecintoServlet")
+public class RechazarSolicitudRecintoServlet extends HttpServlet {
 
     private final AdminService adminService = new AdminService();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         jakarta.servlet.http.HttpSession sesion = request.getSession(false);
@@ -33,15 +32,17 @@ public class AceptarSolicitudServlet extends HttpServlet {
             return;
         }
         try {
-            int idSalonEventos = Integer.parseInt(request.getParameter("idRecinto"));
-            adminService.aceptarSolicitud(idSalonEventos);
+            int idSalonEventos= Integer.parseInt(request.getParameter("idRecinto"));
+            adminService.denegarRecinto(idSalonEventos);
             response.sendRedirect(request.getContextPath() + "/adminRecintos");
-        }catch (SQLException e){
+        }catch(SQLException e){
             request.setAttribute("error","Error al cambiar estado:"+e.getMessage());
             request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
-        } catch (NumberFormatException e) {
+        }catch (NumberFormatException e){
             request.setAttribute("error","Error al cambiar estado:");
             request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
         }
+
+
     }
 }

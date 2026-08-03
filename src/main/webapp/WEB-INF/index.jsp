@@ -23,7 +23,7 @@
 
     <nav class="desktop-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
@@ -185,6 +185,7 @@
     </form>
 </dialog>
 
+<jsp:include page="alerts.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="${pageContext.request.contextPath}/assets/js/cart.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>

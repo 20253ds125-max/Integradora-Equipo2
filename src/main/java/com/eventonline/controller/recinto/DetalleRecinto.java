@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
-@WebServlet(urlPatterns = {"/detalleRecinto"})
+@WebServlet("/detalleRecinto")
 public class DetalleRecinto extends HttpServlet {
 
     private final RecintoService recintoService = new RecintoService();
