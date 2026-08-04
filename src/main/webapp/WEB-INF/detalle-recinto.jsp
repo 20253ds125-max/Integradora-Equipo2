@@ -148,11 +148,6 @@
 
 </main>
 
-<footer class="rights-footer">
-    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
-</footer>
-
-
 <script>
     const fotosDesdeBD = [
         <c:forEach var="foto" items="${salonDetalles.fotos}">
