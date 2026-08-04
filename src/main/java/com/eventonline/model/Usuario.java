@@ -50,6 +50,22 @@ public class Usuario {
         }
     }
 
+    public void validarDatosPerfil() {
+
+        if (this.nombre == null || this.nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío.");
+        }
+
+        if (this.telefono == null || this.telefono.trim().isEmpty()) {
+            throw new IllegalArgumentException("El teléfono no puede estar vacío.");
+        }
+
+        if (this.ciudad == null || this.ciudad.trim().isEmpty()) {
+            throw new IllegalArgumentException("La ciudad no puede estar vacía.");
+        }
+
+    }
+
     public int getIdUsuario() {
         return idUsuario;
     }

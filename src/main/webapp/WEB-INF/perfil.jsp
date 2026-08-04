@@ -64,7 +64,9 @@
                     </div>
                 </div>
 
-                <form class="profile-form" data-profile-form>
+                <form action="${pageContext.request.contextPath}/app/editarPerfil"
+                      method="post"
+                      class="profile-form">
                     <label>
                         Nombre completo
                         <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled>
@@ -84,14 +86,20 @@
 
                     <div class="form-actions span-2">
                         <button class="ui-button ui-button--solid" type="button" data-edit-profile>Editar perfil</button>
-                        <button class="ui-button ui-button--ghost" type="submit" data-save-profile hidden>Guardar cambios</button>
+                        <button
+                                class="ui-button ui-button--ghost"
+                                type="submit"
+                                data-save-profile
+                                hidden>
+                            Guardar cambios
+                        </button>
                     </div>
                 </form>
             </article>
             <article class="panel-card glass-panel hidden" id="profile-resser" data-panel>
                 <div class="panel-head">
                     <div>
-
+                        <p class="eyebrow">Mis publicaciones</p>
                         <h2>Publicaciones recientes</h2>
                     </div>
                 </div>

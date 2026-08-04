@@ -351,6 +351,12 @@
 
     function toggleEditing(enabled) {
         document.querySelectorAll("[data-field]").forEach((input) => {
+
+            if (input.name === "email") {
+                input.disabled = true;
+                return;
+            }
+
             input.disabled = !enabled;
         });
 

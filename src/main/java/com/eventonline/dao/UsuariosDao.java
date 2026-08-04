@@ -208,4 +208,28 @@ public class UsuariosDao {
     private String encriptaContrasena (String pass) {
         return BCrypt.hashpw(pass, BCrypt.gensalt());
     }
+
+    public boolean actualizarPerfil(Usuario usuario) throws SQLException {
+
+        String accion = """
+            UPDATE usuarios
+            SET nombre = ?,
+                telefono = ?,
+                ciudad = ?
+            WHERE id_usuario = ?
+            """;
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(accion)) {
+
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getTelefono());
+            ps.setString(3, usuario.getCiudad());
+            ps.setInt(4, usuario.getIdUsuario());
+
+            int filasActualizadas = ps.executeUpdate();
+
+            return filasActualizadas > 0;
+        }
+    }
 }
