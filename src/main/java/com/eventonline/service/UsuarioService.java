@@ -18,7 +18,7 @@ public class UsuarioService {
         if (usuariosDao.buscarUsuarioPorCorreo(usuario.getEmail()) != null) {
             throw new IllegalArgumentException("Correo ya existente");
         }
-
+        usuario.validarDatosRegistro();
         usuariosDao.guardarUsuario(usuario);
     }
 
@@ -33,8 +33,8 @@ public class UsuarioService {
                 HttpSession session = request.getSession();
                 Usuario usuario = new Usuario(
                         encontrado.getIdUsuario(),
-                        encontrado.getNombre(),
                         encontrado.getEmail(),
+                        encontrado.getNombre(),
                         encontrado.getRol()
                 );
                 session.setAttribute("UsuarioLog",usuario);
