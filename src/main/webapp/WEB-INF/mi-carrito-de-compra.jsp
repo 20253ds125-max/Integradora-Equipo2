@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!doctype html>
 <html lang="es">
 <head>
@@ -16,20 +18,18 @@
         <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     </div>
 
-    <nav class="top-nav" aria-label="Navegacion principal">
-        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+    <nav class="top-nav" aria-label="Navegación principal">
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/">Inicio</a>
     </nav>
 
     <div class="header-actions">
-        <a class="cart-pill" href="perfil.html">Perfil</a>
+        <a class="cart-pill" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </div>
 </header>
 
 <main class="shop-shell">
-
-
     <h1>Carrito de compras</h1>
 
     <section class="shop-grid">
@@ -37,32 +37,60 @@
             <p class="eyebrow">Espacio de evento</p>
             <h2>Productos añadidos</h2>
 
-            <div class="cart-table">
-                <div class="cart-head">
-                    <span>Producto</span>
-                    <span>Fecha seleccionada</span>
-                    <span>Precio</span>
-                </div>
-                <div class="cart-items" data-cart-items></div>
-            </div>
+            <c:choose>
+                <c:when test="${empty itemsCarrito}">
+                    <div class="cart-empty">
+                        <p>Tu carrito está vacío.</p>
+                        <a class="secondary-button" href="${pageContext.request.contextPath}/catalogo">Explorar recintos</a>
+                    </div>
+                </c:when>
 
-            <div class="cart-empty" data-cart-empty hidden>
-                <p>Tu carrito está vacío.</p>
-                <a class="secondary-button" href="WEB-INF/catalogo.jsp">Explorar recintos</a>
-            </div>
+                <c:otherwise>
+                    <div class="cart-table">
+                        <div class="cart-head">
+                            <span>Producto</span>
+                            <span>Precio</span>
+                            <span>Acción</span>
+                        </div>
+
+                        <div class="cart-items">
+                            <c:forEach var="item" items="${itemsCarrito}">
+                                <div class="cart-row">
+                                    <div class="product-cell">
+                                        <img src="${item.urlFoto}" alt="${item.nombre}">
+                                        <div class="product-name">
+                                            <strong>${item.nombre}</strong>
+                                            <span>${item.ubicacion}</span>
+                                        </div>
+                                    </div>
+                                    <div class="price-cell">
+                                        <fmt:formatNumber value="${item.precio}" type="currency" currencySymbol="$" maxFractionDigits="2"/>
+                                    </div>
+                                    <div class="remove-cell">
+                                        <form action="${pageContext.request.contextPath}/eliminarItemCarrito" method="POST" style="margin: 0;">
+                                            <input type="hidden" name="idCarrito" value="${item.idCarrito}">
+                                            <button class="remove-button" type="submit" title="Eliminar">&times;</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
             <div class="cart-breakdown">
                 <div class="breakdown-row">
                     <span>Cargo por servicio</span>
-                    <strong data-cart-service-fee>$0.00</strong>
+                    <strong><fmt:formatNumber value="${cargoServicio}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
                 </div>
                 <div class="breakdown-row">
                     <span>Depósito por daños (30%)</span>
-                    <strong data-cart-deposit>$0.00</strong>
+                    <strong><fmt:formatNumber value="${deposito}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
                 </div>
                 <div class="breakdown-row total">
                     <span>Total</span>
-                    <strong data-cart-total>$0.00</strong>
+                    <strong><fmt:formatNumber value="${total}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
                 </div>
             </div>
 
@@ -72,8 +100,13 @@
             </div>
 
             <div class="actions-row">
-                <button class="secondary-button" type="button" data-clear-cart>Vaciar carrito</button>
-                <a class="primary-button" href="pago.html" data-checkout>Proceder a pago</a>
+                <c:if test="${not empty itemsCarrito}">
+                    <form action="${pageContext.request.contextPath}/vaciarCarrito" method="POST" style="margin: 0;" onsubmit="return confirm('¿Estás seguro de que deseas vaciar todo el carrito?');">
+                        <button class="secondary-button" type="submit">Vaciar carrito</button>
+                    </form>
+
+                    <a class="primary-button" href="${pageContext.request.contextPath}/pago">Proceder a pago</a>
+                </c:if>
             </div>
         </article>
 
@@ -81,23 +114,22 @@
             <p class="eyebrow">Resumen</p>
             <div class="summary-card">
                 <div>
-                    <span>Recinto seleccionado</span>
-                    <strong data-summary-venue>Sin recinto</strong>
+                    <span>Recintos seleccionados</span>
+                    <strong>${contRecintos}</strong>
                 </div>
                 <div>
                     <span>Servicios extra</span>
-                    <strong data-summary-services>0</strong>
+                    <strong>${contServicios}</strong>
                 </div>
                 <div>
                     <span>Subtotal</span>
-                    <strong data-summary-subtotal>$0.00</strong>
+                    <strong><fmt:formatNumber value="${subtotal}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
                 </div>
             </div>
         </aside>
     </section>
 </main>
+
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/carrito.js"></script>
 </body>
 </html>

@@ -36,7 +36,6 @@ public class ServicioService {
     }
 
     public List<Servicio> obtenerCatalogo() throws SQLException{
-        System.out.println("2");
         List<Servicio> catalogoServicio = serviciosDAO.obtenerCatalogo();
         return catalogoServicio;
     }

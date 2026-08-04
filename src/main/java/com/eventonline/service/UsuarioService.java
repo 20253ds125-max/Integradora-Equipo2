@@ -31,7 +31,13 @@ public class UsuarioService {
             if(usuariosDao.verificarUsuario(email,pass)!=null){
                 usuariosDao.resetearIntentos(email);
                 HttpSession session = request.getSession();
-                session.setAttribute("UsuarioLog",encontrado);
+                Usuario usuario = new Usuario(
+                        encontrado.getIdUsuario(),
+                        encontrado.getNombre(),
+                        encontrado.getEmail(),
+                        encontrado.getRol()
+                );
+                session.setAttribute("UsuarioLog",usuario);
 
             }
             else {

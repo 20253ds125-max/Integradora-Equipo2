@@ -49,7 +49,7 @@
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-resser">Mis publicaciones</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-bookings">Ver reservas</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-favorites">Ver favoritos</button>
-            <a class="ui-button ui-button--ghost" href="mi-carrito-de-compra.html">Ir al carrito</a>
+            <a class="ui-button ui-button--ghost" href="${pageContext.request.contextPath}/mi-carrito-de-compra">Ir al carrito</a>
         </div>
     </aside>
     <section class="profile-main">
