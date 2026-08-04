@@ -39,7 +39,7 @@
 
     <nav class="top-nav" aria-label="Navegación principal">
         <a class="active" href="${pageContext.request.contextPath}/adminRecintos">Administración</a>
-        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
