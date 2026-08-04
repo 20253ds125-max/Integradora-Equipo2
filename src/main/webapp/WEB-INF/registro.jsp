@@ -22,7 +22,7 @@
 
     <nav class="top-nav" aria-label="Navegación">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
+        <a href="extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/contacto-equipo">Contactanos</a>
     </nav>
 </header>

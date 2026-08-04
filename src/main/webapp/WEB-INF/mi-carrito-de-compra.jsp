@@ -18,7 +18,7 @@
 
     <nav class="top-nav" aria-label="Navegacion principal">
         <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/">Inicio</a>
     </nav>
 

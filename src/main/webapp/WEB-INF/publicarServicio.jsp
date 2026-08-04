@@ -34,7 +34,7 @@
 
     <nav class="top-nav" aria-label="Navegación">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a class="active" href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a class="active" href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
     <div class="header-actions"></div>
