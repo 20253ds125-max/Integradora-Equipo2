@@ -125,8 +125,6 @@
         localStorage.setItem(key, JSON.stringify(value));
     };
 
-    const profile = { ...defaultProfile, ...readJSON(profileKey, {}) };
-
     function parsePrice(value) {
         const numeric = Number(String(value || "").replace(/[^0-9]/g, ""));
         return Number.isFinite(numeric) && numeric > 0 ? numeric : 0;
@@ -190,33 +188,6 @@
     function setActiveTab(id) {
         tabs.forEach((button) => button.classList.toggle("is-active", button.dataset.tab === id));
         panels.forEach((panel) => panel.classList.toggle("hidden", panel.id !== id));
-    }
-
-    function renderProfile() {
-        const profileValues = {
-            phone: profile.phone || "",
-            city: profile.city || "",
-            address: profile.address || ""
-        };
-
-        document.querySelectorAll("[data-field]").forEach((input) => {
-            
-            if (input.dataset.field === "name") return;
-            if (input.dataset.field === "email") return;
-
-            input.value = profileValues[input.dataset.field] || "";
-        });
-
-        if (countBookings) countBookings.textContent = String(getBookings().length);
-        if (countFavorites) countFavorites.textContent = String(getFavorites().length);
-
-        const cartVenue = getCartVenue();
-        const cartServices = getCartServices();
-        if (countCart) countCart.textContent = String((cartVenue ? 1 : 0) + cartServices.length);
-
-        renderBookings();
-        renderFavorites();
-        renderCart();
     }
 
     function renderBookings() {
@@ -440,11 +411,11 @@
     if (cancelButton) {
         cancelButton.addEventListener("click", () => {
             toggleEditing(false);
-            renderProfile();
+            //renderProfile();
         });
     }
 
-    if (profileForm) {
+    /*if (profileForm) {
         profileForm.addEventListener("submit", (event) => {
             event.preventDefault();
             const values = Object.fromEntries(new FormData(profileForm).entries());
@@ -453,7 +424,7 @@
             toggleEditing(false);
             renderProfile();
         });
-    }
+    }*/
 
     document.addEventListener("click", (event) => {
         const removeButton = event.target.closest("[data-remove-favorite]");
@@ -461,15 +432,15 @@
 
         const favorites = getFavorites().filter((venue) => venue.id !== removeButton.dataset.removeFavorite);
         writeJSON(favoritesKey, favorites);
-        renderProfile();
+        //renderProfile();
     });
 
     toggleEditing(false);
     setActiveTab("profile-personal");
-    renderProfile();
+    //renderProfile();
 
-    window.addEventListener("storage", renderProfile);
-    window.addEventListener("focus", renderProfile);
+    //window.addEventListener("storage", renderProfile);
+    //window.addEventListener("focus", renderProfile);
     const modal = document.getElementById(
         "modalEditarRecinto"
     );
