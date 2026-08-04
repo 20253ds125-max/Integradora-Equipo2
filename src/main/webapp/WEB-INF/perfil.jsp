@@ -75,11 +75,11 @@
                     </label>
                     <label>
                         Teléfono
-                        <input type="tel" name="phone" data-field="phone" disabled>
+                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled>
                     </label>
                     <label>
                         Ciudad
-                        <input type="text" name="city" data-field="city" disabled>
+                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled>
                     </label>
 
                     <div class="form-actions span-2">

@@ -7,14 +7,6 @@
     const publicationsList = document.querySelector("[data-publications-list]");
     const realBookingsList = document.querySelector("[data-real-bookings-list]");
 
-    const defaultProfile = {
-        name: "Alejandro Campos",
-        email: "ale.campos@email.com",
-        phone: "+52 55 1234 5678",
-        city: "Jojutla",
-        address: "Av. Reforma 123, Joju"
-    };
-
     const fallbackVenues = {
         "villa-laura": {
             id: "villa-laura",

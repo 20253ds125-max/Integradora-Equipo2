@@ -23,10 +23,12 @@ public class RegistroUsuarioServlet extends HttpServlet {
         String email = request.getParameter("email");
         String pass = request.getParameter("password");
         String rol = "usuario";
+        String telefono = request.getParameter("telefono");
+        String ciudad = request.getParameter("ciudad");
 
         try {
 
-            Usuario usuario = new Usuario(email, nombre, pass, rol);
+            Usuario usuario = new Usuario(email, nombre, pass, rol, telefono, ciudad);
 
             usuarioService.registrarUsuario(usuario);
 
