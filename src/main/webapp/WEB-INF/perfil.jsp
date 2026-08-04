@@ -104,7 +104,96 @@
                     </div>
                 </div>
 
-                <div class="cards-grid" data-publications-list></div>
+                <div class="cards-grid cards-grid--favorites">
+
+                    <c:choose>
+
+                        <c:when test="${empty publicaciones}">
+
+                            <p>Aún no has publicado ningún recinto.</p>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                            <c:forEach var="salon" items="${publicaciones}">
+
+                                <article class="catalog-card">
+
+                                    <div class="card-image">
+
+                                        <img
+                                                src="${not empty salon.fotoPrincipal ? salon.fotoPrincipal : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
+                                                alt="Foto de ${salon.nombre}"
+                                                onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <div class="card-title-row">
+
+                                            <h2>${salon.nombre}</h2>
+
+                                        </div>
+
+                                        <p class="location">
+                                            Ubicación: ${salon.ubicacion}
+                                        </p>
+
+                                        <div class="card-divider"></div>
+
+                                        <div class="card-footer">
+
+                                            <div class="footer-info-row">
+
+                                <span class="capacity">
+                                    Hasta ${salon.capacidad} invitados
+                                </span>
+
+                                                <strong class="price">
+                                                    <fmt:formatNumber
+                                                            value="${salon.precio}"
+                                                            type="currency"
+                                                            currencySymbol="$"
+                                                            maxFractionDigits="0"/>
+                                                    <span>/evento</span>
+                                                </strong>
+
+                                            </div>
+
+                                            <div class="card-actions">
+
+                                                <a class="details-link"
+                                                   href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                                    Ver detalles
+                                                </a>
+
+                                                <button
+                                                        class="cart-link abrir-modal-edicion"
+                                                        type="button"
+                                                        data-venue-id="${salon.idSalonEventos}"
+                                                        data-venue-name="${salon.nombre}"
+                                                        data-venue-location="${salon.ubicacion}"
+                                                        data-venue-price="${salon.precio}">
+                                                    Editar
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </article>
+
+                            </c:forEach>
+
+                        </c:otherwise>
+
+                    </c:choose>
+
+                </div>
             </article>
 
             <article class="panel-card glass-panel hidden" id="profile-bookings" data-panel>

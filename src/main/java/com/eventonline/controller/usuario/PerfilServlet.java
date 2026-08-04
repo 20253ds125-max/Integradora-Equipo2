@@ -42,13 +42,15 @@ public class PerfilServlet extends HttpServlet {
             // Recuperar el usuario autenticado
             Usuario usuarioLog = (Usuario) session.getAttribute("UsuarioLog");
 
-            // Obteniendo favoritos con perfilService
             List<SalonEventos> favoritos =
                     perfilService.obtenerFavoritos(usuarioLog.getIdUsuario());
 
-            // Pasarle el usuario al jsp + obtener favoritos
+            List<SalonEventos> publicaciones =
+                    perfilService.obtenerPublicaciones(usuarioLog.getIdUsuario());
+
             req.setAttribute("usuario", usuarioLog);
             req.setAttribute("favoritos", favoritos);
+            req.setAttribute("publicaciones", publicaciones);
 
             // Ahora si redirir al perfil
             req.getRequestDispatcher("/WEB-INF/perfil.jsp")

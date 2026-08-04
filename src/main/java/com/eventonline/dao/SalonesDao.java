@@ -198,4 +198,47 @@ public class SalonesDao {
         }
         return null;
     }
+
+    public List<SalonEventos> obtenerPublicaciones(int idUsuario) throws SQLException {
+
+        List<SalonEventos> publicaciones = new ArrayList<>();
+
+        String consulta = """
+            SELECT
+                id_publicacion_eventos,
+                nombre_lugar,
+                ubicacion,
+                capacidad,
+                precio,
+                url_portada
+            FROM publicacion_salon_eventos
+            WHERE id_usuario = ?
+            ORDER BY id_publicacion_eventos DESC
+            """;
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(consulta)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    SalonEventos salon = new SalonEventos(
+                            rs.getInt("id_publicacion_eventos"),
+                            rs.getString("nombre_lugar"),
+                            rs.getString("ubicacion"),
+                            rs.getInt("capacidad"),
+                            rs.getDouble("precio"),
+                            rs.getString("url_portada")
+                    );
+
+                    publicaciones.add(salon);
+                }
+            }
+        }
+
+        return publicaciones;
+    }
 }
