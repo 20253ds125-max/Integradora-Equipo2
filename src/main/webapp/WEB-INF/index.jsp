@@ -131,8 +131,8 @@
                     </p>
 
                     <div class="button-row">
-                        <a class="primary-button" href="WEB-INF/catalogo.jsp">Explorar recintos</a>
-                        <a class="ghost-button" href="contacto-equipo.html">Contactar equipo</a>
+                        <a class="primary-button" href="${pageContext.request.contextPath}/catalogo">Explorar recintos</a>
+                        <a class="ghost-button" href="${pageContext.request.contextPath}/contacto-equipo">Contactar equipo</a>
                     </div>
                 </div>
 
