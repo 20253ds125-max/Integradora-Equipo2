@@ -35,9 +35,9 @@
 <header class="app-header">
     <a class="brand" href="index.jsp">Event Online</a>
     <nav>
-        <a class="active" href="WEB-INF/admin.jsp">Administración</a>
-        <a href="WEB-INF/catalogo.jsp">Recintos</a>
-        <a href="perfil.html">Perfil</a>
+        <a class="active" href="${pageContext.request.contextPath}/admin-servicios">Administración</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
     <div class="header-actions">
         <a class="avatar" href="" aria-label="Perfil"></a>
@@ -47,8 +47,8 @@
 <main class="page-shell admin-layout">
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
-        <a href="WEB-INF/admin.jsp">Recintos</a>
-        <a href="usuarios.html">Usuarios</a>
+        <a href="${pageContext.request.contextPath}/adminRecintos">Recintos</a>
+        <a>Usuarios</a>
         <a class="active" href="admin-servicios.html">Servicios Extra</a>
     </aside>
 

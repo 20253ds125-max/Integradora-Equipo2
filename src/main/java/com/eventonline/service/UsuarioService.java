@@ -84,4 +84,15 @@ public class UsuarioService {
             throw new IllegalArgumentException("Error al cambiar la contraseña");
         }
     }
+
+    public void actualizarPerfil(Usuario usuario) throws SQLException {
+
+        usuario.validarDatosPerfil();
+
+        boolean actualizado = usuariosDao.actualizarPerfil(usuario);
+
+        if (!actualizado) {
+            throw new SQLException("No fue posible actualizar el perfil.");
+        }
+    }
 }
