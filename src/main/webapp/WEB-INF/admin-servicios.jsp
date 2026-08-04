@@ -47,8 +47,8 @@
 <main class="page-shell admin-layout">
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
-        <a href="WEB-INF/admin.jsp">Recintos</a>
-        <a href="usuarios.html">Usuarios</a>
+        <a href="${pageContext.request.contextPath}/adminRecintos">Recintos</a>
+        <a>Usuarios</a>
         <a class="active" href="admin-servicios.html">Servicios Extra</a>
     </aside>
 
