@@ -39,10 +39,22 @@ public class CatalogoRecintos extends HttpServlet {
 
         double precioMin = parsearDouble(request.getParameter("precioMin"));
         double precioMax = parsearDouble(request.getParameter("precioMax"));
+        Integer capacidadMin = parsearEntero(request.getParameter("capacidadMin"));
+        Integer capacidadMax = parsearEntero(request.getParameter("capacidadMax"));
 
+        boolean hayFiltros = (textoBusqueda != null && !textoBusqueda.isBlank())
+                || precioMin != null || precioMax != null ||capacidadMin != null || capacidadMax != null;
+
+        request.setAttribute("filtroUbicacion", textoBusqueda);
+        request.setAttribute("filtroPrecioMin", precioMin);
+        request.setAttribute("filtroPrecioMax", precioMax);
+        request.setAttribute("filtroCapacidadMin", capacidadMin);
+        request.setAttribute("filtroCapacidadMax", capacidadMax);
         try {
 
-            List<SalonEventos> catalogo = recintoService.obtenerCatalogo(idUsuario);
+            List<SalonEventos> catalogo = hayFiltros
+                    ? recintoService.obtenerCatalogo(idUsuario, textoBusqueda, precioMin, precioMax, capacidadMin, capacidadMin)
+                        :recintoService.obtenerCatalogo(idUsuario);
 
             request.setAttribute("catalogo", catalogo);
 

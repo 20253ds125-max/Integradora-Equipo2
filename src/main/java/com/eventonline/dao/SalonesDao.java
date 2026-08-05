@@ -199,6 +199,68 @@ public class SalonesDao {
         return null;
     }
 
+    public List<SalonEventos> obtenerCatalogo(String textoBusqueda, double precioMin, double precioMax,
+    Integer capacidadMin, Integer capacidadMax) throws SQLException{
+
+        List<SalonEventos> catalogo = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder(
+                "SELECT id_publicacion_eventos,nombre_lugar,ubicacion,capacidad,precio,url_portada " +
+                        "FROM publicacion_salon_eventos WHERE UPPER(estado) = 'APROBADO'");
+
+
+        List<Object> parametros = new ArrayList<>();
+
+        if (textoBusqueda != null && !textoBusqueda.isBlank()) {
+            sql.append(" AND (UPPER(ubicacion) LIKE ? OR UPPER(nombre_lugar) LIKE ?)");
+            String comodin = "%" + textoBusqueda.trim().toUpperCase() + "%";
+            parametros.add(comodin);
+            parametros.add(comodin);
+        }
+        if (precioMin != null) {
+            sql.append(" AND precio >= ?");
+            parametros.add(precioMin);
+        }
+        if (precioMax != null) {
+            sql.append(" AND precio <= ?");
+            parametros.add(precioMax);
+        }
+        if (capacidadMin != null) {
+            sql.append(" AND capacidad >= ?");
+            parametros.add(capacidadMin);
+        }
+        if (capacidadMax != null) {
+            sql.append(" AND capacidad <= ?");
+            parametros.add(capacidadMax);
+        }
+        sql.append(" ORDER BY id_publicacion_eventos DESC");
+
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < parametros.size(); i++) {
+                ps.setObject(i + 1, parametros.get(i));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    SalonEventos salon = new SalonEventos(
+                            rs.getInt("id_publicacion_eventos"),
+                            rs.getString("nombre_lugar"),
+                            rs.getString("ubicacion"),
+                            rs.getInt("capacidad"),
+                            rs.getDouble("precio"),
+                            rs.getString("url_portada")
+                    );
+                    catalogo.add(salon);
+                }
+            }
+        }
+
+        return catalogo;
+    }
+
     public List<SalonEventos> obtenerPublicaciones(int idUsuario) throws SQLException {
 
         List<SalonEventos> publicaciones = new ArrayList<>();
