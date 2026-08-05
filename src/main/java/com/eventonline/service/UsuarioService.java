@@ -35,7 +35,9 @@ public class UsuarioService {
                         encontrado.getIdUsuario(),
                         encontrado.getEmail(),
                         encontrado.getNombre(),
-                        encontrado.getRol()
+                        encontrado.getRol(),
+                        encontrado.getTelefono(),
+                        encontrado.getCiudad()
                 );
                 session.setAttribute("UsuarioLog",usuario);
 

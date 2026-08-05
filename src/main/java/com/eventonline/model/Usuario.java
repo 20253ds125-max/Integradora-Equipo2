@@ -18,25 +18,20 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Usuario(String correo, String nombre, String contrasena, String rol, String telefono, String ciudad) {
+    public Usuario(int idUsuario,String correo, String nombre, String rol, String telefono, String ciudad) {
+        this.idUsuario=idUsuario;
         this.email = correo;
         this.nombre = nombre;
-        this.contrasena = contrasena;
         this.rol = rol;
         this.telefono = telefono;
         this.ciudad = ciudad;
-    }
-    public Usuario(int idUsuario, String nombre, String email, String rol) {
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.email = email;
-        this.rol = rol;
     }
 
     public Usuario(String correo, String contrasena) {
         this.email = correo;
         this.contrasena = contrasena;
     }
+
 
     public void validarDatosRegistro() {
         if (this.email == null || this.email.trim().isEmpty() || !this.email.contains("@")) {
@@ -55,6 +50,19 @@ public class Usuario {
             throw new IllegalArgumentException("Error en el campo de contraseña: no puede estar vacía.");
         }
     }
+
+    public void validarDatosPerfil() {
+        if (this.nombre == null || this.nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío.");
+        }
+        if (this.telefono == null || this.telefono.trim().isEmpty()) {
+            throw new IllegalArgumentException("El teléfono no puede estar vacío.");
+        }
+        if (this.ciudad == null || this.ciudad.trim().isEmpty()) {
+            throw new IllegalArgumentException("La ciudad no puede estar vacía.");
+        }
+    }
+
 
     public int getIdUsuario() {
         return idUsuario;
@@ -94,5 +102,21 @@ public class Usuario {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 }
