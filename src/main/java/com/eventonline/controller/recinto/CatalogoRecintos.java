@@ -34,6 +34,12 @@ public class CatalogoRecintos extends HttpServlet {
             idUsuario = usuarioLog.getIdUsuario();
         }
 
+        //Parametros de buscador
+        String textoBusqueda = request.getParameter("ubicacion");
+
+        double precioMin = parsearDouble(request.getParameter("precioMin"));
+        double precioMax = parsearDouble(request.getParameter("precioMax"));
+
         try {
 
             List<SalonEventos> catalogo = recintoService.obtenerCatalogo(idUsuario);
@@ -48,6 +54,25 @@ public class CatalogoRecintos extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/catalogo.jsp").forward(request,response);
 
+        }
+    }
+
+    //Comandos Auxiliares de java
+    private Double parsearDouble(String valor){
+        if (valor == null || valor.isBlank()) return null;
+        try {
+            return Double.valueOf(valor);
+        }catch (NumberFormatException e){
+            return null;
+        }
+    }
+
+    private Integer parsearEntero(String valor ){
+        if (valor == null || valor.isBlank()) return null;
+        try {
+            return Integer.valueOf(valor);
+        }catch (NumberFormatException e ) {
+            return null;
         }
     }
 }

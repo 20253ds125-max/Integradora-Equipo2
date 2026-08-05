@@ -96,3 +96,4 @@ public class CorreoElectronico {
         return enviarCorreoHTML(correoDestino, asunto, html);
     }
 }
+
