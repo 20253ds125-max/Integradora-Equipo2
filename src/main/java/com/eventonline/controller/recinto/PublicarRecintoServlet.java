@@ -48,6 +48,7 @@ public class    PublicarRecintoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }catch (Exception e){
+            e.printStackTrace();
             request.setAttribute("error","al subir imagenes: "+e.getMessage());
             request.getRequestDispatcher("/WEB-INF/publicar-recinto.jsp").forward(request,response);
         }

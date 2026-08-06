@@ -1,8 +1,8 @@
 package com.eventonline.controller.carrito;
 
-import com.eventonline.dao.CarritoDao;
 import com.eventonline.model.ItemCarrito;
 import com.eventonline.model.Usuario;
+import com.eventonline.service.CarritoService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ import java.util.List;
 @WebServlet("/mi-carrito-de-compra")
 public class VerCarritoServlet extends HttpServlet {
 
-    private final CarritoDao carritoDao = new CarritoDao();
+    private final CarritoService carritoService = new CarritoService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class VerCarritoServlet extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("UsuarioLog");
 
         try {
-            List<ItemCarrito> items = carritoDao.obtenerItemsPorUsuario(usuario.getIdUsuario());
+            List<ItemCarrito> items = carritoService.obtenerItemsPorUsuario(usuario.getIdUsuario());
 
             double subtotal = 0;
             int contRecintos = 0;

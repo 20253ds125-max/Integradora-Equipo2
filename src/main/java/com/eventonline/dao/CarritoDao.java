@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarritoDao {
-    public final Conexion conexion= new Conexion();
+    public final Conexion conexion = new Conexion();
 
     public boolean agregarRecintoACarrito(int idUsuario, int idPublicacion, double precioUnitario) throws SQLException {
-
         String sql = "INSERT INTO CARRITO (ID_USUARIO, ID_PUBLICACION_EVENTOS, CANTIDAD, PRECIO_UNITARIO) VALUES (?, ?, 1, ?)";
 
         try (Connection con = conexion.obtenerConexion();
@@ -20,11 +19,10 @@ public class CarritoDao {
             ps.setInt(2, idPublicacion);
             ps.setDouble(3, precioUnitario);
 
-            int filasAfectadas = ps.executeUpdate();
-
-            return filasAfectadas > 0;
+            return ps.executeUpdate() > 0;
         }
     }
+
     public boolean agregarServicioACarrito(int idUsuario, int idServicio, double precioUnitario) throws SQLException {
         String sql = "INSERT INTO CARRITO (ID_USUARIO, ID_SE, PRECIO_UNITARIO) VALUES (?, ?, ?)";
 
@@ -38,6 +36,7 @@ public class CarritoDao {
             return ps.executeUpdate() > 0;
         }
     }
+
     public List<ItemCarrito> obtenerItemsPorUsuario(int idUsuario) throws SQLException {
         List<ItemCarrito> items = new ArrayList<>();
 
@@ -98,4 +97,23 @@ public class CarritoDao {
             return ps.executeUpdate() > 0;
         }
     }
+
+    public boolean existeRecintoEnCarrito(int idUsuario, int idPublicacion) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_PUBLICACION_EVENTOS = ?";
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idPublicacion);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+
 }

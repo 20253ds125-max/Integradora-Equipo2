@@ -26,6 +26,14 @@ public class Usuario {
         this.telefono = telefono;
         this.ciudad = ciudad;
     }
+    public Usuario(String correo, String nombre, String contrasena,String rol, String telefono, String ciudad) {
+        this.email = correo;
+        this.nombre = nombre;
+        this.contrasena=contrasena;
+        this.rol = rol;
+        this.telefono = telefono;
+        this.ciudad = ciudad;
+    }
 
     public Usuario(String correo, String contrasena) {
         this.email = correo;

@@ -19,6 +19,7 @@ public class UsuarioService {
             throw new IllegalArgumentException("Correo ya existente");
         }
         usuario.validarDatosRegistro();
+        usuario.validarDatosRegistro();
         usuariosDao.guardarUsuario(usuario);
     }
 
