@@ -74,7 +74,6 @@ public class CorreoElectronico {
         return enviarCorreoHTML(correoDestino, asunto, html);
     }
     public boolean enviarAceptacionSolicitud(String correoDestino, String nombreRecinto, String urlImagen) {
-        // Replicamos la lógica del JSP: Si no hay imagen, usamos un placeholder un poco más grande para el correo
         String imagenSrc = (urlImagen != null && !urlImagen.trim().isEmpty())
                 ? urlImagen.trim()
                 : "https://via.placeholder.com/500x250?text=Sin+Foto";

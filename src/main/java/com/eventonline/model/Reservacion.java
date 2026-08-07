@@ -29,7 +29,7 @@ public class Reservacion {
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
 
-    public String getEstado() { return estado; } // 👈 Este resuelve el error getEstado()
+    public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
 
     public Timestamp getFechaExpiracion() { return fechaExpiracion; }

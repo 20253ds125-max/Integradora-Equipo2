@@ -23,7 +23,7 @@ public class ReservacionDao {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0; // true si ya está ocupado/bloqueado
+                    return rs.getInt(1) > 0;
                 }
             }
         }
