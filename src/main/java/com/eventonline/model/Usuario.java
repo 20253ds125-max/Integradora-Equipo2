@@ -18,10 +18,18 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Usuario(String correo, String nombre, String contrasena, String rol, String telefono, String ciudad) {
+    public Usuario(int idUsuario,String correo, String nombre, String rol, String telefono, String ciudad) {
+        this.idUsuario=idUsuario;
         this.email = correo;
         this.nombre = nombre;
-        this.contrasena = contrasena;
+        this.rol = rol;
+        this.telefono = telefono;
+        this.ciudad = ciudad;
+    }
+    public Usuario(String correo, String nombre, String contrasena,String rol, String telefono, String ciudad) {
+        this.email = correo;
+        this.nombre = nombre;
+        this.contrasena=contrasena;
         this.rol = rol;
         this.telefono = telefono;
         this.ciudad = ciudad;
@@ -31,6 +39,7 @@ public class Usuario {
         this.email = correo;
         this.contrasena = contrasena;
     }
+
 
     public void validarDatosRegistro() {
         if (this.email == null || this.email.trim().isEmpty() || !this.email.contains("@")) {
@@ -51,20 +60,17 @@ public class Usuario {
     }
 
     public void validarDatosPerfil() {
-
         if (this.nombre == null || this.nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede estar vacío.");
         }
-
         if (this.telefono == null || this.telefono.trim().isEmpty()) {
             throw new IllegalArgumentException("El teléfono no puede estar vacío.");
         }
-
         if (this.ciudad == null || this.ciudad.trim().isEmpty()) {
             throw new IllegalArgumentException("La ciudad no puede estar vacía.");
         }
-
     }
+
 
     public int getIdUsuario() {
         return idUsuario;

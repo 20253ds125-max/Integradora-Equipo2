@@ -68,7 +68,6 @@ public class ServiciosDAO {
         }
     }
     public List<Servicio> obtenerCatalogo()throws SQLException{
-        System.out.println("3");
         String buscarAprobado="Select id_se,nombre_servicio,descripcion,precio,url_foto,tipo,ubicacion FROM publicacion_servicio_extra WHERE UPPER(estado)= 'APROBADO'";
         List<Servicio> catalogo = new ArrayList<>();
         try(Connection con = conexion.obtenerConexion();
@@ -84,7 +83,6 @@ public class ServiciosDAO {
                         rs.getString("tipo"),
                         rs.getString("ubicacion")
                 );
-                System.out.println(servicio.toString());
                 catalogo.add(servicio);
             }
 
@@ -127,4 +125,21 @@ public class ServiciosDAO {
         return null;
 
     }
+    public double obtenerPrecioPorId(int idServicio) throws SQLException {
+        String sql = "SELECT PRECIO FROM PUBLICACION_SERVICIO_EXTRA WHERE ID_SE = ?";
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idServicio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("PRECIO");
+                }
+            }
+        }
+        return -1.0;
+    }
+
 }
