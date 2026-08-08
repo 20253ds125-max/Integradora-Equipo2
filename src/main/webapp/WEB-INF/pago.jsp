@@ -34,7 +34,6 @@
       <p>Tu información de pago se mantiene protegida. El total incluye depósito de garantía por daños.</p>
     </div>
 
-    <%-- FORMULARIO QUE ENVÍA EL PAGO A PROCESARPAGOSERVLET VIA POST --%>
     <form action="${pageContext.request.contextPath}/procesarPago" method="POST" class="panel checkout-form">
       <label>Nombre del titular
         <input type="text" name="nombreTitular" placeholder="Nombre como aparece en la tarjeta" required />

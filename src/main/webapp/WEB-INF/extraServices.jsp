@@ -99,6 +99,6 @@
 </section>
 
 <footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
-
+<jsp:include page="alerts.jsp" />
 </body>
 </html>

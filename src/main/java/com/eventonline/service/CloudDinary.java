@@ -30,17 +30,23 @@ public class CloudDinary {
 
     public List<String> subirFotos(Collection<Part> partes) throws Exception {
         List<String> rutasFotos = new ArrayList<>();
+        try {
+            for (Part parte : partes) {
+                if (parte.getSubmittedFileName() != null && !parte.getSubmittedFileName().trim().isEmpty() && parte.getSize() > 0) {
+                    InputStream inputStream = parte.getInputStream();
+                    byte[] bytesImagen = inputStream.readAllBytes();
 
-        for (Part parte : partes) {
-            if (parte.getSubmittedFileName() != null && !parte.getSubmittedFileName().trim().isEmpty() && parte.getSize() > 0) {
-                InputStream inputStream = parte.getInputStream();
-                byte[] bytesImagen = inputStream.readAllBytes();
+                    validarEsImagen(bytesImagen);
 
-                validarEsImagen(bytesImagen);
-
-                Map respuestaNube = cloudinary.uploader().upload(bytesImagen, ObjectUtils.emptyMap());
-                rutasFotos.add((String) respuestaNube.get("secure_url"));
+                    Map respuestaNube = cloudinary.uploader().upload(bytesImagen, ObjectUtils.emptyMap());
+                    rutasFotos.add((String) respuestaNube.get("secure_url"));
+                }
             }
+        } catch (Exception e) {
+            if(!rutasFotos.isEmpty()){
+                borrarFotos(rutasFotos);
+            }
+            throw e;
         }
         return rutasFotos;
     }

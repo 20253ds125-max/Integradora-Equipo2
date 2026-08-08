@@ -128,6 +128,10 @@
                                     Denegar
                                 </button>
                             </form>
+                            <a class="details-link"
+                               href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                Ver detalles
+                            </a>
                         </div>
                     </td>
                 </tr>

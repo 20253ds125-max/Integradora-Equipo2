@@ -50,6 +50,9 @@ public class RecintoACarrito extends HttpServlet {
             req.setAttribute("error","Error al cargar los recintos: " + e.getMessage());
             req.getRequestDispatcher("/catalogo").forward(req,resp);
 
+        }catch (IllegalArgumentException e){
+            req.setAttribute("error","Error al cargar los recintos: " + e.getMessage());
+            req.getRequestDispatcher("/catalogo").forward(req,resp);
         }
     }
 }

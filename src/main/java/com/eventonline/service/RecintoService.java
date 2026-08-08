@@ -18,7 +18,7 @@ public class RecintoService {
     private CloudDinary cloudinaryService = new CloudDinary();
 
     public void publicarRecinto(String nombre, String ubicacion, String descripcion, String strCapacidad, String strPrecio, HttpServletRequest request, Usuario usuario)throws Exception {
-
+        List<String> rutasFotos = null;
         java.sql.Timestamp fecha = java.sql.Timestamp.valueOf(
                 java.time.LocalDateTime.now()
         );
@@ -32,17 +32,15 @@ public class RecintoService {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Campos de capacidad o precio con valores no numericos");
         }
-        List<String> rutasFotos = cloudinaryService.subirFotos(request.getParts());
         try {
-
+            rutasFotos = cloudinaryService.subirFotos(request.getParts());
             SalonEventos salonesEventos = new SalonEventos(nombre, descripcion, capacidad, ubicacion, precio, rutasFotos, fecha);
-
             salonesEventos.validarDatosPublicacion();
             if (!salonesDao.registroSalon(salonesEventos, usuario.getIdUsuario())) {
                 throw new IllegalArgumentException("error en la base de datos");
             }
         } catch (Exception e) {
-            if(rutasFotos!=null&& !rutasFotos.isEmpty()){
+            if(rutasFotos!=null && !rutasFotos.isEmpty()){
                 cloudinaryService.borrarFotos(rutasFotos);
             }
             throw e;

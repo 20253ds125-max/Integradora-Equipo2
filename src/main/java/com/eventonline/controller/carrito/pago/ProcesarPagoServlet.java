@@ -38,17 +38,14 @@ public class ProcesarPagoServlet extends HttpServlet {
         }
 
         try {
-            // 📍 1. Confirmar la reserva en Oracle (PENDIENTE -> CONFIRMADA)
+
             boolean exito = reservacionService.confirmarPagoReserva(idReserva);
 
             if (exito) {
-                // 📍 2. Vaciar el carrito de compras del usuario en la BD
                 carritoService.vaciarCarrito(usuario.getIdUsuario());
 
-                // 📍 3. Limpiar la variable temporal de la sesión
                 session.removeAttribute("idReservaPendiente");
 
-                // 📍 4. Guardar mensaje de éxito y dirigir al perfil / confirmación
                 session.setAttribute("mensajeExito", "¡Reserva confirmada con éxito!");
                 response.sendRedirect(request.getContextPath() + "/app/perfil");
             } else {

@@ -28,7 +28,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/operaciones.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css" />
 </head>
 <body>
 
@@ -49,7 +49,7 @@
         <h2>Administración</h2>
         <a href="${pageContext.request.contextPath}/adminRecintos">Recintos</a>
         <a>Usuarios</a>
-        <a class="active" href="admin-servicios.html">Servicios Extra</a>
+        <a class="active" href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
     <section>
