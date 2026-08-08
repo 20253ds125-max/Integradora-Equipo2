@@ -49,7 +49,7 @@
         <h2>Administración</h2>
         <a href="${pageContext.request.contextPath}/adminRecintos">Recintos</a>
         <a>Usuarios</a>
-        <a class="active" href="${pageContext.request.contextPath}/admin-servicios.jsp">Servicios Extra</a>
+        <a class="active" href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
     <section>
