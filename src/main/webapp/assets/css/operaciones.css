@@ -518,3 +518,27 @@ button:hover, .primary-button:hover, .outline-button:hover, .danger-button:hover
         display: none;
     }
 }
+/* Estilos para el botón de Ver detalles en la tabla de operaciones */
+.action-row .details-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 18px;
+    border: 1.5px solid #a44f35; /* Color de tu marca */
+    border-radius: 999px;
+    color: #a44f35;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    background: transparent;
+    box-shadow: 0 4px 12px rgba(164, 79, 53, 0.08); /* Sombra suave */
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Efecto al pasar el cursor (hover) */
+.action-row .details-link:hover {
+    background: #fdf5f2; /* Fondo muy tenue */
+    box-shadow: 0 6px 14px rgba(164, 79, 53, 0.12);
+    transform: translateY(-1px);
+}

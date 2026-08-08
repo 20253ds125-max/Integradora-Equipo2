@@ -1,4 +1,5 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,7 +36,7 @@
 </header>
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
-    <a href="app/login">Iniciar sesión o registrarte</a>
+    <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
     <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
     <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
 </nav>
