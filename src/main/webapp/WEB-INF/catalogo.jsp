@@ -163,11 +163,14 @@
                                     Ver detalles
                                 </a>
 
-                                <button class="cart-link"
-                                        type="button"
-                                        data-cart-venue="${salon.idSalonEventos}">
-                                    Añadir al carrito
-                                </button>
+                                <form action="${pageContext.request.contextPath}/carritoAgregar" method="post" class="cart-form" style="display: inline-block;">
+
+                                    <input type="hidden" name="idPublicacionEventos" value="${salon.idSalonEventos}">
+
+                                    <button class="cart-link" type="submit" aria-label="Añadir ${salon.nombre} al carrito">
+                                        Añadir al carrito
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
