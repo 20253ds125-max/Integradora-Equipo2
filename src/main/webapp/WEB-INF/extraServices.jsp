@@ -23,11 +23,13 @@
 
     <nav class="top-nav" aria-label="Navegación">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a class="active" href="${pageContext.request.contextPath}/servicios">Servicios</a>
+        <a class="active" href="${pageContext.request.contextPath}/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/mesas">Mesas e invitados</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
         <a class="host-button" href="${pageContext.request.contextPath}/app/publicarServicio">Publicar servicio</a>
     </div>
 </header>
@@ -99,6 +101,6 @@
 </section>
 
 <footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
-
+<jsp:include page="alerts.jsp" />
 </body>
 </html>

@@ -63,6 +63,7 @@
     <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/mesas">Mesas e invitados</a>
         <a href="${pageContext.request.contextPath}/">Inicio</a>
     </nav>
 

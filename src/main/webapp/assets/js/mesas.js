@@ -1,4 +1,5 @@
 ﻿const maxGuestsPerTable = 10;
+const CTX = window.APP_CONTEXT_PATH || "";
 
 let tables = [];
 
@@ -18,9 +19,9 @@ const modalTotalNotificar = document.getElementById("modal-total-notificar");
 
 
 async function apiGet() {
-    const respuesta = await fetch("mesas-api", { credentials: "same-origin" });
+    const respuesta = await fetch(`${CTX}/mesas-api`, { credentials: "same-origin" });
     if (respuesta.status === 401) {
-        window.location.href = "WEB-INF/login.jsp";
+        window.location.href = `${CTX}/login`;
         return null;
     }
     return respuesta.json();
@@ -28,14 +29,14 @@ async function apiGet() {
 
 async function apiPost(parametros) {
     const cuerpo = new URLSearchParams(parametros);
-    const respuesta = await fetch("mesas-api", {
+    const respuesta = await fetch(`${CTX}/mesas-api`, {
         method: "POST",
         credentials: "same-origin",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: cuerpo
     });
     if (respuesta.status === 401) {
-        window.location.href = "WEB-INF/login.jsp";
+        window.location.href = `${CTX}/login`;
         return null;
     }
     return respuesta.json();
@@ -208,13 +209,13 @@ if (btnConfirmarEnvio) {
         btnConfirmarEnvio.disabled = true;
 
         try {
-            const respuesta = await fetch("enviar-invitaciones", {
+            const respuesta = await fetch(`${CTX}/enviar-invitaciones`, {
                 method: "POST",
                 credentials: "same-origin"
             });
 
             if (respuesta.status === 401) {
-                window.location.href = "WEB-INF/login.jsp";
+                window.location.href = `${CTX}/login`;
                 return;
             }
 
@@ -291,8 +292,7 @@ document.querySelector("[data-add-table]").addEventListener("click", async () =>
 
 document.querySelectorAll("[data-save-layout]").forEach((button) => {
     button.addEventListener("click", async () => {
-        // Cada acción ya se guarda de inmediato en el servidor; este botón
-        // refresca desde el servidor para confirmar que todo quedó sincronizado.
+
         await cargarMesas();
         button.textContent = "Layout guardado";
         setTimeout(() => { button.textContent = "Guardar layout"; }, 1400);
