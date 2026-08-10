@@ -24,10 +24,12 @@
     <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/mesas">Mesas e invitados</a>
         <a class="active" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
     <div class="header-actions">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
     </div>
 </header>
 
