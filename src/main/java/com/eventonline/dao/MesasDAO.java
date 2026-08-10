@@ -60,87 +60,87 @@ public class MesasDAO {
         return new ArrayList<>(mesasPorId.values());
 
     }
-    public Mesas crearMesa(Mesas mesa) throws SQLException{
-        String sql = "INSERT INTO mesas ( nombre, capacidad, id_usuario) values (?, ?, ?)";
+    public Mesas crearMesa(Mesas mesa) throws SQLException {
+        String sql = "INSERT INTO mesas (nombre, capacidad, id_usuario) VALUES (?, ?, ?)";
         String[] columnaId = {"ID_MESA"};
 
-        try(Connection con = conexionConfig.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement(sql, columnaId)){
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql, columnaId)) {
 
-            ps.setString(1,mesa.getNombre());
+            ps.setString(1, mesa.getNombre());
             ps.setInt(2, mesa.getCapacidad());
             ps.setInt(3, mesa.getIdUsuario());
             ps.executeUpdate();
 
-            try (ResultSet rs = ps.getGeneratedKeys()){
-                if(rs.next()){
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
                     mesa.setIdMesa(rs.getInt(1));
                 }
             }
         }
         return mesa;
     }
-    public boolean renombrarMesa(int idMesa, String nuevoNombre, int idUsuario) throws SQLException{
-        String sql = "UPDATE mesas SET nombre = ? WHERE id_mesa =? AND id_usuario = ?";
+
+    public boolean renombrarMesa(int idMesa, String nuevoNombre, int idUsuario) throws SQLException {
+        String sql = "UPDATE mesas SET nombre = ? WHERE id_mesa = ? AND id_usuario = ?";
 
         try (Connection con = conexionConfig.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement(sql)){
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, nuevoNombre);
             ps.setInt(2, idMesa);
             ps.setInt(3, idUsuario);
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         }
     }
-    public boolean eliminarMesa(int idMesa, int idUsuario) throws SQLException{
-        String sql ="DELETE FROM mesas WHERE id_mesa =? AND id_usuario =?";
-        try(Connection con = conexionConfig.obtenerConexion();
-         PreparedStatement ps = con.prepareStatement(sql)){
+
+    public boolean eliminarMesa(int idMesa, int idUsuario) throws SQLException {
+        String sql = "DELETE FROM mesas WHERE id_mesa = ? AND id_usuario = ?";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idMesa);
             ps.setInt(2, idUsuario);
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         }
     }
 
-    public Invitados agregarInvitado( Invitados invitados, int idUsuario) throws  SQLException{
-        String sqlValidaMesa = "SELECT capacidad, (SELECT COUNT(*) FROM invitados WHERE id_mesa =m.id_mesa) AS ocupados"+
-                "FROM mesas m WHERE m.id_mesa =? AND m.id_usuario =?";
-        String sqlInsert = "INSERT INTO invitados (nombre, correo, id_mesa) VALUES(?, ?, ?)";
-        String[] columnaId = {"ID_INVITADOS"};
+    public Invitados agregarInvitado(Invitados invitados, int idUsuario) throws SQLException {
+        String sqlValidaMesa = "SELECT capacidad, (SELECT COUNT(*) FROM invitados WHERE id_mesa = m.id_mesa) AS ocupados " +
+                "FROM mesas m WHERE m.id_mesa = ? AND m.id_usuario = ?";
+        String sqlInsert = "INSERT INTO invitados (nombre, correo, id_mesa) VALUES (?, ?, ?)";
+        String[] columnaId = {"ID_INVITADO"};
 
-        try (Connection con = conexionConfig.obtenerConexion()){
+        try (Connection con = conexionConfig.obtenerConexion()) {
             con.setAutoCommit(false);
 
             try {
                 int capacidad;
                 int ocupados;
-                try(PreparedStatement ps = con.prepareStatement(sqlValidaMesa)){
-                    ps.setInt(1,invitados.getIdMesa());
-                    ps.setInt(2,idUsuario);
-                    try(ResultSet rs = ps.executeQuery()){
-                        if (!rs.next()){
+                try (PreparedStatement ps = con.prepareStatement(sqlValidaMesa)) {
+                    ps.setInt(1, invitados.getIdMesa());
+                    ps.setInt(2, idUsuario);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (!rs.next()) {
                             con.rollback();
                             throw new IllegalArgumentException("La mesa indicada no existe");
-
                         }
                         capacidad = rs.getInt("capacidad");
-                        ocupados =rs.getInt("ocupados");
+                        ocupados = rs.getInt("ocupados");
                     }
                 }
 
                 int limite = Math.min(capacidad, MAX_INVITADOS_POR_MESA);
-                if (ocupados >=limite){
+                if (ocupados >= limite) {
                     con.rollback();
                     throw new IllegalArgumentException("La mesa alcanzo su capacidad maxima");
-
                 }
-                try(PreparedStatement ps = con.prepareStatement(sqlInsert, columnaId)){
+                try (PreparedStatement ps = con.prepareStatement(sqlInsert, columnaId)) {
                     ps.setString(1, invitados.getNombre());
                     ps.setString(2, invitados.getCorreo());
                     ps.setInt(3, invitados.getIdMesa());
                     ps.executeUpdate();
 
-                    try(ResultSet rs = ps.getGeneratedKeys()){
-                        if(rs.next()){
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
                             invitados.setIdInvitado(rs.getInt(1));
                         }
                     }
@@ -148,21 +148,23 @@ public class MesasDAO {
                 con.commit();
                 return invitados;
 
-            }catch (SQLException | IllegalArgumentException e){
+            } catch (SQLException | IllegalArgumentException e) {
                 con.rollback();
                 throw e;
+            } finally {
+                con.setAutoCommit(true);
             }
         }
     }
 
-    public boolean eliminarInvitado( int idInvitado, int idUsuario) throws SQLException{
-        String sql ="DELETE FROM invitados WHERE id_invitado =? AND id_mesa IN"+
-                "(SELECT id_mesa FROM mesas WHERE id_usuario =?)";
-        try(Connection con = conexionConfig.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(sql)){
+    public boolean eliminarInvitado(int idInvitado, int idUsuario) throws SQLException {
+        String sql = "DELETE FROM invitados WHERE id_invitado = ? AND id_mesa IN " +
+                "(SELECT id_mesa FROM mesas WHERE id_usuario = ?)";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idInvitado);
             ps.setInt(2, idUsuario);
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         }
     }
 
@@ -189,20 +191,21 @@ public class MesasDAO {
         return pendientes;
     }
 
-    public void  marcarInvitacionEnviada(int idInvitado) throws SQLException{
-        String sql ="UPDATE invitados SET invitacion_enviada = `s`, fecha_envio = SYSTIMESTAMP WHERE id-invitado = ?";
-        try(Connection con =conexionConfig.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement(sql)){
+    public void marcarInvitacionEnviada(int idInvitado) throws SQLException {
+        String sql = "UPDATE invitados SET invitacion_enviada = 'S', fecha_envio = SYSTIMESTAMP WHERE id_invitado = ?";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idInvitado);
             ps.executeUpdate();
         }
     }
-    public String obtenerNombreMesaDeInvitado( int idMesa) throws SQLException{
-        String sql ="SLECT nombre FROM mesas WHERE id_mesa =?";
-        try(Connection con = conexionConfig.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement(sql)){
-            ps.setInt(1,idMesa);
-            try(ResultSet rs = ps.executeQuery()){
+
+    public String obtenerNombreMesaDeInvitado(int idMesa) throws SQLException {
+        String sql = "SELECT nombre FROM mesas WHERE id_mesa = ?";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idMesa);
+            try (ResultSet rs = ps.executeQuery()) {
                 return rs.next() ? rs.getString("nombre") : "";
             }
         }
