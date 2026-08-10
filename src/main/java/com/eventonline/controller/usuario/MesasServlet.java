@@ -17,20 +17,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+
 @WebServlet("/mesas-api")
 public class MesasServlet extends HttpServlet {
 
     private final MesasDAO mesasDAO = new MesasDAO();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Usuario usuario = usuarioEnSesion(req);
-        resp.setContentType("aplication/json; charset=UTF-8");
+        resp.setContentType("application/json; charset=UTF-8");
 
         if (usuario == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            escribir(resp, new JSONObject().put("success", false).put("error","Error, no has iniciado sesion"));
+            escribir(resp, new JSONObject().put("success", false).put("error", "Error, no has iniciado sesion"));
             return;
         }
 
@@ -39,8 +39,7 @@ public class MesasServlet extends HttpServlet {
             escribir(resp, new JSONObject().put("success", true).put("mesas", mesasAJson(mesas)));
         } catch (SQLException e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            escribir(resp, new JSONObject().put("success", false).put("error", "Error de base de datos:" + e.getMessage()));
-
+            escribir(resp, new JSONObject().put("success", false).put("error", "Error de base de datos: " + e.getMessage()));
         }
     }
 
@@ -66,8 +65,7 @@ public class MesasServlet extends HttpServlet {
                 case "eliminarInvitado" -> eliminarInvitado(req, resp, usuario);
                 default -> {
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    escribir(resp, new JSONObject().put("success", false).put("error", "Accion no reconocisa"));
-
+                    escribir(resp, new JSONObject().put("success", false).put("error", "Accion no reconocida"));
                 }
             }
         } catch (IllegalArgumentException e) {
@@ -76,8 +74,7 @@ public class MesasServlet extends HttpServlet {
 
         } catch (SQLException e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            escribir(resp, new JSONObject().put("success", false).put("error", "Error en la base de datos" + e.getMessage()));
-
+            escribir(resp, new JSONObject().put("success", false).put("error", "Error en la base de datos: " + e.getMessage()));
         }
     }
 
@@ -86,7 +83,6 @@ public class MesasServlet extends HttpServlet {
         Mesas nueva = new Mesas(nombre, 10, usuario.getIdUsuario());
         mesasDAO.crearMesa(nueva);
         escribir(resp, new JSONObject().put("success", true).put("mesa", mesasAJson(nueva)));
-
     }
 
     private void renombrarMesa(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
@@ -95,13 +91,12 @@ public class MesasServlet extends HttpServlet {
         String nombre = req.getParameter("nombre");
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre de la mesa es obligatorio");
-
         }
         boolean actualizado = mesasDAO.renombrarMesa(idMesa, nombre.trim(), usuario.getIdUsuario());
         if (!actualizado) {
             throw new IllegalArgumentException("La mesa no existe o no te pertenece");
         }
-        escribir(resp, new JSONObject().put("succes", true));
+        escribir(resp, new JSONObject().put("success", true));
     }
 
     private void eliminarMesa(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
@@ -110,7 +105,6 @@ public class MesasServlet extends HttpServlet {
         boolean eliminado = mesasDAO.eliminarMesa(idMesa, usuario.getIdUsuario());
         if (!eliminado) {
             throw new IllegalArgumentException("La mesa no existe o no te pertenece");
-
         }
         escribir(resp, new JSONObject().put("success", true));
     }
@@ -124,16 +118,14 @@ public class MesasServlet extends HttpServlet {
         Invitados invitados = new Invitados(nombre, correo, idMesa);
         mesasDAO.agregarInvitado(invitados, usuario.getIdUsuario());
         escribir(resp, new JSONObject().put("success", true).put("invitado", invitadosAJson(invitados)));
-
     }
 
     private void eliminarInvitado(HttpServletRequest req, HttpServletResponse resp, Usuario usuario)
             throws SQLException, IOException {
-        int idInvitados = parseEntero(req.getParameter("idInvitados"), "idInvitados");
+        int idInvitados = parseEntero(req.getParameter("idInvitado"), "idInvitado");
         boolean eliminado = mesasDAO.eliminarInvitado(idInvitados, usuario.getIdUsuario());
         if (!eliminado) {
             throw new IllegalArgumentException("El invitado no existe o no te pertenece");
-
         }
         escribir(resp, new JSONObject().put("success", true));
     }
@@ -148,24 +140,25 @@ public class MesasServlet extends HttpServlet {
         try {
             return Integer.parseInt(valor);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El campo" + campo + "es invalido");
+            throw new IllegalArgumentException("El campo " + campo + " es invalido");
         }
     }
-    private void escribir(HttpServletResponse resp, JSONObject json) throws IOException{
-    resp.getWriter().write(json.toString());
+
+    private void escribir(HttpServletResponse resp, JSONObject json) throws IOException {
+        resp.getWriter().write(json.toString());
     }
 
-    private JSONArray mesasAJson(List<Mesas> mesas){
+    private JSONArray mesasAJson(List<Mesas> mesas) {
         JSONArray arreglo = new JSONArray();
-        for (Mesas mesa : mesas){
-            arreglo.put(mesasAJson(mesas));
+        for (Mesas mesa : mesas) {
+            arreglo.put(mesasAJson(mesa));
         }
         return arreglo;
     }
 
-    private JSONObject mesasAJson(Mesas mesas){
+    private JSONObject mesasAJson(Mesas mesas) {
         JSONArray invitado = new JSONArray();
-        for (Invitados invitados : mesas.getInvitados()){
+        for (Invitados invitados : mesas.getInvitados()) {
             invitado.put(invitadosAJson(invitados));
         }
         return new JSONObject()
