@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=1.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=6.2" />
 </head>
 
 <body>
@@ -44,17 +44,31 @@
 
     <section class="gallery-section" aria-label="Galeria del recinto">
         <div class="carousel" data-carousel>
-            <button class="carousel-control prev" type="button" data-carousel-prev>‹</button>
+            <button class="carousel-control prev" type="button" data-carousel-prev aria-label="Foto anterior">‹</button>
 
-            <img data-carousel-image src="${salonDetalles.fotos[0]}" alt="Fotografia principal del recinto" onerror="this.onerror=null; this.src='https://placehold.co/800x600?text=Sin+Foto';"/>
+            <%-- CAPA 1: Fondo difuminado (decorativo) --%>
+            <img class="carousel-bg"
+                 data-carousel-bg
+                 src="${salonDetalles.fotos[0]}"
+                 alt=""
+                 aria-hidden="true" />
 
-            <button class="carousel-control next" type="button" data-carousel-next>›</button>
+            <%-- CAPA 2: Imagen principal nítida y COMPLETA (sin recorte) --%>
+            <img class="carousel-main"
+                 data-carousel-main
+                 src="${salonDetalles.fotos[0]}"
+                 alt="Fotografía de ${salonDetalles.nombre != null ? salonDetalles.nombre : 'el recinto'}"
+                 onerror="this.onerror=null; this.src='https://placehold.co/1200x675?text=Sin+Foto';" />
+
+            <button class="carousel-control next" type="button" data-carousel-next aria-label="Foto siguiente">›</button>
             <div class="carousel-count" data-carousel-count></div>
         </div>
 
         <div class="thumbnail-row" data-carousel-thumbs>
             <c:forEach var="foto" items="${salonDetalles.fotos}">
-                <img src="${foto}" alt="Miniatura" style="height: 60px; border-radius: 4px; cursor: pointer; object-fit: cover;" onerror="this.style.display='none';" />
+                <img src="${foto}"
+                     alt="Miniatura del recinto"
+                     onerror="this.style.display='none';" />
             </c:forEach>
         </div>
     </section>
@@ -86,48 +100,22 @@
             <div class="price-row">
                 <strong>$${salonDetalles.precio}</strong>
                 <span>/ por evento</span>
-                <button class="favorite-button" type="button" data-detail-favorite>♡</button>
+                <button class="favorite-button" type="button" data-detail-favorite aria-label="Agregar a favoritos">♡</button>
             </div>
 
             <section>
-                <h2>Selecciona tu fecha</h2>
-                <div class="calendar-card">
-                    <div class="calendar-head">
-                        <strong>Octubre 2026</strong>
-                        <div>
-                            <button type="button">‹</button>
-                            <button type="button">›</button>
-                        </div>
-                    </div>
-                    <div class="calendar-grid">
-                        <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
-                        <button type="button">29</button>
-                        <button type="button">30</button>
-                        <button type="button">1</button>
-                        <button type="button">2</button>
-                        <button type="button">3</button>
-                        <button type="button">4</button>
-                        <button type="button">5</button>
-                    </div>
-                </div>
-            </section>
+                <h2>Comprobar disponibilidad</h2>
 
-            <label class="select-field">
-                <span>Duración</span>
-                <select>
-                    <option>Día completo (8:00 AM - 10:00 PM)</option>
-                    <option>Medio día</option>
-                    <option>Evento nocturno</option>
-                </select>
-            </label>
-
-            <section class="guest-control">
-                <span>Invitados</span>
-                <div>
-                    <button type="button" data-guest-minus>-</button>
-                    <strong><span data-guest-count>25</span> guests</strong>
-                    <button type="button" data-guest-plus>+</button>
+                <div class="availability-checker">
+                    <label for="fechaEvento">Fecha de tu evento</label>
+                    <input type="date" id="fechaEvento" name="fechaEvento" required />
+                    <button type="button" id="btnVerificar" class="btn-check">
+                        Verificar fecha
+                    </button>
                 </div>
+
+                <!-- Contenedor para el mensaje de respuesta -->
+                <div id="mensajeDisponibilidad" class="status-message"></div>
             </section>
 
             <div class="cost-list">
@@ -137,7 +125,7 @@
                 <p class="total"><span>Total</span><strong>$${salonDetalles.precio + 150}</strong></p>
             </div>
 
-            <a class="special-button" href="${pageContext.request.contextPath}/carrito">
+            <a id="btnAnadirCarrito" class="special-button disabled-link" href="${pageContext.request.contextPath}/carrito">
                 Añadir al carrito
             </a>
 
@@ -155,13 +143,88 @@
         </c:forEach>
     ];
 
-
     const precioBaseBD = ${salonDetalles.precio};
     const nombreRecintoBD = "${salonDetalles.nombre}";
 </script>
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/detalle.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.2"></script>
+<jsp:include page="alerts.jsp" />
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fechaInput = document.getElementById("fechaEvento");
+        const btnVerificar = document.getElementById("btnVerificar");
+        const btnAnadirCarrito = document.getElementById("btnAnadirCarrito"); // Ahora sí lo encontrará
+        const mensajeDiv = document.getElementById("mensajeDisponibilidad");
+
+        if (fechaInput) {
+            const manana = new Date();
+            manana.setDate(manana.getDate() + 1);
+            const yyyy = manana.getFullYear();
+            const mm = String(manana.getMonth() + 1).padStart(2, '0');
+            const dd = String(manana.getDate()).padStart(2, '0');
+            fechaInput.setAttribute("min", `${yyyy}-${mm}-${dd}`);
+
+            fechaInput.addEventListener("change", function() {
+                // Validación de seguridad antes de usar classList
+                if (btnAnadirCarrito) {
+                    btnAnadirCarrito.classList.add("disabled-link");
+                }
+                if (mensajeDiv) {
+                    mensajeDiv.style.display = "none";
+                }
+            });
+        }
+
+        if (btnVerificar && fechaInput) {
+            btnVerificar.addEventListener("click", function () {
+                const fechaSeleccionada = fechaInput.value;
+                const idRecinto = "${salonDetalles.idSalonEventos}";
+
+                if (!fechaSeleccionada) {
+                    mostrarMensaje("Por favor, selecciona una fecha primero.", false);
+                    return;
+                }
+
+                const textoOriginal = btnVerificar.innerText;
+                btnVerificar.innerText = "Verificando...";
+                btnVerificar.disabled = true;
+
+                fetch(`${pageContext.request.contextPath}/verificarFecha?fecha=${fechaSeleccionada}&idRecinto=${idRecinto}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.disponible) {
+                            mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
+                            if (btnAnadirCarrito) {
+                                btnAnadirCarrito.classList.remove("disabled-link");
+                            }
+                        } else {
+                            mostrarMensaje("Lo sentimos, esta fecha ya está ocupada.", false);
+                            if (btnAnadirCarrito) {
+                                btnAnadirCarrito.classList.add("disabled-link");
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        mostrarMensaje("Error de conexión. Intenta de nuevo.", false);
+                    })
+                    .finally(() => {
+                        btnVerificar.innerText = textoOriginal;
+                        btnVerificar.disabled = false;
+                    });
+            });
+        }
+
+        function mostrarMensaje(texto, esExito) {
+            if (mensajeDiv) {
+                mensajeDiv.innerText = texto;
+                mensajeDiv.style.display = "block";
+                mensajeDiv.className = esExito ? "status-message status-available" : "status-message status-unavailable";
+            }
+        }
+    });
+</script>
 </body>
 </html>

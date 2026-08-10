@@ -129,6 +129,6 @@
 <footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
 
 <script src="${pageContext.request.contextPath}/assets/js/serviciosExtra.js"></script>
-
+<jsp:include page="alerts.jsp" />
 </body>
 </html>

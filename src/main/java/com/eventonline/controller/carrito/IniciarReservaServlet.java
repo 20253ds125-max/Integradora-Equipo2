@@ -86,7 +86,6 @@ public class IniciarReservaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Redirige limpiamente de vuelta al carrito si entran por URL directa
         resp.sendRedirect(req.getContextPath() + "/mi-carrito-de-compra");
     }
 }
