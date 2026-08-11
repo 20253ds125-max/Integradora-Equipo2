@@ -64,7 +64,7 @@ public class PagoServlet extends HttpServlet {
         } else {
             System.out.println("-> ¡Pago Rechazado! Datos inválidos o tarjeta ya vencida.");
             request.getSession().setAttribute("pagoExitoso", false);
-            response.sendRedirect(request.getContextPath() + "/pago.html?error=datos_invalidos");
+            response.sendRedirect(request.getContextPath() + "/pago.jsp?error=datos_invalidos");
         }
     }
 }

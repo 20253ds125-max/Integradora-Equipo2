@@ -23,7 +23,7 @@
 
     <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a class="active" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
@@ -49,7 +49,7 @@
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-resser">Mis publicaciones</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-bookings">Ver reservas</button>
             <button class="ui-button ui-button--ghost" type="button" data-scroll-to="profile-favorites">Ver favoritos</button>
-            <a class="ui-button ui-button--ghost" href="mi-carrito-de-compra.html">Ir al carrito</a>
+            <a class="ui-button ui-button--ghost" href="${pageContext.request.contextPath}/mi-carrito-de-compra">Ir al carrito</a>
         </div>
     </aside>
     <section class="profile-main">
@@ -64,7 +64,9 @@
                     </div>
                 </div>
 
-                <form class="profile-form" data-profile-form>
+                <form action="${pageContext.request.contextPath}/app/editarPerfil"
+                      method="post"
+                      class="profile-form">
                     <label>
                         Nombre completo
                         <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled>
@@ -75,28 +77,123 @@
                     </label>
                     <label>
                         Teléfono
-                        <input type="tel" name="phone" data-field="phone" disabled>
+                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled>
                     </label>
                     <label>
                         Ciudad
-                        <input type="text" name="city" data-field="city" disabled>
+                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled>
                     </label>
 
                     <div class="form-actions span-2">
                         <button class="ui-button ui-button--solid" type="button" data-edit-profile>Editar perfil</button>
-                        <button class="ui-button ui-button--ghost" type="submit" data-save-profile hidden>Guardar cambios</button>
+                        <button
+                                class="ui-button ui-button--ghost"
+                                type="submit"
+                                data-save-profile
+                                hidden>
+                            Guardar cambios
+                        </button>
                     </div>
                 </form>
             </article>
             <article class="panel-card glass-panel hidden" id="profile-resser" data-panel>
                 <div class="panel-head">
                     <div>
-
+                        <p class="eyebrow">Mis publicaciones</p>
                         <h2>Publicaciones recientes</h2>
                     </div>
                 </div>
 
-                <div class="cards-grid" data-publications-list></div>
+                <div class="cards-grid cards-grid--favorites">
+
+                    <c:choose>
+
+                        <c:when test="${empty publicaciones}">
+
+                            <p>Aún no has publicado ningún recinto.</p>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                            <c:forEach var="salon" items="${publicaciones}">
+
+                                <article class="catalog-card">
+
+                                    <div class="card-image">
+
+                                        <img
+                                                src="${not empty salon.fotoPrincipal ? salon.fotoPrincipal : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
+                                                alt="Foto de ${salon.nombre}"
+                                                onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <div class="card-title-row">
+
+                                            <h2>${salon.nombre}</h2>
+
+                                        </div>
+
+                                        <p class="location">
+                                            Ubicación: ${salon.ubicacion}
+                                        </p>
+
+                                        <div class="card-divider"></div>
+
+                                        <div class="card-footer">
+
+                                            <div class="footer-info-row">
+
+                                <span class="capacity">
+                                    Hasta ${salon.capacidad} invitados
+                                </span>
+
+                                                <strong class="price">
+                                                    <fmt:formatNumber
+                                                            value="${salon.precio}"
+                                                            type="currency"
+                                                            currencySymbol="$"
+                                                            maxFractionDigits="0"/>
+                                                    <span>/evento</span>
+                                                </strong>
+
+                                            </div>
+
+                                            <div class="card-actions">
+
+                                                <a class="details-link"
+                                                   href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                                    Ver detalles
+                                                </a>
+
+                                                <button
+                                                        class="cart-link abrir-modal-edicion"
+                                                        type="button"
+                                                        data-venue-id="${salon.idSalonEventos}"
+                                                        data-venue-name="${salon.nombre}"
+                                                        data-venue-location="${salon.ubicacion}"
+                                                        data-venue-price="${salon.precio}">
+                                                    Editar
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </article>
+
+                            </c:forEach>
+
+                        </c:otherwise>
+
+                    </c:choose>
+
+                </div>
             </article>
 
             <article class="panel-card glass-panel hidden" id="profile-bookings" data-panel>

@@ -11,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/restore.css?v=1.1"">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/restore.css?v=1.1">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
 
     <nav class="top-nav" aria-label="Navegación">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/contacto-equipo">Contactanos</a>
     </nav>
 </header>
@@ -86,6 +86,6 @@
     </section>
 
 </div>
-
+<jsp:include page="alerts.jsp" />
 </body>
 </html>

@@ -18,7 +18,8 @@ public class UsuarioService {
         if (usuariosDao.buscarUsuarioPorCorreo(usuario.getEmail()) != null) {
             throw new IllegalArgumentException("Correo ya existente");
         }
-
+        usuario.validarDatosRegistro();
+        usuario.validarDatosRegistro();
         usuariosDao.guardarUsuario(usuario);
     }
 
@@ -31,7 +32,15 @@ public class UsuarioService {
             if(usuariosDao.verificarUsuario(email,pass)!=null){
                 usuariosDao.resetearIntentos(email);
                 HttpSession session = request.getSession();
-                session.setAttribute("UsuarioLog",encontrado);
+                Usuario usuario = new Usuario(
+                        encontrado.getIdUsuario(),
+                        encontrado.getEmail(),
+                        encontrado.getNombre(),
+                        encontrado.getRol(),
+                        encontrado.getTelefono(),
+                        encontrado.getCiudad()
+                );
+                session.setAttribute("UsuarioLog",usuario);
 
             }
             else {
@@ -76,6 +85,17 @@ public class UsuarioService {
         usuario.validarCambioContrasena();
         if(!usuariosDao.cambiarContrasena(usuario.getEmail(), usuario.getContrasena())){
             throw new IllegalArgumentException("Error al cambiar la contraseña");
+        }
+    }
+
+    public void actualizarPerfil(Usuario usuario) throws SQLException {
+
+        usuario.validarDatosPerfil();
+
+        boolean actualizado = usuariosDao.actualizarPerfil(usuario);
+
+        if (!actualizado) {
+            throw new SQLException("No fue posible actualizar el perfil.");
         }
     }
 }

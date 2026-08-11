@@ -38,8 +38,8 @@
     </div>
 
     <nav class="top-nav" aria-label="Navegación principal">
-        <a class="active" href="${pageContext.request.contextPath}/admin">Administración</a>
-        <a href="${pageContext.request.contextPath}/app/catalogo">Recintos</a>
+        <a class="active" href="${pageContext.request.contextPath}/adminRecintos">Administración</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
@@ -54,7 +54,7 @@
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
         <a class="active" href="${pageContext.request.contextPath}/admin">Recintos</a>
-        <a href="${pageContext.request.contextPath}/usuarios">Usuarios</a>
+        <a>Usuarios</a>
         <a href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
@@ -128,6 +128,10 @@
                                     Denegar
                                 </button>
                             </form>
+                            <a class="details-link"
+                               href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                Ver detalles
+                            </a>
                         </div>
                     </td>
                 </tr>

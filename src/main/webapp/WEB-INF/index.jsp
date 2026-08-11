@@ -1,4 +1,5 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,7 +36,7 @@
 </header>
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
-    <a href="app/login">Iniciar sesión o registrarte</a>
+    <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
     <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
     <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
 </nav>
@@ -51,15 +52,15 @@
                 algo realmente especial.
             </p>
 
-            <form class="search-panel" data-hero-search>
+            <form action="${pageContext.request.contextPath}/bus" class="search-panel" data-hero-search method="get">
                 <div class="field">
                     <label for="place">Dónde</label>
                     <div class="input-wrapper">
                         <span class="icon">📍</span>
                         <input
                                 type="text"
-                                id="place"
-                                name="place"
+                                id="lugar"
+                                name="lugar"
                                 placeholder="Ciudad, playa, hacienda..."
                                 autocomplete="off"
                         />
@@ -70,7 +71,11 @@
                     <label for="calendar">Cuándo</label>
                     <div class="input-wrapper">
                         <span class="icon">📅</span>
-                        <input type="text" id="calendar" name="date" placeholder="Selecciona fecha" />
+                        <input
+                                type="text"
+                                id="calendar"
+                                name="fecha"
+                                placeholder="Selecciona fecha" />
                     </div>
                 </div>
 
@@ -80,8 +85,8 @@
                         <span class="icon">👥</span>
                         <input
                                 type="number"
-                                id="guests"
-                                name="guests"
+                                id="invitados"
+                                name="invitados"
                                 min="1"
                                 max="1500"
                                 placeholder="Cantidad"
@@ -89,9 +94,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="search-btn" aria-label="Buscar">
-                    🔍
-                </button>
+                <button type="submit" class="search-btn" aria-label="Buscar">🔍</button>
             </form>
         </div>
     </section>
@@ -131,8 +134,8 @@
                     </p>
 
                     <div class="button-row">
-                        <a class="primary-button" href="WEB-INF/catalogo.jsp">Explorar recintos</a>
-                        <a class="ghost-button" href="contacto-equipo.html">Contactar equipo</a>
+                        <a class="primary-button" href="${pageContext.request.contextPath}/catalogo">Explorar recintos</a>
+                        <a class="ghost-button" href="${pageContext.request.contextPath}/contacto-equipo">Contactar equipo</a>
                     </div>
                 </div>
 

@@ -28,16 +28,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/operaciones.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css" />
 </head>
 <body>
 
 <header class="app-header">
-    <a class="brand" href="index.jsp">Event Online</a>
+    <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     <nav>
-        <a class="active" href="WEB-INF/admin.jsp">Administración</a>
-        <a href="WEB-INF/catalogo.jsp">Recintos</a>
-        <a href="perfil.html">Perfil</a>
+        <a class="active" href="${pageContext.request.contextPath}/admin-servicios">Administración</a>
+        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
     <div class="header-actions">
         <a class="avatar" href="" aria-label="Perfil"></a>
@@ -47,9 +47,9 @@
 <main class="page-shell admin-layout">
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
-        <a href="WEB-INF/admin.jsp">Recintos</a>
-        <a href="usuarios.html">Usuarios</a>
-        <a class="active" href="admin-servicios.html">Servicios Extra</a>
+        <a href="${pageContext.request.contextPath}/adminRecintos">Recintos</a>
+        <a>Usuarios</a>
+        <a class="active" href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
     <section>

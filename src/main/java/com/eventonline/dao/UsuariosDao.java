@@ -13,18 +13,24 @@ public class UsuariosDao {
     private final Conexion conexionConfig = new Conexion();
 
     private Usuario armarUsuario (ResultSet rs) throws SQLException {
-        return new Usuario(
+        Usuario usuario = new Usuario (
                 rs.getInt("id_usuario"),
                 rs.getString("nombre"),
                 rs.getString("correo"),
                 rs.getString("contrasena"),
                 rs.getString("rol")
         );
+
+        usuario.setTelefono(rs.getString("telefono"));
+        usuario.setCiudad(rs.getString("ciudad"));
+
+        return usuario;
+
     }
 
     public Usuario buscarUsuarioPorCorreo (String correo) throws SQLException {
 
-        String consulta = "SELECT id_usuario, nombre, correo, contrasena, rol FROM usuarios WHERE correo = ?";
+        String consulta = "SELECT id_usuario, nombre, correo, contrasena, rol, telefono, ciudad FROM usuarios WHERE correo = ?";
 
         try (Connection con = conexionConfig.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(consulta)) {
@@ -54,7 +60,11 @@ public class UsuariosDao {
 
     public boolean guardarUsuario (Usuario usuario) throws SQLException {
 
-        String accion = "INSERT INTO usuarios (nombre, correo, contrasena, rol) VALUES (?, ?, ?, ?) ";
+        String accion = """
+        INSERT INTO usuarios 
+            (nombre, correo, contrasena, rol, telefono, ciudad) 
+        VALUES (?, ?, ?, ?, ?, ?) 
+        """;
 
         String passwordEncrypt = encriptaContrasena(usuario.getContrasena());
 
@@ -65,6 +75,8 @@ public class UsuariosDao {
             ps.setString(2, usuario.getEmail());
             ps.setString(3, passwordEncrypt);
             ps.setString(4, usuario.getRol());
+            ps.setString(5, usuario.getTelefono());
+            ps.setString(6, usuario.getCiudad());
 
             int filasInsertadas = ps.executeUpdate();
             return filasInsertadas > 0;
@@ -195,5 +207,29 @@ public class UsuariosDao {
 
     private String encriptaContrasena (String pass) {
         return BCrypt.hashpw(pass, BCrypt.gensalt());
+    }
+
+    public boolean actualizarPerfil(Usuario usuario) throws SQLException {
+
+        String accion = """
+            UPDATE usuarios
+            SET nombre = ?,
+                telefono = ?,
+                ciudad = ?
+            WHERE id_usuario = ?
+            """;
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(accion)) {
+
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getTelefono());
+            ps.setString(3, usuario.getCiudad());
+            ps.setInt(4, usuario.getIdUsuario());
+
+            int filasActualizadas = ps.executeUpdate();
+
+            return filasActualizadas > 0;
+        }
     }
 }

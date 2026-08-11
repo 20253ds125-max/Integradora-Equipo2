@@ -19,7 +19,7 @@
 
     <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/app/extraServices">Servicios</a>
+        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
     </nav>
 
@@ -38,10 +38,7 @@
             </label>
             <label>
                 <span class="split-label">Password <a href="${pageContext.request.contextPath}/app/restablecer-correo">Olvide mi contraseña</a></span>
-                <span class="password-field">
-              <input type="password" name="password" placeholder="********" required data-password-input />
-
-            </span>
+                <input type="password" name="password" placeholder="********" required data-password-input />
             </label>
             <button class="primary-button" type="submit">Iniciar Sesión</button>
         </form>

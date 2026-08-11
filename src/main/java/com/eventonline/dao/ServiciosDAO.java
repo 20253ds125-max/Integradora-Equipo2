@@ -68,7 +68,6 @@ public class ServiciosDAO {
         }
     }
     public List<Servicio> obtenerCatalogo()throws SQLException{
-        System.out.println("3");
         String buscarAprobado="Select id_se,nombre_servicio,descripcion,precio,url_foto,tipo,ubicacion FROM publicacion_servicio_extra WHERE UPPER(estado)= 'APROBADO'";
         List<Servicio> catalogo = new ArrayList<>();
         try(Connection con = conexion.obtenerConexion();
@@ -84,7 +83,6 @@ public class ServiciosDAO {
                         rs.getString("tipo"),
                         rs.getString("ubicacion")
                 );
-                System.out.println(servicio.toString());
                 catalogo.add(servicio);
             }
 
@@ -127,4 +125,69 @@ public class ServiciosDAO {
         return null;
 
     }
+    public double obtenerPrecioPorId(int idServicio) throws SQLException {
+        String sql = "SELECT PRECIO FROM PUBLICACION_SERVICIO_EXTRA WHERE ID_SE = ?";
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idServicio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("PRECIO");
+                }
+            }
+        }
+        return -1.0;
+    }
+
+    //Para el buscador
+    public List<Servicio> filtrarServicios(String busqueda, String categoria) throws SQLException {
+        List<Servicio> lista = new ArrayList<>();
+
+        // Solo traer servicios APROBADOS
+        StringBuilder sql = new StringBuilder("SELECT id_se, nombre_servicio, descripcion, precio, url_foto, tipo, ubicacion FROM publicacion_servicio_extra WHERE UPPER(estado) = 'APROBADO'");
+
+        // Si hay texto en el buscador
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            sql.append(" AND LOWER(nombre_servicio) LIKE ?");
+        }
+
+        // Si seleccionó una categoría (y que no sea 'TODOS)
+        if (categoria != null && !categoria.trim().isEmpty() && !categoria.equalsIgnoreCase("Todos")) {
+            sql.append(" AND LOWER(tipo) = ?");
+        }
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            int paramIndex = 1;
+
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + busqueda.trim().toLowerCase() + "%");
+            }
+            if (categoria != null && !categoria.trim().isEmpty() && !categoria.equalsIgnoreCase("Todos")) {
+                ps.setString(paramIndex++, categoria.trim().toLowerCase());
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+
+                    Servicio servicio = new Servicio(
+                            rs.getInt("id_se"),
+                            rs.getString("nombre_servicio"),
+                            rs.getString("descripcion"),
+                            rs.getDouble("precio"),
+                            rs.getString("url_foto"),
+                            rs.getString("tipo"),
+                            rs.getString("ubicacion")
+                    );
+                    lista.add(servicio);
+                }
+            }
+        }
+        return lista;
+    }
+
 }

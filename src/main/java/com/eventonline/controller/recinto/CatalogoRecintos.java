@@ -43,11 +43,15 @@ public class CatalogoRecintos extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/catalogo.jsp").forward(request,response);
 
         } catch (SQLException e){
-
             request.setAttribute("error","Error al cargar los recintos: " + e.getMessage());
 
             request.getRequestDispatcher("/WEB-INF/catalogo.jsp").forward(request,response);
 
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req,resp);
     }
 }

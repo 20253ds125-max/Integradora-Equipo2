@@ -22,7 +22,7 @@
 
     <nav class="top-nav" aria-label="Navegación">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="app/extraServices">Servicios</a>
+        <a href="extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/contacto-equipo">Contactanos</a>
     </nav>
 </header>
@@ -58,11 +58,11 @@
                 </label>
                 <label>
                     <span>Teléfono</span>
-                    <input type="tel" name="phone" placeholder="5586597852"  required>
+                    <input type="tel" name="telefono" placeholder="5586597852"  required>
                 </label>
                 <label>
                     <span>Ciudad</span>
-                    <input type="text" name="city" placeholder="Cuernavaca"  required>
+                    <input type="text" name="ciudad" placeholder="Cuernavaca"  required>
                 </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
