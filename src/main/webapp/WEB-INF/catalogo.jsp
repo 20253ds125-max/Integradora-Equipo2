@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -47,9 +48,7 @@
         </label>
 
         <section class="filter-block" aria-labelledby="eventTypeTitle">
-
-            <div class="pill-group" data-event-filters>
-            </div>
+            <div class="pill-group" data-event-filters></div>
         </section>
 
         <section class="filter-block" aria-labelledby="priceTitle">
@@ -70,8 +69,6 @@
                 <button type="button" data-capacity="999">300+ invitados</button>
             </div>
         </section>
-
-
     </aside>
 
     <section class="catalog-content">
@@ -80,11 +77,9 @@
                 <h1>Descubre recintos</h1>
                 <p>Espacios curados en Mexico para cada ocasión</p>
             </div>
-
         </div>
 
         <div class="venue-masonry" id="catalogResults" data-catalog-results>
-
             <c:if test="${empty catalogo}">
                 <div class="empty-state" style="grid-column: 1 / -1;">
                     <h2>No se encontraron recintos</h2>
@@ -94,39 +89,19 @@
 
             <c:forEach var="salon" items="${catalogo}">
                 <article class="catalog-card">
-
                     <div class="card-image">
                         <img src="${not empty salon.fotoPrincipal ? fn:trim(salon.fotoPrincipal) : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
                              alt="Foto de ${salon.nombre}"
                              onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
 
-                        <form action="${pageContext.request.contextPath}/app/favoritos"
-                              method="post"
-                              class="favorite-form">
-
-                            <input
-                                    type="hidden"
-                                    name="idRecinto"
-                                    value="${salon.idSalonEventos}">
-
-                            <button class="favorite-button"
-                                    type="submit"
-                                    aria-label="Guardar ${salon.nombre}">
-
+                        <form action="${pageContext.request.contextPath}/app/favoritos" method="post" class="favorite-form">
+                            <input type="hidden" name="idRecinto" value="${salon.idSalonEventos}">
+                            <button class="favorite-button" type="submit" aria-label="Guardar ${salon.nombre}">
                                 <c:choose>
-
-                                    <c:when test="${salon.favorito}">
-                                        &#9829;
-                                    </c:when>
-
-                                    <c:otherwise>
-                                        &#9825;
-                                    </c:otherwise>
-
+                                    <c:when test="${salon.favorito}">&#9829;</c:when>
+                                    <c:otherwise>&#9825;</c:otherwise>
                                 </c:choose>
-
                             </button>
-
                         </form>
                     </div>
 
@@ -139,18 +114,12 @@
                             </h2>
                         </div>
 
-                        <p class="location">
-                            Ubicación: ${salon.ubicacion}
-                        </p>
-
+                        <p class="location">Ubicación: ${salon.ubicacion}</p>
                         <div class="card-divider"></div>
 
                         <div class="card-footer">
                             <div class="footer-info-row">
-                        <span class="capacity">
-                            Hasta ${salon.capacidad} invitados
-                        </span>
-
+                                <span class="capacity">Hasta ${salon.capacidad} invitados</span>
                                 <strong class="price">
                                     <fmt:formatNumber value="${salon.precio}" type="currency" currencySymbol="$" maxFractionDigits="0"/>
                                     <span>/evento</span>
@@ -158,15 +127,12 @@
                             </div>
 
                             <div class="card-actions">
-                                <a class="details-link"
-                                   href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                <a class="details-link" href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
                                     Ver detalles
                                 </a>
 
                                 <form action="${pageContext.request.contextPath}/carritoAgregar" method="post" class="cart-form" style="display: inline-block;">
-
                                     <input type="hidden" name="idPublicacionEventos" value="${salon.idSalonEventos}">
-
                                     <button class="cart-link" type="submit" aria-label="Añadir ${salon.nombre} al carrito">
                                         Añadir al carrito
                                     </button>
@@ -176,7 +142,6 @@
                     </div>
                 </article>
             </c:forEach>
-
         </div>
 
         <div class="load-more-wrap">
@@ -186,14 +151,100 @@
 </main>
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
-
 <jsp:include page="alerts.jsp" />
 
+<!-- Script de Filtros para Recintos (Persistencia de Filtros) -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputBusqueda = document.querySelector('[data-city-search]') || document.querySelector('input[type="search"], input[type="text"]');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let qActual = urlParams.get('q') || '';
+        let precioActual = urlParams.get('precio') || '';
+        let capacidadActual = urlParams.get('capacidad') || '';
+
+        if (inputBusqueda && qActual) {
+            inputBusqueda.value = qActual;
+        }
+
+        const botones = document.querySelectorAll('button');
+
+        botones.forEach(boton => {
+            const texto = boton.innerText.trim();
+
+            if (["Hasta $150", "Hasta $500", "Hasta $900", "$900+"].includes(texto)) {
+                if ((texto.includes("150") && precioActual === "150") ||
+                    (texto.includes("500") && precioActual === "500") ||
+                    (texto.includes("900") && !texto.includes("+") && precioActual === "900") ||
+                    (texto.includes("900+") && precioActual === "900+")) {
+                    boton.style.fontWeight = "bold";
+                    boton.style.borderColor = "#000";
+                }
+
+                boton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let valPrecio = "";
+                    if (texto.includes("150")) valPrecio = "150";
+                    else if (texto.includes("500")) valPrecio = "500";
+                    else if (texto.includes("900") && texto.includes("+")) valPrecio = "900+";
+                    else if (texto.includes("900")) valPrecio = "900";
+
+                    if (precioActual === valPrecio) {
+                        valPrecio = "";
+                    }
+
+                    const textoBusqueda = inputBusqueda ? inputBusqueda.value.trim() : '';
+                    redireccionar(textoBusqueda, valPrecio, capacidadActual);
+                });
+            }
+
+            if (["1-50 invitados", "51-150 invitados", "151-300 invitados", "300+ invitados"].includes(texto)) {
+                if ((texto.includes("1-50") && capacidadActual === "1-50") ||
+                    (texto.includes("51-150") && capacidadActual === "51-150") ||
+                    (texto.includes("151-300") && capacidadActual === "151-300") ||
+                    (texto.includes("300+") && capacidadActual === "300+")) {
+                    boton.style.fontWeight = "bold";
+                    boton.style.borderColor = "#000";
+                }
+
+                boton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let valCapacidad = "";
+                    if (texto.includes("1-50")) valCapacidad = "1-50";
+                    else if (texto.includes("51-150")) valCapacidad = "51-150";
+                    else if (texto.includes("151-300")) valCapacidad = "151-300";
+                    else if (texto.includes("300+")) valCapacidad = "300+";
+
+                    if (capacidadActual === valCapacidad) {
+                        valCapacidad = "";
+                    }
+
+                    const textoBusqueda = inputBusqueda ? inputBusqueda.value.trim() : '';
+                    redireccionar(textoBusqueda, precioActual, valCapacidad);
+                });
+            }
+        });
+
+        if (inputBusqueda) {
+            inputBusqueda.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const textoBusqueda = inputBusqueda.value.trim();
+                    redireccionar(textoBusqueda, precioActual, capacidadActual);
+                }
+            });
+        }
+
+        function redireccionar(q, precio, capacidad) {
+            const params = new URLSearchParams();
+            if (q) params.set('q', q);
+            if (precio) params.set('precio', precio);
+            if (capacidad) params.set('capacidad', capacidad);
+
+            const queryString = params.toString();
+            window.location.href = '${pageContext.request.contextPath}/catalogo' + (queryString ? '?' + queryString : '');
+        }
+    });
+</script>
 </body>
 </html>
-
-
-
-
-
-
