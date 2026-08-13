@@ -14,7 +14,7 @@ public class CarritoService{
     private final ServiciosDAO serviciosDAO = new ServiciosDAO();
 
     public boolean agregarRecintoCarrito(int idUsuario, int idPublicacion) throws SQLException {
-        if (carritoDao.existeRecintoEnCarrito(idUsuario, idPublicacion)) {
+        if (carritoDao.existeRecintoEnCarrito(idUsuario)) {
             throw new IllegalArgumentException("Ya tienes un recinto en el carrito eliminalo y agrega otro");
         }
         double precioUnitario = salonesDao.obtenerPrecioPorId(idPublicacion);
