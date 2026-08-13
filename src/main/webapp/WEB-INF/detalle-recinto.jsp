@@ -125,10 +125,12 @@
                 <p class="total"><span>Total</span><strong>$${salonDetalles.precio + 150}</strong></p>
             </div>
 
-            <a id="btnAnadirCarrito" class="special-button disabled-link" href="${pageContext.request.contextPath}/carrito">
-                Añadir al carrito
-            </a>
-
+            <form method="post" action="${pageContext.request.contextPath}/carritoAgregar">
+                <input type="hidden" name="idPublicacionEventos" value="${salonDetalles.idSalonEventos}">
+                <button type="submit" id="btnAnadirCarrito" class="special-button disabled-link" href="${pageContext.request.contextPath}/carritoAgregar">
+                    Añadir al carrito
+                </button>
+            </form>
             <p class="panel-note">No se realizará ningún cargo todavía.</p>
         </aside>
 
@@ -151,80 +153,122 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.2"></script>
 <jsp:include page="alerts.jsp" />
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const fechaInput = document.getElementById("fechaEvento");
-        const btnVerificar = document.getElementById("btnVerificar");
-        const btnAnadirCarrito = document.getElementById("btnAnadirCarrito"); // Ahora sí lo encontrará
-        const mensajeDiv = document.getElementById("mensajeDisponibilidad");
+<script>document.addEventListener("DOMContentLoaded", function () {
+    const fechaInput = document.getElementById("fechaEvento");
+    const btnVerificar = document.getElementById("btnVerificar");
+    const btnAnadirCarrito = document.getElementById("btnAnadirCarrito");
+    const mensajeDiv = document.getElementById("mensajeDisponibilidad");
 
-        if (fechaInput) {
-            const manana = new Date();
-            manana.setDate(manana.getDate() + 1);
-            const yyyy = manana.getFullYear();
-            const mm = String(manana.getMonth() + 1).padStart(2, '0');
-            const dd = String(manana.getDate()).padStart(2, '0');
-            fechaInput.setAttribute("min", `${yyyy}-${mm}-${dd}`);
+    // 1. Control y Validación de Fecha en Tiempo Real
+    if (fechaInput) {
+        ["change", "input"].forEach(nombreEvento => {
+            fechaInput.addEventListener(nombreEvento, function () {
+                const valor = this.value.trim();
 
-            fechaInput.addEventListener("change", function() {
-                // Validación de seguridad antes de usar classList
+                // Siempre que cambien la fecha, desactivar el carrito y ocultar mensaje previo
                 if (btnAnadirCarrito) {
                     btnAnadirCarrito.classList.add("disabled-link");
                 }
                 if (mensajeDiv) {
                     mensajeDiv.style.display = "none";
                 }
-            });
-        }
 
-        if (btnVerificar && fechaInput) {
-            btnVerificar.addEventListener("click", function () {
-                const fechaSeleccionada = fechaInput.value;
-                const idRecinto = "${salonDetalles.idSalonEventos}";
+                if (!valor) return;
 
-                if (!fechaSeleccionada) {
-                    mostrarMensaje("Por favor, selecciona una fecha primero.", false);
-                    return;
+                let fechaSeleccionada;
+
+                // Soporte para ambos formatos (YYYY-MM-DD o DD/MM/YYYY)
+                if (valor.includes("-")) {
+                    const partes = valor.split("-");
+                    fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
+                } else if (valor.includes("/")) {
+                    const partes = valor.split("/");
+                    fechaSeleccionada = new Date(partes[2], partes[1] - 1, partes[0]);
+                } else {
+                    fechaSeleccionada = new Date(valor);
                 }
 
-                const textoOriginal = btnVerificar.innerText;
-                btnVerificar.innerText = "Verificando...";
-                btnVerificar.disabled = true;
+                if (isNaN(fechaSeleccionada.getTime())) return;
 
-                fetch(`${pageContext.request.contextPath}/verificarFecha?fecha=${fechaSeleccionada}&idRecinto=${idRecinto}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.disponible) {
-                            mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
-                            if (btnAnadirCarrito) {
-                                btnAnadirCarrito.classList.remove("disabled-link");
-                            }
-                        } else {
-                            mostrarMensaje("Lo sentimos, esta fecha ya está ocupada.", false);
-                            if (btnAnadirCarrito) {
-                                btnAnadirCarrito.classList.add("disabled-link");
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        mostrarMensaje("Error de conexión. Intenta de nuevo.", false);
-                    })
-                    .finally(() => {
-                        btnVerificar.innerText = textoOriginal;
-                        btnVerificar.disabled = false;
+                // Definir "mañana" a las 00:00:00
+                const manana = new Date();
+                manana.setDate(manana.getDate() + 1);
+                manana.setHours(0, 0, 0, 0);
+
+                // Si selecciona hoy o una fecha pasada
+                if (fechaSeleccionada < manana) {
+                    Swal.fire({
+                        title: '¡Atención!',
+                        text: 'La fecha del evento debe ser a partir del día de mañana. Por favor, selecciona una fecha válida.',
+                        icon: 'warning',
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor: '#855221',
+                        borderRadius: '12px'
                     });
-            });
-        }
 
-        function mostrarMensaje(texto, esExito) {
-            if (mensajeDiv) {
-                mensajeDiv.innerText = texto;
-                mensajeDiv.style.display = "block";
-                mensajeDiv.className = esExito ? "status-message status-available" : "status-message status-unavailable";
+                    this.value = ""; // Limpia el input
+                }
+            });
+        });
+    }
+
+    // 2. Lógica de Verificación de Disponibilidad
+    if (btnVerificar && fechaInput) {
+        btnVerificar.addEventListener("click", function () {
+            const fechaSeleccionada = fechaInput.value;
+            const idRecinto = "${salonDetalles.idSalonEventos}";
+
+            if (!fechaSeleccionada) {
+                Swal.fire({
+                    title: '¡Atención!',
+                    text: 'Por favor, selecciona una fecha primero.',
+                    icon: 'info',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#855221',
+                    borderRadius: '12px'
+                });
+                return;
             }
+
+            const textoOriginal = btnVerificar.innerText;
+            btnVerificar.innerText = "Verificando...";
+            btnVerificar.disabled = true;
+
+            fetch(`${pageContext.request.contextPath}/verificarFecha?fecha=${fechaSeleccionada}&idRecinto=${idRecinto}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.disponible) {
+                        mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
+                        if (btnAnadirCarrito) {
+                            btnAnadirCarrito.classList.remove("disabled-link");
+                        }
+                    } else {
+                        mostrarMensaje("Lo sentimos, esta fecha ya está ocupada.", false);
+                        if (btnAnadirCarrito) {
+                            btnAnadirCarrito.classList.add("disabled-link");
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    mostrarMensaje("Error de conexión. Intenta de nuevo.", false);
+                })
+                .finally(() => {
+                    btnVerificar.innerText = textoOriginal;
+                    btnVerificar.disabled = false;
+                });
+        });
+    }
+
+    // Helper para actualizar el mensaje en pantalla
+    function mostrarMensaje(texto, esExito) {
+        if (mensajeDiv) {
+            mensajeDiv.innerText = texto;
+            mensajeDiv.style.display = "block";
+            mensajeDiv.className = esExito ? "status-message status-available" : "status-message status-unavailable";
         }
-    });
+    }
+});
 </script>
 </body>
 </html>
