@@ -4,6 +4,7 @@
 <!doctype html>
 <html lang="es">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mi carrito de compra | Event Online</title>
@@ -118,7 +119,7 @@
                                             <fmt:formatNumber value="${item.precio}" type="currency" currencySymbol="$" maxFractionDigits="2"/>
                                         </div>
                                         <div class="remove-cell">
-                                            <button class="remove-button" type="submit"
+                                            <button class="remove-button" type="submit" formnovalidate
                                                     formaction="${pageContext.request.contextPath}/eliminarItemCarrito"
                                                     name="idCarrito" value="${item.idCarrito}" title="Eliminar">&times;</button>
                                         </div>
@@ -158,7 +159,7 @@
                         </div>
 
                         <div class="actions-row">
-                            <button class="secondary-button" type="submit"
+                            <button class="secondary-button" type="submit" formnovalidate
                                     formaction="${pageContext.request.contextPath}/vaciarCarrito"
                                     onclick="return confirm('¿Estás seguro de que deseas vaciar todo el carrito?');">
                                 Vaciar carrito
@@ -197,16 +198,47 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const fechaInput = document.getElementById("fechaEvento");
+
         if (fechaInput) {
-            const manana = new Date();
-            manana.setDate(manana.getDate() + 1);
+            ["change", "input"].forEach(nombreEvento => {
+                fechaInput.addEventListener(nombreEvento, function () {
+                    const valor = this.value.trim();
+                    if (!valor) return;
 
-            const yyyy = manana.getFullYear();
-            const mm = String(manana.getMonth() + 1).padStart(2, '0');
-            const dd = String(manana.getDate()).padStart(2, '0');
+                    let fechaSeleccionada;
 
-            const minFecha = `${yyyy}-${mm}-${dd}`;
-            fechaInput.setAttribute("min", minFecha);
+                    if (valor.includes("-")) {
+                        const partes = valor.split("-");
+                        fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
+                    } else if (valor.includes("/")) {
+                        const partes = valor.split("/");
+                        fechaSeleccionada = new Date(partes[2], partes[1] - 1, partes[0]);
+                    } else {
+                        fechaSeleccionada = new Date(valor);
+                    }
+
+                    if (isNaN(fechaSeleccionada.getTime())) return;
+
+                    // Fecha de mañana
+                    const manana = new Date();
+                    manana.setDate(manana.getDate() + 1);
+                    manana.setHours(0, 0, 0, 0);
+
+                    // Validación con Modal Personalizado
+                    if (fechaSeleccionada < manana) {
+                        Swal.fire({
+                            title: '¡Atención!',
+                            text: 'La fecha del evento debe programarse a partir del día de mañana. Por favor, selecciona una fecha válida.',
+                            icon: 'warning', // Puedes cambiarlo por 'error' si prefieres la X roja
+                            confirmButtonText: 'Entendido',
+                            confirmButtonColor: '#855221', // Color café acorde a tu diseño
+                            borderRadius: '12px'
+                        });
+
+                        this.value = ""; // Limpia el campo
+                    }
+                });
+            });
         }
     });
 </script>

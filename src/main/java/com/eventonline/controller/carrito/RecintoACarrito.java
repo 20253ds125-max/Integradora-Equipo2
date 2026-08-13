@@ -40,7 +40,8 @@ public class RecintoACarrito extends HttpServlet {
                 req.setAttribute("exito","Recinto Agregado al carrito");
                 req.getRequestDispatcher("/catalogo").forward(req,resp);
             } else {
-                resp.sendRedirect("error.jsp?msg=NoSePudoAgregar");
+                req.setAttribute("error","Error al agregar el recinto a favoritos recintos: ");
+                req.getRequestDispatcher("/catalogo").forward(req,resp);
             }
 
         } catch (NumberFormatException e) {

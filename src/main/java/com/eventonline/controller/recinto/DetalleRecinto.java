@@ -23,15 +23,16 @@ public class DetalleRecinto extends HttpServlet {
             int idRecinto= Integer.parseInt(request.getParameter("id"));
             SalonEventos salonDetalles= recintoService.detallesRecinto(idRecinto);
             if(salonDetalles==null){
-                throw new SQLException("Error publicacion no encontrada :C");
+                throw new SQLException("publicacion no encontrada :C");
             }
             request.setAttribute("salonDetalles",salonDetalles);
             request.getRequestDispatcher("/WEB-INF/detalle-recinto.jsp").forward(request,response);
         }catch (NumberFormatException e){
-            response.sendRedirect(request.getContextPath()+"/catalogo");
+            request.setAttribute("error","error al cargar el recinto: "+e.getMessage());
+            request.getRequestDispatcher("/catalogo").forward(request,response);
         }catch (SQLException e){
             request.setAttribute("error","erros al cargar el recinto"+e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/catalogo.jsp").forward(request,response);
+            request.getRequestDispatcher("/catalogo").forward(request,response);
         }
 
     }
