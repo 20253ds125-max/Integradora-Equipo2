@@ -24,7 +24,10 @@ public class FavoritosServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
 
         if (session == null || session.getAttribute("UsuarioLog") == null) {
-            req.setAttribute("error", "Para agregar a favoritos un recinto primero inicia sesion");
+
+            HttpSession currentSession = req.getSession(true);
+            currentSession.setAttribute("error", "Para agregar a favoritos un recinto primero inicia sesion");
+
             resp.sendRedirect(req.getContextPath() + "/app/login");
             return;
         }
