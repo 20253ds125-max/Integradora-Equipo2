@@ -45,8 +45,8 @@ public class    PublicarRecintoServlet extends HttpServlet {
 
         try{
             recintoService.publicarRecinto(nombre,ubicacion,descripcion,strCapacidad,strPrecio,request,usuario);
-            response.sendRedirect(request.getContextPath() + "/");
-            return;
+            request.setAttribute("exito","Tu peticion de recinto fue enviada");
+            request.getRequestDispatcher("/WEB-INF/publicar-recinto.jsp");
         }catch (Exception e){
             e.printStackTrace();
             request.setAttribute("error","al subir imagenes: "+e.getMessage());
