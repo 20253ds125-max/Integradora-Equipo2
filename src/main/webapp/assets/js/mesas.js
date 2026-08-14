@@ -1,7 +1,9 @@
 ﻿const maxGuestsPerTable = 10;
 const CTX = window.APP_CONTEXT_PATH || "";
+const ID_RESERVA = window.ID_RESERVA;
 
 let tables = [];
+let maxMesas = window.MAX_MESAS || 0;
 
 const tablesArea = document.querySelector("[data-tables-area]");
 const formLateral = document.getElementById("form-lateral-invitado");
@@ -19,7 +21,7 @@ const modalTotalNotificar = document.getElementById("modal-total-notificar");
 
 
 async function apiGet() {
-    const respuesta = await fetch(`${CTX}/mesas-api`, { credentials: "same-origin" });
+    const respuesta = await fetch(`${CTX}/mesas-api?idReserva=${ID_RESERVA}`, { credentials: "same-origin" });
     if (respuesta.status === 401) {
         window.location.href = `${CTX}/login`;
         return null;
@@ -28,7 +30,7 @@ async function apiGet() {
 }
 
 async function apiPost(parametros) {
-    const cuerpo = new URLSearchParams(parametros);
+    const cuerpo = new URLSearchParams({ ...parametros, idReserva: ID_RESERVA });
     const respuesta = await fetch(`${CTX}/mesas-api`, {
         method: "POST",
         credentials: "same-origin",
@@ -61,6 +63,9 @@ async function cargarMesas() {
                 enviado: g.invitacionEnviada
             }))
         }));
+        if (typeof datos.maxMesas === "number") {
+            maxMesas = datos.maxMesas;
+        }
         renderTables();
     } catch (e) {
         console.error("Error cargando mesas:", e);
@@ -117,6 +122,18 @@ function renderTables() {
         totalGlobalCount.textContent = String(getTotalAssignedCount());
     }
     updateMesaSelect();
+    updateAddTableButton();
+}
+
+function updateAddTableButton() {
+    const btnAgregarMesa = document.querySelector("[data-add-table]");
+    if (!btnAgregarMesa) return;
+
+    const alcanzado = maxMesas > 0 && tables.length >= maxMesas;
+    btnAgregarMesa.disabled = alcanzado;
+    btnAgregarMesa.textContent = alcanzado
+        ? `Límite de mesas alcanzado (${tables.length}/${maxMesas})`
+        : `Agregar mesa (${tables.length}/${maxMesas})`;
 }
 
 
@@ -211,7 +228,9 @@ if (btnConfirmarEnvio) {
         try {
             const respuesta = await fetch(`${CTX}/enviar-invitaciones`, {
                 method: "POST",
-                credentials: "same-origin"
+                credentials: "same-origin",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ idReserva: ID_RESERVA })
             });
 
             if (respuesta.status === 401) {
@@ -278,6 +297,11 @@ tablesArea.addEventListener("blur", async (event) => {
 
 
 document.querySelector("[data-add-table]").addEventListener("click", async () => {
+    if (maxMesas > 0 && tables.length >= maxMesas) {
+        alert(`Ya alcanzaste el límite de ${maxMesas} mesas permitidas para este salón (capacidad de ${window.CAPACIDAD_SALON || "?"} invitados).`);
+        return;
+    }
+
     const siguiente = tables.length ? Math.max(...tables.map((t) => t.id)) + 1 : 1;
     const nombreSugerido = `Mesa ${String(siguiente).padStart(2, "0")}`;
 
@@ -292,7 +316,8 @@ document.querySelector("[data-add-table]").addEventListener("click", async () =>
 
 document.querySelectorAll("[data-save-layout]").forEach((button) => {
     button.addEventListener("click", async () => {
-
+        // Cada acción ya se guarda de inmediato en el servidor; este botón
+        // refresca desde el servidor para confirmar que todo quedó sincronizado.
         await cargarMesas();
         button.textContent = "Layout guardado";
         setTimeout(() => { button.textContent = "Guardar layout"; }, 1400);

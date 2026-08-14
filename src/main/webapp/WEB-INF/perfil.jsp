@@ -24,7 +24,6 @@
     <nav class="top-nav" aria-label="Navegación principal">
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
         <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
-        <a href="${pageContext.request.contextPath}/mesas">Mesas e invitados</a>
         <a class="active" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
 
@@ -207,7 +206,47 @@
                     </div>
                 </div>
 
-                <div class="cards-grid" data-real-bookings-list></div>
+                <div class="cards-grid">
+                    <c:choose>
+                        <c:when test="${empty reservas}">
+                            <p>Aun no tienes reservas. Cuando reserves un recinto, aparecerá aquí.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="reserva" items="${reservas}">
+                                <article class="catalog-card">
+                                    <div class="card-image">
+                                        <img
+                                                src="${not empty reserva.urlPortada ? reserva.urlPortada : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
+                                                alt="Foto de ${reserva.nombreSalon}"
+                                                onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-title-row">
+                                            <h2>${not empty reserva.nombreSalon ? reserva.nombreSalon : 'Reserva de servicios'}</h2>
+                                            <span class="badge">${reserva.estado}</span>
+                                        </div>
+                                        <p class="location">${reserva.ubicacion}</p>
+                                        <p>Fecha del evento: <strong>${reserva.fechaEvento}</strong></p>
+                                        <p>Total: <strong>$${reserva.total}</strong></p>
+
+                                        <c:if test="${reserva.gestionMesasDisponible}">
+                                            <a class="ui-button ui-button--primary"
+                                               style="margin-top:10px;display:inline-block;"
+                                               href="${pageContext.request.contextPath}/mesas?idReserva=${reserva.idReserva}">
+                                                Editar mesas e invitados
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${not reserva.gestionMesasDisponible and reserva.idPublicacion != null}">
+                                            <p style="font-size:0.8rem;color:var(--muted, #888);margin-top:8px;">
+                                                Podrás gestionar mesas cuando el pago de esta reserva esté confirmado.
+                                            </p>
+                                        </c:if>
+                                    </div>
+                                </article>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
 
             </article>
 

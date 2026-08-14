@@ -14,7 +14,7 @@ public class CorreoElectronico {
     private final String PASSWORD;
 
     public CorreoElectronico(){
-        Dotenv dotenv =Dotenv.load();
+        Dotenv dotenv =Dotenv.configure().ignoreIfMissing().load();
         this.REMITENTE= dotenv.get("CORREO");
         this.PASSWORD= dotenv.get("PASS_CORREO");
     }
@@ -78,7 +78,7 @@ public class CorreoElectronico {
                 ? urlImagen.trim()
                 : "https://via.placeholder.com/500x250?text=Sin+Foto";
 
-        String asunto = "¡Tu recinto ha sido aprobado! 🎉 - Event Online";
+        String asunto = "¡Tu recinto ha sido aprobado!  - Event Online";
         String html = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
                 + "<div style='max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; text-align: center;'>"
 

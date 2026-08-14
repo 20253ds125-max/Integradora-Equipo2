@@ -56,4 +56,8 @@ public class ReservacionService {
     public boolean confirmarPagoReserva(int idReserva) throws SQLException {
         return reservacionDao.confirmarPagoReserva(idReserva);
     }
+
+    public List<com.eventonline.model.ReservaConDetalle> obtenerReservasConDetallePorUsuario(int idUsuario) throws SQLException{
+        return reservacionDao.obtenerReservasConDetallePorUsuario(idUsuario);
+    }
 }

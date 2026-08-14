@@ -31,6 +31,7 @@
     </nav>
 
     <div class="header-actions">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
     </div>
 </header>
 
@@ -125,9 +126,12 @@
                 <p class="total"><span>Total</span><strong>$${salonDetalles.precio + 150}</strong></p>
             </div>
 
-            <a id="btnAnadirCarrito" class="special-button disabled-link" href="${pageContext.request.contextPath}/carrito">
-                Añadir al carrito
-            </a>
+            <form id="formAnadirCarrito" action="${pageContext.request.contextPath}/carritoAgregar" method="post">
+                <input type="hidden" name="idPublicacionEventos" value="${salonDetalles.idSalonEventos}" />
+                <button id="btnAnadirCarrito" type="submit" class="special-button disabled-link" disabled>
+                    Añadir al carrito
+                </button>
+            </form>
 
             <p class="panel-note">No se realizará ningún cargo todavía.</p>
         </aside>
@@ -170,6 +174,7 @@
                 // Validación de seguridad antes de usar classList
                 if (btnAnadirCarrito) {
                     btnAnadirCarrito.classList.add("disabled-link");
+                    btnAnadirCarrito.disabled = true;
                 }
                 if (mensajeDiv) {
                     mensajeDiv.style.display = "none";
@@ -198,11 +203,13 @@
                             mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
                             if (btnAnadirCarrito) {
                                 btnAnadirCarrito.classList.remove("disabled-link");
+                                btnAnadirCarrito.disabled = false;
                             }
                         } else {
                             mostrarMensaje("Lo sentimos, esta fecha ya está ocupada.", false);
                             if (btnAnadirCarrito) {
                                 btnAnadirCarrito.classList.add("disabled-link");
+                                btnAnadirCarrito.disabled = true;
                             }
                         }
                     })

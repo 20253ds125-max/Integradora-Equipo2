@@ -29,6 +29,7 @@
     </nav>
 
     <div class="header-actions">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
         <a class="host-button" href="${pageContext.request.contextPath}/app/publicar-recinto">Publicar recinto</a>
     </div>
 </header>
@@ -93,7 +94,12 @@
             </c:if>
 
             <c:forEach var="salon" items="${catalogo}">
-                <article class="catalog-card">
+                <article class="catalog-card"
+                         data-venue-card
+                         data-name="${fn:toLowerCase(salon.nombre)}"
+                         data-location="${fn:toLowerCase(salon.ubicacion)}"
+                         data-price="${salon.precio}"
+                         data-capacity="${salon.capacidad}">
 
                     <div class="card-image">
                         <img src="${not empty salon.fotoPrincipal ? fn:trim(salon.fotoPrincipal) : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
@@ -188,6 +194,8 @@
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
 <jsp:include page="alerts.jsp" />
+
+<script src="${pageContext.request.contextPath}/assets/js/catalogo.js"></script>
 
 </body>
 </html>

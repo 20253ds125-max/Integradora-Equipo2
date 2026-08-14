@@ -14,18 +14,18 @@
 <header class="app-header">
     <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
     <nav class="top-nav" aria-label="Navegación">
-        <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
-        <a class="active" href="${pageContext.request.contextPath}/mesas">Mesas e invitados</a>
+        <a href="${pageContext.request.contextPath}/app/perfil">&larr; Mis reservas</a>
     </nav>
     <div class="header-actions">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
         <a class="avatar" href="${pageContext.request.contextPath}/app/perfil" aria-label="Perfil"></a>
     </div>
 </header>
 <main class="seating-shell">
     <aside class="guest-panel">
         <h1>Invitados</h1>
+        <p style="color: var(--muted); margin-top: -8px; font-size: 0.85rem;">
+            ${nombreSalon} &middot; capacidad ${capacidadSalon} invitados &middot; máximo ${maxMesas} mesas
+        </p>
 
         <div class="assigned-meter">
             <span>Total Asignados:</span>
@@ -79,12 +79,12 @@
 
             <div class="event-digital-ticket">
                 <span class="ticket-badge">Invitación Digital</span>
-                <h3 class="ticket-title">Nombre del Evento</h3>
+                <h3 class="ticket-title">${nombreSalon}</h3>
                 <p class="ticket-subtitle">Event Online Showcase</p>
 
                 <div class="ticket-meta">
-                    <div><strong>FECHA:</strong><br>09 de Julio, 2026</div>
-                    <div><strong>LUGAR:</strong><br>Jardín de Eventos</div>
+                    <div><strong>FECHA:</strong><br>${fechaEvento}</div>
+                    <div><strong>LUGAR:</strong><br>${ubicacion}</div>
                 </div>
 
                 <p class="ticket-footer-note">Tu mesa asignada se notificará en este pase digital.</p>
@@ -105,6 +105,9 @@
 <footer class="rights-footer">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <script>
     window.APP_CONTEXT_PATH = "${pageContext.request.contextPath}";
+    window.ID_RESERVA = ${idReserva};
+    window.MAX_MESAS = ${maxMesas};
+    window.CAPACIDAD_SALON = ${capacidadSalon};
 </script>
 <script src="${pageContext.request.contextPath}/assets/js/mesas.js"></script>
 <jsp:include page="alerts.jsp" />
