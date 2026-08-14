@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -56,7 +57,6 @@
                 <div class="field">
                     <label for="place">Dónde</label>
                     <div class="input-wrapper">
-                        <span class="icon">📍</span>
                         <input
                                 type="text"
                                 id="lugar"
@@ -70,7 +70,6 @@
                 <div class="field">
                     <label for="calendar">Cuándo</label>
                     <div class="input-wrapper">
-                        <span class="icon">📅</span>
                         <input
                                 type="text"
                                 id="calendar"
@@ -82,7 +81,6 @@
                 <div class="field">
                     <label for="guests">Invitados</label>
                     <div class="input-wrapper">
-                        <span class="icon">👥</span>
                         <input
                                 type="number"
                                 id="invitados"
@@ -94,7 +92,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="search-btn" aria-label="Buscar">🔍</button>
+                <button type="submit" class="search-btn" aria-label="Buscar">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #4f403b !important;"></i>
+                    <span style="color: #4f403b !important;">Buscar</span>
+                </button>
             </form>
         </div>
     </section>

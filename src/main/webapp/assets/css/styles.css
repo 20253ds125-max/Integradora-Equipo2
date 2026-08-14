@@ -418,9 +418,9 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
     gap:8px;
     height:54px;
     border:none;
-    background: #fff8f5;
+    background:#fff8f5;!important
     border-radius:18px;
-    color:#fff;
+    color: #4f403b; !important;
     font-weight:700;
     font-size:1rem;
     box-shadow:var(--button-shadow);
@@ -555,25 +555,7 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
     min-height: 420px;
 }
 
-.favorite-button {
-    position: absolute;
-    top: 26px;
-    right: 26px;
-    display: grid;
-    place-items: center;
-    width: 50px;
-    height: 50px;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-    font-size: 1.6rem;
-    backdrop-filter: blur(8px);
-}
 
-.favorite-button.active {
-    background: var(--clay);
-}
 
 .venue-body {
     display: grid;
