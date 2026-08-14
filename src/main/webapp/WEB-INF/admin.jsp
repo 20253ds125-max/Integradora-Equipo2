@@ -129,7 +129,7 @@
                                 </button>
                             </form>
                             <a class="details-link"
-                               href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                               href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}&modo=review">
                                 Ver detalles
                             </a>
                         </div>
