@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=6.2" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=6.4" />
 </head>
 
 <body>
@@ -46,14 +46,12 @@
         <div class="carousel" data-carousel>
             <button class="carousel-control prev" type="button" data-carousel-prev aria-label="Foto anterior">‹</button>
 
-            <%-- CAPA 1: Fondo difuminado (decorativo) --%>
             <img class="carousel-bg"
                  data-carousel-bg
                  src="${salonDetalles.fotos[0]}"
                  alt=""
                  aria-hidden="true" />
 
-            <%-- CAPA 2: Imagen principal nítida y COMPLETA (sin recorte) --%>
             <img class="carousel-main"
                  data-carousel-main
                  src="${salonDetalles.fotos[0]}"
@@ -85,8 +83,17 @@
 
             <section class="content-block">
                 <h2>Acerca del lugar</h2>
-                <p style="white-space: pre-wrap;">${salonDetalles.descripcion}</p>
-                <p><strong>Capacidad máxima:</strong> ${salonDetalles.capacidad} invitados.</p>
+
+                <div id="descContent" class="desc-collapsible">
+                    <p id="descText" style="white-space: pre-wrap; margin: 0; color: var(--muted); font-size: 1.18rem; line-height: 1.65;">${salonDetalles.descripcion}</p>
+                    <div id="descFade" class="desc-fade"></div>
+                </div>
+
+                <button type="button" id="btnToggleDesc" class="btn-toggle-desc" style="display: none;">
+                    <span>Leer más</span> ▾
+                </button>
+
+                <p style="margin-top: 18px;"><strong>Capacidad máxima:</strong> ${salonDetalles.capacidad} invitados.</p>
             </section>
 
             <section class="services-section">
@@ -97,41 +104,86 @@
         </article>
 
         <aside class="booking-panel" id="bookingPanel">
-            <div class="price-row">
-                <strong>$${salonDetalles.precio}</strong>
-                <span>/ por evento</span>
-                <button class="favorite-button" type="button" data-detail-favorite aria-label="Agregar a favoritos">♡</button>
-            </div>
 
-            <section>
-                <h2>Comprobar disponibilidad</h2>
+            <c:choose>
 
-                <div class="availability-checker">
-                    <label for="fechaEvento">Fecha de tu evento</label>
-                    <input type="date" id="fechaEvento" name="fechaEvento" required />
-                    <button type="button" id="btnVerificar" class="btn-check">
-                        Verificar fecha
-                    </button>
-                </div>
+                <c:when test="${not empty sessionScope.UsuarioLog && sessionScope.UsuarioLog.rol eq 'ADMIN' && param.modo eq 'review'}">
 
-                <!-- Contenedor para el mensaje de respuesta -->
-                <div id="mensajeDisponibilidad" class="status-message"></div>
-            </section>
+                    <div class="price-row">
+                        <strong>$${salonDetalles.precio}</strong>
+                        <span>/ precio propuesto</span>
+                    </div>
 
-            <div class="cost-list">
-                <!-- Precios Calculados -->
-                <p><span>Renta del recinto</span><strong>$${salonDetalles.precio}</strong></p>
-                <p><span>Servicio de limpieza</span><strong>$150.00</strong></p>
-                <p class="total"><span>Total</span><strong>$${salonDetalles.precio + 150}</strong></p>
-            </div>
+                    <div style="margin: 1.5rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+                        <h3 style="margin-top: 0; font-size: 1.1rem; color: #333;">Modo Revisión Administrador</h3>
+                        <p class="panel-note" style="margin-bottom: 15px;">
+                            Verifica la información e imágenes del recinto antes de aprobar o rechazar la solicitud.
+                        </p>
 
-            <form method="post" action="${pageContext.request.contextPath}/carritoAgregar">
-                <input type="hidden" name="idPublicacionEventos" value="${salonDetalles.idSalonEventos}">
-                <button type="submit" id="btnAnadirCarrito" class="special-button disabled-link" href="${pageContext.request.contextPath}/carritoAgregar">
-                    Añadir al carrito
-                </button>
-            </form>
-            <p class="panel-note">No se realizará ningún cargo todavía.</p>
+                        <div class="cost-list">
+                            <p><span>Precio por evento</span><strong>$${salonDetalles.precio}</strong></p>
+                            <p><span>Capacidad máxima</span><strong>${salonDetalles.capacidad} personas</strong></p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <form action="${pageContext.request.contextPath}/AprobarRecintoServlet" method="POST" style="margin: 0;">
+                            <input type="hidden" name="idRecinto" value="${salonDetalles.idSalonEventos}">
+                            <button type="submit" class="special-button" style="background-color: #2e7d32; width: 100%; border: none; cursor: pointer;">
+                                ✓ Aprobar Recinto
+                            </button>
+                        </form>
+
+                        <form action="${pageContext.request.contextPath}/RechazarRecintoServlet" method="POST" style="margin: 0;">
+                            <input type="hidden" name="idRecinto" value="${salonDetalles.idSalonEventos}">
+                            <button type="submit" class="special-button" style="background-color: #c62828; width: 100%; border: none; cursor: pointer;">
+                                ✕ Rechazar Recinto
+                            </button>
+                        </form>
+
+                        <a href="${pageContext.request.contextPath}/adminRecintos"
+                           style="text-align: center; margin-top: 8px; color: #666; text-decoration: underline; font-size: 0.9rem;">
+                            ← Volver al Panel
+                        </a>
+                    </div>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="price-row">
+                        <strong>$${salonDetalles.precio}</strong>
+                        <span>/ por evento</span>
+                        <button class="favorite-button" type="button" data-detail-favorite aria-label="Agregar a favoritos">♡</button>
+                    </div>
+
+                    <section>
+                        <h2>Comprobar disponibilidad</h2>
+
+                        <div class="availability-checker">
+                            <label for="fechaEvento">Fecha de tu evento</label>
+                            <input type="date" id="fechaEvento" name="fechaEvento" required />
+                            <button type="button" id="btnVerificar" class="btn-check">
+                                Verificar fecha
+                            </button>
+                        </div>
+
+                        <div id="mensajeDisponibilidad" class="status-message"></div>
+                    </section>
+
+                    <div class="cost-list">
+                        <p><span>Renta del recinto</span><strong>$${salonDetalles.precio}</strong></p>
+                        <p class="total"><span>Total</span><strong>$${salonDetalles.precio}</strong></p>
+                    </div>
+
+                    <form method="post" action="${pageContext.request.contextPath}/carritoAgregar">
+                        <input type="hidden" name="idPublicacionEventos" value="${salonDetalles.idSalonEventos}">
+                        <button type="submit" id="btnAnadirCarrito" class="special-button disabled-link">
+                            Añadir al carrito
+                        </button>
+                    </form>
+                    <p class="panel-note">No se realizará ningún cargo todavía.</p>
+                </c:otherwise>
+            </c:choose>
+
         </aside>
 
     </section>
@@ -151,124 +203,8 @@
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.2"></script>
+<script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.4"></script>
 <jsp:include page="alerts.jsp" />
-<script>document.addEventListener("DOMContentLoaded", function () {
-    const fechaInput = document.getElementById("fechaEvento");
-    const btnVerificar = document.getElementById("btnVerificar");
-    const btnAnadirCarrito = document.getElementById("btnAnadirCarrito");
-    const mensajeDiv = document.getElementById("mensajeDisponibilidad");
 
-    // 1. Control y Validación de Fecha en Tiempo Real
-    if (fechaInput) {
-        ["change", "input"].forEach(nombreEvento => {
-            fechaInput.addEventListener(nombreEvento, function () {
-                const valor = this.value.trim();
-
-                // Siempre que cambien la fecha, desactivar el carrito y ocultar mensaje previo
-                if (btnAnadirCarrito) {
-                    btnAnadirCarrito.classList.add("disabled-link");
-                }
-                if (mensajeDiv) {
-                    mensajeDiv.style.display = "none";
-                }
-
-                if (!valor) return;
-
-                let fechaSeleccionada;
-
-                // Soporte para ambos formatos (YYYY-MM-DD o DD/MM/YYYY)
-                if (valor.includes("-")) {
-                    const partes = valor.split("-");
-                    fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
-                } else if (valor.includes("/")) {
-                    const partes = valor.split("/");
-                    fechaSeleccionada = new Date(partes[2], partes[1] - 1, partes[0]);
-                } else {
-                    fechaSeleccionada = new Date(valor);
-                }
-
-                if (isNaN(fechaSeleccionada.getTime())) return;
-
-                // Definir "mañana" a las 00:00:00
-                const manana = new Date();
-                manana.setDate(manana.getDate() + 1);
-                manana.setHours(0, 0, 0, 0);
-
-                // Si selecciona hoy o una fecha pasada
-                if (fechaSeleccionada < manana) {
-                    Swal.fire({
-                        title: '¡Atención!',
-                        text: 'La fecha del evento debe ser a partir del día de mañana. Por favor, selecciona una fecha válida.',
-                        icon: 'warning',
-                        confirmButtonText: 'Entendido',
-                        confirmButtonColor: '#855221',
-                        borderRadius: '12px'
-                    });
-
-                    this.value = ""; // Limpia el input
-                }
-            });
-        });
-    }
-
-    // 2. Lógica de Verificación de Disponibilidad
-    if (btnVerificar && fechaInput) {
-        btnVerificar.addEventListener("click", function () {
-            const fechaSeleccionada = fechaInput.value;
-            const idRecinto = "${salonDetalles.idSalonEventos}";
-
-            if (!fechaSeleccionada) {
-                Swal.fire({
-                    title: '¡Atención!',
-                    text: 'Por favor, selecciona una fecha primero.',
-                    icon: 'info',
-                    confirmButtonText: 'Entendido',
-                    confirmButtonColor: '#855221',
-                    borderRadius: '12px'
-                });
-                return;
-            }
-
-            const textoOriginal = btnVerificar.innerText;
-            btnVerificar.innerText = "Verificando...";
-            btnVerificar.disabled = true;
-
-            fetch(`${pageContext.request.contextPath}/verificarFecha?fecha=${fechaSeleccionada}&idRecinto=${idRecinto}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.disponible) {
-                        mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
-                        if (btnAnadirCarrito) {
-                            btnAnadirCarrito.classList.remove("disabled-link");
-                        }
-                    } else {
-                        mostrarMensaje("Lo sentimos, esta fecha ya está ocupada.", false);
-                        if (btnAnadirCarrito) {
-                            btnAnadirCarrito.classList.add("disabled-link");
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    mostrarMensaje("Error de conexión. Intenta de nuevo.", false);
-                })
-                .finally(() => {
-                    btnVerificar.innerText = textoOriginal;
-                    btnVerificar.disabled = false;
-                });
-        });
-    }
-
-    // Helper para actualizar el mensaje en pantalla
-    function mostrarMensaje(texto, esExito) {
-        if (mensajeDiv) {
-            mensajeDiv.innerText = texto;
-            mensajeDiv.style.display = "block";
-            mensajeDiv.className = esExito ? "status-message status-available" : "status-message status-unavailable";
-        }
-    }
-});
-</script>
 </body>
 </html>
