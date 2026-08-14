@@ -1,5 +1,7 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,9 +38,17 @@
 </header>
 
 <nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+
+    <c:if test="${empty sessionScope.UsuarioLog}">
     <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
     <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
     <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
 </nav>
 
 <main>
@@ -190,7 +200,6 @@
 
 <jsp:include page="alerts.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="${pageContext.request.contextPath}/assets/js/cart.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/main.js" defer></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js?v=1.1.1"></script>
 </body>
 </html>
