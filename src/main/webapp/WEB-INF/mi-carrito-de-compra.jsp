@@ -14,6 +14,40 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css" />
     <style>
 
+        .back-navigation {
+            max-width: 1400px;
+            margin: 15px auto 20px auto;
+            padding: 0 32px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px 10px 14px;
+            border-radius: 999px;
+            background-color: var(--paper-warm, #f2e8e2);
+            color: var(--clay, #9d4f38);
+            text-decoration: none;
+            font-family: var(--sans, 'Montserrat', sans-serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--clay, #9d4f38);
+            color: #ffffff;
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px rgba(157, 79, 56, 0.2);
+        }
+
+        @media (max-width: 760px) {
+            .back-navigation {
+                padding: 0 18px;
+                margin: 10px auto 15px auto;
+            }
+        }
         .event-details-box {
             background-color: #f9f6f0;
             border: 1px solid #e0d8cc;
@@ -73,6 +107,17 @@
 </header>
 
 <main class="shop-shell">
+
+    <div class="back-navigation">
+        <a href="${pageContext.request.contextPath}/catalogo" class="btn-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Regresar al catálogo
+        </a>
+    </div>
+
     <h1>Carrito de compras</h1>
 
     <section class="shop-grid">
@@ -139,10 +184,7 @@
                         </div>
 
                         <div class="cart-breakdown">
-                            <div class="breakdown-row">
-                                <span>Cargo por servicio</span>
-                                <strong><fmt:formatNumber value="${cargoServicio}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
-                            </div>
+
                             <div class="breakdown-row">
                                 <span>Depósito por daños (30%)</span>
                                 <strong><fmt:formatNumber value="${deposito}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
@@ -155,7 +197,10 @@
 
                         <div class="notice-box">
                             <strong>Aviso</strong>
-                            <p>Al hacer clic en "Proceder a pago", la fecha quedará bloqueada temporalmente durante 15 minutos para que completes tu transacción.</p>
+                            <p>
+                                Al hacer clic en "Proceder a pago", la fecha quedará bloqueada temporalmente durante 15 minutos para que completes tu transacción.<br><br>
+                                Se cobra un 30% adicional al costo del recinto como preventivo de daños; este se reembolsará en caso de que no se registren daños a la propiedad.
+                            </p>
                         </div>
 
                         <div class="actions-row">
