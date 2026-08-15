@@ -11,83 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css" />
-    <style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css?v=1.1" />
 
-        .back-navigation {
-            max-width: 1400px;
-            margin: 15px auto 20px auto;
-            padding: 0 32px;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px 10px 14px;
-            border-radius: 999px;
-            background-color: var(--paper-warm, #f2e8e2);
-            color: var(--clay, #9d4f38);
-            text-decoration: none;
-            font-family: var(--sans, 'Montserrat', sans-serif);
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .btn-back:hover {
-            background-color: var(--clay, #9d4f38);
-            color: #ffffff;
-            transform: translateX(-4px);
-            box-shadow: 0 4px 12px rgba(157, 79, 56, 0.2);
-        }
-
-        @media (max-width: 760px) {
-            .back-navigation {
-                padding: 0 18px;
-                margin: 10px auto 15px auto;
-            }
-        }
-        .event-details-box {
-            background-color: #f9f6f0;
-            border: 1px solid #e0d8cc;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .event-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #4a4a4a;
-            text-transform: uppercase;
-        }
-        .form-group input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 0.95rem;
-        }
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 12px 15px;
-            border-radius: 6px;
-            border: 1px solid #f5c6cb;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
 <header class="site-header">
@@ -103,20 +28,32 @@
 
     <div class="header-actions">
         <a class="cart-pill" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
     </div>
 </header>
 
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
+
+</nav>
+
+
 <main class="shop-shell">
 
-    <div class="back-navigation">
-        <a href="${pageContext.request.contextPath}/catalogo" class="btn-back">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            Regresar al catálogo
-        </a>
-    </div>
 
     <h1>Carrito de compras</h1>
 
@@ -283,6 +220,34 @@
                         this.value = ""; // Limpia el campo
                     }
                 });
+            });
+        }
+    });
+
+    //menu desplegable WUUU :)
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const mobileNav = document.querySelector("[data-mobile-nav]");
+
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                mobileNav.classList.toggle("open");
+                document.body.classList.toggle("menu-open");
+            });
+
+            mobileNav.addEventListener("click", (e) => {
+                if (e.target.tagName === "A") {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
             });
         }
     });
