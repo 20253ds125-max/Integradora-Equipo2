@@ -1,4 +1,6 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/auth.css?v=1.2" />
 </head>
 <header class="site-header">
     <div class="brand-group">
@@ -23,8 +25,30 @@
         <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
     </nav>
 
-    <div class="header-actions"></div>
+    <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
+
+</nav>
+
 
 <body class="login-page">
 <main class="login-shell">
@@ -49,7 +73,35 @@
     </section>
 </main>
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
+<script>
+    //menu desplegable WUUU :)
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const mobileNav = document.querySelector("[data-mobile-nav]");
 
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                mobileNav.classList.toggle("open");
+                document.body.classList.toggle("menu-open");
+            });
+
+            mobileNav.addEventListener("click", (e) => {
+                if (e.target.tagName === "A") {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+        }
+    });
+</script>
 <jsp:include page="alerts.jsp" />
 
 </body>
