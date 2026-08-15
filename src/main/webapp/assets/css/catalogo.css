@@ -696,3 +696,17 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
      color: #8f3f27 !important;
      background-color: transparent !important;
  }
+
+ /*Footer fijo */
+
+ body {
+     display: flex; !important;
+     flex-direction: column; !important;
+     min-height: 100vh; !important;
+     margin: 0; !important;
+ }
+
+ footer {
+     margin-top: auto !important;
+     width: 100% !important;
+ }

@@ -23,7 +23,7 @@
             rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/serviciosExtra.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/serviciosExtra.css?v=1.1">
 </head>
 <body>
 
@@ -37,8 +37,30 @@
         <a class="active" href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
-    <div class="header-actions"></div>
+    <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
+
+</nav>
 
 <main class="page">
 
@@ -128,7 +150,7 @@
 
 <footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/serviciosExtra.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/serviciosExtra.js?v=1.1"></script>
 <jsp:include page="alerts.jsp" />
 </body>
 </html>
