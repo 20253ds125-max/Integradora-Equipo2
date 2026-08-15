@@ -31,6 +31,37 @@
     </nav>
 
     <div class="header-actions">
+
+        <!-- Contenedor necesario para que el menú flote en el lugar correcto -->
+        <div class="dropdown-container">
+
+            <!-- TU BOTÓN EXACTO -->
+            <button class="icon-button menu-toggle" type="button" id="btnMenu" aria-label="Abrir menú">
+                <span aria-hidden="true"></span>
+            </button>
+
+            <!-- El menú flotante -->
+            <div class="dropdown-menu" id="menuDesplegable">
+                <a href="carrito.jsp">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    Carrito
+                </a>
+
+                <a href="contacto.jsp">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Contáctanos
+                </a>
+
+                <div class="dropdown-divider"></div>
+
+                <a href="logout.jsp" class="logout-link">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Cerrar sesión
+                </a>
+            </div>
+
+        </div>
+    </div>
     </div>
 </header>
 
@@ -215,6 +246,30 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.4"></script>
 <jsp:include page="alerts.jsp" />
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnMenu = document.getElementById('btnMenu');
+        const menuDesplegable = document.getElementById('menuDesplegable');
 
+        if (btnMenu && menuDesplegable) {
+
+            // 1. Abrir/Cerrar al hacer clic en el botón del perfil
+            btnMenu.addEventListener('click', function(evento) {
+                // Esto evita que el clic "traspase" y cierre el menú de inmediato
+                evento.stopPropagation();
+                menuDesplegable.classList.toggle('show');
+            });
+
+            // 2. Cerrar el menú si haces clic en cualquier otro lado de la página
+            document.addEventListener('click', function(evento) {
+                // Si el clic NO fue dentro del menú ni en el botón...
+                if (!menuDesplegable.contains(evento.target) && !btnMenu.contains(evento.target)) {
+                    // ...entonces escóndelo
+                    menuDesplegable.classList.remove('show');
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
