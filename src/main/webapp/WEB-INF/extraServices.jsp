@@ -101,5 +101,47 @@
 
 <footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
 <jsp:include page="alerts.jsp" />
+
+<!-- para filtros -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Localiza el campo de texto del buscador
+        const inputBusqueda = document.querySelector('input[type="text"], input[type="search"]');
+
+        // 2. Localiza los botones o enlaces de las categorías
+        const botonesFiltro = document.querySelectorAll('button, a');
+
+        // Categorías permitidas para filtrar
+        const categoriasValidas = ["Todos", "Música", "Catering", "Decoración", "Fotografía", "Video", "DJ"];
+
+        botonesFiltro.forEach(boton => {
+            const texto = boton.innerText.trim();
+
+            if (categoriasValidas.includes(texto)) {
+                boton.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const busqueda = inputBusqueda ? inputBusqueda.value.trim() : '';
+
+                    // Redirige enviando la categoría y el texto del buscador al Servlet
+                    window.location.href = '${pageContext.request.contextPath}/extraServices?categoria='
+                        + encodeURIComponent(texto)
+                        + '&q=' + encodeURIComponent(busqueda);
+                });
+            }
+        });
+
+        // Escucha la tecla Enter en la barra de búsqueda
+        if (inputBusqueda) {
+            inputBusqueda.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const busqueda = inputBusqueda.value.trim();
+                    window.location.href = '${pageContext.request.contextPath}/extraServices?q=' + encodeURIComponent(busqueda);
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

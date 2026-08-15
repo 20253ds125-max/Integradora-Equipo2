@@ -39,4 +39,9 @@ public class ServicioService {
         List<Servicio> catalogoServicio = serviciosDAO.obtenerCatalogo();
         return catalogoServicio;
     }
+
+    //para fitross
+    public List<Servicio> filtrarServicios(String busqueda, String categoria) throws SQLException {
+        return serviciosDAO.filtrarServicios(busqueda, categoria);
+    }
 }
