@@ -49,6 +49,9 @@ return;
         <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
         <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
     </c:if>
 
