@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css?v=1.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css?v=1.1.2" />
 
 </head>
 <body>
@@ -46,7 +46,7 @@
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
 
 </nav>

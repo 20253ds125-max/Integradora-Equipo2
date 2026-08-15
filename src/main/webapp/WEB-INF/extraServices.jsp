@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios Extra | Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/services.css?v=1.2">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/services.css?v=1.2.1">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,7 @@
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
 
 </nav>

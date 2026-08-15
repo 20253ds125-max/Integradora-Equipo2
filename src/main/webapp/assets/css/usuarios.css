@@ -229,3 +229,7 @@ tbody tr{
 
     margin-top:60px;
 }
+.mobile-nav a.cerrar{
+    color: darkred !important;
+    text-decoration: underline !important;
+}

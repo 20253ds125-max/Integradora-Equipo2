@@ -1218,7 +1218,7 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
         grid-template-columns: 1fr !important;
     }
 }
-.cerrar{
+.mobile-nav a.cerrar{
     color: darkred !important;
     text-decoration: underline !important;
 }
