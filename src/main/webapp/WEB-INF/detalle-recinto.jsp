@@ -236,18 +236,14 @@
 
         if (btnMenu && menuDesplegable) {
 
-            // 1. Abrir/Cerrar al hacer clic en el botón del perfil
             btnMenu.addEventListener('click', function(evento) {
-                // Esto evita que el clic "traspase" y cierre el menú de inmediato
+
                 evento.stopPropagation();
                 menuDesplegable.classList.toggle('show');
             });
 
-            // 2. Cerrar el menú si haces clic en cualquier otro lado de la página
             document.addEventListener('click', function(evento) {
-                // Si el clic NO fue dentro del menú ni en el botón...
                 if (!menuDesplegable.contains(evento.target) && !btnMenu.contains(evento.target)) {
-                    // ...entonces escóndelo
                     menuDesplegable.classList.remove('show');
                 }
             });
@@ -278,6 +274,30 @@
                     mobileNav.classList.remove("open");
                     document.body.classList.remove("menu-open");
                 }
+            });
+        }
+        const cerrarSe = document.getElementById("cerrarSe");
+
+        if(cerrarSe){
+            cerrarSe.addEventListener('click',function (e){
+                e.preventDefault();
+
+                const direccion = this.getAttribute("href");
+                Swal.fire({
+                    title: '¿Cerrar sesión?',
+                    text: '¿Estás seguro de que deseas salir de tu cuenta?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, salir',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#855221',
+                    cancelButtonColor: '#6c757d',
+                    borderRadius: '12px'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = direccion;
+                    }
+                });
             });
         }
     });
