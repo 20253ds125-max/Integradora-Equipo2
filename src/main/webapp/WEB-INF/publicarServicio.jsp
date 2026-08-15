@@ -23,7 +23,7 @@
             rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/serviciosExtra.css?v=1.1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/serviciosExtra.css?v=1.1.1">
 </head>
 <body>
 
@@ -57,7 +57,7 @@
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
 
 </nav>

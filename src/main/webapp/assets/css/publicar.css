@@ -519,3 +519,7 @@ button:hover, a.primary-button:hover, a.outline-button:hover, .primary-button:ho
     gap: 30px !important;
     align-items: center !important;
 }
+.mobile-nav a.cerrar{
+    color: darkred !important;
+    text-decoration: underline !important;
+}

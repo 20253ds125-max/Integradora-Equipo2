@@ -710,3 +710,7 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
      margin-top: auto !important;
      width: 100% !important;
  }
+ .mobile-nav a.cerrar{
+     color: darkred !important;
+     text-decoration: underline !important;
+ }

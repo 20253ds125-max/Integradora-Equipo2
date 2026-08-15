@@ -442,3 +442,7 @@ footer {
     margin-top: auto !important;
     width: 100% !important;
 }
+.mobile-nav a.cerrar{
+    color: darkred !important;
+    text-decoration: underline !important;
+}

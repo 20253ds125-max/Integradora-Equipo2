@@ -16,7 +16,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css?v=1.0.1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -51,7 +51,7 @@
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
 </nav>
 
@@ -204,6 +204,6 @@
 
 <jsp:include page="alerts.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="${pageContext.request.contextPath}/assets/js/main.js?v=1.1.1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js?v=1.1.2"></script>
 </body>
 </html>

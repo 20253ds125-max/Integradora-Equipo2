@@ -13,7 +13,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/contacto-equipo.css?v=1.2" /></head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/contacto-equipo.css?v=1.2.2" /></head>
 <body>
 <header class="site-header">
     <div class="brand-group">
@@ -46,7 +46,7 @@
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
 
 </nav>
@@ -203,6 +203,30 @@
                     mobileNav.classList.remove("open");
                     document.body.classList.remove("menu-open");
                 }
+            });
+        }
+        const cerrarSe = document.getElementById("cerrarSe");
+
+        if(cerrarSe){
+            cerrarSe.addEventListener('click',function (e){
+                e.preventDefault();
+
+                const direccion = this.getAttribute("href");
+                Swal.fire({
+                    title: '¿Cerrar sesión?',
+                    text: '¿Estás seguro de que deseas salir de tu cuenta?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, salir',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#855221',
+                    cancelButtonColor: '#6c757d',
+                    borderRadius: '12px'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = direccion;
+                    }
+                });
             });
         }
     });

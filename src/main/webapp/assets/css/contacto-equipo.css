@@ -516,3 +516,7 @@ footer {
     letter-spacing: 0.01em;
     text-align: center;
 }
+.mobile-nav a.cerrar{
+    color: darkred !important;
+    text-decoration: underline !important;
+}
