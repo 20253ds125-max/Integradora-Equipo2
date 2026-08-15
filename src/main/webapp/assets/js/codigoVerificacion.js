@@ -51,3 +51,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+//menu desplegable WUUU :)
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector("[data-menu-toggle]");
+    const mobileNav = document.querySelector("[data-mobile-nav]");
+
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            mobileNav.classList.toggle("open");
+            document.body.classList.toggle("menu-open");
+        });
+
+        mobileNav.addEventListener("click", (e) => {
+            if (e.target.tagName === "A") {
+                mobileNav.classList.remove("open");
+                document.body.classList.remove("menu-open");
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileNav.classList.remove("open");
+                document.body.classList.remove("menu-open");
+            }
+        });
+    }
+});

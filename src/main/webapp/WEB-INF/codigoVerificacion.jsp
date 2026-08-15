@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Código - Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/codigoVerificacion.css?v=1.1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/codigoVerificacion.css?v=1.2">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,8 +26,29 @@
         <a href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
     </nav>
 
-    <div class="header-actions"></div>
+    <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
+
+</nav>
 
 
 <div class="container">
@@ -79,7 +102,7 @@
 
 <jsp:include page="alerts.jsp" />
 
-<script src="${pageContext.request.contextPath}/assets/js/codigoVerificacion.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/codigoVerificacion.js?v=1.2"></script>
 
 </body>
 </html>
