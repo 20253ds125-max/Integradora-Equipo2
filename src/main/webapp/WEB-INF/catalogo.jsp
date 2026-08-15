@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css?v=1.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css?v=1.2" />
 </head>
 <body>
 
@@ -31,8 +32,28 @@
 
     <div class="header-actions">
         <a class="host-button" href="${pageContext.request.contextPath}/app/publicar-recinto">Publicar recinto</a>
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
     </div>
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
+
+</nav>
 
 <main class="catalog-shell">
     <aside class="filters-panel" data-filters-panel>
@@ -243,6 +264,32 @@
 
             const queryString = params.toString();
             window.location.href = '${pageContext.request.contextPath}/catalogo' + (queryString ? '?' + queryString : '');
+        }
+    });
+
+    //MENU DESPLEGABLE :)
+    document.addEventListener("DOMContentLoaded", function() {
+        const btnMenu = document.querySelector("[data-menu-toggle]");
+        const menuFlotante = document.querySelector("[data-mobile-nav]");
+
+        if(btnMenu && menuFlotante) {
+            btnMenu.addEventListener("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                menuFlotante.classList.toggle("open");
+            });
+
+            menuFlotante.addEventListener("click", function(e) {
+                if (e.target.tagName === "A") {
+                    menuFlotante.classList.remove("open");
+                }
+            });
+
+            document.addEventListener("click", function(e) {
+                if (!menuFlotante.contains(e.target) && !btnMenu.contains(e.target)) {
+                    menuFlotante.classList.remove("open");
+                }
+            });
         }
     });
 </script>
