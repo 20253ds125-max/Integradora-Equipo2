@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Perfil | Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css?v=1.1"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css?v=1.2"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -29,8 +29,28 @@
     </nav>
 
     <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
     </div>
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe">Cerrar sesion</a>
+    </c:if>
+
+</nav>
 
 <main class="profile-page">
     <aside class="profile-rail glass-panel">
@@ -407,7 +427,7 @@
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
 
-<script src="${pageContext.request.contextPath}/assets/js/perfil.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.1"></script>
 <jsp:include page="alerts.jsp" />
 
 </body>
