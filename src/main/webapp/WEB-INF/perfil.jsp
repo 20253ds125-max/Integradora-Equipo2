@@ -8,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Perfil | Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css?v=1.1"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/perfil.css?v=1.2.1"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css?V1.0.0"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <header class="site-header">
@@ -28,9 +29,32 @@
     </nav>
 
     <div class="header-actions">
+<<<<<<< HEAD
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
+=======
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
+>>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
     </div>
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
+    </c:if>
+
+</nav>
 
 <main class="profile-page">
     <aside class="profile-rail glass-panel">
@@ -447,7 +471,7 @@
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
 
-<script src="${pageContext.request.contextPath}/assets/js/perfil.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.1"></script>
 <jsp:include page="alerts.jsp" />
 
 </body>

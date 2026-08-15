@@ -85,3 +85,7 @@
     font-size:1.2rem;
     font-weight:700;
 }
+.mobile-nav a.cerrar{
+    color: darkred !important;
+    text-decoration: underline !important;
+}

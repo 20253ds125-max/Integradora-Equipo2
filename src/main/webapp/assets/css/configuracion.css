@@ -71,3 +71,7 @@ body{
     background:#9b543f;
     color:white;
 }
+.mobile-nav a.cerrar{
+    color: darkred !important;
+    text-decoration: underline !important;
+}

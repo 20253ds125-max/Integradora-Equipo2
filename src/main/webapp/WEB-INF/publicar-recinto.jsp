@@ -7,6 +7,7 @@ request.getRequestDispatcher("login.jsp").forward(request, response);
 return;
 }
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="es">
 <head>
@@ -18,7 +19,7 @@ return;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/publicar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/publicar.css?v=6.4.1" />
 </head>
 <body>
 <header class="site-header">
@@ -33,8 +34,29 @@ return;
     </nav>
 
     <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
     </div>
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
+    </c:if>
+
+</nav>
+
 
 <main class="publish-shell">
     <section class="publish-intro">
@@ -66,13 +88,11 @@ return;
                     <label class="mini-card">
                         <span>Capacidad máxima del salón: </span>
                         <input type="number" name="seated" min="0" placeholder="0" />
-                        <small>Ideal para cenas o ceremonias.</small>
                     </label>
 
-                    <label class="mini-card">
                         <label class="mini-card">
 
-                            <span>Precio base</span>
+                            <span>Precio </span>
 
                             <div class="price-input">
                                 <span>$</span>
@@ -86,7 +106,6 @@ return;
                             </div>
                             <small>Por evento</small>
                         </label>
-                    </label>
                 </div>
             </article>
         </section>
@@ -105,10 +124,9 @@ return;
                     <div class="photo-thumb"></div>
                 </div>
                 <button class="primary-button" type="submit">Enviar a revisión</button>
-                <button class="outline-button" type="button" data-save-draft>Guardar borrador</button>
                 <p class="aside-note">Tu publicación será revisada por el equipo de planeación en 24 a 48 horas.</p>
             </article>
-            <article class="tip-card">
+            <article class="tip">
                 <h2>Tip concierge</h2>
                 <p>Los recintos con fotografía profesional y descripción clara reciben mas solicitudes premium.</p>
             </article>
@@ -119,7 +137,7 @@ return;
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/publicar.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/publicar.js?v=1.1.1"></script>
 <jsp:include page="alerts.jsp" />
 </body>
 </html>
