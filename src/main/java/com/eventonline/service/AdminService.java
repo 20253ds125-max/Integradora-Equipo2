@@ -81,4 +81,8 @@ public class AdminService {
             usuariosDao.borrarUsuario(idUsuario);
         }
     }
+    public int[] obtenerDatosRecintos()throws SQLException{
+        int [] datos = salonesDao.obtenerDatosRecintos();
+        return datos;
+    }
 }
