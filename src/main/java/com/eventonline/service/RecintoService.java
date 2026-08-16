@@ -73,7 +73,6 @@ public class RecintoService {
     public SalonEventos detallesRecinto(int idRecinto) throws SQLException {
         return salonesDao.obtenerSalon(idRecinto);
     }
-    //Para filtro de recinto
     public List<SalonEventos> obtenerCatalogoFiltrado(String busqueda, Double precioMin, Double precioMax, Integer capMin, Integer capMax) throws SQLException {
         return salonesDao.obtenerCatalogoFiltrado(busqueda, precioMin, precioMax, capMin, capMax);
     }

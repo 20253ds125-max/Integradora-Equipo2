@@ -36,7 +36,9 @@ public class ServiciosAdminServlet extends HttpServlet {
         }
 
         try{
+            int[] datos = adminService.obtenerDatosServicios();
             List<Servicio> pendientes = adminService.serviciosAdmin();
+            request.setAttribute("datosServicios",datos);
             request.setAttribute("pendientes",pendientes);
             request.getRequestDispatcher("/WEB-INF/admin-servicios.jsp").forward(request,response);
 

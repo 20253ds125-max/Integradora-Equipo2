@@ -38,7 +38,9 @@ public class RecintosAdminServlet extends HttpServlet {
             return;
         }
         try {
+            int[] datos = adminService.obtenerDatosRecintos();
             List <SalonEventos> listaSalones = adminService.recintosAdmin();
+            request.setAttribute("datosRecintos",datos);
             request.setAttribute("salonesPendientes",listaSalones);
             request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);
         } catch (SQLException e) {

@@ -68,7 +68,7 @@
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
         <a href="${pageContext.request.contextPath}/adminRecintos">Recintos</a>
-        <a>Usuarios</a>
+        <a href="${pageContext.request.contextPath}/adminUsuarios">Usuarios</a>
         <a class="active" href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
@@ -82,7 +82,13 @@
 
         <div class="stats-grid">
             <article class="panel stat-card">
-                <span>Pendientes</span><strong>${fn:length(pendientes)}</strong>
+                <span>Pendientes</span><strong>${datosServicios[0]}</strong>
+            </article>
+            <article class="panel stat-card">
+                <span>Aprobados</span><strong>${datosServicios[1]}</strong>
+            </article>
+            <article class="panel stat-card">
+                <span>Total</span><strong>${datosServicios[2]}</strong>
             </article>
         </div>
 
