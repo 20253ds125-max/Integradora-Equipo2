@@ -29,7 +29,6 @@
     </nav>
 
     <div class="header-actions">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
@@ -112,7 +111,7 @@
                                 class="ui-button ui-button--ghost"
                                 type="submit"
                                 data-save-profile
-                                hidden>
+                                style="display: none;">
                             Guardar cambios
                         </button>
                     </div>
@@ -467,7 +466,7 @@
 </div>
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.2"></script>
 <jsp:include page="alerts.jsp" />
 
 </body>
