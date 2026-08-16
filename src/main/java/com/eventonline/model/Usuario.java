@@ -34,11 +34,18 @@ public class Usuario {
         this.telefono = telefono;
         this.ciudad = ciudad;
     }
+    public Usuario(int idUsuario,String nombre,String correo,String ciudad) {
+        this.idUsuario=idUsuario;
+        this.nombre=nombre;
+        this.email = correo;
+        this.ciudad = ciudad;
+    }
 
     public Usuario(String correo, String contrasena) {
         this.email = correo;
         this.contrasena = contrasena;
     }
+
 
 
     public void validarDatosRegistro() {

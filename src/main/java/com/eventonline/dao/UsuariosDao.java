@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuariosDao {
 
@@ -230,6 +232,49 @@ public class UsuariosDao {
             int filasActualizadas = ps.executeUpdate();
 
             return filasActualizadas > 0;
+        }
+    }
+
+    public List<Usuario> listaDeUsuarios()throws SQLException{
+        List<Usuario> listaDeUsuario = new ArrayList<>();
+        String buscarUsuarios="SELECT id_usuario,correo,ciudad,nombre FROM USUARIOS WHERE ROL <> 'ADMIN'";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscarUsuarios) ){
+            try (ResultSet rs = ps.executeQuery()){
+                while (rs.next()){
+                    Usuario usuario =new Usuario(
+                            rs.getInt("id_usuario"),
+                            rs.getString("nombre"),
+                            rs.getString("correo"),
+                            rs.getString("ciudad")
+                    );
+                    listaDeUsuario.add(usuario);
+                }
+                return listaDeUsuario;
+            }
+
+        }
+    }
+    public boolean buscarAdmin(int idUsuario)throws SQLException{
+        String buscaAdmin="SELECT COUNT(*) FROM usuarios WHERE id_usuario=? and rol='ADMIN'";
+        try (Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscaAdmin) ){
+            ps.setInt(1,idUsuario);
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt(1)>0;
+                }
+            }
+
+        }
+        return false;
+    }
+    public void borrarUsuario(int idUsuario)throws SQLException{
+        String borrarUsuario="DELETE FROM usuarios WHERE id_usuario=?";
+        try (Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(borrarUsuario) ){
+            ps.setInt(1,idUsuario);
+            ps.executeUpdate();
         }
     }
 }

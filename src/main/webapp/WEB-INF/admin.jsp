@@ -74,7 +74,7 @@
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
         <a class="active" href="${pageContext.request.contextPath}/admin">Recintos</a>
-        <a>Usuarios</a>
+        <a href="${pageContext.request.contextPath}/adminUsuarios">Usuarios</a>
         <a href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
