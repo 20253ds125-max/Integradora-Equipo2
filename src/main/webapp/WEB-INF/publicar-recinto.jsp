@@ -87,7 +87,7 @@ return;
                 <div class="capacity-row">
                     <label class="mini-card">
                         <span>Capacidad máxima del salón: </span>
-                        <input type="number" name="seated" min="0" placeholder="0" />
+                        <input type="number" name="seated" min="0" placeholder="0" required/>
                     </label>
 
                         <label class="mini-card">
@@ -102,6 +102,7 @@ return;
                                         min="0"
                                         step="100"
                                         placeholder="0"
+                                        required
                                 />
                             </div>
                             <small>Por evento</small>

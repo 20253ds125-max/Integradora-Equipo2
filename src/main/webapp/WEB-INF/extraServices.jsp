@@ -28,7 +28,6 @@
     </nav>
 
     <div class="header-actions">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
         <a class="host-button" href="${pageContext.request.contextPath}/app/publicarServicio">Publicar servicio</a>
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>

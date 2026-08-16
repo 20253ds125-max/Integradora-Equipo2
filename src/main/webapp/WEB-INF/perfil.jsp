@@ -90,19 +90,19 @@
                       class="profile-form">
                     <label>
                         Nombre completo
-                        <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled>
+                        <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled required placeholder="Ingresa tu nombre">
                     </label>
                     <label>
                         Correo electrónico
-                        <input type="email" name="email" value="${usuario.email}" data-field="email" disabled>
+                        <input type="email" name="email" value="${usuario.email}" data-field="email" disabled required placeholder="Ingrea tu correo">
                     </label>
                     <label>
                         Teléfono
-                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled>
+                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled required placeholder="Ingresa tu teléfono">
                     </label>
                     <label>
                         Ciudad
-                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled>
+                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled required placeholder="Ingresa tu ciudad">
                     </label>
 
                     <div class="form-actions span-2">
