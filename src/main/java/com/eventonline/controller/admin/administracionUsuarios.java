@@ -35,12 +35,14 @@ public class administracionUsuarios extends HttpServlet {
             return;
         }
         try{
+            int[] datos= adminService.datosUsuarios();
             List<Usuario> listaDeUsuarios= adminService.listaUsuarios();
+            req.setAttribute("datosUsuarios",datos);
             req.setAttribute("listaDeUsuarios",listaDeUsuarios );
             req.getRequestDispatcher("/WEB-INF/usuarios.jsp").forward(req,resp);
     }catch (SQLException e){
-            req.setAttribute("error","A ocurrido un error al cargar los recintos intenta mas tarde: "+e.getMessage() );
-            req.getRequestDispatcher("/admin-servicios");
+            req.setAttribute("error","A ocurrido un error al cargar los usuarios intenta mas tarde: "+e.getMessage() );
+            req.getRequestDispatcher("/adminRecintos").forward(req,resp);
         }
     }
 

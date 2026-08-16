@@ -66,15 +66,15 @@
         <div class="stats-grid">
             <article class="panel stat-card">
                 <span>Total usuarios</span>
-                <strong>1,284</strong>
+                <strong>${datosUsuarios[0]}</strong>
             </article>
             <article class="panel stat-card">
-                <span>Usuarios activos</span>
-                <strong>1,020</strong>
+                <span>Usuarios con publicaciones</span>
+                <strong>${datosUsuarios[1]}</strong>
             </article>
             <article class="panel stat-card">
                 <span>Administradores</span>
-                <strong>12</strong>
+                <strong>${datosUsuarios[2]}</strong>
             </article>
         </div>
 

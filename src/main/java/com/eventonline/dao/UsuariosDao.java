@@ -277,4 +277,32 @@ public class UsuariosDao {
             ps.executeUpdate();
         }
     }
+    public int[] obtenerDatosUsuarios()throws SQLException{
+        int[] datos = new int[3];
+
+        String sql = "SELECT " +
+                "  (SELECT COUNT(*) FROM USUARIOS) AS total, " +
+                "  (SELECT COUNT(DISTINCT id_usuario) FROM (" +
+                "      SELECT id_usuario FROM PUBLICACION_SALON_EVENTOS " +
+                "      UNION " +
+                "      SELECT id_usuario FROM PUBLICACION_SERVICIO_EXTRA" +
+                "  )) AS con_publicacion, " +
+                "  (SELECT COUNT(*) FROM USUARIOS WHERE UPPER(rol) LIKE '%ADMIN%') AS administradores " +
+                "FROM DUAL";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                datos[0] = rs.getInt("total");
+                datos[1] = rs.getInt("con_publicacion");
+                datos[2] = rs.getInt("administradores");
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+            throw e;
+        }
+
+        return datos;
+    }
 }
