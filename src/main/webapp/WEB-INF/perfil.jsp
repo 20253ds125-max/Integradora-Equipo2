@@ -90,19 +90,19 @@
                       class="profile-form">
                     <label>
                         Nombre completo
-                        <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled>
+                        <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled required placeholder="Ingresa tu nombre">
                     </label>
                     <label>
                         Correo electrónico
-                        <input type="email" name="email" value="${usuario.email}" data-field="email" disabled>
+                        <input type="email" name="email" value="${usuario.email}" data-field="email" disabled required placeholder="Ingrea tu correo">
                     </label>
                     <label>
                         Teléfono
-                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled>
+                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled required placeholder="Ingresa tu teléfono">
                     </label>
                     <label>
                         Ciudad
-                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled>
+                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled required placeholder="Ingresa tu ciudad">
                     </label>
 
                     <div class="form-actions span-2">
@@ -111,7 +111,7 @@
                                 class="ui-button ui-button--ghost"
                                 type="submit"
                                 data-save-profile
-                                hidden>
+                                style="display: none;">
                             Guardar cambios
                         </button>
                     </div>
@@ -226,7 +226,47 @@
                     </div>
                 </div>
 
-                <div class="cards-grid" data-real-bookings-list></div>
+                <div class="cards-grid">
+                    <c:choose>
+                        <c:when test="${empty reservas}">
+                            <p>Aun no tienes reservas. Cuando reserves un recinto, aparecerá aquí.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="reserva" items="${reservas}">
+                                <article class="catalog-card">
+                                    <div class="card-image">
+                                        <img
+                                                src="${not empty reserva.urlPortada ? reserva.urlPortada : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
+                                                alt="Foto de ${reserva.nombreSalon}"
+                                                onerror="this.src='https://via.placeholder.com/400x240?text=Sin+Foto';" />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-title-row">
+                                            <h2>${not empty reserva.nombreSalon ? reserva.nombreSalon : 'Reserva de servicios'}</h2>
+                                            <span class="badge">${reserva.estado}</span>
+                                        </div>
+                                        <p class="location">${reserva.ubicacion}</p>
+                                        <p>Fecha del evento: <strong>${reserva.fechaEvento}</strong></p>
+                                        <p>Total: <strong>$${reserva.total}</strong></p>
+
+                                        <c:if test="${reserva.gestionMesasDisponible}">
+                                            <a class="ui-button ui-button--primary"
+                                               style="margin-top:10px;display:inline-block;"
+                                               href="${pageContext.request.contextPath}/mesas?idReserva=${reserva.idReserva}">
+                                                Editar mesas e invitados
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${not reserva.gestionMesasDisponible and reserva.idPublicacion != null}">
+                                            <p style="font-size:0.8rem;color:var(--muted, #888);margin-top:8px;">
+                                                Podrás gestionar mesas cuando el pago de esta reserva esté confirmado.
+                                            </p>
+                                        </c:if>
+                                    </div>
+                                </article>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
 
             </article>
 
@@ -426,10 +466,8 @@
 </div>
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-
-<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.2"></script>
 <jsp:include page="alerts.jsp" />
 
 </body>
 </html>
-

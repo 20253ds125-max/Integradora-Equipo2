@@ -1,9 +1,11 @@
 package com.eventonline.controller.usuario;
 
+import com.eventonline.model.ReservaConDetalle;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Usuario;
 import com.eventonline.service.FavoritosService;
 import com.eventonline.service.PerfilService;
+import com.eventonline.service.ReservacionService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,15 +21,15 @@ import java.util.List;
 public class PerfilServlet extends HttpServlet {
 
     private final PerfilService perfilService = new PerfilService();
+    private final ReservacionService reservacionService = new ReservacionService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // Obtiene la sesion pero sin crear una nueva
+
         HttpSession session = req.getSession(false);
 
-        // Si no hay una sesion o no hay un usario autenticado redirije al login
         if (session == null || session.getAttribute("UsuarioLog") == null) {
 
             req.setAttribute("error", "Primero inicia sesion");
@@ -39,7 +41,6 @@ public class PerfilServlet extends HttpServlet {
         try {
 
 
-            // Recuperar el usuario autenticado
             Usuario usuarioLog = (Usuario) session.getAttribute("UsuarioLog");
 
             List<SalonEventos> favoritos =
@@ -48,11 +49,14 @@ public class PerfilServlet extends HttpServlet {
             List<SalonEventos> publicaciones =
                     perfilService.obtenerPublicaciones(usuarioLog.getIdUsuario());
 
+            List<ReservaConDetalle> reservas =
+                    reservacionService.obtenerReservasConDetallePorUsuario(usuarioLog.getIdUsuario());
+
             req.setAttribute("usuario", usuarioLog);
             req.setAttribute("favoritos", favoritos);
             req.setAttribute("publicaciones", publicaciones);
+            req.setAttribute("reservas", reservas);
 
-            // Ahora si redirir al perfil
             req.getRequestDispatcher("/WEB-INF/perfil.jsp")
                     .forward(req, resp);
 

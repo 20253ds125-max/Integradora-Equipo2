@@ -198,13 +198,13 @@ public class SalonesDao {
         }
         return null;
     }
-    public double obtenerPrecioPorId(int idPublicacion) throws SQLException{
-        String buscarPrecio="SELECT precio FROM publicacion_salon_eventos WHERE id_publicacion_eventos = ?";
-        try(Connection con = conexionConfig.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(buscarPrecio) ){
-            ps.setInt(1,idPublicacion);
-            try (ResultSet rs= ps.executeQuery()){
-                if(rs.next()){
+    public double obtenerPrecioPorId(int idPublicacion) throws SQLException {
+        String buscarPrecio = "SELECT precio FROM publicacion_salon_eventos WHERE id_publicacion_eventos = ?";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(buscarPrecio)) {
+            ps.setInt(1, idPublicacion);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     return rs.getDouble("precio");
                 }
             }
@@ -212,7 +212,6 @@ public class SalonesDao {
         }
         return -1.0;
     }
-
     public List<SalonEventos> obtenerPublicaciones(int idUsuario) throws SQLException {
 
         List<SalonEventos> publicaciones = new ArrayList<>();

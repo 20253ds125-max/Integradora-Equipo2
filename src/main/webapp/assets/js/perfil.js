@@ -583,3 +583,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnEditar = document.querySelector('[data-edit-profile]');
+    const btnGuardar = document.querySelector('[data-save-profile]');
+
+    if (btnEditar && btnGuardar) {
+
+        btnEditar.addEventListener('click', () => {
+
+            btnEditar.style.display = 'none';
+
+            btnGuardar.style.display = 'inline-block';
+
+
+        });
+    }
+});

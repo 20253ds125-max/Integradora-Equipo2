@@ -1,6 +1,9 @@
 ﻿const maxGuestsPerTable = 10;
+const CTX = window.APP_CONTEXT_PATH || "";
+const ID_RESERVA = window.ID_RESERVA;
 
 let tables = [];
+let maxMesas = window.MAX_MESAS || 0;
 
 const tablesArea = document.querySelector("[data-tables-area]");
 const formLateral = document.getElementById("form-lateral-invitado");
@@ -18,24 +21,24 @@ const modalTotalNotificar = document.getElementById("modal-total-notificar");
 
 
 async function apiGet() {
-    const respuesta = await fetch("mesas-api", { credentials: "same-origin" });
+    const respuesta = await fetch(`${CTX}/mesas-api?idReserva=${ID_RESERVA}`, { credentials: "same-origin" });
     if (respuesta.status === 401) {
-        window.location.href = "WEB-INF/login.jsp";
+        window.location.href = `${CTX}/login`;
         return null;
     }
     return respuesta.json();
 }
 
 async function apiPost(parametros) {
-    const cuerpo = new URLSearchParams(parametros);
-    const respuesta = await fetch("mesas-api", {
+    const cuerpo = new URLSearchParams({ ...parametros, idReserva: ID_RESERVA });
+    const respuesta = await fetch(`${CTX}/mesas-api`, {
         method: "POST",
         credentials: "same-origin",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: cuerpo
     });
     if (respuesta.status === 401) {
-        window.location.href = "WEB-INF/login.jsp";
+        window.location.href = `${CTX}/login`;
         return null;
     }
     return respuesta.json();
@@ -60,6 +63,9 @@ async function cargarMesas() {
                 enviado: g.invitacionEnviada
             }))
         }));
+        if (typeof datos.maxMesas === "number") {
+            maxMesas = datos.maxMesas;
+        }
         renderTables();
     } catch (e) {
         console.error("Error cargando mesas:", e);
@@ -116,6 +122,18 @@ function renderTables() {
         totalGlobalCount.textContent = String(getTotalAssignedCount());
     }
     updateMesaSelect();
+    updateAddTableButton();
+}
+
+function updateAddTableButton() {
+    const btnAgregarMesa = document.querySelector("[data-add-table]");
+    if (!btnAgregarMesa) return;
+
+    const alcanzado = maxMesas > 0 && tables.length >= maxMesas;
+    btnAgregarMesa.disabled = alcanzado;
+    btnAgregarMesa.textContent = alcanzado
+        ? `Límite de mesas alcanzado (${tables.length}/${maxMesas})`
+        : `Agregar mesa (${tables.length}/${maxMesas})`;
 }
 
 
@@ -208,13 +226,15 @@ if (btnConfirmarEnvio) {
         btnConfirmarEnvio.disabled = true;
 
         try {
-            const respuesta = await fetch("enviar-invitaciones", {
+            const respuesta = await fetch(`${CTX}/enviar-invitaciones`, {
                 method: "POST",
-                credentials: "same-origin"
+                credentials: "same-origin",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ idReserva: ID_RESERVA })
             });
 
             if (respuesta.status === 401) {
-                window.location.href = "WEB-INF/login.jsp";
+                window.location.href = `${CTX}/login`;
                 return;
             }
 
@@ -277,6 +297,11 @@ tablesArea.addEventListener("blur", async (event) => {
 
 
 document.querySelector("[data-add-table]").addEventListener("click", async () => {
+    if (maxMesas > 0 && tables.length >= maxMesas) {
+        alert(`Ya alcanzaste el límite de ${maxMesas} mesas permitidas para este salón (capacidad de ${window.CAPACIDAD_SALON || "?"} invitados).`);
+        return;
+    }
+
     const siguiente = tables.length ? Math.max(...tables.map((t) => t.id)) + 1 : 1;
     const nombreSugerido = `Mesa ${String(siguiente).padStart(2, "0")}`;
 
@@ -300,3 +325,72 @@ document.querySelectorAll("[data-save-layout]").forEach((button) => {
 });
 
 cargarMesas();
+
+//menu desplegable WUUU :)
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector("[data-menu-toggle]");
+    const mobileNav = document.querySelector("[data-mobile-nav]");
+
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            mobileNav.classList.toggle("open");
+            document.body.classList.toggle("menu-open");
+        });
+
+        mobileNav.addEventListener("click", (e) => {
+            if (e.target.tagName === "A") {
+                mobileNav.classList.remove("open");
+                document.body.classList.remove("menu-open");
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileNav.classList.remove("open");
+                document.body.classList.remove("menu-open");
+            }
+        });
+    }
+    const cerrarSe = document.getElementById("cerrarSe");
+
+    if(cerrarSe){
+        cerrarSe.addEventListener('click',function (e){
+            e.preventDefault();
+
+            const direccion = this.getAttribute("href");
+            Swal.fire({
+                title: '¿Cerrar sesión?',
+                text: '¿Estás seguro de que deseas salir de tu cuenta?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, salir',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#855221',
+                cancelButtonColor: '#6c757d',
+                borderRadius: '12px'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = direccion;
+                }
+            });
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnEditar = document.querySelector('[data-edit-profile]');
+    const btnGuardar = document.querySelector('[data-save-profile]');
+
+    if (btnEditar && btnGuardar) {
+
+        btnEditar.addEventListener('click', () => {
+
+            btnEditar.style.display = 'none';
+
+            btnGuardar.style.display = 'inline-block';
+
+
+        });
+    }
+});

@@ -18,6 +18,16 @@ public class InicioSesionServlet extends HttpServlet {
     private final UsuarioService service = new UsuarioService();
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("UsuarioLog") != null) {
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String email= request.getParameter("email");

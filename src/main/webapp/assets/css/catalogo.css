@@ -302,9 +302,6 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
     display: block;
     transition: transform .4s ease;
 }
-.catalog-card:hover .card-image img {
-    transform: scale(1.05);
-}
 
 .favorite-button {
     position: absolute;
