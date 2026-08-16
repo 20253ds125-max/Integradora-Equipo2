@@ -85,4 +85,8 @@ public class AdminService {
         int [] datos = salonesDao.obtenerDatosRecintos();
         return datos;
     }
+    public int[] obtenerDatosServicios()throws SQLException{
+        int [] datos = serviciosDAO.obtenerDatosServicios();
+        return datos;
+    }
 }
