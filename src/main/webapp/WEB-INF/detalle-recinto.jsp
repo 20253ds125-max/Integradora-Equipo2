@@ -31,14 +31,10 @@
     </nav>
 
     <div class="header-actions">
-<<<<<<< HEAD
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
-=======
-
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
     </div>
 </header>
 
@@ -56,9 +52,7 @@
     <c:if test="${not empty sessionScope.UsuarioLog}">
         <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
-
 </nav>
-
 
 <main>
 
@@ -67,8 +61,6 @@
                 ${error}
         </div>
     </c:if>
-
-
 
     <section class="gallery-section" aria-label="Galeria del recinto">
         <div class="carousel" data-carousel>
@@ -134,7 +126,6 @@
         <aside class="booking-panel" id="bookingPanel">
 
             <c:choose>
-
                 <c:when test="${not empty sessionScope.UsuarioLog && sessionScope.UsuarioLog.rol eq 'ADMIN' && param.modo eq 'review'}">
 
                     <div class="price-row">
@@ -148,14 +139,6 @@
                             Verifica la información e imágenes del recinto antes de aprobar o rechazar la solicitud.
                         </p>
 
-<<<<<<< HEAD
-            <form id="formAnadirCarrito" action="${pageContext.request.contextPath}/carritoAgregar" method="post">
-                <input type="hidden" name="idPublicacionEventos" value="${salonDetalles.idSalonEventos}" />
-                <button id="btnAnadirCarrito" type="submit" class="special-button disabled-link" disabled>
-                    Añadir al carrito
-                </button>
-            </form>
-=======
                         <div class="cost-list">
                             <p><span>Precio por evento</span><strong>$${salonDetalles.precio}</strong></p>
                             <p><span>Capacidad máxima</span><strong>${salonDetalles.capacidad} personas</strong></p>
@@ -210,16 +193,15 @@
                         <p class="total"><span>Total</span><strong>$${salonDetalles.precio}</strong></p>
                     </div>
 
-                    <form method="post" action="${pageContext.request.contextPath}/carritoAgregar">
+                    <form id="formAnadirCarrito" method="post" action="${pageContext.request.contextPath}/carritoAgregar">
                         <input type="hidden" name="idPublicacionEventos" value="${salonDetalles.idSalonEventos}">
-                        <button type="submit" id="btnAnadirCarrito" class="special-button disabled-link">
+                        <button type="submit" id="btnAnadirCarrito" class="special-button disabled-link" disabled>
                             Añadir al carrito
                         </button>
                     </form>
                     <p class="panel-note">No se realizará ningún cargo todavía.</p>
                 </c:otherwise>
             </c:choose>
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
 
         </aside>
 
@@ -236,46 +218,17 @@
 
     const precioBaseBD = ${salonDetalles.precio};
     const nombreRecintoBD = "${salonDetalles.nombre}";
+    const idRecinto = ${salonDetalles.idSalonEventos};
 </script>
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
 <script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.4"></script>
 <jsp:include page="alerts.jsp" />
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const btnMenu = document.getElementById('btnMenu');
-        const menuDesplegable = document.getElementById('menuDesplegable');
-
-        if (btnMenu && menuDesplegable) {
-
-<<<<<<< HEAD
-            fechaInput.addEventListener("change", function() {
-                // Validación de seguridad antes de usar classList
-                if (btnAnadirCarrito) {
-                    btnAnadirCarrito.classList.add("disabled-link");
-                    btnAnadirCarrito.disabled = true;
-                }
-                if (mensajeDiv) {
-                    mensajeDiv.style.display = "none";
-=======
-            btnMenu.addEventListener('click', function(evento) {
-
-                evento.stopPropagation();
-                menuDesplegable.classList.toggle('show');
-            });
-
-            document.addEventListener('click', function(evento) {
-                if (!menuDesplegable.contains(evento.target) && !btnMenu.contains(evento.target)) {
-                    menuDesplegable.classList.remove('show');
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
-                }
-            });
-        }
-    });
-
-    //menu desplegable WUUU :)
     document.addEventListener("DOMContentLoaded", () => {
+        // Menú desplegable móvil
         const menuToggle = document.querySelector("[data-menu-toggle]");
         const mobileNav = document.querySelector("[data-mobile-nav]");
 
@@ -293,7 +246,46 @@
                 }
             });
 
-<<<<<<< HEAD
+            document.addEventListener("click", (e) => {
+                if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+        }
+
+        // Lógica de verificación de fecha ajax
+        const fechaInput = document.getElementById("fechaEvento");
+        const btnVerificar = document.getElementById("btnVerificar");
+        const btnAnadirCarrito = document.getElementById("btnAnadirCarrito");
+        const mensajeDiv = document.getElementById("mensajeDisponibilidad");
+
+        function mostrarMensaje(texto, esExito) {
+            if (mensajeDiv) {
+                mensajeDiv.innerText = texto;
+                mensajeDiv.style.display = "block";
+                mensajeDiv.style.color = esExito ? "#2e7d32" : "#c62828";
+            }
+        }
+
+        if (fechaInput && btnVerificar) {
+            fechaInput.addEventListener("change", function() {
+                if (btnAnadirCarrito) {
+                    btnAnadirCarrito.classList.add("disabled-link");
+                    btnAnadirCarrito.disabled = true;
+                }
+                if (mensajeDiv) {
+                    mensajeDiv.style.display = "none";
+                }
+            });
+
+            btnVerificar.addEventListener("click", function() {
+                const fechaSeleccionada = fechaInput.value;
+                if (!fechaSeleccionada) {
+                    mostrarMensaje("Por favor, selecciona una fecha.", false);
+                    return;
+                }
+
                 const textoOriginal = btnVerificar.innerText;
                 btnVerificar.innerText = "Verificando...";
                 btnVerificar.disabled = true;
@@ -301,7 +293,7 @@
                 fetch(`${pageContext.request.contextPath}/verificarFecha?fecha=${fechaSeleccionada}&idRecinto=${idRecinto}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (!data.disponible) {
+                        if (data.disponible) {
                             mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
                             if (btnAnadirCarrito) {
                                 btnAnadirCarrito.classList.remove("disabled-link");
@@ -323,21 +315,14 @@
                         btnVerificar.innerText = textoOriginal;
                         btnVerificar.disabled = false;
                     });
-=======
-            document.addEventListener("click", (e) => {
-                if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                    mobileNav.classList.remove("open");
-                    document.body.classList.remove("menu-open");
-                }
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
             });
         }
+
+        // Alerta SweetAlert para cerrar sesión
         const cerrarSe = document.getElementById("cerrarSe");
-
-        if(cerrarSe){
-            cerrarSe.addEventListener('click',function (e){
+        if (cerrarSe) {
+            cerrarSe.addEventListener('click', function (e) {
                 e.preventDefault();
-
                 const direccion = this.getAttribute("href");
                 Swal.fire({
                     title: '¿Cerrar sesión?',

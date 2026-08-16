@@ -29,13 +29,10 @@
     </nav>
 
     <div class="header-actions">
-<<<<<<< HEAD
         <a href="${pageContext.request.contextPath}/mi-carrito-de-compra">Carrito</a>
-=======
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
     </div>
 </header>
 
@@ -470,10 +467,8 @@
 </div>
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-
 <script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.1"></script>
 <jsp:include page="alerts.jsp" />
 
 </body>
 </html>
-

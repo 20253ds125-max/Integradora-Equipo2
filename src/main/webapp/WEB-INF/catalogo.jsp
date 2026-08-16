@@ -53,7 +53,6 @@
     <c:if test="${not empty sessionScope.UsuarioLog}">
         <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
-
 </nav>
 
 <main class="catalog-shell">
@@ -110,17 +109,12 @@
             </c:if>
 
             <c:forEach var="salon" items="${catalogo}">
-<<<<<<< HEAD
                 <article class="catalog-card"
                          data-venue-card
                          data-name="${fn:toLowerCase(salon.nombre)}"
                          data-location="${fn:toLowerCase(salon.ubicacion)}"
                          data-price="${salon.precio}"
                          data-capacity="${salon.capacidad}">
-
-=======
-                <article class="catalog-card">
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
                     <div class="card-image">
                         <img src="${not empty salon.fotoPrincipal ? fn:trim(salon.fotoPrincipal) : 'https://via.placeholder.com/400x240?text=Sin+Foto'}"
                              alt="Foto de ${salon.nombre}"
@@ -185,11 +179,7 @@
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <jsp:include page="alerts.jsp" />
 
-<<<<<<< HEAD
-<script src="${pageContext.request.contextPath}/assets/js/catalogo.js"></script>
-
-=======
-<!-- Script de Filtros para Recintos (Persistencia de Filtros) -->
+<!-- Script de Filtros para Recintos y Menú Móvil -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const inputBusqueda = document.querySelector('[data-city-search]') || document.querySelector('input[type="search"], input[type="text"]');
@@ -280,14 +270,12 @@
             const queryString = params.toString();
             window.location.href = '${pageContext.request.contextPath}/catalogo' + (queryString ? '?' + queryString : '');
         }
-    });
 
-    //MENU DESPLEGABLE :)
-    document.addEventListener("DOMContentLoaded", function() {
+        // MENÚ DESPLEGABLE Y MÓVIL
         const btnMenu = document.querySelector("[data-menu-toggle]");
         const menuFlotante = document.querySelector("[data-mobile-nav]");
 
-        if(btnMenu && menuFlotante) {
+        if (btnMenu && menuFlotante) {
             btnMenu.addEventListener("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -306,12 +294,11 @@
                 }
             });
         }
+
         const cerrarSe = document.getElementById("cerrarSe");
-
-        if(cerrarSe){
-            cerrarSe.addEventListener('click',function (e){
+        if (cerrarSe) {
+            cerrarSe.addEventListener('click', function (e) {
                 e.preventDefault();
-
                 const direccion = this.getAttribute("href");
                 Swal.fire({
                     title: '¿Cerrar sesión?',
@@ -330,9 +317,7 @@
                 });
             });
         }
-
     });
 </script>
->>>>>>> d7f11fe17c264e1b91520d77278444c917a425a2
 </body>
 </html>
