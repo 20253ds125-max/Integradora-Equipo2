@@ -26,7 +26,9 @@ public class CarritoService{
         return carritoDao.agregarRecintoACarrito(idUsuario, idPublicacion, precioUnitario);
     }
     public boolean agregarServicioCarrito(int idUsuario, int idServicio) throws SQLException {
-
+        if (carritoDao.existeServicioEnCarrito(idUsuario,idServicio)) {
+            throw new IllegalArgumentException("Ya tienes este servicio en tu carrito ");
+        }
         double precioUnitario = serviciosDAO.obtenerPrecioPorId(idServicio);
 
         if (precioUnitario <= 0) {
