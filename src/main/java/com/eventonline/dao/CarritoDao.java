@@ -99,7 +99,7 @@ public class CarritoDao {
     }
 
     public boolean existeRecintoEnCarrito(int idUsuario) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_PUBLICACION_EVENTOS is not null ";
+        String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_PUBLICACION_EVENTOS IS NOT NULL";
 
         try (Connection con = conexion.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
