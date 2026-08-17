@@ -17,17 +17,17 @@ public class RecintoService {
     private final FavoritosDao favoritosDao = new FavoritosDao();
     private CloudDinary cloudinaryService = new CloudDinary();
 
-    public void publicarRecinto(String nombre, String ubicacion, String descripcion, String strCapacidad, String strPrecio, HttpServletRequest request, Usuario usuario)throws Exception {
+    public void publicarRecinto(String nombre, String ubicacion, String descripcion, String strCapacidad, String strPrecio, HttpServletRequest request, Usuario usuario) throws Exception {
         List<String> rutasFotos = null;
         java.sql.Timestamp fecha = java.sql.Timestamp.valueOf(
                 java.time.LocalDateTime.now()
         );
-        int capacidad=0;
+        int capacidad = 0;
         double precio = 0;
 
         try {
-            capacidad=Integer.parseInt(strCapacidad);
-            precio=Double.parseDouble(strPrecio);
+            capacidad = Integer.parseInt(strCapacidad);
+            precio = Double.parseDouble(strPrecio);
 
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Campos de capacidad o precio con valores no numericos");
@@ -40,14 +40,14 @@ public class RecintoService {
                 throw new IllegalArgumentException("error en la base de datos");
             }
         } catch (Exception e) {
-            if(rutasFotos!=null && !rutasFotos.isEmpty()){
+            if (rutasFotos != null && !rutasFotos.isEmpty()) {
                 cloudinaryService.borrarFotos(rutasFotos);
             }
             throw e;
         }
     }
 
-    public List<SalonEventos> obtenerCatalogo(Integer idUsuario)throws SQLException {
+    public List<SalonEventos> obtenerCatalogo(Integer idUsuario) throws SQLException {
 
         List<SalonEventos> catalogo = salonesDao.obtenerCatalogo();
 
@@ -70,7 +70,10 @@ public class RecintoService {
 
     }
 
-    public SalonEventos detallesRecinto(int idRecinto)throws SQLException{
+    public SalonEventos detallesRecinto(int idRecinto) throws SQLException {
         return salonesDao.obtenerSalon(idRecinto);
+    }
+    public List<SalonEventos> obtenerCatalogoFiltrado(String busqueda, Double precioMin, Double precioMax, Integer capMin, Integer capMax) throws SQLException {
+        return salonesDao.obtenerCatalogoFiltrado(busqueda, precioMin, precioMax, capMin, capMax);
     }
 }

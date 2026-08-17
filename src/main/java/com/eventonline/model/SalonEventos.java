@@ -76,7 +76,7 @@ public class SalonEventos {
         if (this.descripcion == null || this.descripcion.trim().isEmpty()) {
             throw new IllegalArgumentException("La descripción no puede estar vacía.");
         }
-        if (this.descripcion.length() > 4000) {
+        if (this.descripcion.length() > 1500) {
             throw new IllegalArgumentException("La descripción es demasiado larga (máximo 4000 caracteres).");
         }
 

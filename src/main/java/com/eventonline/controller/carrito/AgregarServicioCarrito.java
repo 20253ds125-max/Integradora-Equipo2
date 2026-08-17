@@ -47,6 +47,8 @@ public class AgregarServicioCarrito extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Error de base de datos al guardar en el carrito.");
+        }catch (IllegalArgumentException e){
+            request.setAttribute("error", e.getMessage());
         }
 
         request.getRequestDispatcher("/extraServices").forward(request, response);

@@ -2,6 +2,7 @@ package com.eventonline.controller.carrito.pago;
 
 import com.eventonline.model.Usuario;
 import com.eventonline.service.CarritoService;
+import com.eventonline.service.PagoService;
 import com.eventonline.service.ReservacionService;
 
 import jakarta.servlet.ServletException;
@@ -19,9 +20,11 @@ public class ProcesarPagoServlet extends HttpServlet {
 
     private final ReservacionService reservacionService = new ReservacionService();
     private final CarritoService carritoService = new CarritoService();
+    private final PagoService pagoService = new PagoService();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("UsuarioLog") == null) {
@@ -30,32 +33,61 @@ public class ProcesarPagoServlet extends HttpServlet {
         }
 
         Usuario usuario = (Usuario) session.getAttribute("UsuarioLog");
-        Integer idReserva = (Integer) session.getAttribute("idReservaPendiente");
 
-        if (idReserva == null) {
-            response.sendRedirect(request.getContextPath() + "/mi-carrito-de-compra");
+
+        String titular = request.getParameter("nombreTitular");
+        String tarjeta = request.getParameter("numeroTarjeta");
+        String vencimiento = request.getParameter("vencimiento");
+        String cvv = request.getParameter("cvv");
+
+        boolean tarjetaValida = pagoService.validarTarjeta(titular, tarjeta, vencimiento, cvv);
+
+        if (!tarjetaValida) {
+            request.setAttribute("error", "datos_invalidos");
+            request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request, response);
             return;
         }
 
-        try {
 
+        Integer idReserva = (Integer) session.getAttribute("idReservaPendiente");
+        if (idReserva == null && request.getParameter("idReserva") != null && !request.getParameter("idReserva").isEmpty()) {
+            idReserva = Integer.parseInt(request.getParameter("idReserva"));
+        }
+
+        if (idReserva == null) {
+            request.setAttribute("error", "sin_reserva");
+            request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request, response);
+            return;
+        }
+
+        // 3. Verificar si el usuario ya aceptó el modal de confirmación
+        String confirmado = request.getParameter("confirmado");
+        if (!"true".equals(confirmado)) {
+            // Todos los datos son válidos; solicitamos la confirmación al cliente
+            request.setAttribute("status", "pedir_confirmacion");
+            request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request, response);
+            return;
+        }
+
+        // 4. Procesar confirmación en BD y limpiar carrito tras la confirmación previa
+        try {
             boolean exito = reservacionService.confirmarPagoReserva(idReserva);
 
             if (exito) {
                 carritoService.vaciarCarrito(usuario.getIdUsuario());
-
                 session.removeAttribute("idReservaPendiente");
 
-                session.setAttribute("mensajeExito", "¡Reserva confirmada con éxito!");
-                response.sendRedirect(request.getContextPath() + "/app/perfil");
+
+                request.setAttribute("status", "exito");
+                request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request, response);
             } else {
-                request.setAttribute("error", "El tiempo de apartado ha expirado. Por favor intenta de nuevo.");
-                request.getRequestDispatcher("/WEB-INF/mi-carrito-de-compra.jsp").forward(request, response);
+                request.setAttribute("error", "reserva_expirada");
+                request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request, response);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("error", "Error al procesar el pago en la base de datos.");
+            request.setAttribute("error", "db_error");
             request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request, response);
         }
     }

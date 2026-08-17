@@ -8,16 +8,16 @@ public class Mesas {
     private int idMesa;
     private String nombre;
     private int capacidad;
-    private int idUsuario;
+    private int idReserva;
     private List<Invitados> invitado = new ArrayList<>();
 
     public Mesas(){
 
     }
-    public Mesas(String nombre, int capacidad, int idUsuario){
+    public Mesas(String nombre, int capacidad, int idReserva){
         setNombre(nombre);
         setCapacidad(capacidad);
-        this.idUsuario = idUsuario;
+        this.idReserva = idReserva;
     }
 
     public int getIdMesa(){
@@ -54,12 +54,12 @@ public class Mesas {
         this.capacidad= capacidad;
     }
 
-    public int getIdUsuario(){
-        return  idUsuario;
+    public int getIdReserva(){
+        return  idReserva;
     }
 
-    public void setIdUsuario(int idUsuario){
-        this.idUsuario = idUsuario;
+    public void setIdReserva(int idReserva){
+        this.idReserva = idReserva;
     }
 
     public List<Invitados> getInvitados(){

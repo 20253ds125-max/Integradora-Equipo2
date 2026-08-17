@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuariosDao {
 
@@ -231,5 +233,76 @@ public class UsuariosDao {
 
             return filasActualizadas > 0;
         }
+    }
+
+    public List<Usuario> listaDeUsuarios()throws SQLException{
+        List<Usuario> listaDeUsuario = new ArrayList<>();
+        String buscarUsuarios="SELECT id_usuario,correo,ciudad,nombre FROM USUARIOS WHERE ROL <> 'ADMIN'";
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscarUsuarios) ){
+            try (ResultSet rs = ps.executeQuery()){
+                while (rs.next()){
+                    Usuario usuario =new Usuario(
+                            rs.getInt("id_usuario"),
+                            rs.getString("nombre"),
+                            rs.getString("correo"),
+                            rs.getString("ciudad")
+                    );
+                    listaDeUsuario.add(usuario);
+                }
+                return listaDeUsuario;
+            }
+
+        }
+    }
+    public boolean buscarAdmin(int idUsuario)throws SQLException{
+        String buscaAdmin="SELECT COUNT(*) FROM usuarios WHERE id_usuario=? and rol='ADMIN'";
+        try (Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscaAdmin) ){
+            ps.setInt(1,idUsuario);
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt(1)>0;
+                }
+            }
+
+        }
+        return false;
+    }
+    public void borrarUsuario(int idUsuario)throws SQLException{
+        String borrarUsuario="DELETE FROM usuarios WHERE id_usuario=?";
+        try (Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(borrarUsuario) ){
+            ps.setInt(1,idUsuario);
+            ps.executeUpdate();
+        }
+    }
+    public int[] obtenerDatosUsuarios()throws SQLException{
+        int[] datos = new int[3];
+
+        String sql = "SELECT " +
+                "  (SELECT COUNT(*) FROM USUARIOS) AS total, " +
+                "  (SELECT COUNT(DISTINCT id_usuario) FROM (" +
+                "      SELECT id_usuario FROM PUBLICACION_SALON_EVENTOS " +
+                "      UNION " +
+                "      SELECT id_usuario FROM PUBLICACION_SERVICIO_EXTRA" +
+                "  )) AS con_publicacion, " +
+                "  (SELECT COUNT(*) FROM USUARIOS WHERE UPPER(rol) LIKE '%ADMIN%') AS administradores " +
+                "FROM DUAL";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                datos[0] = rs.getInt("total");
+                datos[1] = rs.getInt("con_publicacion");
+                datos[2] = rs.getInt("administradores");
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+            throw e;
+        }
+
+        return datos;
     }
 }

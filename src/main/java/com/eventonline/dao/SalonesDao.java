@@ -198,13 +198,13 @@ public class SalonesDao {
         }
         return null;
     }
-    public double obtenerPrecioPorId(int idPublicacion) throws SQLException{
-        String buscarPrecio="SELECT precio FROM publicacion_salon_eventos WHERE id_publicacion_eventos = ?";
-        try(Connection con = conexionConfig.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(buscarPrecio) ){
-            ps.setInt(1,idPublicacion);
-            try (ResultSet rs= ps.executeQuery()){
-                if(rs.next()){
+    public double obtenerPrecioPorId(int idPublicacion) throws SQLException {
+        String buscarPrecio = "SELECT precio FROM publicacion_salon_eventos WHERE id_publicacion_eventos = ?";
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(buscarPrecio)) {
+            ps.setInt(1, idPublicacion);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     return rs.getDouble("precio");
                 }
             }
@@ -212,7 +212,6 @@ public class SalonesDao {
         }
         return -1.0;
     }
-
     public List<SalonEventos> obtenerPublicaciones(int idUsuario) throws SQLException {
 
         List<SalonEventos> publicaciones = new ArrayList<>();
@@ -254,5 +253,83 @@ public class SalonesDao {
         }
 
         return publicaciones;
+    }
+    //Para filtro de Recintos
+    public List<SalonEventos> obtenerCatalogoFiltrado(String busqueda, Double precioMin, Double precioMax, Integer capMin, Integer capMax) throws SQLException {
+        List<SalonEventos> catalogo = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT id_publicacion_eventos, nombre_lugar, ubicacion, capacidad, precio, url_portada ");
+        sql.append("FROM publicacion_salon_eventos WHERE UPPER(estado) = 'APROBADO' ");
+
+        List<Object> params = new ArrayList<>();
+
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            sql.append("AND (LOWER(ubicacion) LIKE LOWER(?) OR LOWER(nombre_lugar) LIKE LOWER(?)) ");
+            params.add("%" + busqueda.trim() + "%");
+            params.add("%" + busqueda.trim() + "%");
+        }
+
+        if (precioMin != null) {
+            sql.append("AND precio >= ? ");
+            params.add(precioMin);
+        }
+        if (precioMax != null) {
+            sql.append("AND precio <= ? ");
+            params.add(precioMax);
+        }
+
+        if (capMin != null) {
+            sql.append("AND capacidad >= ? ");
+            params.add(capMin);
+        }
+        if (capMax != null) {
+            sql.append("AND capacidad <= ? ");
+            params.add(capMax);
+        }
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    SalonEventos salonAprobado = new SalonEventos(
+                            rs.getInt("id_publicacion_eventos"),
+                            rs.getString("nombre_lugar"),
+                            rs.getString("ubicacion"),
+                            rs.getInt("capacidad"),
+                            rs.getDouble("precio"),
+                            rs.getString("url_portada")
+                    );
+                    catalogo.add(salonAprobado);
+                }
+            }
+        }
+        return catalogo;
+    }
+    public int[] obtenerDatosRecintos()throws SQLException {
+        int[] datos = new int[3];
+
+        String sql = "SELECT " +
+                "  COUNT(CASE WHEN ESTADO = 'PENDIENTE' THEN 1 END) AS pendientes, " +
+                "  COUNT(CASE WHEN ESTADO = 'APROBADO' THEN 1 END) AS validados, " +
+                "  COUNT(*) AS total " +
+                "FROM PUBLICACION_SALON_EVENTOS";
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                datos[0] = rs.getInt("pendientes");
+                datos[1] = rs.getInt("validados");
+                datos[2] = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener conteo de recintos: " + e.getMessage());
+        }
+
+        return datos;
     }
 }

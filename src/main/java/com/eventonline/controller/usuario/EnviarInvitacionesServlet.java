@@ -32,13 +32,31 @@ public class EnviarInvitacionesServlet extends HttpServlet {
             resp.getWriter().write(new JSONObject().put("success", false).put("error", "No has iniciado sesion").toString());
             return;
         }
+
         Usuario usuario = (Usuario) session.getAttribute("UsuarioLog");
-        String nombreEvento = valorOPorDefecto(req.getParameter("nombreEvento"), "Nombre del Evento");
-        String fechaEvento = valorOPorDefecto(req.getParameter("fechaEvento"), "09 de Julio, 2026");
-        String lugarEvento = valorOPorDefecto(req.getParameter("lugarEvento"), "Jardín de Eventos");
+
+        int idReserva;
+        try {
+            idReserva = Integer.parseInt(req.getParameter("idReserva"));
+        } catch (NumberFormatException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write(new JSONObject().put("success", false).put("error", "idReserva invalido").toString());
+            return;
+        }
 
         try {
-            List<Invitados> pendientes = mesasDAO.obtenerInvitadosPendientes(usuario.getIdUsuario());
+            MesasDAO.InfoReserva info = mesasDAO.obtenerInfoReserva(idReserva);
+            if (info == null || info.idUsuario != usuario.getIdUsuario()) {
+                resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                resp.getWriter().write(new JSONObject().put("success", false).put("error", "Esta reserva no te pertenece").toString());
+                return;
+            }
+
+            String nombreEvento = info.nombreSalon != null ? info.nombreSalon : "tu evento";
+            String fechaEvento = info.fechaEvento != null ? info.fechaEvento : "";
+            String lugarEvento = info.ubicacion != null ? info.ubicacion : nombreEvento;
+
+            List<Invitados> pendientes = mesasDAO.obtenerInvitadosPendientes(idReserva);
 
             if (pendientes.isEmpty()) {
                 resp.getWriter().write(new JSONObject()
@@ -81,9 +99,4 @@ public class EnviarInvitacionesServlet extends HttpServlet {
                     .put("error", "Error de base de datos " + e.getMessage()).toString());
         }
     }
-
-    private String valorOPorDefecto(String valor, String porDefecto){
-        return (valor == null || valor.trim().isEmpty()) ? porDefecto : valor.trim();
-    }
 }
-

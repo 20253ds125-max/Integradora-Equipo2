@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +13,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/contacto-equipo.css?v=1.1" /></head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/contacto-equipo.css?v=1.2.2" /></head>
 <body>
 <header class="site-header">
     <div class="brand-group">
@@ -24,8 +26,32 @@
         <a class="active" href="${pageContext.request.contextPath}/app/contacto-equipo">Contactanos</a>
     </nav>
 
-    <div class="header-actions"></div>
+    <div class="header-actions">
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
 </header>
+
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
+    </c:if>
+
+</nav>
+
+
 <section class="team-section">
 
     <div class="team-header">
@@ -46,7 +72,7 @@
         <div class="team-card">
 
             <div class="team-image">
-                <img src="team/ale1.jpeg" alt="Alejandro Campos">
+                <img src="${pageContext.request.contextPath}/assets/team/ale1.jpeg" alt="Alejandro Campos">
             </div>
 
             <div class="team-info">
@@ -64,7 +90,7 @@
         <div class="team-card">
 
             <div class="team-image">
-                <img src="team/palomita.jpeg" alt="Paloma Del Rio">
+                <img src="${pageContext.request.contextPath}/assets/team/palomita.jpeg" alt="Paloma Del Rio">
             </div>
 
             <div class="team-info">
@@ -81,8 +107,7 @@
         <div class="team-card">
 
             <div class="team-image">
-                <img src="team/io2.jpeg" alt="Marina Flores">
-            </div>
+                <img src="${pageContext.request.contextPath}/assets/team/io2.jpeg" alt="Marina Flores">            </div>
 
             <div class="team-info">
                 <h3>Marina Flores</h3>
@@ -99,7 +124,7 @@
         <div class="team-card">
 
             <div class="team-image">
-                <img src="team/jenni.jpeg" alt="Jennifer Martínez">
+                <<img src="${pageContext.request.contextPath}/assets/team/jenni.jpeg" alt="Jennifer Martínez">
             </div>
 
             <div class="team-info">
@@ -117,7 +142,7 @@
         <div class="team-card">
 
             <div class="team-image">
-                <img src="team/emi.jpeg" alt="Emiliano Hernández">
+                <img src="${pageContext.request.contextPath}/assets/team/emi.jpeg" alt="Emiliano Hernández">
             </div>
 
             <div class="team-info">
@@ -135,7 +160,7 @@
         <div class="team-card">
 
             <div class="team-image">
-                <img src="team/luis.jpeg" alt="Luis Camacho">
+                <img src="${pageContext.request.contextPath}/assets/team/luis.jpeg" alt="Luis Camacho">
             </div>
 
             <div class="team-info">
@@ -151,9 +176,61 @@
     </div>
 
 </section>
-<footer class="site-footer legal-only">
-    &copy; 2026 Event Online Spaces. Todos los derechos reservados.
-</footer>
+<footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
+
+<script>
+    //menu desplegable WUUU :)
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const mobileNav = document.querySelector("[data-mobile-nav]");
+
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                mobileNav.classList.toggle("open");
+                document.body.classList.toggle("menu-open");
+            });
+
+            mobileNav.addEventListener("click", (e) => {
+                if (e.target.tagName === "A") {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+        }
+        const cerrarSe = document.getElementById("cerrarSe");
+
+        if(cerrarSe){
+            cerrarSe.addEventListener('click',function (e){
+                e.preventDefault();
+
+                const direccion = this.getAttribute("href");
+                Swal.fire({
+                    title: '¿Cerrar sesión?',
+                    text: '¿Estás seguro de que deseas salir de tu cuenta?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, salir',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#855221',
+                    cancelButtonColor: '#6c757d',
+                    borderRadius: '12px'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = direccion;
+                    }
+                });
+            });
+        }
+    });
+</script>
 </body>
 </html>
 

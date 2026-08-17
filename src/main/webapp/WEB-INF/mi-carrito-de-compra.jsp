@@ -4,55 +4,15 @@
 <!doctype html>
 <html lang="es">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mi carrito de compra | Event Online</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css" />
-    <style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/carrito.css?v=1.1.2" />
 
-        .event-details-box {
-            background-color: #f9f6f0;
-            border: 1px solid #e0d8cc;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .event-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #4a4a4a;
-            text-transform: uppercase;
-        }
-        .form-group input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 0.95rem;
-        }
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 12px 15px;
-            border-radius: 6px;
-            border: 1px solid #f5c6cb;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
 <header class="site-header">
@@ -68,10 +28,33 @@
 
     <div class="header-actions">
         <a class="cart-pill" href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
+            <span aria-hidden="true"></span>
+        </button>
     </div>
 </header>
 
+<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
+    <c:if test="${empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
+    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
+        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
+    </c:if>
+    <c:if test="${not empty sessionScope.UsuarioLog}">
+        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
+    </c:if>
+
+</nav>
+
+
 <main class="shop-shell">
+
+
     <h1>Carrito de compras</h1>
 
     <section class="shop-grid">
@@ -118,7 +101,7 @@
                                             <fmt:formatNumber value="${item.precio}" type="currency" currencySymbol="$" maxFractionDigits="2"/>
                                         </div>
                                         <div class="remove-cell">
-                                            <button class="remove-button" type="submit"
+                                            <button class="remove-button" type="submit" formnovalidate
                                                     formaction="${pageContext.request.contextPath}/eliminarItemCarrito"
                                                     name="idCarrito" value="${item.idCarrito}" title="Eliminar">&times;</button>
                                         </div>
@@ -138,10 +121,7 @@
                         </div>
 
                         <div class="cart-breakdown">
-                            <div class="breakdown-row">
-                                <span>Cargo por servicio</span>
-                                <strong><fmt:formatNumber value="${cargoServicio}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
-                            </div>
+
                             <div class="breakdown-row">
                                 <span>Depósito por daños (30%)</span>
                                 <strong><fmt:formatNumber value="${deposito}" type="currency" currencySymbol="$" maxFractionDigits="2"/></strong>
@@ -154,11 +134,14 @@
 
                         <div class="notice-box">
                             <strong>Aviso</strong>
-                            <p>Al hacer clic en "Proceder a pago", la fecha quedará bloqueada temporalmente durante 15 minutos para que completes tu transacción.</p>
+                            <p>
+                                Al hacer clic en "Proceder a pago", la fecha quedará bloqueada temporalmente durante 15 minutos para que completes tu transacción.<br><br>
+                                Se cobra un 30% adicional al costo del recinto como preventivo de daños; este se reembolsará en caso de que no se registren daños a la propiedad.
+                            </p>
                         </div>
 
                         <div class="actions-row">
-                            <button class="secondary-button" type="submit"
+                            <button class="secondary-button" type="submit" formnovalidate
                                     formaction="${pageContext.request.contextPath}/vaciarCarrito"
                                     onclick="return confirm('¿Estás seguro de que deseas vaciar todo el carrito?');">
                                 Vaciar carrito
@@ -197,16 +180,99 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const fechaInput = document.getElementById("fechaEvento");
+
         if (fechaInput) {
-            const manana = new Date();
-            manana.setDate(manana.getDate() + 1);
+            ["change", "input"].forEach(nombreEvento => {
+                fechaInput.addEventListener(nombreEvento, function () {
+                    const valor = this.value.trim();
+                    if (!valor) return;
 
-            const yyyy = manana.getFullYear();
-            const mm = String(manana.getMonth() + 1).padStart(2, '0');
-            const dd = String(manana.getDate()).padStart(2, '0');
+                    let fechaSeleccionada;
 
-            const minFecha = `${yyyy}-${mm}-${dd}`;
-            fechaInput.setAttribute("min", minFecha);
+                    if (valor.includes("-")) {
+                        const partes = valor.split("-");
+                        fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
+                    } else if (valor.includes("/")) {
+                        const partes = valor.split("/");
+                        fechaSeleccionada = new Date(partes[2], partes[1] - 1, partes[0]);
+                    } else {
+                        fechaSeleccionada = new Date(valor);
+                    }
+
+                    if (isNaN(fechaSeleccionada.getTime())) return;
+
+                    // Fecha de mañana
+                    const manana = new Date();
+                    manana.setDate(manana.getDate() + 1);
+                    manana.setHours(0, 0, 0, 0);
+
+                    // Validación con Modal Personalizado
+                    if (fechaSeleccionada < manana) {
+                        Swal.fire({
+                            title: '¡Atención!',
+                            text: 'La fecha del evento debe programarse a partir del día de mañana. Por favor, selecciona una fecha válida.',
+                            icon: 'warning', // Puedes cambiarlo por 'error' si prefieres la X roja
+                            confirmButtonText: 'Entendido',
+                            confirmButtonColor: '#855221', // Color café acorde a tu diseño
+                            borderRadius: '12px'
+                        });
+
+                        this.value = ""; // Limpia el campo
+                    }
+                });
+            });
+        }
+    });
+
+    //menu desplegable WUUU :)
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.querySelector("[data-menu-toggle]");
+        const mobileNav = document.querySelector("[data-mobile-nav]");
+
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                mobileNav.classList.toggle("open");
+                document.body.classList.toggle("menu-open");
+            });
+
+            mobileNav.addEventListener("click", (e) => {
+                if (e.target.tagName === "A") {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    mobileNav.classList.remove("open");
+                    document.body.classList.remove("menu-open");
+                }
+            });
+        }
+        const cerrarSe = document.getElementById("cerrarSe");
+
+        if(cerrarSe){
+            cerrarSe.addEventListener('click',function (e){
+                e.preventDefault();
+
+                const direccion = this.getAttribute("href");
+                Swal.fire({
+                    title: '¿Cerrar sesión?',
+                    text: '¿Estás seguro de que deseas salir de tu cuenta?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, salir',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#855221',
+                    cancelButtonColor: '#6c757d',
+                    borderRadius: '12px'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = direccion;
+                    }
+                });
+            });
         }
     });
 </script>
