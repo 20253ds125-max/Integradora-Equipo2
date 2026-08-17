@@ -4,6 +4,7 @@ import com.eventonline.dao.MesasDAO;
 import com.eventonline.model.Invitados;
 import com.eventonline.model.Usuario;
 import com.eventonline.service.EmailService;
+import com.eventonline.util.CorreoElectronico;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import java.util.List;
 public class EnviarInvitacionesServlet extends HttpServlet {
 
     private final MesasDAO mesasDAO = new MesasDAO();
-    private final EmailService emailService = new EmailService();
+    private final CorreoElectronico correoElectronico = new CorreoElectronico();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -72,7 +73,8 @@ public class EnviarInvitacionesServlet extends HttpServlet {
 
             for (Invitados invitados : pendientes) {
                 String nombreMesa = mesasDAO.obtenerNombreMesaDeInvitado(invitados.getIdMesa());
-                boolean ok = emailService.enviarInvitacion(invitados, nombreMesa, nombreEvento, fechaEvento, lugarEvento);
+                boolean ok = correoElectronico.enviarInvitacion(
+                        invitados.getCorreo(), invitados.getNombre(), nombreEvento, nombreMesa, fechaEvento, lugarEvento);
 
                 if (ok) {
                     mesasDAO.marcarInvitacionEnviada(invitados.getIdInvitado());
@@ -89,8 +91,7 @@ public class EnviarInvitacionesServlet extends HttpServlet {
                     .put("success", true)
                     .put("enviados", enviados)
                     .put("fallidos", fallidos.length())
-                    .put("detalleFallidos", fallidos)
-                    .put("modoSimulado", !emailService.isConfigurado());
+                    .put("detalleFallidos", fallidos);
 
             resp.getWriter().write(resultado.toString());
         } catch (SQLException e) {
