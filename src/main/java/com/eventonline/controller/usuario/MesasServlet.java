@@ -46,7 +46,7 @@ public class MesasServlet extends HttpServlet {
            escribir(resp, new JSONObject()
                    .put("success", true)
                    .put("mesas", mesasAJson(mesas))
-                   .put("maxMesas", info.capacidadSalon)
+                   .put("maxMesas", info.maxMesas())
                    .put("capacidadSalon", info.capacidadSalon)
                    .put("nombreSalon", info.nombreSalon)
                    .put("totalInvitados", totalInvitados));
@@ -175,7 +175,7 @@ public class MesasServlet extends HttpServlet {
     private void eliminarInvitado(HttpServletRequest req, HttpServletResponse resp, int idReserva)
             throws SQLException, IOException {
         int idInvitados = parseEntero(req.getParameter("idInvitado"), "idInvitado");
-        boolean eliminado = mesasDAO.eliminarInvitado(idInvitados, idInvitados);
+        boolean eliminado = mesasDAO.eliminarInvitado(idInvitados, idReserva);
         if (!eliminado) {
             throw new IllegalArgumentException("El invitado no existe o no te pertenece");
         }

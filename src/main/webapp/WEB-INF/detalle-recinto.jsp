@@ -222,7 +222,7 @@
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.4"></script>
+<script src="${pageContext.request.contextPath}/assets/js/detalle.js?v=6.6"></script>
 <jsp:include page="alerts.jsp" />
 
 <script>
@@ -263,7 +263,7 @@
             if (mensajeDiv) {
                 mensajeDiv.innerText = texto;
                 mensajeDiv.style.display = "block";
-                mensajeDiv.style.color = esExito ? "#2e7d32" : "#c62828";
+                mensajeDiv.style.color = esExito ? "#2e7d32" : "#202020";
             }
         }
 

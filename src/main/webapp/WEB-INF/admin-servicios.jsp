@@ -32,17 +32,23 @@
 </head>
 <body>
 
-<header class="app-header">
-    <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
-    <nav class="top-nav" aria-label="Navegación">
+<header class="site-header">
+    <div class="brand-group">
+        <a class="brand" href="${pageContext.request.contextPath}/">Event Online</a>
+    </div>
+
+    <nav class="top-nav" aria-label="Navegación principal">
+        <a class="active" href="${pageContext.request.contextPath}/adminRecintos">Administración</a>
         <a href="${pageContext.request.contextPath}/catalogo">Recintos</a>
-        <a href="${pageContext.request.contextPath}/extraServices">Servicios</a>
         <a href="${pageContext.request.contextPath}/app/perfil">Perfil</a>
     </nav>
+
     <div class="header-actions">
+        <a class="avatar" href="" aria-label="Perfil"></a>
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
+
     </div>
 </header>
 

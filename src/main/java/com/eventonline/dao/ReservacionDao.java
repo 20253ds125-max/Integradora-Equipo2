@@ -117,6 +117,7 @@ public class ReservacionDao {
             }
         }
     }
+
     public Reservacion obtenerReservaPorId(int idReserva) throws SQLException {
         String sql = "SELECT ID_RESERVA, ID_USUARIO, ID_PUBLICACION, " +
                 "TO_CHAR(FECHA, 'YYYY-MM-DD') AS FECHA, TOTAL, ESTADO, FECHA_EXPIRACION " +
@@ -143,6 +144,7 @@ public class ReservacionDao {
         }
         return null;
     }
+
     public boolean confirmarPagoReserva(int idReserva) throws SQLException {
         String sql = "UPDATE RESERVACION SET ESTADO = 'CONFIRMADA' " +
                 "WHERE ID_RESERVA = ? AND ESTADO = 'PENDIENTE' AND FECHA_EXPIRACION > SYSTIMESTAMP";
@@ -163,14 +165,51 @@ public class ReservacionDao {
                 "LEFT JOIN PUBLICACION_SALON_EVENTOS s ON r.ID_PUBLICACION = s.ID_PUBLICACION_EVENTOS " +
                 "WHERE r.ID_USUARIO = ? " +
                 "ORDER BY r.ID_RESERVA DESC";
-     List<com.eventonline.model.ReservaConDetalle> reservas = new java.util.ArrayList<>();
-     try (Connection con = conexion.obtenerConexion();
-    PreparedStatement ps = con.prepareStatement(sql)) {
+        List<com.eventonline.model.ReservaConDetalle> reservas = new java.util.ArrayList<>();
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-        ps.setInt(1, idUsuario);
+            ps.setInt(1, idUsuario);
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    com.eventonline.model.ReservaConDetalle r = new com.eventonline.model.ReservaConDetalle();
+                    r.setIdReserva(rs.getInt("ID_RESERVA"));
+
+                    int idPublicacion = rs.getInt("ID_PUBLICACION");
+                    r.setIdPublicacion(rs.wasNull() ? null : idPublicacion);
+
+                    r.setNombreSalon(rs.getString("NOMBRE_LUGAR"));
+                    r.setUbicacion(rs.getString("UBICACION"));
+                    r.setUrlPortada(rs.getString("URL_PORTADA"));
+
+                    int capacidad = rs.getInt("CAPACIDAD");
+                    r.setCapacidad(rs.wasNull() ? null : capacidad);
+
+                    r.setFechaEvento(rs.getString("FECHA"));
+                    r.setTotal(rs.getDouble("TOTAL"));
+                    r.setEstado(rs.getString("ESTADO"));
+                    reservas.add(r);
+                }
+            }
+        }
+        return reservas;
+    }
+
+    public com.eventonline.model.ReservaConDetalle obtenerReservaConDetallePorId(int idReserva) throws SQLException {
+        String sql = "SELECT r.ID_RESERVA, r.ID_PUBLICACION, s.NOMBRE_LUGAR, s.UBICACION, s.URL_PORTADA, s.CAPACIDAD, " +
+                "TO_CHAR(r.FECHA, 'YYYY-MM-DD') AS FECHA, r.TOTAL, r.ESTADO " +
+                "FROM RESERVACION r " +
+                "LEFT JOIN PUBLICACION_SALON_EVENTOS s ON r.ID_PUBLICACION = s.ID_PUBLICACION_EVENTOS " +
+                "WHERE r.ID_RESERVA = ?";
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idReserva);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) return null;
+
                 com.eventonline.model.ReservaConDetalle r = new com.eventonline.model.ReservaConDetalle();
                 r.setIdReserva(rs.getInt("ID_RESERVA"));
 
@@ -187,12 +226,11 @@ public class ReservacionDao {
                 r.setFechaEvento(rs.getString("FECHA"));
                 r.setTotal(rs.getDouble("TOTAL"));
                 r.setEstado(rs.getString("ESTADO"));
-                reservas.add(r);
+                return r;
             }
         }
     }
-        return reservas;
 }
-}
+
 
 
