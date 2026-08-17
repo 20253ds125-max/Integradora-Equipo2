@@ -222,12 +222,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         mostrarMensaje("¡La fecha está disponible! Ya puedes añadir al carrito.", true);
                         if (btnAnadirCarrito) {
                             btnAnadirCarrito.classList.remove("disabled-link");
-                        }
+                            btnAnadirCarrito.disabled = false;
+
+                    }
                     } else {
                         mostrarMensaje("Lo sentimos, esta fecha ya está ocupada.", false);
                         if (btnAnadirCarrito) {
                             btnAnadirCarrito.classList.add("disabled-link");
-                        }
+                            btnAnadirCarrito.disabled = true;                        }
                     }
                 })
                 .catch(error => {
