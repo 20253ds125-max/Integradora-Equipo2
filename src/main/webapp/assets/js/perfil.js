@@ -286,7 +286,7 @@
                             <strong class="favorite-price">${venue.price} <small>${venue.unit}</small></strong>
                             <div class="favorite-actions">
                                 <a class="ui-button ui-button--ghost" href="detalle-recinto.html?venue=${venue.id}">Ver recinto</a>
-                                <button class="ui-button ui-button--solid" type="button" data-remove-favorite="${venue.id}">Quitar</button>
+                                <button  class="ui-button ui-button--solid" type="button" data-remove-favorite="${venue.id}">Quitar</button>
                             </div>
                         </div>
                     </article>

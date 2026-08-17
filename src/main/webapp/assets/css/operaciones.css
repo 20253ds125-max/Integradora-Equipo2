@@ -104,7 +104,7 @@ button:hover, .primary-button:hover, .outline-button:hover, .danger-button:hover
 .action-row button { min-height: 34px; border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--clay); padding: 0 12px; font-size: .78rem; font-weight: 800; }
 .action-row button.delete { color: var(--red); }
 
-.seating-shell { display: grid; grid-template-columns: 292px minmax(0,1fr); min-height: calc(100vh - 64px); }
+.seating-shell { flex: 1; display: flex; grid-template-columns: 292px minmax(0,1fr); min-height: calc(100vh - 64px); }
 .guest-panel { border-right: 1px solid var(--line); padding: 16px; background: rgba(255, 250, 247, .74); backdrop-filter: blur(16px); }
 .guest-panel h1 { margin: 0 0 12px; font-family: var(--serif); font-size: 1.7rem; color: var(--clay); }
 .floor-plan { position: relative; min-height: 650px; padding: 28px; background: #fdf8f5; }

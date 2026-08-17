@@ -115,11 +115,6 @@
                 <p style="margin-top: 18px;"><strong>Capacidad máxima:</strong> ${salonDetalles.capacidad} invitados.</p>
             </section>
 
-            <section class="services-section">
-                <h2>Servicios recomendados</h2>
-                <div class="services-grid" id="randomServices">
-                </div>
-            </section>
         </article>
 
         <aside class="booking-panel" id="bookingPanel">

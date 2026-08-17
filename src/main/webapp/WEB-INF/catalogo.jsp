@@ -169,9 +169,6 @@
             </c:forEach>
         </div>
 
-        <div class="load-more-wrap">
-            <button class="load-more" type="button" data-load-more>Mostrar más espacios</button>
-        </div>
     </section>
 </main>
 

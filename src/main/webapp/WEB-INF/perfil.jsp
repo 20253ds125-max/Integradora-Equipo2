@@ -190,15 +190,6 @@
                                                     Ver detalles
                                                 </a>
 
-                                                <button
-                                                        class="cart-link abrir-modal-edicion"
-                                                        type="button"
-                                                        data-venue-id="${salon.idSalonEventos}"
-                                                        data-venue-name="${salon.nombre}"
-                                                        data-venue-location="${salon.ubicacion}"
-                                                        data-venue-price="${salon.precio}">
-                                                    Editar
-                                                </button>
 
                                             </div>
 
@@ -348,7 +339,7 @@
                                                     Ver detalles
                                                 </a>
 
-                                                <form method="post"
+                                                <form method="get"
                                                       action="${pageContext.request.contextPath}/app/favoritos">
 
                                                     <input type="hidden"

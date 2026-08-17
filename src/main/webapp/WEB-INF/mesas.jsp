@@ -64,7 +64,6 @@
         <div class="seating-actions" style="display: flex; justify-content: end; gap: 14px; margin-top: 24px;">
             <button type="button" class="outline-button" data-add-table>Agregar mesa</button>
             <button type="button" class="outline-button" id="btn-abrir-envio" style="border-color: var(--gold); color: var(--gold);">Enviar invitaciones</button>
-            <button type="button" class="primary-button" data-save-layout>Guardar layout</button>
         </div>
     </section>
 
