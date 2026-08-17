@@ -263,7 +263,7 @@
             if (mensajeDiv) {
                 mensajeDiv.innerText = texto;
                 mensajeDiv.style.display = "block";
-                mensajeDiv.style.color = esExito ? "#2e7d32" : "#c62828";
+                mensajeDiv.style.color = esExito ? "#2e7d32" : "#202020";
             }
         }
 
