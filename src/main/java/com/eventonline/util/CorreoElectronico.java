@@ -94,5 +94,33 @@ public class CorreoElectronico {
 
         return enviarCorreoHTML(correoDestino, asunto, html);
     }
+    public boolean enviarInvitacion(String correoDestino, String nombreInvitado, String nombreEvento,
+                                    String nombreMesa, String fechaEvento, String lugarEvento) {
+
+        String asunto = "Tu invitación digital a " + nombreEvento + " - Event Online";
+        String html = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
+                + "<div style='max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; text-align: center;'>"
+
+                + "  <span style='display:inline-block; background:#f8f9fa; color:#7c5315; font-size:12px; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:999px; margin-bottom:14px;'>Invitación Digital</span>"
+                + "  <h2 style='color: #7c5315; margin: 6px 0 4px;'>" + nombreEvento + "</h2>"
+                + "  <p style='margin:0 0 20px; color:#777;'>Event Online Showcase</p>"
+
+                + "  <p>Hola <strong>" + nombreInvitado + "</strong>, has sido invitado(a) a este evento. Estos son los detalles:</p>"
+
+                + "  <table style='width:100%; border-collapse:collapse; margin:20px 0; text-align:left;'>"
+                + "    <tr><td style='padding:6px 0; color:#777; font-size:12px; text-transform:uppercase;'>Fecha</td></tr>"
+                + "    <tr><td style='padding:0 0 10px; font-weight:600;'>" + fechaEvento + "</td></tr>"
+                + "    <tr><td style='padding:6px 0; color:#777; font-size:12px; text-transform:uppercase;'>Lugar</td></tr>"
+                + "    <tr><td style='padding:0 0 10px; font-weight:600;'>" + lugarEvento + "</td></tr>"
+                + "    <tr><td style='padding:6px 0; color:#777; font-size:12px; text-transform:uppercase;'>Tu mesa asignada</td></tr>"
+                + "    <tr><td style='padding:0 0 10px; font-weight:600;'>" + nombreMesa + "</td></tr>"
+                + "  </table>"
+
+                + "  <p style='font-size: 12px; color: #777;'>Presenta este correo como tu pase digital el día del evento.</p>"
+                + "</div></body></html>";
+
+        return enviarCorreoHTML(correoDestino, asunto, html);
+    }
 }
+
 

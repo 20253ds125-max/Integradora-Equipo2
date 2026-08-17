@@ -20,6 +20,54 @@ const btnConfirmarEnvio = document.getElementById("btn-confirmar-envio");
 const modalTotalNotificar = document.getElementById("modal-total-notificar");
 
 
+function alertaError(texto) {
+    Swal.fire({
+        icon: "error",
+        title: "¡Atención!",
+        text: texto,
+        confirmButtonColor: "#7c5315",
+        confirmButtonText: "Entendido",
+        backdrop: "rgba(0, 0, 0, 0.4)"
+    });
+}
+
+function alertaExito(texto) {
+    Swal.fire({
+        icon: "success",
+        title: "¡Operación Exitosa!",
+        text: texto,
+        confirmButtonColor: "#7c5315",
+        confirmButtonText: "Aceptar",
+        backdrop: "rgba(0, 0, 0, 0.4)"
+    });
+}
+
+function alertaInfo(texto) {
+    Swal.fire({
+        icon: "info",
+        title: "Aviso",
+        text: texto,
+        confirmButtonColor: "#7c5315",
+        confirmButtonText: "Entendido",
+        backdrop: "rgba(0, 0, 0, 0.4)"
+    });
+}
+
+async function confirmarAccion(titulo, texto) {
+    const resultado = await Swal.fire({
+        icon: "warning",
+        title: titulo,
+        text: texto,
+        showCancelButton: true,
+        confirmButtonColor: "#7c5315",
+        cancelButtonColor: "#8a8177",
+        confirmButtonText: "Sí, continuar",
+        cancelButtonText: "Cancelar",
+        backdrop: "rgba(0, 0, 0, 0.4)"
+    });
+    return resultado.isConfirmed;
+}
+
 async function apiGet() {
     const respuesta = await fetch(`${CTX}/mesas-api?idReserva=${ID_RESERVA}`, { credentials: "same-origin" });
     if (respuesta.status === 401) {
@@ -49,7 +97,7 @@ async function cargarMesas() {
         const datos = await apiGet();
         if (!datos) return;
         if (!datos.success) {
-            alert(datos.error || "No se pudieron cargar las mesas.");
+            alertaError(datos.error || "No se pudieron cargar las mesas.");
             return;
         }
         tables = (datos.mesas || []).map((m) => ({
@@ -69,7 +117,7 @@ async function cargarMesas() {
         renderTables();
     } catch (e) {
         console.error("Error cargando mesas:", e);
-        alert("No se pudo conectar con el servidor para cargar tus mesas.");
+        alertaError("No se pudo conectar con el servidor para cargar tus mesas.");
     }
 }
 
@@ -142,15 +190,17 @@ async function deleteTable(tableId) {
     if (!table) return;
 
     if (table.guests && table.guests.length > 0) {
-        if (!confirm(`La mesa "${table.name}" tiene invitados asignados. ¿Realmente deseas eliminarla?`)) {
-            return;
-        }
+        const confirmado = await confirmarAccion(
+            "¿Eliminar esta mesa?",
+            `La mesa "${table.name}" tiene invitados asignados. ¿Realmente deseas eliminarla?`
+        );
+        if (!confirmado) return;
     }
 
     const resultado = await apiPost({ accion: "eliminarMesa", idMesa: tableId });
     if (!resultado) return;
     if (!resultado.success) {
-        alert(resultado.error || "No se pudo eliminar la mesa.");
+        alertaError(resultado.error || "No se pudo eliminar la mesa.");
         return;
     }
     await cargarMesas();
@@ -165,7 +215,7 @@ if (formLateral) {
         if (!table) return;
 
         if (table.guests && table.guests.length >= maxGuestsPerTable) {
-            alert(`La mesa "${table.name}" ya alcanzó el límite máximo de 10 invitados.`);
+            alertaError(`La mesa "${table.name}" ya alcanzó el límite máximo de 10 invitados.`);
             return;
         }
 
@@ -178,20 +228,27 @@ if (formLateral) {
 
         if (!resultado) return;
         if (!resultado.success) {
-            alert(resultado.error || "No se pudo registrar al invitado.");
+            alertaError(resultado.error || "No se pudo registrar al invitado.");
             return;
         }
 
         formLateral.reset();
+        alertaExito("El invitado se registró correctamente.");
         await cargarMesas();
     });
 }
 
 async function removeGuestFromTable(idInvitado) {
+    const confirmado = await confirmarAccion(
+        "¿Eliminar este invitado?",
+        "Esta acción no se puede deshacer."
+    );
+    if (!confirmado) return;
+
     const resultado = await apiPost({ accion: "eliminarInvitado", idInvitado });
     if (!resultado) return;
     if (!resultado.success) {
-        alert(resultado.error || "No se pudo eliminar al invitado.");
+        alertaError(resultado.error || "No se pudo eliminar al invitado.");
         return;
     }
     await cargarMesas();
@@ -217,7 +274,7 @@ if (btnConfirmarEnvio) {
     btnConfirmarEnvio.addEventListener("click", async () => {
         const total = getTotalAssignedCount();
         if (total === 0) {
-            alert("No hay invitados registrados para enviar invitaciones.");
+            alertaError("No hay invitados registrados para enviar invitaciones.");
             return;
         }
 
@@ -241,28 +298,26 @@ if (btnConfirmarEnvio) {
             const resultado = await respuesta.json();
 
             if (!resultado.success) {
-                alert(resultado.error || "No se pudieron enviar las invitaciones.");
+                alertaError(resultado.error || "No se pudieron enviar las invitaciones.");
                 return;
             }
 
+            cerrarModalEnvio();
+
             if (resultado.enviados === 0 && resultado.mensaje) {
-                alert(resultado.mensaje);
+                alertaInfo(resultado.mensaje);
             } else {
-                let mensaje = `¡Éxito! Se enviaron ${resultado.enviados} invitaciones digitales.`;
+                let mensaje = `Se enviaron ${resultado.enviados} invitaciones digitales.`;
                 if (resultado.fallidos > 0) {
                     mensaje += ` (${resultado.fallidos} no pudieron enviarse, revisa sus correos.)`;
                 }
-                if (resultado.modoSimulado) {
-                    mensaje += "\n\nNota: el correo aún no está configurado (faltan las credenciales MAIL_* en el .env), así que este envío fue simulado y solo quedó registrado en el servidor.";
-                }
-                alert(mensaje);
+                alertaExito(mensaje);
             }
 
-            cerrarModalEnvio();
             await cargarMesas();
         } catch (e) {
             console.error("Error enviando invitaciones:", e);
-            alert("No se pudo conectar con el servidor para enviar las invitaciones.");
+            alertaError("No se pudo conectar con el servidor para enviar las invitaciones.");
         } finally {
             btnConfirmarEnvio.textContent = textoOriginal;
             btnConfirmarEnvio.disabled = false;
@@ -290,7 +345,7 @@ tablesArea.addEventListener("blur", async (event) => {
     const resultado = await apiPost({ accion: "renombrarMesa", idMesa, nombre: nuevoNombre });
     if (!resultado) return;
     if (!resultado.success) {
-        alert(resultado.error || "No se pudo renombrar la mesa.");
+        alertaError(resultado.error || "No se pudo renombrar la mesa.");
         await cargarMesas();
     }
 }, true);
@@ -298,7 +353,7 @@ tablesArea.addEventListener("blur", async (event) => {
 
 document.querySelector("[data-add-table]").addEventListener("click", async () => {
     if (maxMesas > 0 && tables.length >= maxMesas) {
-        alert(`Ya alcanzaste el límite de ${maxMesas} mesas permitidas para este salón (capacidad de ${window.CAPACIDAD_SALON || "?"} invitados).`);
+        alertaError(`Ya alcanzaste el límite de ${maxMesas} mesas permitidas para este salón (capacidad de ${window.CAPACIDAD_SALON || "?"} invitados).`);
         return;
     }
 
@@ -308,7 +363,7 @@ document.querySelector("[data-add-table]").addEventListener("click", async () =>
     const resultado = await apiPost({ accion: "crearMesa", nombre: nombreSugerido });
     if (!resultado) return;
     if (!resultado.success) {
-        alert(resultado.error || "No se pudo crear la mesa.");
+        alertaError(resultado.error || "No se pudo crear la mesa.");
         return;
     }
     await cargarMesas();
@@ -316,8 +371,7 @@ document.querySelector("[data-add-table]").addEventListener("click", async () =>
 
 document.querySelectorAll("[data-save-layout]").forEach((button) => {
     button.addEventListener("click", async () => {
-        // Cada acción ya se guarda de inmediato en el servidor; este botón
-        // refresca desde el servidor para confirmar que todo quedó sincronizado.
+
         await cargarMesas();
         button.textContent = "Layout guardado";
         setTimeout(() => { button.textContent = "Guardar layout"; }, 1400);
@@ -325,72 +379,3 @@ document.querySelectorAll("[data-save-layout]").forEach((button) => {
 });
 
 cargarMesas();
-
-//menu desplegable WUUU :)
-document.addEventListener("DOMContentLoaded", () => {
-    const menuToggle = document.querySelector("[data-menu-toggle]");
-    const mobileNav = document.querySelector("[data-mobile-nav]");
-
-    if (menuToggle && mobileNav) {
-        menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            mobileNav.classList.toggle("open");
-            document.body.classList.toggle("menu-open");
-        });
-
-        mobileNav.addEventListener("click", (e) => {
-            if (e.target.tagName === "A") {
-                mobileNav.classList.remove("open");
-                document.body.classList.remove("menu-open");
-            }
-        });
-
-        document.addEventListener("click", (e) => {
-            if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                mobileNav.classList.remove("open");
-                document.body.classList.remove("menu-open");
-            }
-        });
-    }
-    const cerrarSe = document.getElementById("cerrarSe");
-
-    if(cerrarSe){
-        cerrarSe.addEventListener('click',function (e){
-            e.preventDefault();
-
-            const direccion = this.getAttribute("href");
-            Swal.fire({
-                title: '¿Cerrar sesión?',
-                text: '¿Estás seguro de que deseas salir de tu cuenta?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí, salir',
-                cancelButtonText: 'Cancelar',
-                confirmButtonColor: '#855221',
-                cancelButtonColor: '#6c757d',
-                borderRadius: '12px'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = direccion;
-                }
-            });
-        });
-    }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const btnEditar = document.querySelector('[data-edit-profile]');
-    const btnGuardar = document.querySelector('[data-save-profile]');
-
-    if (btnEditar && btnGuardar) {
-
-        btnEditar.addEventListener('click', () => {
-
-            btnEditar.style.display = 'none';
-
-            btnGuardar.style.display = 'inline-block';
-
-
-        });
-    }
-});

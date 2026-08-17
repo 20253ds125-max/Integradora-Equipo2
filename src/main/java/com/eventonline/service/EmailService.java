@@ -25,7 +25,6 @@ public class EmailService {
         this.port = dotenv.get("MAIL_PORT", "587");
         this.user = dotenv.get("MAIL_USER");
         this.password = dotenv.get("MAIL_PASSWORD");
-
         String fromAddressConfigurado = dotenv.get("MAIL_FROM_ADDRESS");
         this.fromAddress = (fromAddressConfigurado != null && !fromAddressConfigurado.isBlank())
                 ? fromAddressConfigurado
