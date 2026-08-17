@@ -14,6 +14,7 @@ public class EmailService {
     private final String port;
     private final String user;
     private final String password;
+    private final String fromAddress;
     private final String fromName;
     private final boolean configurado;
 
@@ -22,8 +23,12 @@ public class EmailService {
 
         this.host = dotenv.get("MAIL_HOST");
         this.port = dotenv.get("MAIL_PORT", "587");
-        this.user =dotenv.get("MAIL_USER");
+        this.user = dotenv.get("MAIL_USER");
         this.password = dotenv.get("MAIL_PASSWORD");
+        String fromAddressConfigurado = dotenv.get("MAIL_FROM_ADDRESS");
+        this.fromAddress = (fromAddressConfigurado != null && !fromAddressConfigurado.isBlank())
+                ? fromAddressConfigurado
+                : user;
         this.fromName = dotenv.get("MAIL_FROM_NAME", "Event Online");
 
         this.configurado = host != null && !host.isBlank()
@@ -54,15 +59,15 @@ public class EmailService {
         propiedades.put("mail.smtp.port", port);
 
         Session session = Session.getInstance(propiedades, new Authenticator() {
-        @Override
-        protected  PasswordAuthentication getPasswordAuthentication(){
-            return new PasswordAuthentication(user, password);
-        }
+            @Override
+            protected  PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication(user, password);
+            }
         });
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user, fromName));
+            message.setFrom(new InternetAddress(fromAddress, fromName));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(invitados.getCorreo()));
             message.setSubject(asunnto, "UTF-8");
             message.setContent(cuerpoHtml, "text/html; charset=UTF-8");
@@ -70,7 +75,8 @@ public class EmailService {
             Transport.send(message);
             return true;
         }catch (Exception e){
-            System.out.println("Error enviando a" + invitados.getCorreo() + ":" + e.getMessage());
+            System.out.println("[EmailService] Error enviando a " + invitados.getCorreo() + ": " + e.getMessage());
+            e.printStackTrace();
             return  false;
         }
     }
