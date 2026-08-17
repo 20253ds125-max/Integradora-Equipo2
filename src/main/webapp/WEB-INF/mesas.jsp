@@ -1,6 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css?v=1.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css" />
 </head>
 <body>
 <header class="app-header">
@@ -20,29 +18,8 @@
     </nav>
     <div class="header-actions">
         <a class="avatar" href="${pageContext.request.contextPath}/app/perfil" aria-label="Perfil"></a>
-        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
-            <span aria-hidden="true"></span>
-        </button>
     </div>
 </header>
-
-<nav class="mobile-nav" data-mobile-nav aria-label="Navegación móvil">
-    <c:if test="${empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/app/login">Iniciar sesión o registrarte</a>
-    </c:if>
-    <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
-    <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
-        <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
-    </c:if>
-    <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
-    </c:if>
-    <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
-    </c:if>
-
-</nav>
-
 <main class="seating-shell">
     <aside class="guest-panel">
         <h1>Invitados</h1>
@@ -132,7 +109,7 @@
     window.MAX_MESAS = ${maxMesas};
     window.CAPACIDAD_SALON = ${capacidadSalon};
 </script>
-<script src="${pageContext.request.contextPath}/assets/js/mesas.js?v=1.1"></script>
 <jsp:include page="alerts.jsp" />
+<script src="${pageContext.request.contextPath}/assets/js/mesas.js"></script>
 </body>
 </html>
