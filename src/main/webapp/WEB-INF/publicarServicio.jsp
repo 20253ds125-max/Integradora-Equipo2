@@ -81,25 +81,25 @@
                     <h2>Información del servicio</h2>
 
                     <label for="nombreServicio">Nombre del servicio</label>
-                    <input type="text" id="nombreServicio" name="nombreServicio" placeholder="Ej. Fotografía Premium" required>
+                    <input type="text" id="nombreServicio" name="nombreServicio" placeholder="Ej. Fotografía Premium" required value="${param.nombreServicio}">
 
                     <label for="ubicacionServicio">Ubicacion</label>
-                    <input type="text" id="ubicacionServicio" name="ubicacionServicio" placeholder="CDMX" required>
+                    <input type="text" id="ubicacionServicio" name="ubicacionServicio" placeholder="CDMX" required value="${param.ubicacionServicio}">
 
                     <label for="tipoServicio">Tipo de servicio</label>
                     <select id="tipoServicio" name="tipoServicio" required>
-                        <option value="Fotografía">Fotografía</option>
-                        <option value="Video">Video</option>
-                        <option value="DJ">DJ</option>
-                        <option value="Música en vivo">Música en vivo</option>
-                        <option value="Decoración">Decoración</option>
-                        <option value="Catering">Catering</option>
-                        <option value="Iluminación">Iluminación</option>
-                        <option value="Otro">Otro</option>
+                        <option value="Fotografía" ${param.tipoServicio eq 'Fotografía' ? 'selected' : ''}>Fotografía</option>
+                        <option value="Video" ${param.tipoServicio eq 'Video' ? 'selected' : ''}>Video</option>
+                        <option value="DJ" ${param.tipoServicio eq 'DJ' ? 'selected' : ''}>DJ</option>
+                        <option value="Música en vivo" ${param.tipoServicio eq 'Música en vivo' ? 'selected' : ''}>Música en vivo</option>
+                        <option value="Decoración" ${param.tipoServicio eq 'Decoración' ? 'selected' : ''}>Decoración</option>
+                        <option value="Catering" ${param.tipoServicio eq 'Catering' ? 'selected' : ''}>Catering</option>
+                        <option value="Iluminación" ${param.tipoServicio eq 'Iluminación' ? 'selected' : ''}>Iluminación</option>
+                        <option value="Otro" ${param.tipoServicio eq 'Otro' ? 'selected' : ''}>Otro</option>
                     </select>
 
                     <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" name="descripcion" placeholder="Describe el servicio..." required></textarea>
+                    <textarea id="descripcion" name="descripcion" placeholder="Describe el servicio..." required>${param.descripcion}</textarea>
                 </div>
 
                 <div class="card">
@@ -108,7 +108,7 @@
                     <div class="two-columns">
                         <div>
                             <label for="precio">Precio base</label>
-                            <input type="number" id="precio" name="precio" step="0.01" placeholder="$0" required>
+                            <input type="number" id="precio" name="precio" min="0" step="0.01" placeholder="$0" required value="${param.precio}">
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
 
 <footer class="main-footer">© 2026 Event Online. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/serviciosExtra.js?v=1.1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/serviciosExtra.js?v=1.2"></script>
 <jsp:include page="alerts.jsp" />
 </body>
 </html>

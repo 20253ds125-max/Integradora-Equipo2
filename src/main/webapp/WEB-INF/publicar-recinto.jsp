@@ -70,15 +70,16 @@ return;
                 <h2>Identidad del recinto</h2>
                 <label>
                     <span>Nombre del recinto</span>
-                    <input type="text" name="venueName" placeholder="Ej. Villa d'Este Pavilion" required />
+                    <input type="text" name="venueName" placeholder="Ej. Villa d'Este Pavilion" required value="${param.venueName}"/>
                 </label>
                 <label>
                     <span>Ubicación</span>
-                    <input type="text" name="location" placeholder="Calle, ciudad, estado" required />
+                    <input type="text" name="location" placeholder="Calle, ciudad, estado" required value="${param.location}"/>
                 </label>
                 <label>
                     <span>Descripción</span>
-                    <textarea name="description" placeholder="Describe la historia, estilo arquitectonico y atmosfera..." required></textarea>
+                    <textarea name="description" placeholder="Describe la historia, estilo arquitectonico y atmosfera..."
+                    >${param.description}</textarea>
                 </label>
             </article>
 
@@ -87,7 +88,9 @@ return;
                 <div class="capacity-row">
                     <label class="mini-card">
                         <span>Capacidad máxima del salón: </span>
-                        <input type="number" name="seated" min="0" placeholder="0" required/>
+                        <input type="number" name="seated" min="0" placeholder="0" required
+                               value="${param.seated}"
+                        />
                     </label>
 
                         <label class="mini-card">
@@ -100,9 +103,9 @@ return;
                                         type="number"
                                         name="precio"
                                         min="0"
-                                        step="100"
                                         placeholder="0"
                                         required
+                                        value="${param.precio}"
                                 />
                             </div>
                             <small>Por evento</small>
@@ -138,7 +141,7 @@ return;
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/publicar.js?v=1.1.1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/publicar.js?v=1.1.3"></script>
 <jsp:include page="alerts.jsp" />
 </body>
 </html>

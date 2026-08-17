@@ -32,8 +32,29 @@ function mostrarImagenes() {
 
 }
 
+
+
 //menu desplegable WUUU :)
 document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.querySelector("form");
+
+    if (form && fileInput) {
+        form.addEventListener("submit", (e) => {
+            if (fileInput.files.length === 0) {
+                e.preventDefault();
+
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Atención!',
+                    text: 'Debes subir una fotografía para el servicio.',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#7a5230'
+                });
+            }
+        });
+    }
+
     const menuToggle = document.querySelector("[data-menu-toggle]");
     const mobileNav = document.querySelector("[data-mobile-nav]");
 

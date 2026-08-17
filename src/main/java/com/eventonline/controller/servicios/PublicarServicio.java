@@ -52,13 +52,13 @@ public class PublicarServicio extends HttpServlet {
 
         if (cantidadArchivos == 0) {
             request.setAttribute("error", "Debes subir una fotografía para el servicio.");
-            request.getRequestDispatcher("/WEB-INF/extraServices.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/publicarServicio.jsp").forward(request, response);
             return;
         }
 
         if (cantidadArchivos > 1) {
             request.setAttribute("error", "Alerta de seguridad: Solo se permite subir (1) una fotografía.");
-            request.getRequestDispatcher("/WEB-INF/extraServices.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/publicarServicio.jsp").forward(request, response);
             return;
         }
 
