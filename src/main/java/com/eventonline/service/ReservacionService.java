@@ -60,4 +60,8 @@ public class ReservacionService {
     public List<com.eventonline.model.ReservaConDetalle> obtenerReservasConDetallePorUsuario(int idUsuario) throws SQLException{
         return reservacionDao.obtenerReservasConDetallePorUsuario(idUsuario);
     }
+
+    public com.eventonline.model.ReservaConDetalle obtenerReservaConDetallePorId(int idReseva) throws  SQLException{
+        return reservacionDao.obtenerReservaConDetallePorId(idReseva);
+    }
 }

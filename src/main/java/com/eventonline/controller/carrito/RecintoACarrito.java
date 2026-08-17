@@ -29,6 +29,7 @@ public class RecintoACarrito extends HttpServlet {
         try {
 
 
+
             int idPublicacionEvento = Integer.parseInt(req.getParameter("idPublicacionEventos"));
 
             Usuario usuario = (Usuario) session.getAttribute("UsuarioLog");
