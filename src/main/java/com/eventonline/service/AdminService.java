@@ -2,8 +2,10 @@ package com.eventonline.service;
 
 import com.eventonline.dao.SalonesDao;
 import com.eventonline.dao.ServiciosDAO;
+import com.eventonline.dao.UsuariosDao;
 import com.eventonline.model.SalonEventos;
 import com.eventonline.model.Servicio;
+import com.eventonline.model.Usuario;
 import com.eventonline.util.CorreoElectronico;
 
 import java.sql.SQLException;
@@ -15,6 +17,7 @@ public class AdminService {
     private final ServiciosDAO serviciosDAO= new ServiciosDAO();
     private final SalonesDao salonesDao = new SalonesDao();
     private final CorreoElectronico correoElectronico= new CorreoElectronico();
+    private final UsuariosDao usuariosDao= new UsuariosDao();
     private final CloudDinary cloudDinary = new CloudDinary();
 
 
@@ -66,5 +69,28 @@ public class AdminService {
                 cloudDinary.borrarFoto(url);
             }
         }
+    }
+    public List<Usuario> listaUsuarios()throws SQLException{
+        return usuariosDao.listaDeUsuarios();
+    }
+
+    public void borrarUsuario(int idUsuario) throws  SQLException{
+        if(usuariosDao.buscarAdmin(idUsuario)){
+            throw new SQLException("este id no se puede eliminar");
+        }else {
+            usuariosDao.borrarUsuario(idUsuario);
+        }
+    }
+    public int[] obtenerDatosRecintos()throws SQLException{
+        int [] datos = salonesDao.obtenerDatosRecintos();
+        return datos;
+    }
+    public int[] obtenerDatosServicios()throws SQLException{
+        int [] datos = serviciosDAO.obtenerDatosServicios();
+        return datos;
+    }
+    public int[] datosUsuarios()throws SQLException{
+        int [] datos = usuariosDao.obtenerDatosUsuarios();
+        return datos;
     }
 }

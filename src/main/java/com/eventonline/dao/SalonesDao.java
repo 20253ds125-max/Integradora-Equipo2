@@ -309,4 +309,27 @@ public class SalonesDao {
         }
         return catalogo;
     }
+    public int[] obtenerDatosRecintos()throws SQLException {
+        int[] datos = new int[3];
+
+        String sql = "SELECT " +
+                "  COUNT(CASE WHEN ESTADO = 'PENDIENTE' THEN 1 END) AS pendientes, " +
+                "  COUNT(CASE WHEN ESTADO = 'APROBADO' THEN 1 END) AS validados, " +
+                "  COUNT(*) AS total " +
+                "FROM PUBLICACION_SALON_EVENTOS";
+
+        try (Connection con = conexionConfig.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                datos[0] = rs.getInt("pendientes");
+                datos[1] = rs.getInt("validados");
+                datos[2] = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener conteo de recintos: " + e.getMessage());
+        }
+
+        return datos;
+    }
 }

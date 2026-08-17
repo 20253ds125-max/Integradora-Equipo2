@@ -74,7 +74,7 @@
     <aside class="panel admin-sidebar">
         <h2>Administración</h2>
         <a class="active" href="${pageContext.request.contextPath}/admin">Recintos</a>
-        <a>Usuarios</a>
+        <a href="${pageContext.request.contextPath}/adminUsuarios">Usuarios</a>
         <a href="${pageContext.request.contextPath}/admin-servicios">Servicios Extra</a>
     </aside>
 
@@ -88,13 +88,13 @@
 
         <div class="stats-grid">
             <article class="panel stat-card">
-                <span>Pendientes</span><strong data-stat-pending>12</strong>
+                <span>Pendientes</span><strong data-stat-pending>${datosRecintos[0]}</strong>
             </article>
             <article class="panel stat-card">
-                <span>Validados</span><strong data-stat-valid>84</strong>
+                <span>Validados</span><strong data-stat-valid>${datosRecintos[1]}</strong>
             </article>
             <article class="panel stat-card">
-                <span>Total</span><strong data-stat-total>142</strong>
+                <span>Total</span><strong data-stat-total>${datosRecintos[2]}</strong>
             </article>
         </div>
         <table class="venue-table">

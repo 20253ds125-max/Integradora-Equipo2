@@ -114,5 +114,22 @@ public class CarritoDao {
         }
         return false;
     }
+    public boolean existeServicioEnCarrito(int idUsuario,int idServicio) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_SE = ?";
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ps.setInt(2,idServicio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
 
 }
