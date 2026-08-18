@@ -62,7 +62,6 @@
             <p class="eyebrow">Espacio de evento</p>
             <h2>Productos añadidos</h2>
 
-            <%-- Mensaje si la fecha elegida ya está ocupada --%>
             <c:if test="${not empty errorDisponibilidad}">
                 <div class="alert-error">
                     <strong>¡Atención!</strong> ${errorDisponibilidad}
@@ -115,7 +114,7 @@
                             <div class="event-details-grid">
                                 <div class="form-group">
                                     <label for="fechaEvento">Fecha del Evento *</label>
-                                    <input type="date" id="fechaEvento" name="fechaEvento" required />
+                                    <input type="date" id="fechaEvento" name="fechaEvento" value="${not empty fechaGuardada ? fechaGuardada : sessionScope.fechaGuardada}" required />
                                 </div>
                             </div>
                         </div>
@@ -211,13 +210,13 @@
                         Swal.fire({
                             title: '¡Atención!',
                             text: 'La fecha del evento debe programarse a partir del día de mañana. Por favor, selecciona una fecha válida.',
-                            icon: 'warning', // Puedes cambiarlo por 'error' si prefieres la X roja
+                            icon: 'warning',
                             confirmButtonText: 'Entendido',
-                            confirmButtonColor: '#855221', // Color café acorde a tu diseño
+                            confirmButtonColor: '#855221',
                             borderRadius: '12px'
                         });
 
-                        this.value = ""; // Limpia el campo
+                        this.value = "";
                     }
                 });
             });

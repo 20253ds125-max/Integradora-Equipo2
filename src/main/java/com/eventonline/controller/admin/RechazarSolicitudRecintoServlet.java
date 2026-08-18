@@ -34,7 +34,8 @@ public class RechazarSolicitudRecintoServlet extends HttpServlet {
         try {
             int idSalonEventos= Integer.parseInt(request.getParameter("idRecinto"));
             adminService.denegarRecinto(idSalonEventos);
-            response.sendRedirect(request.getContextPath() + "/adminRecintos");
+            request.setAttribute("exito","Solicitud de servicio denegada");
+            request.getRequestDispatcher("/adminRecintos").forward(request,response);
         }catch(SQLException e){
             request.setAttribute("error","Error al cambiar estado:"+e.getMessage());
             request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request,response);

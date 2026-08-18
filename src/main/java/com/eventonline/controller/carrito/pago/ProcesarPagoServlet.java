@@ -46,7 +46,7 @@ public class ProcesarPagoServlet extends HttpServlet {
             }catch (SQLException ignored){
 
             }
-            request.setAttribute("Error", error);
+            request.setAttribute("error", error);
             request.getRequestDispatcher("/WEB-INF/pago.jsp").forward(request,response);
             return;
         }
@@ -66,8 +66,7 @@ public class ProcesarPagoServlet extends HttpServlet {
                 request.setAttribute("reserva", reservacionService.obtenerReservaConDetallePorId(idReservas));
                 request.setAttribute("titular", titular);
                 request.setAttribute("ultimos4", ultimos4);
-                request.setAttribute("fechaConfirmacion",
-                        java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                request.setAttribute("fechaConfirmacion", java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 
                 request.getRequestDispatcher("/WEB-INF/ticket-pago.jsp").forward(request, response);
             } else {

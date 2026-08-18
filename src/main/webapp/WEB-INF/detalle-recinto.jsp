@@ -222,7 +222,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // Menú desplegable móvil
         const menuToggle = document.querySelector("[data-menu-toggle]");
         const mobileNav = document.querySelector("[data-mobile-nav]");
 
@@ -248,7 +247,6 @@
             });
         }
 
-        // Lógica de verificación de fecha ajax
         const fechaInput = document.getElementById("fechaEvento");
         const btnVerificar = document.getElementById("btnVerificar");
         const btnAnadirCarrito = document.getElementById("btnAnadirCarrito");

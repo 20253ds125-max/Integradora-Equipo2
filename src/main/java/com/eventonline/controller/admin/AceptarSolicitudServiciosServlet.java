@@ -19,7 +19,8 @@ public class AceptarSolicitudServiciosServlet extends HttpServlet {
         try {
             int idServicio = Integer.parseInt(request.getParameter("idServicio"));
             adminService.aceptarSolicitudRecinto(idServicio);
-            response.sendRedirect(request.getContextPath()+"/admin-servicios");
+            request.setAttribute("exito","Solicitud de servicio aceptada");
+            request.getRequestDispatcher("/admin-servicios").forward(request,response);
         }catch (SQLException e){
             e.printStackTrace();
             request.setAttribute("error","Error al cambiar estado:"+e.getMessage());

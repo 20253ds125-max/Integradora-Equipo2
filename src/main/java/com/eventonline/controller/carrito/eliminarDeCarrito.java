@@ -29,6 +29,11 @@ public class eliminarDeCarrito extends HttpServlet {
 
         try {
             int idCarrito = Integer.parseInt(request.getParameter("idCarrito"));
+            String fecha = request.getParameter("fechaEvento");
+
+            if(fecha!=null||!fecha.isEmpty()){
+                request.getSession().setAttribute("fechaGuardada",fecha);
+            }
 
             boolean eliminado = carritoService.eliminarItemCarrito(idCarrito, usuario.getIdUsuario());
 

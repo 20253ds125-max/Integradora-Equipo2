@@ -66,7 +66,7 @@ public class PublicarServicio extends HttpServlet {
 
             servicioService.anadirServicio(nombreServicio, descripcion, tipo,precio, fotoUnica,usuario,ubicacion);
             request.setAttribute("exito","Solicitud de publicacion de servicio enviada");
-            request.getRequestDispatcher("/WEB-INF/publicarServicio.jsp").forward(request, response);
+            request.getRequestDispatcher("/extraServices").forward(request, response);
 
         } catch (IllegalArgumentException e) {
             request.setAttribute("error", e.getMessage());
