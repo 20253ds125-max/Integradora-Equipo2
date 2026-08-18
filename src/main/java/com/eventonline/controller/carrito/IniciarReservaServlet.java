@@ -47,7 +47,7 @@ public class IniciarReservaServlet extends HttpServlet {
                 LocalDate manana = LocalDate.now().plusDays(1);
 
                 if (fechaEvento.isBefore(manana)) {
-                    throw new IllegalArgumentException("Fecha no valida:El evento debe de ser vamor al dia de mañana");
+                    throw new IllegalArgumentException("Fecha no valida:El evento debe de ser apartir de un dia posterior");
                 }
             } catch (DateTimeParseException e) {
                 throw new IllegalArgumentException("El formato de fecha ingresado no es válido.");
