@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios Extra | Event Online</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/services.css?v=1.2.1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/services.css?v=1.2.3">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,17 @@
 
     <div class="header-actions">
         <a class="host-button" href="${pageContext.request.contextPath}/app/publicarServicio">Publicar servicio</a>
+        <c:if test="${not empty sessionScope.UsuarioLog}">
+            <a href="${pageContext.request.contextPath}/mi-carrito-de-compra"
+               aria-label="Carrito de compras"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--ink, #222); text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </a>
+        </c:if>
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
@@ -43,13 +54,10 @@
     <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
         <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
     </c:if>
-    <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
-    </c:if>
+
     <c:if test="${not empty sessionScope.UsuarioLog}">
         <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
-
 </nav>
 
 <section class="catalogo-servicios">
@@ -118,51 +126,63 @@
     </main>
 </section>
 
-
-
-<!-- para filtros -->
+<!-- Script para Filtros de Servicios y Menú -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // 1. Localiza el campo de texto del buscador
-        const inputBusqueda = document.querySelector('input[type="text"], input[type="search"]');
+        const inputBusqueda = document.getElementById('buscador');
+        const botonesFiltro = document.querySelectorAll('.filter-options .filtro');
+        const cards = document.querySelectorAll('.grid-servicios .card');
 
-        // 2. Localiza los botones o enlaces de las categorías
-        const botonesFiltro = document.querySelectorAll('button, a');
+        // Eliminar acentos y convertir a minúsculas
+        function normalizarTexto(str) {
+            return str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim() : '';
+        }
 
-        // Categorías permitidas para filtrar
-        const categoriasValidas = ["Todos", "Música", "Catering", "Decoración", "Fotografía", "Video", "DJ"];
+        // Función principal de filtrado instantáneo
+        function aplicarFiltros() {
+            const textoBuscado = inputBusqueda ? normalizarTexto(inputBusqueda.value) : '';
+            const botonActivo = document.querySelector('.filter-options .filtro.activo');
+            const catSeleccionada = botonActivo ? botonActivo.getAttribute('data-categoria') : 'todos';
 
-        botonesFiltro.forEach(boton => {
-            const texto = boton.innerText.trim();
+            cards.forEach(card => {
+                const contenidoCard = normalizarTexto(card.textContent);
+                const badgeText = card.querySelector('.badge') ? normalizarTexto(card.querySelector('.badge').textContent) : '';
 
-            if (categoriasValidas.includes(texto)) {
-                boton.addEventListener('click', (e) => {
-                    e.preventDefault();
+                // 1. Coincidencia por texto ingresado
+                const coincideTexto = !textoBuscado || contenidoCard.includes(textoBuscado);
 
-                    const busqueda = inputBusqueda ? inputBusqueda.value.trim() : '';
-
-                    // Redirige enviando la categoría y el texto del buscador al Servlet
-                    window.location.href = '${pageContext.request.contextPath}/extraServices?categoria='
-                        + encodeURIComponent(texto)
-                        + '&q=' + encodeURIComponent(busqueda);
-                });
-            }
-        });
-
-        // Escucha la tecla Enter en la barra de búsqueda
-        if (inputBusqueda) {
-            inputBusqueda.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const busqueda = inputBusqueda.value.trim();
-                    window.location.href = '${pageContext.request.contextPath}/extraServices?q=' + encodeURIComponent(busqueda);
+                // 2. Coincidencia por botón de categoría
+                let coincideCategoria = true;
+                if (catSeleccionada !== 'todos') {
+                    coincideCategoria = badgeText.includes(catSeleccionada) || contenidoCard.includes(catSeleccionada);
                 }
+
+                card.style.display = (coincideTexto && coincideCategoria) ? "" : "none";
             });
         }
-    });
 
-    //menu desplegable WUUU :)
-    document.addEventListener("DOMContentLoaded", () => {
+        // Eventos para los botones de categoría
+        botonesFiltro.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                e.preventDefault();
+                botonesFiltro.forEach(b => b.classList.remove('activo'));
+                boton.classList.add('activo');
+
+                // Si se pulsa "Todos", se vacía la caja de texto
+                if (boton.getAttribute('data-categoria') === 'todos' && inputBusqueda) {
+                    inputBusqueda.value = '';
+                }
+
+                aplicarFiltros();
+            });
+        });
+
+        // Evento en vivo al escribir en la caja de texto
+        if (inputBusqueda) {
+            inputBusqueda.addEventListener('input', aplicarFiltros);
+        }
+
+        // Menú Móvil y Cerrar Sesión (Intactos)
         const menuToggle = document.querySelector("[data-menu-toggle]");
         const mobileNav = document.querySelector("[data-mobile-nav]");
 
@@ -186,30 +206,29 @@
                     document.body.classList.remove("menu-open");
                 }
             });
-            const cerrarSe = document.getElementById("cerrarSe");
+        }
 
-            if(cerrarSe){
-                cerrarSe.addEventListener('click',function (e){
-                    e.preventDefault();
-
-                    const direccion = this.getAttribute("href");
-                    Swal.fire({
-                        title: '¿Cerrar sesión?',
-                        text: '¿Estás seguro de que deseas salir de tu cuenta?',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, salir',
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonColor: '#855221',
-                        cancelButtonColor: '#6c757d',
-                        borderRadius: '12px'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = direccion;
-                        }
-                    });
+        const cerrarSe = document.getElementById("cerrarSe");
+        if (cerrarSe) {
+            cerrarSe.addEventListener('click', function (e) {
+                e.preventDefault();
+                const direccion = this.getAttribute("href");
+                Swal.fire({
+                    title: '¿Cerrar sesión?',
+                    text: '¿Estás seguro de que deseas salir de tu cuenta?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, salir',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#855221',
+                    cancelButtonColor: '#6c757d',
+                    borderRadius: '12px'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = direccion;
+                    }
                 });
-            }
+            });
         }
     });
 </script>

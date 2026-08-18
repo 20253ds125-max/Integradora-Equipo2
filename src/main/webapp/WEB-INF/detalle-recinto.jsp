@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=6.5.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/detalle.css?v=6.5.2" />
 </head>
 
 <body>
@@ -31,6 +31,17 @@
     </nav>
 
     <div class="header-actions">
+        <c:if test="${not empty sessionScope.UsuarioLog}">
+            <a href="${pageContext.request.contextPath}/mi-carrito-de-compra"
+               aria-label="Carrito de compras"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--ink, #222); text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </a>
+        </c:if>
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
@@ -44,9 +55,6 @@
     <a href="${pageContext.request.contextPath}/contacto-equipo">Contacta al equipo</a>
     <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
         <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
-    </c:if>
-    <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
     </c:if>
     <c:if test="${not empty sessionScope.UsuarioLog}">
         <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
@@ -115,11 +123,6 @@
                 <p style="margin-top: 18px;"><strong>Capacidad máxima:</strong> ${salonDetalles.capacidad} invitados.</p>
             </section>
 
-            <section class="services-section">
-                <h2>Servicios recomendados</h2>
-                <div class="services-grid" id="randomServices">
-                </div>
-            </section>
         </article>
 
         <aside class="booking-panel" id="bookingPanel">

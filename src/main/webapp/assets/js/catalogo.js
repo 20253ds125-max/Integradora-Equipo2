@@ -1,423 +1,115 @@
-﻿const favoriteStorageKey = "gedsFavorites";
-const randomImages = [
-    "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=90",
+﻿document.addEventListener("DOMContentLoaded", () => {
+    // Referencias al DOM
+    const inputSearch = document.querySelector('[data-city-search]');
+    const btnTodos = document.getElementById("btnTodos");
+    const activeTagSearch = document.getElementById("activeTagSearch");
+    const activeTagText = document.getElementById("activeTagText");
+    const btnBorrarTagSearch = document.getElementById("btnBorrarTagSearch");
 
-    "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=900&q=90",
-
-    "https://images.unsplash.com/photo-1517638851339-a711cfcf3279?auto=format&fit=crop&w=900&q=90",
-
-    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=90",
-
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=90",
-
-    "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=90",
-
-    "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=90",
-
-    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=90"
-];
-
-function getRandomImage() {
-    return randomImages[
-        Math.floor(Math.random() * randomImages.length)
-        ];
-}
-
-const venues = [
-  {
-    id: "villa-laura",
-    name: "Jardin Encanto Avandaro",
-    location: "Valle de Bravo, Estado de Mexico",
-    rating: "4.9",
-    capacity: 120,
-    price: "$850",
-    priceNumber: 850,
-    unit: "/evento",
-    type: "wedding",
-    size: "tall",
-    featured: true,
-    tag: "Bosque",
-      image: getRandomImage()
-  },
-  {
-    id: "palais-marbre",
-    name: "Hacienda Los Arcos",
-    location: "San Miguel de Allende, Guanajuato",
-    rating: "5.0",
-    capacity: 500,
-    price: "$1,200",
-    priceNumber: 1200,
-    unit: "/evento",
-    type: "gala",
-    size: "small",
-    tag: "Hacienda",
-    image: getRandomImage()
-  },
-  {
-    id: "apex-skyline",
-    name: "Terraza Mar de Cortes",
-    location: "Los Cabos, Baja California Sur",
-    rating: "4.9",
-    capacity: 80,
-    price: "$600",
-    priceNumber: 600,
-    unit: "/evento",
-    type: "corporate",
-    size: "small",
-    tag: "Vista al mar",
-      image: getRandomImage()
-  },
-  {
-    id: "serenity-pavilion",
-    name: "Pabellon Cenote Azul",
-    location: "Tulum, Quintana Roo",
-    rating: "4.8",
-    capacity: 60,
-    price: "$520",
-    priceNumber: 520,
-    unit: "/dia",
-    type: "private",
-    size: "tall",
-    tag: "Riviera Maya",
-      image: getRandomImage()
-  },
-  {
-    id: "glass-foundry",
-    name: "Casa Puerto Escondido",
-    location: "Puerto Escondido, Oaxaca",
-    rating: "4.7",
-    capacity: 250,
-    price: "$450",
-    priceNumber: 450,
-    unit: "/evento",
-    type: "corporate",
-    size: "medium",
-    tag: "Costa",
-      image: getRandomImage()
-  },
-  {
-    id: "casa-jacaranda",
-    name: "Casona Jacaranda",
-    location: "Merida, Yucatan",
-    rating: "4.8",
-    capacity: 180,
-    price: "$760",
-    priceNumber: 760,
-    unit: "/evento",
-    type: "wedding",
-    size: "small",
-    tag: "Colonial",
-      image: getRandomImage()
-  },
-  {
-    id: "terraza-nube",
-    name: "Terraza Reforma 360",
-    location: "Ciudad de Mexico, CDMX",
-    rating: "4.6",
-    capacity: 140,
-    price: "$700",
-    priceNumber: 700,
-    unit: "/evento",
-    type: "private",
-    size: "small",
-    tag: "Urbano",
-      image: getRandomImage()
-  },
-  {
-    id: "hacienda-solara",
-    name: "Hacienda Sol de Bernal",
-    location: "Bernal, Queretaro",
-    rating: "4.9",
-    capacity: 340,
-    price: "$980",
-    priceNumber: 980,
-    unit: "/evento",
-    type: "gala",
-    size: "medium",
-    tag: "Pueblo Magico",
-      image: getRandomImage()
-  }
-];
-
-const state = {
-  filter: "all",
-  capacity: null,
-  maxPrice: null,
-  query: "",
-  visible: Number.POSITIVE_INFINITY
-};
-
-const results = document.querySelector("[data-catalog-results]");
-const eventFilters = document.querySelector("[data-event-filters]");
-const capacityFilters = document.querySelector("[data-capacity-filters]");
-const priceFilters = document.querySelector("[data-price-filters]");
-const citySearch = document.querySelector("[data-city-search]");
-const loadMore = document.querySelector("[data-load-more]");
-const filtersPanel = document.querySelector("[data-filters-panel]");
-const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
-const closeFilters = document.querySelector("[data-close-filters]");
-const focusSearch = document.querySelector("[data-focus-search]");
-
-function imageStyle(url) {
-  return `--image: url("${url}")`;
-}
-
-function getFavorites() {
-  return JSON.parse(localStorage.getItem(favoriteStorageKey) || "[]");
-}
-
-function saveFavorites(favorites) {
-  localStorage.setItem(favoriteStorageKey, JSON.stringify(favorites));
-}
-
-function isFavorite(id) {
-  return getFavorites().some((venue) => venue.id === id);
-}
+    const cards = document.querySelectorAll('[data-venue-card]');
+    const containerResults = document.querySelector('[data-catalog-results]');
 
 
-function saveSelectedVenue(venue) {
-  localStorage.setItem("gedsSelectedVenue", JSON.stringify(venueForStorage(venue)));
-}
-function venueForStorage(venue) {
-  return {
-    id: venue.id,
-    name: venue.name,
-    location: venue.location,
-    price: venue.price,
-    unit: venue.unit,
-    rating: venue.rating,
-    image: venue.image,
-    tag: venue.tag || "Favorito"
-  };
-}
+    const state = {
+        query: "",
+        price: null,
+        capacity: null
+    };
 
-function toggleFavorite(venue) {
-  const favorites = getFavorites();
-  const exists = favorites.some((item) => item.id === venue.id);
-  const nextFavorites = exists
-    ? favorites.filter((item) => item.id !== venue.id)
-    : [venueForStorage(venue), ...favorites];
-  saveFavorites(nextFavorites);
-  renderVenues();
-}
+    // Función para actualizar la etiqueta dinámicamente
+    function updateTagSearch() {
+        if (state.query && activeTagSearch && activeTagText) {
+            activeTagText.textContent = state.query;
+            activeTagSearch.style.display = "inline-flex";
+        } else if (activeTagSearch) {
+            activeTagSearch.style.display = "none";
+        }
+    }
 
-function matchesCapacity(venue) {
-  if (!state.capacity) return true;
-  const cap = Number(state.capacity);
-  if (cap === 50) return venue.capacity <= 50;
-  if (cap === 150) return venue.capacity > 50 && venue.capacity <= 150;
-  if (cap === 300) return venue.capacity > 150 && venue.capacity <= 300;
-  return venue.capacity > 300;
-}
 
-function matchesPrice(venue) {
-  if (!state.maxPrice) return true;
-  const maxPrice = Number(state.maxPrice);
-  if (maxPrice === 2000) return venue.priceNumber > 900;
-  return venue.priceNumber <= maxPrice;
-}
+    function filtrarRecintosBD() {
+        let visibles = 0;
 
-function filteredVenues() {
-  return venues.filter((venue) => {
-    const matchesType = state.filter === "all" || venue.type === state.filter;
-    const query = state.query.trim().toLowerCase();
-    const matchesQuery = !query || `${venue.name} ${venue.location}`.toLowerCase().includes(query);
-    return matchesType && matchesCapacity(venue) && matchesPrice(venue) && matchesQuery;
-  });
-}
+        cards.forEach((card) => {
+            const name = card.dataset.name || "";
+            const location = card.dataset.location || "";
+            const price = parseFloat(card.dataset.price) || 0;
+            const capacity = parseInt(card.dataset.capacity, 10) || 0;
 
-function venueTemplate(venue) {
-    const active = isFavorite(venue.id);
+            // 1. Filtro por búsqueda de texto (nombre o ubicación)
+            const q = state.query.toLowerCase().trim();
+            const matchesQuery = !q || name.includes(q) || location.includes(q);
 
-    return `
-    <article class="catalog-card ${venue.size}">
-      
-      <div class="card-image">
-        
-        <img src="${venue.image}" alt="${venue.name}">
+            // 2. Filtro por Precio
+            let matchesPrice = true;
+            if (state.price) {
+                if (state.price === "150") matchesPrice = price <= 150;
+                else if (state.price === "500") matchesPrice = price <= 500;
+                else if (state.price === "900") matchesPrice = price <= 900;
+                else if (state.price === "2000") matchesPrice = price > 900;
+            }
 
-        <button 
-          class="favorite-button ${active ? "active" : ""}" 
-          type="button" 
-          data-venue-id="${venue.id}"
-          aria-label="Guardar ${venue.name}">
-          
-          ${active ? "&hearts;" : "&#9825;"}
-        </button>
+            // 3. Filtro por Capacidad
+            let matchesCapacity = true;
+            if (state.capacity) {
+                if (state.capacity === "50") matchesCapacity = capacity <= 50;
+                else if (state.capacity === "150") matchesCapacity = capacity > 50 && capacity <= 150;
+                else if (state.capacity === "300") matchesCapacity = capacity > 150 && capacity <= 300;
+                else if (state.capacity === "999") matchesCapacity = capacity > 300;
+            }
 
-        
+            // Mostrar u ocultar la tarjeta de la BD
+            if (matchesQuery && matchesPrice && matchesCapacity) {
+                card.style.display = "";
+                visibles++;
+            } else {
+                card.style.display = "none";
+            }
+        });
 
-      </div>
+        updateTagSearch();
+    }
 
-      <div class="card-body">
+    // Evento: Escribir en el campo de búsqueda
+    if (inputSearch) {
+        inputSearch.addEventListener("input", (e) => {
+            state.query = e.target.value;
+            filtrarRecintosBD();
+        });
 
-        <div class="card-title-row">
-          <h2>
-            <a href="detalle-recinto.html?venue=${venue.id}" data-detail-id="${venue.id}">
-              ${venue.name}
-            </a>
-          </h2>
+        // Evento para limpiar la búsqueda con la (X) nativa del input
+        inputSearch.addEventListener("search", () => {
+            state.query = inputSearch.value;
+            filtrarRecintosBD();
+        });
+    }
 
-        </div>
+    // Evento: Borrar búsqueda desde la etiqueta (X)
+    if (btnBorrarTagSearch) {
+        btnBorrarTagSearch.addEventListener("click", () => {
+            state.query = "";
+            if (inputSearch) inputSearch.value = "";
+            filtrarRecintosBD();
+        });
+    }
 
-        <p class="location">
-          Ubicación: ${venue.location}
-        </p>
+    // Evento: Botón "Todos los recintos"
+    if (btnTodos) {
+        btnTodos.addEventListener("click", () => {
+            state.query = "";
+            state.price = null;
+            state.capacity = null;
 
-        <div class="card-divider"></div>
+            if (inputSearch) inputSearch.value = "";
 
-        
-<div class="card-footer">
-  <div class="footer-info-row">
-    <span class="capacity">
-      Hasta ${venue.capacity} invitados
-    </span>
+            // Limpiar estilos activos de los botones
+            document.querySelectorAll('[data-price-filters] button, [data-capacity-filters] button').forEach((btn) => {
+                btn.classList.remove("active");
+                btn.style.fontWeight = "";
+                btn.style.borderColor = "";
+            });
 
-    <strong class="price">
-      ${venue.price}<span>${venue.unit}</span>
-    </strong>
-  </div>
-
-  <div class="card-actions">
-    <a 
-      class="details-link"
-      href="detalle-recinto.html?venue=${venue.id}"
-      data-detail-id="${venue.id}">
-      Ver detalles
-    </a>
-
-    <button
-      class="cart-link"
-      type="button"
-      data-cart-venue="${venue.id}">
-      Añadir al carrito
-    </button>
-  </div>
-</div>
-
-      </div>
-    </article>
-  `;
-}
-
-function renderVenues() {
-  const filtered = filteredVenues();
-  const visibleVenues = filtered.slice(0, state.visible);
-
-  results.innerHTML = visibleVenues.length
-    ? visibleVenues.map(venueTemplate).join("")
-    : '<p class="empty-state">No encontramos recintos con esos filtros. Prueba otra ciudad, capacidad o tipo de evento.</p>';
-
-  loadMore.hidden = state.visible >= filtered.length;
-}
-
-function setActiveButton(container, selector, value) {
-  container.querySelectorAll("button").forEach((button) => {
-    button.classList.toggle("active", button.dataset[selector] === value);
-  });
-}
-
-function closeSidebar() {
-  filtersPanel.classList.remove("open");
-  document.body.classList.remove("filters-open");
-}
-
-if (sidebarToggle) {
-    sidebarToggle.addEventListener("click", () => {
-        filtersPanel.classList.add("open");
-        document.body.classList.add("filters-open");
-    });
-}
-
-if (closeFilters) {
-    closeFilters.addEventListener("click", closeSidebar);
-}
-
-if (focusSearch) {
-    focusSearch.addEventListener("click", () => {
-        filtersPanel.classList.add("open");
-        document.body.classList.add("filters-open");
-        citySearch.focus();
-    });
-}
-
-eventFilters.addEventListener("click", (event) => {
-  const button = event.target.closest("button");
-  if (!button) return;
-  state.filter = button.dataset.filter;
-  state.visible = Number.POSITIVE_INFINITY;
-  setActiveButton(eventFilters, "filter", state.filter);
-  renderVenues();
+            filtrarRecintosBD();
+        });
+    }
 });
-
-capacityFilters.addEventListener("click", (event) => {
-  const button = event.target.closest("button");
-  if (!button) return;
-  state.capacity = state.capacity === button.dataset.capacity ? null : button.dataset.capacity;
-  capacityFilters.querySelectorAll("button").forEach((item) => {
-    item.classList.toggle("active", item === button && Boolean(state.capacity));
-  });
-  state.visible = Number.POSITIVE_INFINITY;
-  renderVenues();
-});
-
-priceFilters.addEventListener("click", (event) => {
-  const button = event.target.closest("button");
-  if (!button) return;
-  state.maxPrice = state.maxPrice === button.dataset.price ? null : button.dataset.price;
-  priceFilters.querySelectorAll("button").forEach((item) => {
-    item.classList.toggle("active", item === button && Boolean(state.maxPrice));
-  });
-  state.visible = Number.POSITIVE_INFINITY;
-  renderVenues();
-});
-
-citySearch.addEventListener("input", (event) => {
-  state.query = event.target.value;
-  state.visible = Number.POSITIVE_INFINITY;
-  renderVenues();
-});
-
-loadMore.addEventListener("click", () => {
-  state.visible += 3;
-  renderVenues();
-});
-
-results.addEventListener("click", (event) => {
-  const detailLink = event.target.closest("[data-detail-id]");
-  if (detailLink) {
-    const selected = venues.find((item) => item.id === detailLink.dataset.detailId);
-    if (selected) saveSelectedVenue(selected);
-    return;
-  }
-
-  const cartButton = event.target.closest("[data-cart-venue]");
-  if (cartButton) {
-    const selected = venues.find((item) => item.id === cartButton.dataset.cartVenue);
-    if (selected && window.GEDS_CART) window.GEDS_CART.addVenueToCart(selected);
-    return;
-  }
-
-  const button = event.target.closest("[data-venue-id]");
-  if (!button) return;
-  const venue = venues.find((item) => item.id === button.dataset.venueId);
-  if (venue) {
-    toggleFavorite(venue);
-  }
-});
-
-const footerNewsletter = document.querySelector("[data-footer-newsletter]");
-if (footerNewsletter) {
-  footerNewsletter.addEventListener("submit", (event) => {
-    event.preventDefault();
-    event.currentTarget.reset();
-  });
-}
-
-renderVenues();
-
-
-
-
-
-

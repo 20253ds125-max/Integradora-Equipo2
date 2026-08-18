@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css?v=1.3" />
 </head>
 <body>
 <header class="app-header">
@@ -64,7 +64,6 @@
         <div class="seating-actions" style="display: flex; justify-content: end; gap: 14px; margin-top: 24px;">
             <button type="button" class="outline-button" data-add-table>Agregar mesa</button>
             <button type="button" class="outline-button" id="btn-abrir-envio" style="border-color: var(--gold); color: var(--gold);">Enviar invitaciones</button>
-            <button type="button" class="primary-button" data-save-layout>Guardar layout</button>
         </div>
     </section>
 

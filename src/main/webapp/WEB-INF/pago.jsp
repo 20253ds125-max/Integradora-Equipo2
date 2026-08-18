@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css?v=1.2.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css?v=1.2.3" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -46,6 +46,13 @@
 
 <main class="page-shell checkout-layout">
     <section>
+        <div style="width: 100%; padding-bottom: 24px;">
+            <a href="${pageContext.request.contextPath}/mi-carrito-de-compra"
+               class="primary-button"
+               style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; white-space: nowrap; width: fit-content;">
+                &larr; Volver al carrito
+            </a>
+        </div>
         <div class="page-title">
             <h1>Pago seguro</h1>
             <p>Tu información de pago se mantiene protegida. El total incluye depósito de garantía por daños.</p>
@@ -116,7 +123,14 @@
 
         if (vencimientoInput) {
             vencimientoInput.addEventListener('input', (e) => {
+                const esBorrado = e.inputType === 'deleteContentBackward';
                 let val = e.target.value.replace(/\D/g, '');
+
+                if (esBorrado) {
+                    e.target.value = val;
+                    return;
+                }
+
                 if (val.length >= 2) {
                     e.target.value = val.substring(0, 2) + '/' + val.substring(2, 4);
                 } else {
@@ -134,7 +148,19 @@
         // Alertas según el estado enviado por el servlet
         const urlParams = new URLSearchParams(window.location.search);
         const errorTipo = urlParams.get('error') || "${error}";
+        const errorDetallado = "${errorDetallado}";
         const statusTipo = urlParams.get('status') || "${status}";
+
+        // Muestra el error exacto (Titular, Tarjeta, Vencimiento o CVV)
+        if (errorDetallado && errorDetallado.trim() !== "") {
+            Swal.fire({
+                title: 'Error en los datos',
+                text: errorDetallado,
+                icon: 'error',
+                confirmButtonText: 'Corregir',
+                confirmButtonColor: '#855221'
+            });
+        }
 
         if (statusTipo === 'pedir_confirmacion') {
             Swal.fire({
@@ -165,10 +191,22 @@
                 title: '¡Pago Exitoso!',
                 text: 'Tu reserva ha sido confirmada correctamente.',
                 icon: 'success',
-                confirmButtonText: 'Ver mis reservas',
-                confirmButtonColor: '#855221'
-            }).then(() => {
-                window.location.href = '${pageContext.request.contextPath}/app/perfil';
+                confirmButtonText: 'Ver ticket',
+                confirmButtonColor: '#855221',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.querySelector('.checkout-form');
+
+                    const inputVerTicket = document.createElement('input');
+                    inputVerTicket.type = 'hidden';
+                    inputVerTicket.name = 'mostrarTicket';
+                    inputVerTicket.value = 'true';
+
+                    form.appendChild(inputVerTicket);
+                    form.submit();
+                }
             });
         }
 

@@ -422,7 +422,7 @@ footer {
 
 .mobile-nav {
     display: none !important;
-    position: absolute !important;
+    position: fixed !important;
     top: 80px !important;
     right: 30px !important;
     background-color: #e4d8d1 !important;
@@ -435,6 +435,7 @@ footer {
     gap: 15px !important;
     min-width: 250px !important;
 }
+
 
 .mobile-nav.open {
     display: flex !important;

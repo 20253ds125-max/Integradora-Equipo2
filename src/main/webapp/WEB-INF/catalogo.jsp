@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css?v=1.2.2" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/catalogo.css?v=1.2.3" />
 </head>
 <body>
 
@@ -32,6 +32,17 @@
 
     <div class="header-actions">
         <a class="host-button" href="${pageContext.request.contextPath}/app/publicar-recinto">Publicar recinto</a>
+        <c:if test="${not empty sessionScope.UsuarioLog}">
+            <a href="${pageContext.request.contextPath}/mi-carrito-de-compra"
+               aria-label="Carrito de compras"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--ink, #222); text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </a>
+        </c:if>
         <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="Abrir menú">
             <span aria-hidden="true"></span>
         </button>
@@ -46,9 +57,7 @@
     <c:if test="${sessionScope.UsuarioLog.rol eq 'ADMIN' }">
         <a href="${pageContext.request.contextPath}/adminRecintos">Administrador</a>
     </c:if>
-    <c:if test="${not empty sessionScope.UsuarioLog}">
-        <a href="${pageContext.request.contextPath}/mi-carrito-de-compra" >Carrito</a>
-    </c:if>
+
     <c:if test="${not empty sessionScope.UsuarioLog}">
         <a href="${pageContext.request.contextPath}/cerrarSesion" id="cerrarSe" class="cerrar">Cerrar sesion</a>
     </c:if>
@@ -61,11 +70,26 @@
             <button class="close-filters" type="button" data-close-filters aria-label="Cerrar filtros">&times;</button>
         </div>
 
+        <!-- Botón para restablecer todos los filtros -->
+        <div style="margin-bottom: 1rem;">
+            <button type="button" id="btnTodos" class="btn-todos" style="width: 100%; padding: 0.5rem; cursor: pointer;">
+                Todos los recintos
+            </button>
+        </div>
+
         <label class="search-field">
             <span class="sr-only">Buscar ciudad o region</span>
             <input type="search" placeholder="Buscar en ciudad o región" data-city-search />
             <span aria-hidden="true">Ubicación</span>
         </label>
+
+        <!-- Contenedor del Tag dinámico para la búsqueda activa -->
+        <div id="activeTagSearch" class="active-tag-container" style="display: none; margin-top: 0.5rem; align-items: center; gap: 0.5rem;">
+            <span class="tag-label" style="background: #e0e0e0; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+                <span id="activeTagText"></span>
+                <button type="button" id="btnBorrarTagSearch" style="background: none; border: none; font-weight: bold; cursor: pointer; line-height: 1;" aria-label="Borrar búsqueda">&times;</button>
+            </span>
+        </div>
 
         <section class="filter-block" aria-labelledby="eventTypeTitle">
             <div class="pill-group" data-event-filters></div>
@@ -169,108 +193,164 @@
             </c:forEach>
         </div>
 
-        <div class="load-more-wrap">
-            <button class="load-more" type="button" data-load-more>Mostrar más espacios</button>
-        </div>
     </section>
 </main>
 
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 <jsp:include page="alerts.jsp" />
 
-<!-- Script de Filtros para Recintos y Menú Móvil -->
+<!-- Script Unificado de Filtrado y Menú -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const inputBusqueda = document.querySelector('[data-city-search]') || document.querySelector('input[type="search"], input[type="text"]');
+        // Elementos DOM
+        const inputSearch = document.querySelector('[data-city-search]');
+        const btnTodos = document.getElementById("btnTodos");
+        const activeTagSearch = document.getElementById("activeTagSearch");
+        const activeTagText = document.getElementById("activeTagText");
+        const btnBorrarTagSearch = document.getElementById("btnBorrarTagSearch");
 
-        const urlParams = new URLSearchParams(window.location.search);
-        let qActual = urlParams.get('q') || '';
-        let precioActual = urlParams.get('precio') || '';
-        let capacidadActual = urlParams.get('capacidad') || '';
+        const priceButtons = document.querySelectorAll('[data-price-filters] button');
+        const capacityButtons = document.querySelectorAll('[data-capacity-filters] button');
+        const cards = document.querySelectorAll('[data-venue-card]');
 
-        if (inputBusqueda && qActual) {
-            inputBusqueda.value = qActual;
+        // Estado del filtro
+        let state = {
+            query: "",
+            price: null,
+            capacity: null
+        };
+
+        function normalizar(str) {
+            return str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim() : '';
         }
 
-        const botones = document.querySelectorAll('button');
+        // Aplicar filtros en tiempo real
+        function aplicarFiltros() {
+            const q = normalizar(state.query);
 
-        botones.forEach(boton => {
-            const texto = boton.innerText.trim();
+            cards.forEach(card => {
+                const name = normalizar(card.dataset.name || card.querySelector('h2')?.textContent || '');
+                const location = normalizar(card.dataset.location || card.querySelector('.location')?.textContent || '');
+                const price = parseFloat(card.dataset.price) || 0;
+                const capacity = parseInt(card.dataset.capacity, 10) || 0;
 
-            if (["Hasta $150", "Hasta $500", "Hasta $900", "$900+"].includes(texto)) {
-                if ((texto.includes("150") && precioActual === "150") ||
-                    (texto.includes("500") && precioActual === "500") ||
-                    (texto.includes("900") && !texto.includes("+") && precioActual === "900") ||
-                    (texto.includes("900+") && precioActual === "900+")) {
-                    boton.style.fontWeight = "bold";
-                    boton.style.borderColor = "#000";
-                }
+                // 1. Buscador texto
+                const coincideTexto = !q || name.includes(q) || location.includes(q);
 
-                boton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    let valPrecio = "";
-                    if (texto.includes("150")) valPrecio = "150";
-                    else if (texto.includes("500")) valPrecio = "500";
-                    else if (texto.includes("900") && texto.includes("+")) valPrecio = "900+";
-                    else if (texto.includes("900")) valPrecio = "900";
+                // 2. Rango de precio
+                let coincidePrecio = true;
+                if (state.price === "150") coincidePrecio = price <= 150;
+                else if (state.price === "500") coincidePrecio = price <= 500;
+                else if (state.price === "900") coincidePrecio = price <= 900;
+                else if (state.price === "2000") coincidePrecio = price > 900;
 
-                    if (precioActual === valPrecio) {
-                        valPrecio = "";
-                    }
+                // 3. Capacidad
+                let coincideCapacidad = true;
+                if (state.capacity === "50") coincideCapacidad = capacity <= 50;
+                else if (state.capacity === "150") coincideCapacidad = capacity > 50 && capacity <= 150;
+                else if (state.capacity === "300") coincideCapacidad = capacity > 150 && capacity <= 300;
+                else if (state.capacity === "999") coincideCapacidad = capacity > 300;
 
-                    const textoBusqueda = inputBusqueda ? inputBusqueda.value.trim() : '';
-                    redireccionar(textoBusqueda, valPrecio, capacidadActual);
-                });
+                card.style.display = (coincideTexto && coincidePrecio && coincideCapacidad) ? "" : "none";
+            });
+
+            // Actualizar Tag de Búsqueda Activa
+            if (state.query && activeTagSearch && activeTagText) {
+                activeTagText.textContent = state.query;
+                activeTagSearch.style.display = "inline-flex";
+            } else if (activeTagSearch) {
+                activeTagSearch.style.display = "none";
             }
+        }
 
-            if (["1-50 invitados", "51-150 invitados", "151-300 invitados", "300+ invitados"].includes(texto)) {
-                if ((texto.includes("1-50") && capacidadActual === "1-50") ||
-                    (texto.includes("51-150") && capacidadActual === "51-150") ||
-                    (texto.includes("151-300") && capacidadActual === "151-300") ||
-                    (texto.includes("300+") && capacidadActual === "300+")) {
-                    boton.style.fontWeight = "bold";
-                    boton.style.borderColor = "#000";
-                }
+        // Botón Reset "Todos los recintos"
+        if (btnTodos) {
+            btnTodos.addEventListener("click", (e) => {
+                e.preventDefault();
+                state.query = "";
+                state.price = null;
+                state.capacity = null;
 
-                boton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    let valCapacidad = "";
-                    if (texto.includes("1-50")) valCapacidad = "1-50";
-                    else if (texto.includes("51-150")) valCapacidad = "51-150";
-                    else if (texto.includes("151-300")) valCapacidad = "151-300";
-                    else if (texto.includes("300+")) valCapacidad = "300+";
+                if (inputSearch) inputSearch.value = "";
 
-                    if (capacidadActual === valCapacidad) {
-                        valCapacidad = "";
-                    }
-
-                    const textoBusqueda = inputBusqueda ? inputBusqueda.value.trim() : '';
-                    redireccionar(textoBusqueda, precioActual, valCapacidad);
+                // Limpiar resaltado de botones
+                priceButtons.forEach(b => {
+                    b.style.fontWeight = "normal";
+                    b.style.borderColor = "";
                 });
-            }
-        });
+                capacityButtons.forEach(b => {
+                    b.style.fontWeight = "normal";
+                    b.style.borderColor = "";
+                });
 
-        if (inputBusqueda) {
-            inputBusqueda.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const textoBusqueda = inputBusqueda.value.trim();
-                    redireccionar(textoBusqueda, precioActual, capacidadActual);
-                }
+                aplicarFiltros();
             });
         }
 
-        function redireccionar(q, precio, capacidad) {
-            const params = new URLSearchParams();
-            if (q) params.set('q', q);
-            if (precio) params.set('precio', precio);
-            if (capacidad) params.set('capacidad', capacidad);
+        // Filtro por Precio
+        priceButtons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const val = btn.dataset.price;
 
-            const queryString = params.toString();
-            window.location.href = '${pageContext.request.contextPath}/catalogo' + (queryString ? '?' + queryString : '');
+                if (state.price === val) {
+                    state.price = null;
+                    btn.style.fontWeight = "normal";
+                    btn.style.borderColor = "";
+                } else {
+                    state.price = val;
+                    priceButtons.forEach(b => {
+                        b.style.fontWeight = "normal";
+                        b.style.borderColor = "";
+                    });
+                    btn.style.fontWeight = "bold";
+                    btn.style.borderColor = "#000";
+                }
+                aplicarFiltros();
+            });
+        });
+
+        // Filtro por Capacidad
+        capacityButtons.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const val = btn.dataset.capacity;
+
+                if (state.capacity === val) {
+                    state.capacity = null;
+                    btn.style.fontWeight = "normal";
+                    btn.style.borderColor = "";
+                } else {
+                    state.capacity = val;
+                    capacityButtons.forEach(b => {
+                        b.style.fontWeight = "normal";
+                        b.style.borderColor = "";
+                    });
+                    btn.style.fontWeight = "bold";
+                    btn.style.borderColor = "#000";
+                }
+                aplicarFiltros();
+            });
+        });
+
+        // Buscador de texto
+        if (inputSearch) {
+            inputSearch.addEventListener("input", (e) => {
+                state.query = e.target.value;
+                aplicarFiltros();
+            });
         }
 
-        // MENÚ DESPLEGABLE Y MÓVIL
+        // Borrar tag de búsqueda
+        if (btnBorrarTagSearch) {
+            btnBorrarTagSearch.addEventListener("click", () => {
+                state.query = "";
+                if (inputSearch) inputSearch.value = "";
+                aplicarFiltros();
+            });
+        }
+
+        // Menú Móvil y Cierre de Sesión
         const btnMenu = document.querySelector("[data-menu-toggle]");
         const menuFlotante = document.querySelector("[data-mobile-nav]");
 

@@ -661,7 +661,7 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
 
  .mobile-nav {
      display: none !important;
-     position: absolute !important;
+     position: fixed !important;
      top: 80px !important;
      right: 30px !important;
      background-color: #e4d8d1 !important;
@@ -710,4 +710,73 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
  .mobile-nav a.cerrar{
      color: darkred !important;
      text-decoration: underline !important;
+ }
+
+ /* ==========================================
+   ESTILOS PARA BOTÓN "TODOS" Y TAG DE BÚSQUEDA
+   ========================================== */
+
+ .search-and-actions {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     margin-top: 14px;
+     margin-bottom: 12px;
+ }
+
+ .btn-todos {
+     align-self: flex-start;
+     min-height: 34px;
+     padding: 0 18px;
+     border-radius: 999px;
+     border: 1px solid var(--clay);
+     background: var(--clay);
+     color: #ffffff;
+     font-size: 0.82rem;
+     font-weight: 800;
+     box-shadow: var(--button-shadow);
+     transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+ }
+
+ .btn-todos:hover {
+     background: var(--clay-dark);
+     border-color: var(--clay-dark);
+     transform: translateY(-1px);
+     box-shadow: var(--button-shadow-hover);
+ }
+
+ .active-tag-search {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     background: var(--paper-warm);
+     border: 1px solid rgba(164, 79, 53, 0.16);
+     color: var(--ink);
+     padding: 6px 14px;
+     border-radius: 999px;
+     font-size: 0.82rem;
+     font-weight: 700;
+     width: fit-content;
+     box-shadow: var(--button-shadow);
+ }
+
+ .active-tag-search button {
+     background: transparent;
+     border: 0;
+     color: var(--clay);
+     font-size: 1.1rem;
+     font-weight: 800;
+     cursor: pointer;
+     padding: 0;
+     line-height: 1;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     box-shadow: none;
+ }
+
+ .active-tag-search button:hover {
+     color: var(--clay-dark);
+     transform: none;
+     box-shadow: none;
  }
