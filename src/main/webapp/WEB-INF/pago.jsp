@@ -116,7 +116,14 @@
 
         if (vencimientoInput) {
             vencimientoInput.addEventListener('input', (e) => {
+                const esBorrado = e.inputType === 'deleteContentBackward';
                 let val = e.target.value.replace(/\D/g, '');
+
+                if (esBorrado) {
+                    e.target.value = val;
+                    return;
+                }
+
                 if (val.length >= 2) {
                     e.target.value = val.substring(0, 2) + '/' + val.substring(2, 4);
                 } else {
@@ -134,7 +141,19 @@
         // Alertas según el estado enviado por el servlet
         const urlParams = new URLSearchParams(window.location.search);
         const errorTipo = urlParams.get('error') || "${error}";
+        const errorDetallado = "${errorDetallado}";
         const statusTipo = urlParams.get('status') || "${status}";
+
+        // Muestra el error exacto (Titular, Tarjeta, Vencimiento o CVV)
+        if (errorDetallado && errorDetallado.trim() !== "") {
+            Swal.fire({
+                title: 'Error en los datos',
+                text: errorDetallado,
+                icon: 'error',
+                confirmButtonText: 'Corregir',
+                confirmButtonColor: '#855221'
+            });
+        }
 
         if (statusTipo === 'pedir_confirmacion') {
             Swal.fire({
@@ -165,10 +184,22 @@
                 title: '¡Pago Exitoso!',
                 text: 'Tu reserva ha sido confirmada correctamente.',
                 icon: 'success',
-                confirmButtonText: 'Ver mis reservas',
-                confirmButtonColor: '#855221'
-            }).then(() => {
-                window.location.href = '${pageContext.request.contextPath}/app/perfil';
+                confirmButtonText: 'Ver ticket',
+                confirmButtonColor: '#855221',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.querySelector('.checkout-form');
+
+                    const inputVerTicket = document.createElement('input');
+                    inputVerTicket.type = 'hidden';
+                    inputVerTicket.name = 'mostrarTicket';
+                    inputVerTicket.value = 'true';
+
+                    form.appendChild(inputVerTicket);
+                    form.submit();
+                }
             });
         }
 
