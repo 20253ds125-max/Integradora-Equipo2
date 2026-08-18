@@ -46,8 +46,12 @@ public class FavoritosServlet extends HttpServlet {
                     idRecinto
             );
 
-            resp.sendRedirect(req.getContextPath() + "/catalogo");
-
+            String origen = req.getHeader("referer");
+            if (origen != null) {
+                resp.sendRedirect(origen);
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/app/perfil");
+            }
         } catch (SQLException e) {
 
             throw new ServletException(e);

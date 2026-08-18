@@ -333,25 +333,16 @@
                                             </div>
 
                                             <div class="card-actions">
-
-                                                <a class="details-link"
-                                                   href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
+                                                <a class="details-link" href="${pageContext.request.contextPath}/detalleRecinto?id=${salon.idSalonEventos}">
                                                     Ver detalles
                                                 </a>
 
-                                                <form method="get"
-                                                      action="${pageContext.request.contextPath}/app/favoritos">
-
-                                                    <input type="hidden"
-                                                           name="idRecinto"
-                                                           value="${salon.idSalonEventos}">
-
+                                                <form method="post" action="${pageContext.request.contextPath}/app/favoritos">
+                                                    <input type="hidden" name="idRecinto" value="${salon.idSalonEventos}">
                                                     <button type="submit" class="cart-link">
                                                         Quitar de favoritos
                                                     </button>
-
                                                 </form>
-
                                             </div>
 
                                         </div>
