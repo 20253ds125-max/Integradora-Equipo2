@@ -148,6 +148,8 @@ button, .host-button, .filtro, .btn-agregar {
     color: #fff;
     font-weight: 800;
     box-shadow: 0 8px 20px rgba(125, 61, 45, .2);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .host-button:hover {
@@ -479,7 +481,7 @@ button, .host-button, .filtro, .btn-agregar {
 
 .mobile-nav {
     display: none !important;
-    position: absolute !important;
+    position: fixed !important;
     top: 80px !important;
     right: 30px !important;
     background-color: #e4d8d1 !important;
@@ -492,6 +494,7 @@ button, .host-button, .filtro, .btn-agregar {
     gap: 15px !important;
     min-width: 250px !important;
 }
+
 
 .mobile-nav.open {
     display: flex !important;

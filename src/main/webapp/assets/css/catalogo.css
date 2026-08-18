@@ -661,7 +661,7 @@ button:hover, .host-button:hover, .sort-button:hover, .load-more:hover, .details
 
  .mobile-nav {
      display: none !important;
-     position: absolute !important;
+     position: fixed !important;
      top: 80px !important;
      right: 30px !important;
      background-color: #e4d8d1 !important;

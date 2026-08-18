@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css?v=1.2.2" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/operaciones.css?v=1.2.3" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -46,6 +46,13 @@
 
 <main class="page-shell checkout-layout">
     <section>
+        <div style="width: 100%; padding-bottom: 24px;">
+            <a href="${pageContext.request.contextPath}/mi-carrito-de-compra"
+               class="primary-button"
+               style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; white-space: nowrap; width: fit-content;">
+                &larr; Volver al carrito
+            </a>
+        </div>
         <div class="page-title">
             <h1>Pago seguro</h1>
             <p>Tu información de pago se mantiene protegida. El total incluye depósito de garantía por daños.</p>
