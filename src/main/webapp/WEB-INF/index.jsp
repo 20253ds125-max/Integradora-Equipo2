@@ -66,7 +66,7 @@
                 algo realmente especial.
             </p>
 
-            <form action="${pageContext.request.contextPath}/bus" class="search-panel" data-hero-search method="get">
+            <form action="${pageContext.request.contextPath}/busqueda" class="search-panel" data-hero-search method="get">
                 <div class="field">
                     <label for="place">Dónde</label>
                     <div class="input-wrapper">
