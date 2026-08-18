@@ -31,10 +31,10 @@ public class ComprobarFecha extends HttpServlet {
 
             }
         } catch (NumberFormatException e) {
-            System.err.println("Recinto invalido: " + e.getMessage());
+            e.printStackTrace();
 
         }catch (SQLException e){
-            System.err.println("Error al consultar: " + e.getMessage());
+           e.printStackTrace();
         }
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
