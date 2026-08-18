@@ -19,6 +19,7 @@ public class RecahzarSolicitudServicioServlet extends HttpServlet {
         try {
             int idServicio=Integer.parseInt(request.getParameter("idServicio"));
             adminService.denegarServicio(idServicio);
+            request.setAttribute("exito","Solicitud de servicio denegada");
             request.getRequestDispatcher("/admin-servicios").forward(request,response);
         }catch (SQLException e){
             request.setAttribute("error","Error al cambiar estado:"+e.getMessage());
