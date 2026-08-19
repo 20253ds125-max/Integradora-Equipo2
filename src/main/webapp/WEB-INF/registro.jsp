@@ -70,7 +70,7 @@
             <form class="auth-form" action="${pageContext.request.contextPath}/registro" method="POST" data-auth-form>
                 <label>
                     <span>Nombre completo</span>
-                    <input type="text" name="name" placeholder="Ej. Elias Thorne" required />
+                    <input type="text" name="name" class="solo-letras" placeholder="Ej. Elias Thorne" required  />
                 </label>
                 <label>
                     <span>Email</span>
@@ -84,11 +84,11 @@
                 </label>
                 <label>
                     <span>Teléfono</span>
-                    <input type="tel" name="telefono" placeholder="5586597852"  required>
+                    <input type="tel" name="telefono" class="solo-numeros" placeholder="5586597852" maxlength="10" required>
                 </label>
                 <label>
                     <span>Ciudad</span>
-                    <input type="text" name="ciudad" placeholder="Cuernavaca"  required>
+                    <input type="text" name="ciudad" class="solo-letras" placeholder="Cuernavaca"  required>
                 </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
@@ -127,6 +127,22 @@
                 }
             });
         }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputsLetras = document.querySelectorAll('.solo-letras');
+        inputsLetras.forEach(input => {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
+            });
+        });
+
+        const inputsNumeros = document.querySelectorAll('.solo-numeros');
+        inputsNumeros.forEach(input => {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
     });
 </script>
 <jsp:include page="alerts.jsp" />
