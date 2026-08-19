@@ -40,6 +40,47 @@ if(cerrarSe){
     });
 }
 
+if (fechaInput) {
+    ["change", "input"].forEach(nombreEvento => {
+        fechaInput.addEventListener(nombreEvento, function () {
+            const valor = this.value.trim();
+
+            if (!valor) return;
+
+            let fechaSeleccionada;
+
+            if (valor.includes("-")) {
+                const partes = valor.split("-");
+                fechaSeleccionada = new Date(partes[0], partes[1] - 1, partes[2]);
+            } else if (valor.includes("/")) {
+                const partes = valor.split("/");
+                fechaSeleccionada = new Date(partes[2], partes[1] - 1, partes[0]);
+            } else {
+                fechaSeleccionada = new Date(valor);
+            }
+
+            if (isNaN(fechaSeleccionada.getTime())) return;
+
+            const manana = new Date();
+            manana.setDate(manana.getDate() + 1);
+            manana.setHours(0, 0, 0, 0);
+
+            if (fechaSeleccionada < manana) {
+                Swal.fire({
+                    title: '¡Atención!',
+                    text: 'La fecha del evento debe ser a partir del día de mañana. Por favor, selecciona una fecha válida.',
+                    icon: 'warning',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#855221',
+                    borderRadius: '12px'
+                });
+
+                this.value = "";
+            }
+        });
+    });
+}
+
 
 
 

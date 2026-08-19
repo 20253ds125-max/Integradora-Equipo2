@@ -332,4 +332,45 @@ public class SalonesDao {
 
         return datos;
     }
+
+    public List<SalonEventos> buscarConFiltros(String lugar, String fecha, Integer invitados)throws SQLException {
+        List<SalonEventos> catalogo= new ArrayList<>();
+        List<Object>parametros= new ArrayList<>();
+        StringBuilder buscarConF= new StringBuilder("Select id_publicacion_eventos,nombre_lugar,ubicacion,capacidad,precio,url_portada FROM publicacion_salon_eventos WHERE estado = 'APROBADO' ");
+        if(lugar!=null&&!lugar.isBlank()){
+            buscarConF.append("AND (UPPER(nombre_lugar) LIKE UPPER(?) OR UPPER(ubicacion) LIKE UPPER(?)) ");
+            parametros.add("%"+ lugar.trim() +"%");
+            parametros.add("%"+ lugar.trim() +"%");
+        }
+        if(invitados!=null&&invitados>0){
+            buscarConF.append("AND capacidad >= ? ");
+            parametros.add(invitados);
+        }
+        if(fecha!=null&&!fecha.isBlank()){
+            buscarConF.append("AND NOT EXISTS (SELECT 1 FROM reservacion r WHERE r.id_publicacion = publicacion_salon_eventos.id_publicacion_eventos AND TRUNC(r.fecha)= TO_DATE (?, 'YYYY-MM-DD') AND (r.estado= 'CONFIRMADA' OR (r.estado = 'PENDIENTE' AND r.fecha_expiracion > SYSTIMESTAMP)))");
+            parametros.add(fecha.trim());
+        }
+        buscarConF.append("ORDER BY id_publicacion_eventos DESC");
+        try(Connection con = conexionConfig.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(buscarConF.toString())){
+
+            for(int i=0;i<parametros.size();i++){
+                ps.setObject(i+1,parametros.get(i));
+            }
+            try(ResultSet rs = ps.executeQuery();){
+                while(rs.next()){
+                    SalonEventos salon = new SalonEventos(
+                            rs.getInt("id_publicacion_eventos"),
+                            rs.getString("nombre_lugar"),
+                            rs.getString("ubicacion"),
+                            rs.getInt("capacidad"),
+                            rs.getDouble("precio"),
+                            rs.getString("url_portada")
+                    );
+                    catalogo.add(salon);
+                }
+            }
+        }
+        return catalogo;
+    }
 }

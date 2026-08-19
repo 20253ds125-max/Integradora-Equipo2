@@ -76,4 +76,14 @@ public class RecintoService {
     public List<SalonEventos> obtenerCatalogoFiltrado(String busqueda, Double precioMin, Double precioMax, Integer capMin, Integer capMax) throws SQLException {
         return salonesDao.obtenerCatalogoFiltrado(busqueda, precioMin, precioMax, capMin, capMax);
     }
+
+    public List<SalonEventos> buscarConFiltros(String lugar,String fecha,String invitados) throws SQLException,IllegalArgumentException{
+        Integer invitadosInt;
+        try {
+            invitadosInt= Integer.parseInt(invitados.trim());
+        }catch (NumberFormatException e){
+            throw new IllegalArgumentException("Invitados ingresado como digito");
+        }
+        return salonesDao.buscarConFiltros(lugar,fecha,invitadosInt);
+    }
 }
