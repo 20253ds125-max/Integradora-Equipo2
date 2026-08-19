@@ -31,7 +31,7 @@ public class busquedaVariosFiltros extends HttpServlet {
             req.setAttribute("error","Ocurrio un error al cargar");
         } catch (IllegalArgumentException e) {
             req.setAttribute("error",e.getMessage());
-            req.getRequestDispatcher("/WEB_INF/index.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req,resp);
         }
         req.getRequestDispatcher("/WEB-INF/catalogo.jsp").forward(req,resp);
 

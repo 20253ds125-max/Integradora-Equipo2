@@ -72,7 +72,7 @@
                     <input type="text" name="vencimiento" value="${param.vencimiento}" placeholder="MM / YY" maxlength="5" required />
                 </label>
                 <label>CVV
-                    <input type="password" id="cvv" name="cvv" value="${param.cvv}" placeholder="123" maxlength="4" pattern="\d*" inputmode="numeric" required />
+                    <input type="password" id="cvv" name="cvv" value="${param.cvv}" placeholder="123" maxlength="3" pattern="\d*" inputmode="numeric" required />
                 </label>
             </div>
 

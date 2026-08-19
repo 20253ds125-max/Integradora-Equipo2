@@ -163,7 +163,7 @@ public class ReservacionDao {
                 "TO_CHAR(r.FECHA, 'YYYY-MM-DD') AS FECHA, r.TOTAL, r.ESTADO " +
                 "FROM RESERVACION r " +
                 "LEFT JOIN PUBLICACION_SALON_EVENTOS s ON r.ID_PUBLICACION = s.ID_PUBLICACION_EVENTOS " +
-                "WHERE r.ID_USUARIO = ? " +
+                "WHERE r.ID_USUARIO = ? AND r.ESTADO = 'CONFIRMADA'" +
                 "ORDER BY r.ID_RESERVA DESC";
         List<com.eventonline.model.ReservaConDetalle> reservas = new java.util.ArrayList<>();
         try (Connection con = conexion.obtenerConexion();

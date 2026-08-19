@@ -77,13 +77,17 @@ public class RecintoService {
         return salonesDao.obtenerCatalogoFiltrado(busqueda, precioMin, precioMax, capMin, capMax);
     }
 
-    public List<SalonEventos> buscarConFiltros(String lugar,String fecha,String invitados) throws SQLException,IllegalArgumentException{
-        Integer invitadosInt;
-        try {
-            invitadosInt= Integer.parseInt(invitados.trim());
-        }catch (NumberFormatException e){
-            throw new IllegalArgumentException("Invitados ingresado como digito");
+    public List<SalonEventos> buscarConFiltros(String lugar, String fecha, String invitados) throws SQLException, IllegalArgumentException {
+        Integer invitadosInt = null;
+
+        if (invitados != null && !invitados.trim().isEmpty()) {
+            try {
+                invitadosInt = Integer.parseInt(invitados.trim());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("El número de invitados debe ser un valor numérico");
+            }
         }
-        return salonesDao.buscarConFiltros(lugar,fecha,invitadosInt);
+
+        return salonesDao.buscarConFiltros(lugar, fecha, invitadosInt);
     }
 }

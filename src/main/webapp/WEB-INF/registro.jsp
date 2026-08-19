@@ -70,26 +70,42 @@
             <form class="auth-form" action="${pageContext.request.contextPath}/registro" method="POST" data-auth-form>
                 <label>
                     <span>Nombre completo</span>
-                    <input type="text" name="name"  maxlength="100" class="solo-letras" placeholder="Ej. Elias Thorne" required  />
+                    <input type="text" name="name" maxlength="100" class="solo-letras" placeholder="Ej. Elias Thorne" required />
                 </label>
+
                 <label>
                     <span>Email</span>
                     <input type="email" name="email" placeholder="elias@gedsstudio.com" required />
                 </label>
-                <label>
-                    <span>Contraseña</span>
-                    <span class="password-field">
-                        <input type="password" name="password" placeholder="********" required data-password-input />
-                    </span>
-                </label>
+
+                <label for="password">Contraseña</label>
+                <div class="password-field">
+                    <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            minlength="3"
+                            maxlength="8"
+                            pattern="^\S{3,8}$"
+                            title="La contraseña debe tener entre 3 y 8 caracteres y no contener espacios."
+                            placeholder="********"
+                            autocomplete="new-password"
+                            required
+                            oninput="this.value = this.value.replace(/\s/g, '')"
+                            data-password-input
+                    />
+                </div>
+
                 <label>
                     <span>Teléfono</span>
-                    <input type="tel" name="telefono" class="solo-numeros" placeholder="5586597852" maxlength="15" required>
+                    <input type="tel" name="telefono" class="solo-numeros" placeholder="5586597852" maxlength="15" required />
                 </label>
+
                 <label>
                     <span>Ciudad</span>
-                    <input type="text" name="ciudad" maxlength="100" class="solo-letras" placeholder="Cuernavaca"  required>
+                    <input type="text" name="ciudad" maxlength="100" class="solo-letras" placeholder="Cuernavaca" required />
                 </label>
+
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
             <p class="switch-copy">Ya tienes una cuenta? <a href="${pageContext.request.contextPath}/app/login">Iniciar Sesión</a></p>
