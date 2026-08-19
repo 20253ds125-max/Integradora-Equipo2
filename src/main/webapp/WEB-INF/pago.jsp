@@ -62,7 +62,7 @@
             <input type="hidden" name="idReserva" value="${reservacion.idReserva}" />
 
             <label>Nombre del titular
-                <input type="text" name="nombreTitular" value="${param.nombreTitular}" placeholder="Nombre como aparece en la tarjeta" required />
+                <input type="text" oninput="this.value = this.value.replace(/[0-9]/g, '')" name="nombreTitular" value="${param.nombreTitular}" placeholder="Nombre como aparece en la tarjeta" required />
             </label>
             <label>Número de tarjeta
                 <input type="text" name="numeroTarjeta" value="${param.numeroTarjeta}" placeholder="0000 0000 0000 0000" maxlength="19" required />
