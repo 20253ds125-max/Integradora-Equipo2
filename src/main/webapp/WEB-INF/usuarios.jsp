@@ -87,7 +87,6 @@
                 <h1>Gestión de usuarios</h1>
                 <p>Administra usuarios registrados en la plataforma.</p>
             </div>
-            <button class="primary-button">Nuevo Admin</button>
         </div>
 
         <div class="stats-grid">
