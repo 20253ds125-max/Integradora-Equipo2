@@ -72,7 +72,7 @@
 
         <!-- Botón para restablecer todos los filtros -->
         <div style="margin-bottom: 1rem;">
-            <button type="button" id="btnTodos" class="btn-todos" style="width: 100%; padding: 0.5rem; cursor: pointer;">
+            <button type="submit" id="btnTodos" class="btn-todos" onclick="window.location.href='${pageContext.request.contextPath}/catalogo'" style="width: 100%; padding: 0.5rem; cursor: pointer;">
                 Todos los recintos
             </button>
         </div>

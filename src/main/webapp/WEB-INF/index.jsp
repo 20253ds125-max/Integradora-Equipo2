@@ -74,7 +74,7 @@
                 algo realmente especial.
             </p>
 
-            <form action="${pageContext.request.contextPath}/bus" class="search-panel" data-hero-search method="get">
+            <form action="${pageContext.request.contextPath}/busqueda" class="search-panel" data-hero-search method="post">
                 <div class="field">
                     <label for="place">Dónde</label>
                     <div class="input-wrapper">
@@ -92,8 +92,8 @@
                     <label for="calendar">Cuándo</label>
                     <div class="input-wrapper">
                         <input
-                                type="text"
-                                id="calendar"
+                                type="date"
+                                id="fechaInput"
                                 name="fecha"
                                 placeholder="Selecciona fecha" />
                     </div>
@@ -125,7 +125,6 @@
     <section class="section featured-section" id="recintos">
         <div class="section-container">
             <div class="section-heading">
-                <p class="eyebrow">Recintos destacados</p>
                 <h2>Espacios excepcionales dignos de celebrarse</h2>
             </div>
 
@@ -212,6 +211,6 @@
 
 <jsp:include page="alerts.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="${pageContext.request.contextPath}/assets/js/main.js?v=1.1.2"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js?v=1.1.4"></script>
 </body>
 </html>
