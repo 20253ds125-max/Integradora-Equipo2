@@ -600,3 +600,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+//Validacion letras y numeros :>
+document.addEventListener("DOMContentLoaded", () => {
+    const inputsLetras = document.querySelectorAll('.solo-letras');
+    inputsLetras.forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
+        });
+    });
+
+    const inputsNumeros = document.querySelectorAll('.solo-numeros');
+    inputsNumeros.forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    });
+});

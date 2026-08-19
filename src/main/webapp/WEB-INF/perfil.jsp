@@ -99,19 +99,19 @@
                       class="profile-form">
                     <label>
                         Nombre completo
-                        <input type="text" name="name" value="${usuario.nombre}" data-field="name" disabled required placeholder="Ingresa tu nombre">
+                        <input type="text" name="name" maxlength="100" class="solo-letras" value="${usuario.nombre}" data-field="name" disabled required placeholder="Ingresa tu nombre">
                     </label>
                     <label>
                         Correo electrónico
-                        <input type="email" name="email" value="${usuario.email}" data-field="email" disabled required placeholder="Ingrea tu correo">
+                        <input type="email" name="email"  value="${usuario.email}" data-field="email" disabled required placeholder="Ingrea tu correo">
                     </label>
                     <label>
                         Teléfono
-                        <input type="tel" name="telefono" value="${usuario.telefono}" data-field="phone" disabled required placeholder="Ingresa tu teléfono">
+                        <input type="tel" name="telefono" maxlength="15" class="solo-numeros" value="${usuario.telefono}" data-field="phone" disabled required placeholder="Ingresa tu teléfono">
                     </label>
                     <label>
                         Ciudad
-                        <input type="text" name="ciudad" value="${usuario.ciudad}" data-field="city" disabled required placeholder="Ingresa tu ciudad">
+                        <input type="text" name="ciudad" maxlength="100" class="solo-letras" value="${usuario.ciudad}" data-field="city" disabled required placeholder="Ingresa tu ciudad">
                     </label>
 
                     <div class="form-actions span-2">
@@ -457,7 +457,7 @@
 </div>
 <footer class="catalog-footer legal-only">&copy; 2026 Event Online Spaces. Todos los derechos reservados.</footer>
 
-<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.2"></script>
+<script src="${pageContext.request.contextPath}/assets/js/perfil.js?v=1.3"></script>
 <jsp:include page="alerts.jsp" />
 
 </body>

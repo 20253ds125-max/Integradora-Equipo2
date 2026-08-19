@@ -70,7 +70,7 @@
             <form class="auth-form" action="${pageContext.request.contextPath}/registro" method="POST" data-auth-form>
                 <label>
                     <span>Nombre completo</span>
-                    <input type="text" name="name" class="solo-letras" placeholder="Ej. Elias Thorne" required  />
+                    <input type="text" name="name"  maxlength="100" class="solo-letras" placeholder="Ej. Elias Thorne" required  />
                 </label>
                 <label>
                     <span>Email</span>
@@ -84,11 +84,11 @@
                 </label>
                 <label>
                     <span>Teléfono</span>
-                    <input type="tel" name="telefono" class="solo-numeros" placeholder="5586597852" maxlength="10" required>
+                    <input type="tel" name="telefono" class="solo-numeros" placeholder="5586597852" maxlength="15" required>
                 </label>
                 <label>
                     <span>Ciudad</span>
-                    <input type="text" name="ciudad" class="solo-letras" placeholder="Cuernavaca"  required>
+                    <input type="text" name="ciudad" maxlength="100" class="solo-letras" placeholder="Cuernavaca"  required>
                 </label>
                 <button class="primary-button" type="submit">Crear cuenta</button>
             </form>
@@ -129,6 +129,7 @@
         }
     });
 
+    //Validacion letras y numeros :>
     document.addEventListener("DOMContentLoaded", () => {
         const inputsLetras = document.querySelectorAll('.solo-letras');
         inputsLetras.forEach(input => {
