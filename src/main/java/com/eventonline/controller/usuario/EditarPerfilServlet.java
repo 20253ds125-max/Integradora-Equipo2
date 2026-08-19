@@ -46,7 +46,10 @@ public class EditarPerfilServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/app/perfil");
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+
         }
     }
 }

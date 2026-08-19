@@ -62,7 +62,8 @@ public class PerfilServlet extends HttpServlet {
 
         } catch (SQLException e) {
 
-            throw new ServletException(e);
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
 
         }
 

@@ -95,7 +95,6 @@
                         <article class="card">
                             <div class="imagen-container">
                                 <img src="${servicio.urlFoto}" alt="${servicio.nombreServicio}">
-                                <button class="btn-favorito" type="button">♡</button>
                             </div>
 
                             <div class="card-body">
