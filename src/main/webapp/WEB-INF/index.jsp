@@ -16,7 +16,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css?v=1.0.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css?v=1.1.1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -82,7 +82,7 @@
                                 type="text"
                                 id="lugar"
                                 name="lugar"
-                                placeholder="Ciudad, playa, hacienda..."
+                                placeholder="Ciudad, estado, hacienda..."
                                 autocomplete="off"
                         />
                     </div>
@@ -122,14 +122,14 @@
     </section>
 
 
-    <section class="section featured-section" id="recintos">
+    <section class="section statement-section" id="filosofia">
         <div class="section-container">
-            <div class="section-heading">
-                <h2>Espacios excepcionales dignos de celebrarse</h2>
+            <div class="statement-content">
+                <p class="eyebrow gold">Nuestra promesa</p>
+                <h2 class="statement-text">"Espacios excepcionales dignos de celebrarse"</h2>
+                <div class="decorative-line"></div>
+                <p class="statement-sub">Porque los momentos más importantes de tu vida merecen el escenario perfecto.</p>
             </div>
-
-
-            <div class="featured-grid" data-featured></div>
         </div>
     </section>
 

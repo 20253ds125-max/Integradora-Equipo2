@@ -1290,3 +1290,38 @@ button:hover, .primary-button:hover, .ghost-button:hover, .text-link:hover, .req
     color: darkred !important;
     text-decoration: underline !important;
 }
+
+.statement-section {
+    padding: 100px 20px !important;
+    background: var(--paper);
+    text-align: center !important;
+}
+
+.statement-content {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statement-text {
+    font-family: var(--serif, 'Cormorant Garamond', serif);
+    font-size: 3rem !important;
+    font-style: italic;
+    color: #4a3c31;
+    line-height: 1.2;
+    margin: 15px 0;
+}
+
+.decorative-line {
+    width: 80px;
+    height: 2px;
+    background-color: #8f3f27;
+    margin: 20px 0;
+}
+
+.statement-sub {
+    font-size: 1.1rem;
+    color: #5c4d47;
+}
