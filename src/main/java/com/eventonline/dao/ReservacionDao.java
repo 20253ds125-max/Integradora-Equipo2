@@ -1,9 +1,12 @@
 package com.eventonline.dao;
 
 import com.eventonline.model.ItemCarrito;
+import com.eventonline.model.NotificacionDuenoDTO;
+import com.eventonline.model.NotificacionProveedorDTO;
 import com.eventonline.model.Reservacion;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReservacionDao {
@@ -229,6 +232,74 @@ public class ReservacionDao {
                 return r;
             }
         }
+    }
+    public NotificacionDuenoDTO obtenerDatosParaDueno(int idReserva) throws SQLException {
+        String sql = "SELECT u_dueno.CORREO AS CORREO_DESTINO, p.URL_PORTADA AS FOTO_RECINTO, " +
+                "TO_CHAR(r.FECHA, 'YYYY-MM-DD') AS FECHA_EVENTO, u_cliente.NOMBRE AS NOMBRE_CLIENTE, " +
+                "u_cliente.CORREO AS CORREO_CLIENTE, u_cliente.TELEFONO AS TELEFONO_CLIENTE " +
+                "FROM RESERVACION r " +
+                "INNER JOIN PUBLICACION_SALON_EVENTOS p ON r.ID_PUBLICACION = p.ID_PUBLICACION_EVENTOS " +
+                "INNER JOIN USUARIOS u_dueno ON p.ID_USUARIO = u_dueno.ID_USUARIO " +
+                "INNER JOIN USUARIOS u_cliente ON r.ID_USUARIO = u_cliente.ID_USUARIO " +
+                "WHERE r.ID_RESERVA = ?";
+
+        NotificacionDuenoDTO dto = null;
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idReserva);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    dto = new NotificacionDuenoDTO();
+                    dto.setCorreoDestino(rs.getString("CORREO_DESTINO"));
+                    dto.setFotoRecinto(rs.getString("FOTO_RECINTO"));
+                    dto.setFechaEvento(rs.getString("FECHA_EVENTO"));
+                    dto.setNombreCliente(rs.getString("NOMBRE_CLIENTE"));
+                    dto.setCorreoCliente(rs.getString("CORREO_CLIENTE"));
+                    dto.setTelefonoCliente(rs.getString("TELEFONO_CLIENTE"));
+                }
+            }
+        }
+        return dto;
+    }
+
+    public List<NotificacionProveedorDTO> obtenerDatosParaProveedores(int idReserva) throws SQLException {
+        String sql = "SELECT u_proveedor.CORREO AS CORREO_DESTINO, p.NOMBRE_LUGAR, p.UBICACION, " +
+                "p.URL_PORTADA AS FOTO_RECINTO, u_cliente.NOMBRE AS NOMBRE_CLIENTE, " +
+                "u_cliente.CORREO AS CORREO_CLIENTE, u_cliente.TELEFONO AS TELEFONO_CLIENTE " +
+                "FROM SERVICIO_EXTRA_RESERVADO ser " +
+                "INNER JOIN RESERVACION r ON ser.ID_RESERVA = r.ID_RESERVA " +
+                "INNER JOIN SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE " +
+                "INNER JOIN USUARIOS u_proveedor ON se.ID_USUARIO = u_proveedor.ID_USUARIO " +
+                "INNER JOIN PUBLICACION_SALON_EVENTOS p ON r.ID_PUBLICACION = p.ID_PUBLICACION_EVENTOS " +
+                "INNER JOIN USUARIOS u_cliente ON r.ID_USUARIO = u_cliente.ID_USUARIO " +
+                "WHERE ser.ID_RESERVA = ?";
+
+        List<NotificacionProveedorDTO> listaProveedores = new ArrayList<>();
+
+        try (Connection con = conexion.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idReserva);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    NotificacionProveedorDTO dto = new NotificacionProveedorDTO();
+                    dto.setCorreoDestino(rs.getString("CORREO_DESTINO"));
+                    dto.setNombreLugar(rs.getString("NOMBRE_LUGAR"));
+                    dto.setUbicacion(rs.getString("UBICACION"));
+                    dto.setFotoRecinto(rs.getString("FOTO_RECINTO"));
+                    dto.setNombreCliente(rs.getString("NOMBRE_CLIENTE"));
+                    dto.setCorreoCliente(rs.getString("CORREO_CLIENTE"));
+                    dto.setTelefonoCliente(rs.getString("TELEFONO_CLIENTE"));
+
+                    listaProveedores.add(dto);
+                }
+            }
+        }
+        return listaProveedores;
     }
 }
 
