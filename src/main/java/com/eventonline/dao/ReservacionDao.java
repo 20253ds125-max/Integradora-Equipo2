@@ -271,7 +271,7 @@ public class ReservacionDao {
                 "u_cliente.CORREO AS CORREO_CLIENTE, u_cliente.TELEFONO AS TELEFONO_CLIENTE " +
                 "FROM SERVICIO_EXTRA_RESERVADO ser " +
                 "INNER JOIN RESERVACION r ON ser.ID_RESERVA = r.ID_RESERVA " +
-                "INNER JOIN SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE " +
+                "INNER JOIN PUBLICACION_SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE " + // <-- Corrección aquí
                 "INNER JOIN USUARIOS u_proveedor ON se.ID_USUARIO = u_proveedor.ID_USUARIO " +
                 "INNER JOIN PUBLICACION_SALON_EVENTOS p ON r.ID_PUBLICACION = p.ID_PUBLICACION_EVENTOS " +
                 "INNER JOIN USUARIOS u_cliente ON r.ID_USUARIO = u_cliente.ID_USUARIO " +
