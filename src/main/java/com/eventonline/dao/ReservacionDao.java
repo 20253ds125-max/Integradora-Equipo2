@@ -266,16 +266,20 @@ public class ReservacionDao {
     }
 
     public List<NotificacionProveedorDTO> obtenerDatosParaProveedores(int idReserva) throws SQLException {
-        String sql = "SELECT u_proveedor.CORREO AS CORREO_DESTINO, p.NOMBRE_LUGAR, p.UBICACION, " +
-                "p.URL_PORTADA AS FOTO_RECINTO, u_cliente.NOMBRE AS NOMBRE_CLIENTE, " +
-                "u_cliente.CORREO AS CORREO_CLIENTE, u_cliente.TELEFONO AS TELEFONO_CLIENTE " +
-                "FROM SERVICIO_EXTRA_RESERVADO ser " +
-                "INNER JOIN RESERVACION r ON ser.ID_RESERVA = r.ID_RESERVA " +
-                "INNER JOIN PUBLICACION_SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE " + // <-- Corrección aquí
-                "INNER JOIN USUARIOS u_proveedor ON se.ID_USUARIO = u_proveedor.ID_USUARIO " +
-                "INNER JOIN PUBLICACION_SALON_EVENTOS p ON r.ID_PUBLICACION = p.ID_PUBLICACION_EVENTOS " +
-                "INNER JOIN USUARIOS u_cliente ON r.ID_USUARIO = u_cliente.ID_USUARIO " +
-                "WHERE ser.ID_RESERVA = ?";
+        String sql ="SELECT u_proveedor.CORREO AS CORREO_DESTINO, "
+                + "NVL(p.NOMBRE_LUGAR, 'Sin recinto') AS NOMBRE_LUGAR, "
+                + "NVL(p.UBICACION, 'Sin ubicación') AS UBICACION, "
+                + "p.URL_PORTADA AS FOTO_RECINTO, "
+                + "u_cliente.NOMBRE AS NOMBRE_CLIENTE, "
+                + "u_cliente.CORREO AS CORREO_CLIENTE, "
+                + "u_cliente.TELEFONO AS TELEFONO_CLIENTE "
+                + "FROM SERVICIO_EXTRA_RESERVADO ser "
+                + "INNER JOIN RESERVACION r ON ser.ID_RESERVA = r.ID_RESERVA "
+                + "INNER JOIN PUBLICACION_SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE "
+                + "INNER JOIN USUARIOS u_proveedor ON se.ID_USUARIO = u_proveedor.ID_USUARIO "
+                + "LEFT JOIN PUBLICACION_SALON_EVENTOS p ON r.ID_PUBLICACION = p.ID_PUBLICACION_EVENTOS "
+                + "INNER JOIN USUARIOS u_cliente ON r.ID_USUARIO = u_cliente.ID_USUARIO "
+                + "WHERE ser.ID_RESERVA = ?";
 
         List<NotificacionProveedorDTO> listaProveedores = new ArrayList<>();
 
