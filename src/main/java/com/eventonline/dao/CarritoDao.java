@@ -99,17 +99,12 @@ public class CarritoDao {
     }
 
     public boolean existeRecintoEnCarrito(int idUsuario) throws SQLException {
-<<<<<<< Updated upstream
         String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_PUBLICACION_EVENTOS IS NOT NULL";
-=======
-        String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_PUBLICACION_EVENTOS is not null ";
->>>>>>> Stashed changes
 
         try (Connection con = conexion.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idUsuario);
-<<<<<<< Updated upstream
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -119,16 +114,15 @@ public class CarritoDao {
         }
         return false;
     }
-    public boolean existeServicioEnCarrito(int idUsuario,int idServicio) throws SQLException {
+
+    public boolean existeServicioEnCarrito(int idUsuario, int idServicio) throws SQLException {
         String sql = "SELECT COUNT(*) FROM CARRITO WHERE ID_USUARIO = ? AND ID_SE = ?";
 
         try (Connection con = conexion.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idUsuario);
-            ps.setInt(2,idServicio);
-=======
->>>>>>> Stashed changes
+            ps.setInt(2, idServicio);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -138,5 +132,4 @@ public class CarritoDao {
         }
         return false;
     }
-
 }

@@ -82,6 +82,7 @@
                                 type="text"
                                 id="lugar"
                                 name="lugar"
+                                oninput="this.value = this.value.replace(/[0-9]/g, '')"
                                 placeholder="Ciudad, estado, hacienda..."
                                 autocomplete="off"
                         />
