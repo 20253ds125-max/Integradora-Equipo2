@@ -103,6 +103,9 @@ public class CorreoElectronico {
 
         String telefono = (dto.getTelefonoCliente() != null) ? dto.getTelefonoCliente() : "No registrado";
 
+
+        String fechaEvento = (dto.getFecha() != null) ? dto.getFecha() : "Por confirmar";
+
         String asunto = "¡Has sido contratado para un evento! - Event Online";
         String html = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
                 + "<div style='max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; text-align: center;'>"
@@ -113,7 +116,9 @@ public class CorreoElectronico {
                 + "  <p>El cliente <strong>" + dto.getNombreCliente() + "</strong> ha contratado tus servicios para su evento.</p>"
 
                 + "  <div style='background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: left;'>"
-                + "    <h3 style='color: #333; margin-top: 0; font-size: 16px;'>Detalles del Lugar:</h3>"
+                + "    <h3 style='color: #333; margin-top: 0; font-size: 16px;'>Detalles del Evento:</h3>"
+
+                + "    <p style='margin: 5px 0;'><strong>Fecha:</strong> " + fechaEvento + "</p>"
                 + "    <p style='margin: 5px 0;'><strong>Recinto:</strong> " + dto.getNombreLugar() + "</p>"
                 + "    <p style='margin: 5px 0;'><strong>Ubicación:</strong> " + dto.getUbicacion() + "</p>"
                 + "  </div>"

@@ -272,7 +272,8 @@ public class ReservacionDao {
                 + "p.URL_PORTADA AS FOTO_RECINTO, "
                 + "u_cliente.NOMBRE AS NOMBRE_CLIENTE, "
                 + "u_cliente.CORREO AS CORREO_CLIENTE, "
-                + "u_cliente.TELEFONO AS TELEFONO_CLIENTE "
+                + "u_cliente.TELEFONO AS TELEFONO_CLIENTE, "
+                + "r.FECHA AS FECHA_EVENTO " // <--- NUEVA LÍNEA
                 + "FROM SERVICIO_EXTRA_RESERVADO ser "
                 + "INNER JOIN RESERVACION r ON ser.ID_RESERVA = r.ID_RESERVA "
                 + "INNER JOIN PUBLICACION_SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE "
@@ -298,6 +299,7 @@ public class ReservacionDao {
                     dto.setNombreCliente(rs.getString("NOMBRE_CLIENTE"));
                     dto.setCorreoCliente(rs.getString("CORREO_CLIENTE"));
                     dto.setTelefonoCliente(rs.getString("TELEFONO_CLIENTE"));
+                    dto.setFecha(rs.getString("FECHA_EVENTO"));
 
                     listaProveedores.add(dto);
                 }

@@ -8,9 +8,14 @@ public class NotificacionProveedorDTO {
     private String nombreCliente;
     private String correoCliente;
     private String telefonoCliente;
+    private String fecha;
 
     // Constructor vacío
     public NotificacionProveedorDTO() {}
+
+    // Getters y Setters para la fecha que faltaban
+    public String getFecha() { return fecha; }
+    public void setFecha(String fecha) { this.fecha = fecha; }
 
     // Getters y Setters
     public String getCorreoDestino() { return correoDestino; }
