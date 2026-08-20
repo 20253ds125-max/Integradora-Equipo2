@@ -2,13 +2,17 @@ package com.eventonline.service;
 
 import com.eventonline.dao.ReservacionDao;
 import com.eventonline.model.ItemCarrito;
+import com.eventonline.model.NotificacionDuenoDTO;
+import com.eventonline.model.NotificacionProveedorDTO;
 import com.eventonline.model.Reservacion;
+import com.eventonline.util.CorreoElectronico;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ReservacionService {
 
+    private final CorreoElectronico correoElectronico = new CorreoElectronico();
     private final ReservacionDao reservacionDao = new ReservacionDao();
 
     public int procesarBloqueoReserva(int idUsuario, String fechaEvento, double total, List<ItemCarrito> itemsCarrito) throws SQLException {
@@ -54,7 +58,29 @@ public class ReservacionService {
         return reservacionDao.obtenerReservaPorId(idReserva);
     }
     public boolean confirmarPagoReserva(int idReserva) throws SQLException {
-        return reservacionDao.confirmarPagoReserva(idReserva);
+        boolean actualizo = reservacionDao.confirmarPagoReserva(idReserva);
+        if (actualizo) {
+            try {
+                List<NotificacionProveedorDTO> listaProveedores = reservacionDao.obtenerDatosParaProveedores(idReserva);
+                NotificacionDuenoDTO duenoDTO = reservacionDao.obtenerDatosParaDueno(idReserva);
+                if (listaProveedores != null && !listaProveedores.isEmpty()) {
+                    for (NotificacionProveedorDTO proveedor : listaProveedores) {
+                        correoElectronico.enviarNotificacionReservaProveedor(proveedor);
+                    }
+                }
+                if (duenoDTO != null) {
+                    correoElectronico.enviarNotificacionReservaDueno(duenoDTO);
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+                throw e;
+            }
+            catch (Exception e) {
+                System.err.println("El pago se confirmó, pero hubo un error enviando los correos: " + e.getMessage());
+            }
+        }
+
+        return actualizo;
     }
 
     public List<com.eventonline.model.ReservaConDetalle> obtenerReservasConDetallePorUsuario(int idUsuario) throws SQLException{

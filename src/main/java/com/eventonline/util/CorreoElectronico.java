@@ -1,6 +1,8 @@
 
 package com.eventonline.util;
 
+import com.eventonline.model.NotificacionDuenoDTO;
+import com.eventonline.model.NotificacionProveedorDTO;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
@@ -93,6 +95,74 @@ public class CorreoElectronico {
                 + "</div></body></html>";
 
         return enviarCorreoHTML(correoDestino, asunto, html);
+    }
+    public boolean enviarNotificacionReservaProveedor(NotificacionProveedorDTO dto) {
+        String imagenSrc = (dto.getFotoRecinto() != null && !dto.getFotoRecinto().trim().isEmpty())
+                ? dto.getFotoRecinto().trim()
+                : "https://via.placeholder.com/500x250?text=Sin+Foto";
+
+        String telefono = (dto.getTelefonoCliente() != null) ? dto.getTelefonoCliente() : "No registrado";
+
+
+        String fechaEvento = (dto.getFecha() != null) ? dto.getFecha() : "Por confirmar";
+
+        String asunto = "¡Has sido contratado para un evento! - Event Online";
+        String html = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
+                + "<div style='max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; text-align: center;'>"
+
+                + "  <img src='" + imagenSrc + "' alt='Foto del lugar' style='width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;' />"
+
+                + "  <h2 style='color: #7c5315;'>¡Nuevo servicio contratado!</h2>"
+                + "  <p>El cliente <strong>" + dto.getNombreCliente() + "</strong> ha contratado tus servicios para su evento.</p>"
+
+                + "  <div style='background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: left;'>"
+                + "    <h3 style='color: #333; margin-top: 0; font-size: 16px;'>Detalles del Evento:</h3>"
+
+                + "    <p style='margin: 5px 0;'><strong>Fecha:</strong> " + fechaEvento + "</p>"
+                + "    <p style='margin: 5px 0;'><strong>Recinto:</strong> " + dto.getNombreLugar() + "</p>"
+                + "    <p style='margin: 5px 0;'><strong>Ubicación:</strong> " + dto.getUbicacion() + "</p>"
+                + "  </div>"
+
+                + "  <div style='background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left;'>"
+                + "    <h3 style='color: #333; margin-top: 0; font-size: 16px;'>Contacto del cliente:</h3>"
+                + "    <p style='margin: 5px 0;'><strong>Correo:</strong> " + dto.getCorreoCliente() + "</p>"
+                + "    <p style='margin: 5px 0;'><strong>Teléfono:</strong> " + telefono + "</p>"
+                + "  </div>"
+
+                + "  <br><br>"
+                + "  <p style='font-size: 12px; color: #777;'>Gracias por confiar en Event Online.</p>"
+                + "</div></body></html>";
+
+        return enviarCorreoHTML(dto.getCorreoDestino(), asunto, html);
+    }
+    public boolean enviarNotificacionReservaDueno(NotificacionDuenoDTO dto) {
+        String imagenSrc = (dto.getFotoRecinto() != null && !dto.getFotoRecinto().trim().isEmpty())
+                ? dto.getFotoRecinto().trim()
+                : "https://via.placeholder.com/500x250?text=Sin+Foto";
+
+        String telefono = (dto.getTelefonoCliente() != null) ? dto.getTelefonoCliente() : "No registrado";
+
+        String asunto = "¡Nueva Reservación Confirmada! - Event Online";
+        String html = "<html><body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>"
+                + "<div style='max-width: 500px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; text-align: center;'>"
+
+                + "  <img src='" + imagenSrc + "' alt='Portada del recinto' style='width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;' />"
+
+                + "  <h2 style='color: #7c5315;'>¡Tienes una nueva reservación!</h2>"
+                + "  <p>El cliente <strong>" + dto.getNombreCliente() + "</strong> ha reservado tu espacio.</p>"
+                + "  <p><strong>Fecha del evento:</strong> " + dto.getFechaEvento() + "</p>"
+
+                + "  <div style='background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: left;'>"
+                + "    <h3 style='color: #333; margin-top: 0; font-size: 16px;'>Datos de contacto del cliente:</h3>"
+                + "    <p style='margin: 5px 0;'><strong>Correo:</strong> " + dto.getCorreoCliente() + "</p>"
+                + "    <p style='margin: 5px 0;'><strong>Teléfono:</strong> " + telefono + "</p>"
+                + "  </div>"
+
+                + "  <br><br>"
+                + "  <p style='font-size: 12px; color: #777;'>Gracias por confiar en Event Online.</p>"
+                + "</div></body></html>";
+
+        return enviarCorreoHTML(dto.getCorreoDestino(), asunto, html);
     }
     public boolean enviarInvitacion(String correoDestino, String nombreInvitado, String nombreEvento,
                                     String nombreMesa, String fechaEvento, String lugarEvento) {
