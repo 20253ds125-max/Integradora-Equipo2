@@ -74,7 +74,7 @@ public class Servicio {
         if (this.tipo == null || this.tipo.trim().isEmpty()) {
             throw new IllegalArgumentException("El tipo de servicio es obligatorio.");
         }
-        if (this.tipo.trim().length() < 3) {
+        if (this.tipo.trim().length() < 2) {
             throw new IllegalArgumentException("El tipo de servicio debe tener al menos 3 caracteres.");
         }
         if (this.tipo.length() > 30) {
