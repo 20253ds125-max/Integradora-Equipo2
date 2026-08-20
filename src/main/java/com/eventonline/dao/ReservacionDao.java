@@ -273,7 +273,7 @@ public class ReservacionDao {
                 + "u_cliente.NOMBRE AS NOMBRE_CLIENTE, "
                 + "u_cliente.CORREO AS CORREO_CLIENTE, "
                 + "u_cliente.TELEFONO AS TELEFONO_CLIENTE, "
-                + "r.FECHA AS FECHA_EVENTO " // <--- NUEVA LÍNEA
+                + "TO_CHAR(r.FECHA, 'DD/MM/YYYY') AS FECHA_EVENTO "
                 + "FROM SERVICIO_EXTRA_RESERVADO ser "
                 + "INNER JOIN RESERVACION r ON ser.ID_RESERVA = r.ID_RESERVA "
                 + "INNER JOIN PUBLICACION_SERVICIO_EXTRA se ON ser.ID_SE = se.ID_SE "
