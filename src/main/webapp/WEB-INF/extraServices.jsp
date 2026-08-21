@@ -104,7 +104,8 @@
 
                                 <div class="card-footer">
                                     <strong>
-                                        <fmt:formatNumber value="${servicio.precio}" type="currency" currencySymbol="$" maxFractionDigits="2"/>
+                                        <fmt:setLocale value="es_MX" />
+                                        <fmt:formatNumber value="${servicio.precio}" type="currency" currencySymbol="$" maxFractionDigits="0"/>
                                     </strong>
 
                                     <div class="acciones-card">

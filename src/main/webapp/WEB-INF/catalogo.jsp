@@ -147,7 +147,7 @@
                             <input type="hidden" name="idRecinto" value="${salon.idSalonEventos}">
                             <button class="favorite-button" type="submit" aria-label="Guardar ${salon.nombre}">
                                 <c:choose>
-                                    <c:when test="${salon.favorito}">&#9829;</c:when>
+                                    <c:when test="${salon.favorito}">❤️</c:when>
                                     <c:otherwise>&#9825;</c:otherwise>
                                 </c:choose>
                             </button>
@@ -170,6 +170,7 @@
                             <div class="footer-info-row">
                                 <span class="capacity">Hasta ${salon.capacidad} invitados</span>
                                 <strong class="price">
+                                    <fmt:setLocale value="es_MX" />
                                     <fmt:formatNumber value="${salon.precio}" type="currency" currencySymbol="$" maxFractionDigits="0"/>
                                     <span>/evento</span>
                                 </strong>
